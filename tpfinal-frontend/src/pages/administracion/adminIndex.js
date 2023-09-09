@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
-import { useEffect } from 'react'
 import { router } from 'next/router'
+import { useEffect } from 'react'
 
 export default function adminIndex() {
     const { user } = useAuth()
