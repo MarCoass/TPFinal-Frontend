@@ -8,6 +8,13 @@ import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import Select from '@/components/Select'
+
+const provincias = [
+    { value: '1', label: 'Neuquen' },
+    { value: '2', label: 'Rio Negro' }
+]
+
 
 const Register = () => {
     const { register } = useAuth({
@@ -33,15 +40,22 @@ const Register = () => {
         })
     }
 
+
+      {/* esto para seleccionar la provincia*/}
+    const [selectedOption, setSelectedOption] = useState('');
+    const handleSelectChange = e => {
+        setSelectedOption(e.target.value)
+    }
+
     return (
         <GuestLayout>
             <AuthCard
                 logo={
                     <Link href="/">
-                       <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
+                        <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
                     </Link>
                 }>
-                   <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                <h1 className="text-violeta-500 text-4xl m-5 text-center">
                     Registrarse
                 </h1>
                 <form onSubmit={submitForm}>
@@ -57,7 +71,7 @@ const Register = () => {
                             onChange={event => setName(event.target.value)}
                             required
                             autoFocus
-                            placeholder='Nombre Apellido'
+                            placeholder="Nombre Apellido"
                         />
 
                         <InputError messages={errors.name} className="mt-2" />
@@ -74,12 +88,11 @@ const Register = () => {
                             className="block mt-1 w-full"
                             onChange={event => setEmail(event.target.value)}
                             required
-                            placeholder='ejemplo@correo.com'
+                            placeholder="ejemplo@correo.com"
                         />
 
                         <InputError messages={errors.email} className="mt-2" />
                     </div>
-                  
                     {/* Password */}
                     <div className="mt-4">
                         <Label htmlFor="password">Ingrese una contraseña</Label>
@@ -129,7 +142,6 @@ const Register = () => {
                             className="underline text-sm text-gray-600 hover:text-gray-900">
                             ¿Ya tenes cuenta?
                         </Link>
-
                     </div>
                     <Button className="mt-5 w-full">Registrarse</Button>
                 </form>
