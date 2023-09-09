@@ -38,13 +38,16 @@ const Register = () => {
             <AuthCard
                 logo={
                     <Link href="/">
-                        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+                       <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
                     </Link>
                 }>
+                   <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                    Registrarse
+                </h1>
                 <form onSubmit={submitForm}>
                     {/* Name */}
                     <div>
-                        <Label htmlFor="name">Nombre</Label>
+                        <Label htmlFor="name">Ingrese su nombre</Label>
 
                         <Input
                             id="name"
@@ -54,6 +57,7 @@ const Register = () => {
                             onChange={event => setName(event.target.value)}
                             required
                             autoFocus
+                            placeholder='Nombre Apellido'
                         />
 
                         <InputError messages={errors.name} className="mt-2" />
@@ -61,7 +65,7 @@ const Register = () => {
 
                     {/* Email Address */}
                     <div className="mt-4">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">Ingrese su email</Label>
 
                         <Input
                             id="email"
@@ -70,14 +74,15 @@ const Register = () => {
                             className="block mt-1 w-full"
                             onChange={event => setEmail(event.target.value)}
                             required
+                            placeholder='ejemplo@correo.com'
                         />
 
                         <InputError messages={errors.email} className="mt-2" />
                     </div>
-
+                  
                     {/* Password */}
                     <div className="mt-4">
-                        <Label htmlFor="password">Contraseña</Label>
+                        <Label htmlFor="password">Ingrese una contraseña</Label>
 
                         <Input
                             id="password"
@@ -98,7 +103,7 @@ const Register = () => {
                     {/* Confirm Password */}
                     <div className="mt-4">
                         <Label htmlFor="passwordConfirmation">
-                            Confirmar contraseña
+                            Repita la contraseña
                         </Label>
 
                         <Input
@@ -125,8 +130,8 @@ const Register = () => {
                             ¿Ya tenes cuenta?
                         </Link>
 
-                        <Button className="ml-4">Registrar</Button>
                     </div>
+                    <Button className="mt-5 w-full">Registrarse</Button>
                 </form>
             </AuthCard>
         </GuestLayout>

@@ -128,7 +128,7 @@ const Login = () => {
                             ¿Olvidaste tu contraseña?
                         </Link>
                     </div>
-                    <Button className="mt-5">Iniciar sesion</Button>
+                    <Button className="mt-5 w-full">Iniciar sesion</Button>
                 </form>
             </AuthCard>
         </GuestLayout>
