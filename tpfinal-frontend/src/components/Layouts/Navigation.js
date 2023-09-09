@@ -25,7 +25,7 @@ const Navigation = ({ user }) => {
                     <div className="flex">
                         {/* Logo */}
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/dashboard">
+                            <Link href="/">
                                 <ApplicationLogo className="block h-12 w-auto fill-current text-violeta-500" />
                             </Link>
                         </div>
@@ -35,7 +35,7 @@ const Navigation = ({ user }) => {
                             <NavLink
                                 href="/dashboard"
                                 active={router.pathname === '/dashboard'}>
-                                Tienda
+                                Catalogo
                             </NavLink>
                         </div>
                         <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -94,7 +94,7 @@ const Navigation = ({ user }) => {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href="/login"
+                                    href="/register"
                                     active={router.pathname === '/register'}>
                                     Registrarse
                                 </NavLink>

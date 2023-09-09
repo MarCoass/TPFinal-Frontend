@@ -8,7 +8,8 @@ import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
-import Select from '@/components/Select'
+import Head from 'next/head'
+
 
 const provincias = [
     { value: '1', label: 'Neuquen' },
@@ -49,6 +50,9 @@ const Register = () => {
 
     return (
         <GuestLayout>
+           <Head>
+                    <title>Registrarse - Mar Nails</title>
+                </Head>
             <AuthCard
                 logo={
                     <Link href="/">
