@@ -50,16 +50,18 @@ const Login = () => {
             <AuthCard
                 logo={
                     <Link href="/">
-                        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+                        <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
                     </Link>
                 }>
                 {/* Session Status */}
                 <AuthSessionStatus className="mb-4" status={status} />
-
+                <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                    Iniciar sesion
+                </h1>
                 <form onSubmit={submitForm}>
                     {/* Email Address */}
                     <div>
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">Ingrese su email</Label>
 
                         <Input
                             id="email"
@@ -69,14 +71,18 @@ const Login = () => {
                             onChange={event => setEmail(event.target.value)}
                             required
                             autoFocus
+                            placeholder="ejemplo@correo.com"
                         />
 
-                        <InputError messages={errors.email} className="mt-2" />
+                        <InputError
+                            messages={errors.email}
+                            className="mt-2 border-rose-500"
+                        />
                     </div>
 
                     {/* Password */}
                     <div className="mt-4">
-                        <Label htmlFor="password">Contraseña</Label>
+                        <Label htmlFor="password">Ingrese su contraseña</Label>
 
                         <Input
                             id="password"
@@ -86,44 +92,43 @@ const Login = () => {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="current-password"
+                            placeholder="contraseña"
                         />
 
                         <InputError
                             messages={errors.password}
-                            className="mt-2"
+                            className="mt-2 border-rose-500"
                         />
                     </div>
 
-                    {/* Remember Me */}
-                    <div className="block mt-4">
-                        <label
-                            htmlFor="remember_me"
-                            className="inline-flex items-center">
-                            <input
-                                id="remember_me"
-                                type="checkbox"
-                                name="remember"
-                                className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                onChange={event =>
-                                    setShouldRemember(event.target.checked)
-                                }
-                            />
+                    <div className="flex items-center justify-between mt-4">
+                        {/* Remember Me */}
+                        <div className="block ">
+                            <label
+                                htmlFor="remember_me"
+                                className="inline-flex items-center">
+                                <input
+                                    id="remember_me"
+                                    type="checkbox"
+                                    name="remember"
+                                    className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    onChange={event =>
+                                        setShouldRemember(event.target.checked)
+                                    }
+                                />
 
-                            <span className="ml-2 text-sm text-gray-600">
-                                Recordarme
-                            </span>
-                        </label>
-                    </div>
-
-                    <div className="flex items-center justify-end mt-4">
+                                <span className="ml-2 text-sm text-gray-600">
+                                    Recordarme
+                                </span>
+                            </label>
+                        </div>{' '}
                         <Link
                             href="/forgot-password"
-                            className="underline text-sm text-gray-600 hover:text-gray-900">
-                           ¿Olvidaste tu contraseña?
+                            className=" underline text-sm text-gray-600 hover:text-gray-900">
+                            ¿Olvidaste tu contraseña?
                         </Link>
-
-                        <Button className="ml-3">Iniciar sesion</Button>
                     </div>
+                    <Button className="mt-5">Iniciar sesion</Button>
                 </form>
             </AuthCard>
         </GuestLayout>
