@@ -30,28 +30,34 @@ const Navigation = ({ user }) => {
                             </Link>
                         </div>
 
-                        {/* Navigation Links */}
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
-                                href="/dashboard"
-                                active={router.pathname === '/dashboard'}>
-                                Catalogo
-                            </NavLink>
-                        </div>
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
-                                href="/pedidos"
-                                active={router.pathname === '/pedidos'}>
-                                Pedidos personalizados
-                            </NavLink>
-                        </div>
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
-                                href="/informacion"
-                                active={router.pathname === '/informacion'}>
-                                Informacion
-                            </NavLink>
-                        </div>
+                        {user && user.id_rol == 1 ? (
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href="/administracion/productos"
+                                    active={router.pathname === '/administracion/productos'}>
+                                    Productos
+                                </NavLink>
+                            </div>
+                        ) : (
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href="/dashboard"
+                                    active={router.pathname === '/dashboard'}>
+                                    Catalogo
+                                </NavLink>
+                                <NavLink
+                                    href="/pedidos"
+                                    active={router.pathname === '/pedidos'}>
+                                    Pedidos personalizados
+                                </NavLink>
+
+                                <NavLink
+                                    href="/informacion"
+                                    active={router.pathname === '/informacion'}>
+                                    Informacion
+                                </NavLink>
+                            </div>
+                        )}
                     </div>
                     {/* Settings Dropdown */}
                     {user ? (
@@ -62,7 +68,6 @@ const Navigation = ({ user }) => {
                                 trigger={
                                     <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
                                         <div>{user?.name}</div>
-                                        {console.log(user)}
                                         <div className="ml-1">
                                             <svg
                                                 className="fill-current h-4 w-4"
@@ -77,14 +82,21 @@ const Navigation = ({ user }) => {
                                         </div>
                                     </button>
                                 }>
-                                {/* Authentication */}
+                                {user && user.id_rol == 1 ? (
+                                    <DropdownButton>
+                                        Configuracion
+                                    </DropdownButton>
+                                ) : (
+                                    <DropdownButton>Perfil</DropdownButton>
+                                )}
+
                                 <DropdownButton onClick={logout}>
                                     Logout
                                 </DropdownButton>
                             </Dropdown>
                         </div>
                     ) : (
-                        <div className='flex'>
+                        <div className="flex">
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href="/login"

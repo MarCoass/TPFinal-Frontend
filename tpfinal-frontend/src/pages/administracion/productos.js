@@ -9,7 +9,7 @@ export default function adminIndex() {
     const rolesAutorizados = [1]
     useEffect(() => {
         if (user) {
-            if(!rolesAutorizados.includes(user.idRol)){
+            if(!rolesAutorizados.includes(user.id_rol)){
                 router.push('/dashboard');
             }
         }
