@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
-import { useEffect } from 'react'
 import { router } from 'next/router'
+import { useEffect } from 'react'
 
 export default function adminIndex() {
     const { user } = useAuth()
@@ -9,7 +9,7 @@ export default function adminIndex() {
     const rolesAutorizados = [1]
     useEffect(() => {
         if (user) {
-            if(!rolesAutorizados.includes(user.idRol)){
+            if(!rolesAutorizados.includes(user.id_rol)){
                 router.push('/dashboard');
             }
         }
