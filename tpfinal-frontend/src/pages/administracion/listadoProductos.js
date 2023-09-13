@@ -33,7 +33,7 @@ export default function ListadoProductos() {
             <h1>Productos</h1>
             <ul>
                 {productos.map(producto => (
-                    <li key={producto.id}>{producto.nombre}</li>
+                    <li key={producto.id}>{producto.nombre} {producto.descripcion}</li>
                 ))}
             </ul>
         </section>
