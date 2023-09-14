@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
-import Button from '@/components/Button'
 
 export default function adminIndex() {
     const { user } = useAuth()
