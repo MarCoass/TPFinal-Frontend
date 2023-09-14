@@ -180,7 +180,7 @@ export default function adminIndex() {
                     
                                         />
                                     </div> */}
-                                    <button className='border border-violeta-500 w-20' type="submit">Enviar</button>
+                                    <button className='border border-violeta-500 w-20 ' type="submit">Enviar</button>
                                 </form>
                             </div>
                         </div>
