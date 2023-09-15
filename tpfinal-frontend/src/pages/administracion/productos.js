@@ -7,7 +7,6 @@ import { Link } from '@nextui-org/react'
 import ListadoProductos from './listadoProductos'
 
 
-
 export default function adminIndex() {
   
     const { user } = useAuth()
@@ -37,13 +36,14 @@ export default function adminIndex() {
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="p-6 bg-white border-b border-gray-200">
-                                <Link href="/administracion/nuevo-producto">
+                                <Link href="/administracion/productoStore">
                                     Cargar producto
                                 </Link>
                             </div>
                         </div>
                     </div>
                     <ListadoProductos></ListadoProductos>
+                  
                 </div>
             </AppLayout>
         </>

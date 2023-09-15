@@ -5,10 +5,6 @@ import { useEffect, useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
-import Button from '@/components/Button'
-
-
-
 
 export default function adminIndex() {
     const { user } = useAuth()
@@ -43,7 +39,7 @@ export default function adminIndex() {
     const [estado, setEstado] = useState('')
     const [imagen, setImagen] = useState('')
 
-   /*  const handleImagenChange = e => {
+    const handleImagenChange = e => {
         // Manejar el cambio en la selección de imagen
         const file = e.target.files[0] // Obtener el archivo de la selección
 
@@ -51,31 +47,28 @@ export default function adminIndex() {
             // Validar si se seleccionó un archivo
             setImagen(file)
         }
-    } */
+    }
     const handleSubmit = async e => {
-        
         e.preventDefault()
 
         try {
             // Crea un objeto con los datos del formulario
-            const formData = {
-                nombre,
-                descripcion,
-                precio,
-                stock,
-                ciudad,
-                estado,
-              /*   imagen */
-            }
+            const formData = new FormData();
+            formData.append('nombre', nombre);
+            formData.append('descripcion', descripcion);
+            formData.append('precio', precio);
+            formData.append('stock', stock);
+            formData.append('ciudad', ciudad);
+            formData.append('estado', estado);
+            formData.append('imagen', imagen);
             //console.log(formData)
             // Agrega el token CSRF al encabezado de la solicitud
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                'Content-type': 'application/json',
-                Accept: 'application/json',
+                'Accept': 'application/json',
             }
-            //console.log('FORM DATA: ', formData)
-            //console.log('HEADERS: ', headers)
+            console.log('FORM DATA: ', formData)
+            console.log('HEADERS: ', headers)
 
             // Realiza la solicitud POST a tu servidor Laravel
             const response = await axios.post(
@@ -108,9 +101,12 @@ export default function adminIndex() {
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="p-6 bg-white border-b border-gray-200">
-                                <form onSubmit={handleSubmit}  encType="multipart/form-data" className='grid grid-cols-2 gap-4'>
+                                <form
+                                    onSubmit={handleSubmit}
+                                    encType="multipart/form-data"
+                                    className="grid grid-cols-2 gap-4">
                                     {/* Campos del formulario */}
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Nombre:</label>
                                         <Input
                                             type="text"
@@ -120,7 +116,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Descripcion:</label>
                                         <Input
                                             type="text"
@@ -130,7 +126,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Stock:</label>
                                         <Input
                                             type="number"
@@ -140,7 +136,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Precio:</label>
                                         <Input
                                             type="number"
@@ -150,7 +146,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Ciudad:</label>
                                         <Input
                                             type="number"
@@ -160,7 +156,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    <div className='flex justify-around'>
+                                    <div className="flex justify-around">
                                         <label>Estado:</label>
                                         <Input
                                             type="number"
@@ -171,16 +167,19 @@ export default function adminIndex() {
                                         />
                                     </div>
                                     {/* Campo de carga de imagen */}
-                                 {/*    <div>
+                                    <div>
                                         <label>Imagen:</label>
                                         <input
                                             type="file"
                                             accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
                                             onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
-                    
                                         />
-                                    </div> */}
-                                    <button className='border border-violeta-500 w-20' type="submit">Enviar</button>
+                                    </div>
+                                    <button
+                                        className="border border-violeta-500 w-20 "
+                                        type="submit">
+                                        Enviar
+                                    </button>
                                 </form>
                             </div>
                         </div>
