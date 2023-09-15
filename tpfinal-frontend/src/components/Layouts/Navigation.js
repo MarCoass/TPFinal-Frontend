@@ -46,6 +46,11 @@ const Navigation = ({ user }) => {
                                     Catalogo
                                 </NavLink>
                                 <NavLink
+                                    href="/tienda"
+                                    active={router.pathname === '/tienda'}>
+                                    Tienda
+                                </NavLink>
+                                <NavLink
                                     href="/pedidos"
                                     active={router.pathname === '/pedidos'}>
                                     Pedidos personalizados
