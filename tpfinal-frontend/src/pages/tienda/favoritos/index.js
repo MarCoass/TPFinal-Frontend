@@ -4,7 +4,7 @@ import StoreLayout from '../layout'
 
 const Favoritos = () => {
     return (
-      <AppLayout>
+
           <StoreLayout>
             <Head>
                 <title>Favoritos - Mar Nails</title>
@@ -20,7 +20,7 @@ const Favoritos = () => {
                 </div>
             </div>
         </StoreLayout>
-      </AppLayout>
+
     )
 }
 

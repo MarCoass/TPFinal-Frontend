@@ -1,23 +1,18 @@
+"use client"
 import AppLayout from '@/components/Layouts/AppLayout'
-import Head from 'next/head'
-// import StoreLayout from '@/pages/tienda/layout'
+import { useRouter } from 'next/router'
 import StoreLayout from './layout'
-import { Children } from 'react'
+import { useEffect } from 'react';
 
 const Tienda = () => {
+    const router = useRouter();
+    useEffect(() => {
+        router.push('/tienda/catalogo');
+    }, []);
     return (
-        <AppLayout>
-            <StoreLayout></StoreLayout>
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 bg-white border-b border-gray-200">
-                            Tienda
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </AppLayout>
+
+        <StoreLayout></StoreLayout>
+
     )
 }
 

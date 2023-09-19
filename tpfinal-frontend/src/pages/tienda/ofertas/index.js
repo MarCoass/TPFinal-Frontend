@@ -4,7 +4,7 @@ import StoreLayout from '../layout'
 
 const Ofertas = () => {
     return (
-       <AppLayout>
+
          <StoreLayout>
             <Head>
                 <title>Ofertas - Mar Nails</title>
@@ -20,7 +20,7 @@ const Ofertas = () => {
                 </div>
             </div>
         </StoreLayout>
-       </AppLayout>
+
     )
 }
 
