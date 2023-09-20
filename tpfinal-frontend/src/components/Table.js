@@ -6,7 +6,7 @@ import {
     TableRow,
     TableCell,
 } from '@nextui-org/react'
-import { DeleteButton } from './Button'
+import { DeleteButton, UpdateButton } from './Button'
 
 
 export default function Tabla({ columns, rows, handleDelete }) {
@@ -17,9 +17,7 @@ export default function Tabla({ columns, rows, handleDelete }) {
             case 'opciones':
                 return (
                     <div className="relative flex items-center gap-2">
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                            Editar
-                        </span>
+                        <UpdateButton>Editar</UpdateButton>
                         <DeleteButton
                             onClick={() => handleDelete(insumo.id)}
                             className="bg-violeta-500 text-white p-2">

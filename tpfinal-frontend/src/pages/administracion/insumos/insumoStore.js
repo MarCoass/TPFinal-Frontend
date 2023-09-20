@@ -2,11 +2,14 @@ import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
-import AppLayout from '@/components/Layouts/AppLayout'
+import AdminLayout from '@/components/Layouts/AdminLayout'
+
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
+import getCookie from '@/lib/cookies'
 
-export default function adminIndex() {
+
+export default function insumoStore() {
     const { user } = useAuth()
 
     const rolesAutorizados = [1]
@@ -18,65 +21,39 @@ export default function adminIndex() {
         }
     }, [user])
 
-    function getCookie(name) {
-        if (typeof document !== 'undefined') {
-            const cookies = document.cookie.split(';')
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim()
-                if (cookie.startsWith(name + '=')) {
-                    return cookie.substring(name.length + 1)
-                }
-            }
-        }
-        return null
-    }
-
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
-    const [precio, setPrecio] = useState('')
-    const [ciudad, setCiudad] = useState('')
+    const [stock_minimo, setStockMinimo] = useState('')
+    const [id_categoria, setCategoria] = useState('')
     const [estado, setEstado] = useState('')
-    const [imagen, setImagen] = useState('')
+    const [marca, setMarca] = useState('')
 
-    const handleImagenChange = e => {
-        // Manejar el cambio en la selección de imagen
-        const file = e.target.files[0] // Obtener el archivo de la selección
-
-        if (file) {
-            // Validar si se seleccionó un archivo
-            setImagen(file)
-        }
-    }
     const handleSubmit = async e => {
         e.preventDefault()
 
         try {
-            // Crea un objeto con los datos del formulario
-            const formData = new FormData();
-            formData.append('nombre', nombre);
-            formData.append('descripcion', descripcion);
-            formData.append('precio', precio);
-            formData.append('stock', stock);
-            formData.append('ciudad', ciudad);
-            formData.append('estado', estado);
-            formData.append('imagen', imagen);
-            //console.log(formData)
-            // Agrega el token CSRF al encabezado de la solicitud
+            const formData = new FormData()
+            formData.append('nombre', nombre)
+            formData.append('descripcion', descripcion)
+            formData.append('stock', stock)
+            formData.append('stock_minimo', stock_minimo)
+            formData.append('id_categoria', id_categoria)
+            formData.append('estado', estado)
+            formData.append('marca', marca)
+
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                'Accept': 'application/json',
+                Accept: 'application/json',
             }
 
-            // Realiza la solicitud POST a tu servidor Laravel
             const response = await axios.post(
-                '/administracion/productoStore',
+                '/administracion/insumoStore',
                 formData,
                 {
                     headers,
                 },
             )
-
             // Maneja la respuesta del servidor si es necesario
             console.log('Respuesta del servidor:', response.data)
         } catch (error) {
@@ -86,14 +63,14 @@ export default function adminIndex() {
 
     return (
         <>
-            <AppLayout
+            <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Nuevo producto
+                        Nuevo insumo
                     </h2>
                 }>
                 <Head>
-                    <title> Nuevo producto - Mar Nails</title>
+                    <title>Nuevo insumo - Mar Nails</title>
                 </Head>
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -101,9 +78,7 @@ export default function adminIndex() {
                             <div className="p-6 bg-white border-b border-gray-200">
                                 <form
                                     onSubmit={handleSubmit}
-                                    encType="multipart/form-data"
                                     className="grid grid-cols-2 gap-4">
-                                    {/* Campos del formulario */}
                                     <div className="flex justify-around">
                                         <label>Nombre:</label>
                                         <Input
@@ -114,6 +89,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
+
                                     <div className="flex justify-around">
                                         <label>Descripcion:</label>
                                         <Input
@@ -124,6 +100,7 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
+
                                     <div className="flex justify-around">
                                         <label>Stock:</label>
                                         <Input
@@ -134,23 +111,25 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
+
                                     <div className="flex justify-around">
-                                        <label>Precio:</label>
+                                        <label>Stock minimo:</label>
                                         <Input
                                             type="number"
-                                            value={precio}
+                                            value={stock_minimo}
                                             onChange={e =>
-                                                setPrecio(e.target.value)
+                                                setStockMinimo(e.target.value)
                                             }
                                         />
                                     </div>
+
                                     <div className="flex justify-around">
-                                        <label>Ciudad:</label>
+                                        <label>Categoria:</label>
                                         <Input
                                             type="number"
-                                            value={ciudad}
+                                            value={id_categoria}
                                             onChange={e =>
-                                                setCiudad(e.target.value)
+                                                setCategoria(e.target.value)
                                             }
                                         />
                                     </div>
@@ -164,13 +143,14 @@ export default function adminIndex() {
                                             }
                                         />
                                     </div>
-                                    {/* Campo de carga de imagen */}
-                                    <div>
-                                        <label>Imagen:</label>
-                                        <input
-                                            type="file"
-                                            accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                            onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
+                                    <div className="flex justify-around">
+                                        <label>Marca:</label>
+                                        <Input
+                                            type="text"
+                                            value={marca}
+                                            onChange={e =>
+                                                setMarca(e.target.value)
+                                            }
                                         />
                                     </div>
                                     <button
@@ -183,7 +163,7 @@ export default function adminIndex() {
                         </div>
                     </div>
                 </div>
-            </AppLayout>
+            </AdminLayout>
         </>
     )
 }

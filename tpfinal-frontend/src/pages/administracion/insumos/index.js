@@ -2,10 +2,10 @@ import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
-import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
+import AdminLayout from '@/components/Layouts/AdminLayout'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -89,8 +89,7 @@ export default function adminIndex() {
             )
 
             // Actualiza la lista de insumos después de eliminar el producto
-            /*  const updatedInsumos = insumos.filter(insumo => insumo.id !== id)
-            setInsumos(updatedInsumos) */
+
             const data = await fetchInsumos()
             setInsumos(data)
         } catch (error) {
@@ -105,7 +104,7 @@ export default function adminIndex() {
 
     return (
         <>
-            <AppLayout
+            <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                         Insumos
@@ -116,15 +115,18 @@ export default function adminIndex() {
                 </Head>
 
                 <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className=" mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6 bg-white border-b border-gray-200">
-                                <Tabla columns={columns} rows={insumos} handleDelete={handleDelete}></Tabla>
+                            <div className=" bg-white border-b border-gray-200">
+                                <Tabla
+                                    columns={columns}
+                                    rows={insumos}
+                                    handleDelete={handleDelete}></Tabla>
                             </div>
                         </div>
                     </div>
                 </div>
-            </AppLayout>
+            </AdminLayout>
         </>
     )
 }

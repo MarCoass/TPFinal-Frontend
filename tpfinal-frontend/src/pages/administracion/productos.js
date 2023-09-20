@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
 import { Link } from '@nextui-org/react'
 import ListadoProductos from './listadoProductos'
+import AdminLayout from '@/components/Layouts/AdminLayout'
 
 
 export default function adminIndex() {
@@ -22,7 +23,7 @@ export default function adminIndex() {
 
     return (
         <>
-            <AppLayout
+            <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                         Productos
@@ -45,7 +46,7 @@ export default function adminIndex() {
                     <ListadoProductos></ListadoProductos>
                   
                 </div>
-            </AppLayout>
+            </AdminLayout>
         </>
     )
 }
