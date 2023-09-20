@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import Tabla from '@/components/Table'
+import getCookie from '@/lib/cookies'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -64,7 +65,7 @@ export default function adminIndex() {
             try {
                 const data = await fetchInsumos()
                 setInsumos(data)
-                console.log(data)
+                // console.log(data)
             } catch (error) {
                 console.error('Error al obtener insumos:', error)
             }
@@ -73,8 +74,30 @@ export default function adminIndex() {
         obtenerInsumos()
     }, [])
 
+    const handleDelete = async id => {
+        try {
+            const xsrfToken = getCookie('XSRF-TOKEN')
 
-    
+            const response = await axios.delete(
+                `/administracion/insumosDelete/${id}`,
+                {
+                    headers: {
+                        'X-XSRF-TOKEN': xsrfToken,
+                        Accept: 'application/json',
+                    },
+                },
+            )
+
+            // Actualiza la lista de insumos después de eliminar el producto
+            /*  const updatedInsumos = insumos.filter(insumo => insumo.id !== id)
+            setInsumos(updatedInsumos) */
+            const data = await fetchInsumos()
+            setInsumos(data)
+        } catch (error) {
+            console.error('Error al eliminar el insumo:', error)
+        }
+    }
+
     if (insumos === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
         return <div>Cargando insumos...</div>
@@ -96,7 +119,7 @@ export default function adminIndex() {
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="p-6 bg-white border-b border-gray-200">
-                                <Tabla columns={columns} rows={insumos}></Tabla>
+                                <Tabla columns={columns} rows={insumos} handleDelete={handleDelete}></Tabla>
                             </div>
                         </div>
                     </div>
