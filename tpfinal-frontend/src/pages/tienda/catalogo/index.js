@@ -54,6 +54,8 @@ const Catalogo = () => {
                                         nombreProducto={producto.nombre}
                                         descripcionProducto={producto.descripcion}
                                         precioProducto={producto.precio}
+                                        stock={0}
+                                        esAdmin={false}
                                     >
                                     </ProductCard>
                                 </div>

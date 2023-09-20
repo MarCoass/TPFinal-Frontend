@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCard = ({imgUrl, nombreProducto, descripcionProducto, precioProducto, stock}) => {
+const ProductCard = ({imgUrl, nombreProducto, descripcionProducto, precioProducto, stock, esAdmin}) => {
 return (
   
    <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
@@ -17,7 +17,8 @@ return (
           <p className="text-lg font-semibold text-gray-900 mb-0">{nombreProducto}</p>
           <p className="text-lg font-semibold text-gray-900 mb-0">{descripcionProducto}</p>
           <p className="text-md text-gray-800 mt-0">${precioProducto}</p>
-          { stock ? (<p className="text-md text-gray-800 mt-0">Stock: {stock}</p>):(null)}
+          { esAdmin ? (<p className="text-md text-gray-800 mt-0">Stock: {stock}</p>):(null)}
+          { stock === 0 ? (<p className="text-md text-red-800 mt-0">SIN STOCK</p>):(null)}
         </div>
         <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70" fill="none" viewBox="0 0 24 24" stroke="gray">
