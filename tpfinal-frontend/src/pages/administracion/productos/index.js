@@ -7,7 +7,16 @@ import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { NewButton } from '@/components/Button'
-import { Link } from '@nextui-org/react'
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Button,
+    useDisclosure,
+} from '@nextui-org/react'
+import ProductoForm from '@/components/Formularios/ProductoForm'
 
 const fetchProductos = () => {
     return axios.get('/administracion/productos').then(res => res.data)
@@ -45,8 +54,8 @@ const columns = [
 ]
 
 export default function adminIndex() {
+    //AUTORIZACION
     const { user } = useAuth()
-
     const rolesAutorizados = [1]
     useEffect(() => {
         if (user) {
@@ -56,6 +65,7 @@ export default function adminIndex() {
         }
     }, [user])
 
+    //OBTENER PRODUCTOS
     const [productos, setProductos] = useState(null)
 
     useEffect(() => {
@@ -72,6 +82,7 @@ export default function adminIndex() {
         obtenerProductos()
     }, [])
 
+    //PARA ELIMINAR UN PRODCUTO
     const handleDelete = async id => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN')
@@ -94,6 +105,11 @@ export default function adminIndex() {
         }
     }
 
+    //MODAL
+    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
+    //-----------------
+
     if (productos === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
         return <div>Cargando productos...</div>
@@ -115,9 +131,31 @@ export default function adminIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Link href="/administracion/productos/productoStore">
+                                {/* <Link href="/administracion/productos/productoStore">
                                     <NewButton>Agregar Producto</NewButton>
-                                </Link>
+                                </Link> */}
+                                <NewButton onClick={onOpen}>
+                                    Agregar Producto
+                                </NewButton>
+                                <Modal
+                                    className="bg-white border border-gray-200"
+                                    isOpen={isOpen}
+                                    onOpenChange={onOpenChange}
+                                    size="5xl"
+                                    backdrop="blur">
+                                    <ModalContent>
+                                        {onClose => (
+                                            <>
+                                                <ModalHeader className="flex flex-col gap-1">
+                                                    Crear producto
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <ProductoForm></ProductoForm>
+                                                </ModalBody>
+                                            </>
+                                        )}
+                                    </ModalContent>
+                                </Modal>
                                 <Tabla
                                     columns={columns}
                                     rows={productos}

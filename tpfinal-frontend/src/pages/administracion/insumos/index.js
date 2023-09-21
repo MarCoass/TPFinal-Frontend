@@ -8,7 +8,7 @@ import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { Link } from '@nextui-org/react'
 import { NewButton } from '@/components/Button'
-
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -50,6 +50,8 @@ const columns = [
 ]
 
 export default function adminIndex() {
+
+    //AUTORIZACION
     const { user } = useAuth()
 
     const rolesAutorizados = [1]
@@ -61,6 +63,7 @@ export default function adminIndex() {
         }
     }, [user])
 
+    //BUSCAR INSUMOS
     const [insumos, setInsumos] = useState(null)
 
     useEffect(() => {
