@@ -24,6 +24,13 @@ const SideNavigation = ({ user }) => {
             <div className=" grid content-between h-100">
                 <div className="flex flex-col gap-4 my-6">
                     <NavLink
+                        href="/"
+                        active={
+                            router.pathname === '/'
+                        }>
+                        Inicio
+                    </NavLink>
+                    <NavLink
                         href="/administracion/productos"
                         active={
                             router.pathname === '/administracion/productos'
@@ -31,9 +38,23 @@ const SideNavigation = ({ user }) => {
                         Productos
                     </NavLink>
                     <NavLink
+                        href="/"
+                        active={
+                            router.pathname === '/'
+                        }>
+                        Pedidos personalizados
+                    </NavLink>
+                    <NavLink
                         href="/administracion/insumos"
                         active={router.pathname === '/administracion/insumos'}>
                         Insumos
+                    </NavLink>
+                    <NavLink
+                        href="/"
+                        active={
+                            router.pathname === '/'
+                        }>
+                        Proveedores
                     </NavLink>
                 </div>
 
