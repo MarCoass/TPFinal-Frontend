@@ -22,3 +22,11 @@ export const UpdateButton = ({ className, ...props})=>(
         {...props}
     />
 )
+
+
+export const NewButton = ({ className, ...props})=>(
+    <button
+        className={`${className} inline-flex items-center justify-center m-2 px-2 py-1 bg-violeta-500 border border-transparent rounded-md font-semibold text-s text-white uppercase tracking-widest hover:bg-violeta-600 active:bg-violeta-800 focus:outline-none focus:border-gray-900 focus:ring ring-violeta-200 disabled:opacity-25 transition ease-in-out duration-150`}
+        {...props}
+    />
+)

@@ -6,12 +6,11 @@ import axios from '@/lib/axios'
 import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { Link } from '@nextui-org/react'
 import { NewButton } from '@/components/Button'
+import { Link } from '@nextui-org/react'
 
-
-const fetchInsumos = () => {
-    return axios.get('/administracion/insumos').then(res => res.data)
+const fetchProductos = () => {
+    return axios.get('/administracion/productos').then(res => res.data)
 }
 
 const columns = [
@@ -24,24 +23,20 @@ const columns = [
         label: 'Descripcion',
     },
     {
-        key: 'marca',
-        label: 'Marca',
-    },
-    {
         key: 'stock',
         label: 'Stock',
     },
     {
-        key: 'id_categoria',
-        label: 'Categoria',
+        key: 'precio',
+        label: 'Precio',
+    },
+    {
+        key: 'ciudad',
+        label: 'Ciudad',
     },
     {
         key: 'estado',
         label: 'Estado',
-    },
-    {
-        key: 'stock_minimo',
-        label: 'Stock minimo',
     },
     {
         key: 'opciones',
@@ -61,28 +56,27 @@ export default function adminIndex() {
         }
     }, [user])
 
-    const [insumos, setInsumos] = useState(null)
+    const [productos, setProductos] = useState(null)
 
     useEffect(() => {
-        async function obtenerInsumos() {
+        async function obtenerProductos() {
             try {
-                const data = await fetchInsumos()
-                setInsumos(data)
+                const data = await fetchProductos()
+                setProductos(data)
                 // console.log(data)
             } catch (error) {
-                console.error('Error al obtener insumos:', error)
+                console.error('Error al obtener productos:', error)
             }
         }
 
-        obtenerInsumos()
+        obtenerProductos()
     }, [])
 
     const handleDelete = async id => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN')
-
             const response = await axios.delete(
-                `/administracion/insumosDelete/${id}`,
+                `/administracion/productoDelete/${id}`,
                 {
                     headers: {
                         'X-XSRF-TOKEN': xsrfToken,
@@ -91,18 +85,18 @@ export default function adminIndex() {
                 },
             )
 
-            // Actualiza la lista de insumos después de eliminar el producto
+            // Actualiza la lista de Productos después de eliminar el producto
 
-            const data = await fetchInsumos()
-            setInsumos(data)
+            const data = await fetchProductos()
+            setProductos(data)
         } catch (error) {
-            console.error('Error al eliminar el insumo:', error)
+            console.error('Error al eliminar el producto:', error)
         }
     }
 
-    if (insumos === null) {
+    if (productos === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando insumos...</div>
+        return <div>Cargando productos...</div>
     }
 
     return (
@@ -110,23 +104,23 @@ export default function adminIndex() {
             <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Insumos
+                        Productos
                     </h2>
                 }>
                 <Head>
-                    <title>Insumos - Mar Nails</title>
+                    <title>Productos - Mar Nails</title>
                 </Head>
 
                 <div className="py-12">
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Link href="/administracion/insumos/insumoStore">
-                                    <NewButton>Agregar Insumo</NewButton>
+                                <Link href="/administracion/productos/productoStore">
+                                    <NewButton>Agregar Producto</NewButton>
                                 </Link>
                                 <Tabla
                                     columns={columns}
-                                    rows={insumos}
+                                    rows={productos}
                                     handleDelete={handleDelete}></Tabla>
                             </div>
                         </div>

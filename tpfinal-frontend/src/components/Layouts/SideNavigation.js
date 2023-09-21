@@ -2,15 +2,13 @@ import ApplicationLogo from '@/components/ApplicationLogo'
 import Dropdown from '@/components/Dropdown'
 import Link from 'next/link'
 import NavLink from '@/components/NavLink'
-import { DropdownButton } from '@/components/DropdownLink'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 
 const SideNavigation = ({ user }) => {
     const router = useRouter()
     const { logout } = useAuth()
-    const [open, setOpen] = useState(false)
+
 
     return (
         <nav className="bg-white border-b border-gray-100 w-64 h-screen">
@@ -24,10 +22,8 @@ const SideNavigation = ({ user }) => {
             <div className=" grid content-between h-100">
                 <div className="flex flex-col gap-4 my-6">
                     <NavLink
-                        href="/"
-                        active={
-                            router.pathname === '/'
-                        }>
+                        href="/administracion/"
+                        active={router.pathname === '/administracion'}>
                         Inicio
                     </NavLink>
                     <NavLink
@@ -37,11 +33,7 @@ const SideNavigation = ({ user }) => {
                         }>
                         Productos
                     </NavLink>
-                    <NavLink
-                        href="/"
-                        active={
-                            router.pathname === '/'
-                        }>
+                    <NavLink href="/" active={router.pathname === '/'}>
                         Pedidos personalizados
                     </NavLink>
                     <NavLink
@@ -49,13 +41,10 @@ const SideNavigation = ({ user }) => {
                         active={router.pathname === '/administracion/insumos'}>
                         Insumos
                     </NavLink>
-                    <NavLink
-                        href="/"
-                        active={
-                            router.pathname === '/'
-                        }>
+                    <NavLink href="/" active={router.pathname === '/'}>
                         Proveedores
                     </NavLink>
+                
                 </div>
 
                 <div className="flex flex-col gap-4 mt-36 border-t">

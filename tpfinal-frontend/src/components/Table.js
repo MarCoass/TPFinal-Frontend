@@ -5,22 +5,21 @@ import {
     TableBody,
     TableRow,
     TableCell,
+    Pagination,
 } from '@nextui-org/react'
 import { DeleteButton, UpdateButton } from './Button'
-
+import { useMemo, useState } from 'react'
 
 export default function Tabla({ columns, rows, handleDelete }) {
-    
-    const renderCell = (insumo, columnKey) => {
-        const cellValue = insumo[columnKey]
+    const renderCell = (item, columnKey) => {
+        const cellValue = item[columnKey]
         switch (columnKey) {
             case 'opciones':
                 return (
                     <div className="relative flex items-center gap-2">
                         <UpdateButton>Editar</UpdateButton>
                         <DeleteButton
-                            onClick={() => handleDelete(insumo.id)}
-                            className="bg-violeta-500 text-white p-2">
+                            onClick={() => handleDelete(item.id)}>
                             Borrar
                         </DeleteButton>
                     </div>
@@ -30,8 +29,37 @@ export default function Tabla({ columns, rows, handleDelete }) {
         }
     }
 
+    //PAGINACION
+    const [page, setPage] = useState(1)
+    const cantidadPorPagina = 5
+    const pages = Math.ceil(rows.length / cantidadPorPagina)
+
+    const items = useMemo(() => {
+        const inicio = (page - 1) * cantidadPorPagina
+        const fin = inicio + cantidadPorPagina
+
+        return rows.slice(inicio, fin)
+    }, [page, rows])
+
     return (
-        <Table aria-label="Tabla de insumos">
+        <Table
+            aria-label="Tabla de insumos"
+            bottomContent={
+                <div className="flex w-full justify-center">
+                    <Pagination
+                        isCompact
+                        showControls
+                        showShadow
+                        color="secondary"
+                        page={page}
+                        total={pages}
+                        onChange={page => setPage(page)}
+                    />
+                </div>
+            }
+            classNames={{
+                wrapper: 'min-h-[222px]',
+            }}>
             <TableHeader columns={columns}>
                 {column => (
                     <TableColumn className="bg-violeta-200" key={column.key}>
@@ -39,9 +67,11 @@ export default function Tabla({ columns, rows, handleDelete }) {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody items={rows}>
+            <TableBody items={items}>
                 {item => (
-                    <TableRow key={item.key}>
+                    <TableRow
+                        emptyContent={'No hay informacion cargada.'}
+                        key={item.key}>
                         {columnKey => (
                             <TableCell>{renderCell(item, columnKey)}</TableCell>
                         )}
