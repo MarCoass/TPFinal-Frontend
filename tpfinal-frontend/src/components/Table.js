@@ -31,7 +31,7 @@ export default function Tabla({ columns, rows, handleDelete }) {
     }
 
     return (
-        <Table aria-label="Example table with dynamic content">
+        <Table aria-label="Tabla de insumos">
             <TableHeader columns={columns}>
                 {column => (
                     <TableColumn className="bg-violeta-200" key={column.key}>
