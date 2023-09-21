@@ -2,9 +2,9 @@ import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
-import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
+import AdminLayout from '@/components/Layouts/AdminLayout'
 
 export default function adminIndex() {
     const { user } = useAuth()
@@ -67,8 +67,6 @@ export default function adminIndex() {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 'Accept': 'application/json',
             }
-            console.log('FORM DATA: ', formData)
-            console.log('HEADERS: ', headers)
 
             // Realiza la solicitud POST a tu servidor Laravel
             const response = await axios.post(
@@ -88,7 +86,7 @@ export default function adminIndex() {
 
     return (
         <>
-            <AppLayout
+            <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                         Nuevo producto
@@ -185,7 +183,7 @@ export default function adminIndex() {
                         </div>
                     </div>
                 </div>
-            </AppLayout>
+            </AdminLayout>
         </>
     )
 }

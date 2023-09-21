@@ -37,6 +37,11 @@ const Navigation = ({ user }) => {
                                     active={router.pathname === '/administracion/productos'}>
                                     Productos
                                 </NavLink>
+                                <NavLink
+                                    href="/administracion/insumos"
+                                    active={router.pathname === '/administracion/insumos'}>
+                                    Insumos
+                                </NavLink>
                             </div>
                         ) : (
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
