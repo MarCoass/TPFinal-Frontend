@@ -15,6 +15,7 @@ import {
     useDisclosure,
 } from '@nextui-org/react'
 import ProductoStore from './store'
+import { estadosProductos } from '@/lib/estados'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -180,7 +181,8 @@ export default function adminIndex() {
                                     columns={columns}
                                     rows={productos}
                                     handleDelete={handleDelete}
-                                    ciudades={ciudades}></Tabla>
+                                    ciudades={ciudades}
+                                    estados={estadosProductos()}></Tabla>
                             )}
                             </div>
                         </div>

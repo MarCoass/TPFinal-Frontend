@@ -1,6 +1,6 @@
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
+import SelectEstadosSet from '@/components/Formularios/SelectEstados'
 import Input from '@/components/Input'
-import { useAuth } from '@/hooks/auth'
 
 const { default: axios } = require('@/lib/axios')
 const { default: getCookie } = require('@/lib/cookies')
@@ -35,12 +35,10 @@ export default function ProductoStore() {
             formData.append('precio', precio)
             formData.append('stock', stock)
             formData.append('ciudad', ciudad.target.value)
-            formData.append('estado', estado)
+            formData.append('estado', estado.target.value)
             formData.append('imagen', imagen)
 
-            for (const [clave, valor] of formData.entries()) {
-                console.log(`Campo: ${clave}, Valor: ${valor}`);
-              }
+
 
             // Agrega el token CSRF al encabezado de la solicitud
             const headers = {
@@ -66,6 +64,7 @@ export default function ProductoStore() {
     return (
         <>
             <div className="py-12">
+         
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
@@ -129,13 +128,9 @@ export default function ProductoStore() {
                                 </div>
                                 <div className="flex justify-around">
                                     <label>Estado:</label>
-                                    <Input
-                                        type="number"
-                                        value={estado}
-                                        onChange={e =>
-                                            setEstado(e.target.value)
-                                        }
-                                    />
+                                    <SelectEstadosSet
+                                    value={estado}
+                                    onChange={newEstado => setEstado(newEstado)}></SelectEstadosSet>
                                 </div>
                                 {/* Campo de carga de imagen */}
                                 <div>
