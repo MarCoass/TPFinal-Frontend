@@ -1,5 +1,5 @@
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
-import SelectEstadosSet from '@/components/Formularios/SelectEstados'
+import{ SelectEstadosSet} from '@/components/Formularios/SelectEstados'
 import Input from '@/components/Input'
 
 const { default: axios } = require('@/lib/axios')
