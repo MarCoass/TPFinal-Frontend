@@ -16,6 +16,7 @@ export default function Tabla({
     handleDelete,
     ciudades,
     estados,
+    categorias,
 }) {
     const renderCell = (item, columnKey) => {
         const cellValue = item[columnKey]
@@ -37,6 +38,12 @@ export default function Tabla({
                 const id_estado = item.estado
                 const estado = estados.find(estado => estado.id === id_estado)
                 return estado.nombre
+            case 'id_categoria':
+                const id_categoria = item.id_categoria
+                const categoria = categorias.find(
+                    categoria => categoria.id === id_categoria,
+                )
+                return categoria.nombre
             case 'precio':
                 return '$' + cellValue
             default:

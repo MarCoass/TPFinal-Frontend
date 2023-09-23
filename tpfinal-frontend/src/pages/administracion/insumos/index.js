@@ -14,6 +14,10 @@ const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
+const fetchCategorias = () => {
+    return axios.get('/administracion/categoriasInsumos').then(res => res.data)
+}
+
 const columns = [
     {
         key: 'nombre',
@@ -64,19 +68,31 @@ export default function adminIndex() {
 
     //BUSCAR INSUMOS
     const [insumos, setInsumos] = useState(null)
+    const [categorias, setCategorias] = useState(null)
 
     useEffect(() => {
         async function obtenerInsumos() {
             try {
-                const data = await fetchInsumos()
-                setInsumos(data)
+                const insumos = await fetchInsumos()
+                setInsumos(insumos)
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener insumos:', error)
             }
         }
-
         obtenerInsumos()
+    }, [])
+
+    useEffect(() => {
+        async function obtenerCategorias() {
+            try {
+                const data = await fetchCategorias()
+                setCategorias(data)
+            } catch (error) {
+                console.error('Error al obtener insumos:', error)
+            }
+        }
+        obtenerCategorias()
     }, [])
 
     const handleDelete = async id => {
@@ -104,7 +120,7 @@ export default function adminIndex() {
 
     const estados = estadosInsumos()
 
-    if (insumos === null) {
+    if (insumos === null || categorias === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
         return <div>Cargando...</div>
     }
@@ -128,12 +144,13 @@ export default function adminIndex() {
                                 <Link href="/administracion/insumos/insumoStore">
                                     <NewButton>Agregar Insumo</NewButton>
                                 </Link>
-                                {estados &&  (
+                                {insumos && categorias && (
                                     <Tabla
                                         columns={columns}
                                         rows={insumos}
                                         handleDelete={handleDelete}
-                                        estados={estados}></Tabla>
+                                        estados={estados}
+                                        categorias={categorias}></Tabla>
                                 )}
                             </div>
                         </div>
