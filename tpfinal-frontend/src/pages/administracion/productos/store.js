@@ -112,13 +112,6 @@ export default function ProductoStore() {
                                     />
                                 </div>
                                 <div className="flex justify-around">
-                                    {/*  <Input
-                                        type="number"
-                                        value={ciudad}
-                                        onChange={e =>
-                                            setCiudad(e.target.value)
-                                        }
-                                    /> */}
                                     <SelectCiudades
                                         value={ciudad}
                                         onChange={newCiudad =>

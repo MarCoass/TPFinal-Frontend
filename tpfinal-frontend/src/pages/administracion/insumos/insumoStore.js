@@ -8,6 +8,8 @@ import axios from '@/lib/axios'
 import Input from '@/components/Input'
 import getCookie from '@/lib/cookies'
 import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
+import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
+
 
 export default function insumoStore() {
     const { user } = useAuth()
@@ -38,7 +40,7 @@ export default function insumoStore() {
             formData.append('stock', stock)
             formData.append('stock_minimo', stock_minimo)
             formData.append('id_categoria', id_categoria.target.value)
-            formData.append('estado', estado)
+            formData.append('estado', estado.target.value)
             formData.append('marca', marca)
 
             const headers = {
@@ -130,14 +132,11 @@ export default function insumoStore() {
                                             }></SelectCategoriasInsumos>
                                     </div>
                                     <div className="flex justify-around">
-                                        <label>Estado:</label>
-                                        <Input
-                                            type="number"
+                                        <SelectEstadosInsumo
                                             value={estado}
-                                            onChange={e =>
-                                                setEstado(e.target.value)
-                                            }
-                                        />
+                                            onChange={newEstado =>
+                                                setEstado(newEstado)
+                                            }></SelectEstadosInsumo>
                                     </div>
                                     <div className="flex justify-around">
                                         <label>Marca:</label>

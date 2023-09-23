@@ -37,7 +37,7 @@ export function estadosInsumos() {
             nombre: 'Stock bajo',
         },
         {
-            id: 1,
+            id: 2,
             nombre: 'Sin stock',
         },
     ]
