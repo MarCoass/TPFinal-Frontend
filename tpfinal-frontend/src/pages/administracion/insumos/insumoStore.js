@@ -7,7 +7,7 @@ import AdminLayout from '@/components/Layouts/AdminLayout'
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
 import getCookie from '@/lib/cookies'
-
+import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
 
 export default function insumoStore() {
     const { user } = useAuth()
@@ -31,14 +31,13 @@ export default function insumoStore() {
 
     const handleSubmit = async e => {
         e.preventDefault()
-
         try {
             const formData = new FormData()
             formData.append('nombre', nombre)
             formData.append('descripcion', descripcion)
             formData.append('stock', stock)
             formData.append('stock_minimo', stock_minimo)
-            formData.append('id_categoria', id_categoria)
+            formData.append('id_categoria', id_categoria.target.value)
             formData.append('estado', estado)
             formData.append('marca', marca)
 
@@ -124,14 +123,11 @@ export default function insumoStore() {
                                     </div>
 
                                     <div className="flex justify-around">
-                                        <label>Categoria:</label>
-                                        <Input
-                                            type="number"
+                                        <SelectCategoriasInsumos
                                             value={id_categoria}
-                                            onChange={e =>
-                                                setCategoria(e.target.value)
-                                            }
-                                        />
+                                            onChange={newCategoria =>
+                                                setCategoria(newCategoria)
+                                            }></SelectCategoriasInsumos>
                                     </div>
                                     <div className="flex justify-around">
                                         <label>Estado:</label>

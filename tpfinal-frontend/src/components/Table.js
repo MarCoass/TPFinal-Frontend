@@ -10,7 +10,13 @@ import {
 import { DeleteButton, UpdateButton } from './Button'
 import { useMemo, useState } from 'react'
 
-export default function Tabla({ columns, rows, handleDelete, ciudades, estados }) {
+export default function Tabla({
+    columns,
+    rows,
+    handleDelete,
+    ciudades,
+    estados,
+}) {
     const renderCell = (item, columnKey) => {
         const cellValue = item[columnKey]
         switch (columnKey) {
@@ -28,9 +34,11 @@ export default function Tabla({ columns, rows, handleDelete, ciudades, estados }
                 const ciudad = ciudades.find(ciudad => ciudad.id === id_ciudad)
                 return ciudad.nombre
             case 'estado':
-                    const id_estado = item.estado
-                    const estado = estados.find(estado=> estado.id === id_estado)
-                    return estado.nombre
+                const id_estado = item.estado
+                const estado = estados.find(estado => estado.id === id_estado)
+                return estado.nombre
+            case 'precio':
+                return '$' + cellValue
             default:
                 return cellValue
         }

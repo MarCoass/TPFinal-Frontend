@@ -8,7 +8,7 @@ import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { Link } from '@nextui-org/react'
 import { NewButton } from '@/components/Button'
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { estadosInsumos } from '@/lib/estados'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -50,7 +50,6 @@ const columns = [
 ]
 
 export default function adminIndex() {
-
     //AUTORIZACION
     const { user } = useAuth()
 
@@ -103,9 +102,11 @@ export default function adminIndex() {
         }
     }
 
+    const estados = estadosInsumos()
+
     if (insumos === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando insumos...</div>
+        return <div>Cargando...</div>
     }
 
     return (
@@ -127,10 +128,13 @@ export default function adminIndex() {
                                 <Link href="/administracion/insumos/insumoStore">
                                     <NewButton>Agregar Insumo</NewButton>
                                 </Link>
-                                <Tabla
-                                    columns={columns}
-                                    rows={insumos}
-                                    handleDelete={handleDelete}></Tabla>
+                                {estados &&  (
+                                    <Tabla
+                                        columns={columns}
+                                        rows={insumos}
+                                        handleDelete={handleDelete}
+                                        estados={estados}></Tabla>
+                                )}
                             </div>
                         </div>
                     </div>
