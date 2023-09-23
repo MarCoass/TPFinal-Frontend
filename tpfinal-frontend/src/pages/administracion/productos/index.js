@@ -12,11 +12,13 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalFooter,
-    Button,
     useDisclosure,
 } from '@nextui-org/react'
-import ProductoForm from '@/components/Formularios/ProductoForm'
+import ProductoStore from './store'
+
+const fetchCiudades = () => {
+    return axios.get('/ciudades').then(res => res.data)
+}
 
 const fetchProductos = () => {
     return axios.get('/administracion/productos').then(res => res.data)
@@ -40,7 +42,7 @@ const columns = [
         label: 'Precio',
     },
     {
-        key: 'ciudad',
+        key: 'id_ciudad',
         label: 'Ciudad',
     },
     {
@@ -82,6 +84,23 @@ export default function adminIndex() {
         obtenerProductos()
     }, [])
 
+    const [ciudades, setCiudades] = useState()
+    useEffect(() => {
+        async function obtenerCiudades() {
+            try {
+                const data = await fetchCiudades()
+                setCiudades(data)
+                // console.log(data)
+            } catch (error) {
+                console.error('Error al obtener ciudades:', error)
+                // En caso de error, simplemente establece ciudades como un array vacío
+                
+            }
+        }
+
+        obtenerCiudades()
+    }, [])
+
     //PARA ELIMINAR UN PRODCUTO
     const handleDelete = async id => {
         try {
@@ -110,9 +129,9 @@ export default function adminIndex() {
 
     //-----------------
 
-    if (productos === null) {
-        // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando productos...</div>
+    if (productos === null || ciudades === null) {
+        // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
+        return <div>Cargando productos y ciudades...</div>
     }
 
     return (
@@ -150,16 +169,19 @@ export default function adminIndex() {
                                                     Crear producto
                                                 </ModalHeader>
                                                 <ModalBody>
-                                                    <ProductoForm></ProductoForm>
+                                                    <ProductoStore></ProductoStore>
                                                 </ModalBody>
                                             </>
                                         )}
                                     </ModalContent>
                                 </Modal>
+                                {productos && ciudades && (
                                 <Tabla
                                     columns={columns}
                                     rows={productos}
-                                    handleDelete={handleDelete}></Tabla>
+                                    handleDelete={handleDelete}
+                                    ciudades={ciudades}></Tabla>
+                            )}
                             </div>
                         </div>
                     </div>

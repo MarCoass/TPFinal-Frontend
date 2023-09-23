@@ -10,7 +10,7 @@ import {
 import { DeleteButton, UpdateButton } from './Button'
 import { useMemo, useState } from 'react'
 
-export default function Tabla({ columns, rows, handleDelete }) {
+export default function Tabla({ columns, rows, handleDelete, ciudades }) {
     const renderCell = (item, columnKey) => {
         const cellValue = item[columnKey]
         switch (columnKey) {
@@ -18,12 +18,17 @@ export default function Tabla({ columns, rows, handleDelete }) {
                 return (
                     <div className="relative flex items-center gap-2">
                         <UpdateButton>Editar</UpdateButton>
-                        <DeleteButton
-                            onClick={() => handleDelete(item.id)}>
+                        <DeleteButton onClick={() => handleDelete(item.id)}>
                             Borrar
                         </DeleteButton>
                     </div>
                 )
+            case 'id_ciudad':
+                /*  const ciudad = ciudades.find(ciudad => ciudad.id === item.id_ciudad);
+                return ciudad.nombre */
+                const id = item.id_ciudad
+                const ciudad = ciudades.find(ciudad => ciudad.id === id);
+                    return ciudad.nombre
             default:
                 return cellValue
         }
