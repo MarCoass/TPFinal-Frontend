@@ -11,7 +11,7 @@ import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasIn
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 
 
-export default function insumoStore() {
+export default function InsumoStore() {
     const { user } = useAuth()
 
     const rolesAutorizados = [1]
@@ -64,15 +64,6 @@ export default function insumoStore() {
 
     return (
         <>
-            <AdminLayout
-                header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Nuevo insumo
-                    </h2>
-                }>
-                <Head>
-                    <title>Nuevo insumo - Mar Nails</title>
-                </Head>
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -158,7 +149,7 @@ export default function insumoStore() {
                         </div>
                     </div>
                 </div>
-            </AdminLayout>
+          
         </>
     )
 }

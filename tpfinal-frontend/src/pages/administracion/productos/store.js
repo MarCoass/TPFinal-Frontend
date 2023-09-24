@@ -120,7 +120,6 @@ export default function ProductoStore() {
                                     />
                                 </div>
                                 <div className="flex justify-around">
-                                    <label>Estado:</label>
                                     <SelectEstadosSet
                                     value={estado}
                                     onChange={newEstado => setEstado(newEstado)}></SelectEstadosSet>
