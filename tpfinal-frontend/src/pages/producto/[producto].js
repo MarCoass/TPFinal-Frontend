@@ -17,7 +17,11 @@ export default function infoProducto({params}) {
     const router = useRouter()
     const {producto} = router.query
     console.log(producto)
-
+    //tengo que traer:
+    //set
+    //categoriaSet
+    //tips
+    //insumo
     useEffect(()=>{
         async function obtenerProducto(){
             try {
