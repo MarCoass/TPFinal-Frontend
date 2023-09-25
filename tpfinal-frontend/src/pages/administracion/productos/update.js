@@ -2,7 +2,7 @@ import Input from '@/components/Input'
 
 const { default: axios } = require('@/lib/axios')
 const { default: getCookie } = require('@/lib/cookies')
-const { useState } = require('react')
+const { useState,useEffect } = require('react')
 
 
 export default function ProductoUpdate({initialData, id}) {

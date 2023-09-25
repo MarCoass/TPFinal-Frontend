@@ -38,8 +38,6 @@ export default function ProductoStore() {
             formData.append('estado', estado.target.value)
             formData.append('imagen', imagen)
 
-
-
             // Agrega el token CSRF al encabezado de la solicitud
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
@@ -63,8 +61,6 @@ export default function ProductoStore() {
     }
     return (
         <>
-            <div className="py-12">
-         
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
@@ -142,7 +138,6 @@ export default function ProductoStore() {
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }

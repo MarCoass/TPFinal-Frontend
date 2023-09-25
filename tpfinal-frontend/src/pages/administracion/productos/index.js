@@ -17,6 +17,7 @@ import {
 import ProductoStore from './store'
 import { estadosProductos } from '@/lib/estados'
 
+
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
 }
@@ -56,7 +57,7 @@ const columns = [
     },
 ]
 
-export default function adminIndex() {
+export default function ProdutosIndex() {
     //AUTORIZACION
     const { user } = useAuth()
     const rolesAutorizados = [1]
@@ -95,7 +96,6 @@ export default function adminIndex() {
             } catch (error) {
                 console.error('Error al obtener ciudades:', error)
                 // En caso de error, simplemente establece ciudades como un array vacío
-                
             }
         }
 
@@ -177,13 +177,14 @@ export default function adminIndex() {
                                     </ModalContent>
                                 </Modal>
                                 {productos && ciudades && (
-                                <Tabla
-                                    columns={columns}
-                                    rows={productos}
-                                    handleDelete={handleDelete}
-                                    ciudades={ciudades}
-                                    estados={estadosProductos()}></Tabla>
-                            )}
+                                    <Tabla
+                                        columns={columns}
+                                        rows={productos}
+                                        handleDelete={handleDelete}
+                                        ciudades={ciudades}
+                                        estados={estadosProductos()}>
+                                    </Tabla>
+                                )}
                             </div>
                         </div>
                     </div>

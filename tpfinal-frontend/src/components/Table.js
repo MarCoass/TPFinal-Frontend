@@ -6,9 +6,11 @@ import {
     TableRow,
     TableCell,
     Pagination,
+    useDisclosure,
+    Link,
 } from '@nextui-org/react'
 import { DeleteButton, UpdateButton } from './Button'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 
 export default function Tabla({
     columns,
@@ -17,14 +19,25 @@ export default function Tabla({
     ciudades,
     estados,
     categorias,
+    children,
 }) {
+    const [productoIdToUpdate, setProductoIdToUpdate] = useState()
+    useEffect(() => {
+        console.log(productoIdToUpdate) // Muestra el nuevo valor
+        onOpen()
+    }, [productoIdToUpdate])
+
+    const { onOpen } = useDisclosure()
+
     const renderCell = (item, columnKey) => {
         const cellValue = item[columnKey]
         switch (columnKey) {
             case 'opciones':
                 return (
                     <div className="relative flex items-center gap-2">
-                        <UpdateButton disabled>Editar</UpdateButton>
+                        <Link href={`/administracion/productos/update/${item.id}`}>
+                            Editar
+                        </Link>
                         <DeleteButton onClick={() => handleDelete(item.id)}>
                             Borrar
                         </DeleteButton>
@@ -64,42 +77,49 @@ export default function Tabla({
     }, [page, rows])
 
     return (
-        <Table
-            aria-label="Tabla de insumos"
-            bottomContent={
-                <div className="flex w-full justify-center">
-                    <Pagination
-                        isCompact
-                        showControls
-                        showShadow
-                        color="secondary"
-                        page={page}
-                        total={pages}
-                        onChange={page => setPage(page)}
-                    />
-                </div>
-            }
-            classNames={{
-                wrapper: 'min-h-[222px]',
-            }}>
-            <TableHeader columns={columns}>
-                {column => (
-                    <TableColumn className="bg-violeta-200" key={column.key}>
-                        {column.label}
-                    </TableColumn>
-                )}
-            </TableHeader>
-            <TableBody items={items}>
-                {item => (
-                    <TableRow
-                        emptyContent={'No hay informacion cargada.'}
-                        key={item.key}>
-                        {columnKey => (
-                            <TableCell>{renderCell(item, columnKey)}</TableCell>
-                        )}
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+        <>
+            <Table
+                aria-label="Tabla de insumos"
+                bottomContent={
+                    <div className="flex w-full justify-center">
+                        <Pagination
+                            isCompact
+                            showControls
+                            showShadow
+                            color="secondary"
+                            page={page}
+                            total={pages}
+                            onChange={page => setPage(page)}
+                        />
+                    </div>
+                }
+                classNames={{
+                    wrapper: 'min-h-[222px]',
+                }}>
+                <TableHeader columns={columns}>
+                    {column => (
+                        <TableColumn
+                            className="bg-violeta-200"
+                            key={column.key}>
+                            {column.label}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody items={items}>
+                    {item => (
+                        <TableRow
+                            emptyContent={'No hay informacion cargada.'}
+                            key={item.key}>
+                            {columnKey => (
+                                <TableCell>
+                                    {renderCell(item, columnKey)}
+                                </TableCell>
+                            )}
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+            {children}
+        </>
     )
 }

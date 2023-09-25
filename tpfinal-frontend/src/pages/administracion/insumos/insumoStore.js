@@ -10,7 +10,6 @@ import getCookie from '@/lib/cookies'
 import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 
-
 export default function InsumoStore() {
     const { user } = useAuth()
 
@@ -64,92 +63,83 @@ export default function InsumoStore() {
 
     return (
         <>
-                <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6 bg-white border-b border-gray-200">
-                                <form
-                                    onSubmit={handleSubmit}
-                                    className="grid grid-cols-2 gap-4">
-                                    <div className="flex justify-around">
-                                        <label>Nombre:</label>
-                                        <Input
-                                            type="text"
-                                            value={nombre}
-                                            onChange={e =>
-                                                setNombre(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <label>Descripcion:</label>
-                                        <Input
-                                            type="text"
-                                            value={descripcion}
-                                            onChange={e =>
-                                                setDescripcion(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <label>Stock:</label>
-                                        <Input
-                                            type="number"
-                                            value={stock}
-                                            onChange={e =>
-                                                setStock(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <label>Stock minimo:</label>
-                                        <Input
-                                            type="number"
-                                            value={stock_minimo}
-                                            onChange={e =>
-                                                setStockMinimo(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasInsumos
-                                            value={id_categoria}
-                                            onChange={newCategoria =>
-                                                setCategoria(newCategoria)
-                                            }></SelectCategoriasInsumos>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <SelectEstadosInsumo
-                                            value={estado}
-                                            onChange={newEstado =>
-                                                setEstado(newEstado)
-                                            }></SelectEstadosInsumo>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label>Marca:</label>
-                                        <Input
-                                            type="text"
-                                            value={marca}
-                                            onChange={e =>
-                                                setMarca(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <button
-                                        className="border border-violeta-500 w-20 "
-                                        type="submit">
-                                        Enviar
-                                    </button>
-                                </form>
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="p-6 bg-white border-b border-gray-200">
+                        <form
+                            onSubmit={handleSubmit}
+                            className="grid grid-cols-2 gap-4">
+                            <div className="flex justify-around">
+                                <label>Nombre:</label>
+                                <Input
+                                    type="text"
+                                    value={nombre}
+                                    onChange={e => setNombre(e.target.value)}
+                                />
                             </div>
-                        </div>
+
+                            <div className="flex justify-around">
+                                <label>Descripcion:</label>
+                                <Input
+                                    type="text"
+                                    value={descripcion}
+                                    onChange={e =>
+                                        setDescripcion(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <label>Stock:</label>
+                                <Input
+                                    type="number"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <label>Stock minimo:</label>
+                                <Input
+                                    type="number"
+                                    value={stock_minimo}
+                                    onChange={e =>
+                                        setStockMinimo(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <SelectCategoriasInsumos
+                                    value={id_categoria}
+                                    onChange={newCategoria =>
+                                        setCategoria(newCategoria)
+                                    }></SelectCategoriasInsumos>
+                            </div>
+                            <div className="flex justify-around">
+                                <SelectEstadosInsumo
+                                    value={estado}
+                                    onChange={newEstado =>
+                                        setEstado(newEstado)
+                                    }></SelectEstadosInsumo>
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Marca:</label>
+                                <Input
+                                    type="text"
+                                    value={marca}
+                                    onChange={e => setMarca(e.target.value)}
+                                />
+                            </div>
+                            <button
+                                className="border border-violeta-500 w-20 "
+                                type="submit">
+                                Enviar
+                            </button>
+                        </form>
                     </div>
                 </div>
-          
+            </div>
         </>
     )
 }
