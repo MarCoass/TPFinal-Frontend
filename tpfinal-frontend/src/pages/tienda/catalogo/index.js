@@ -25,7 +25,7 @@ const Catalogo = () => {
             }
         }
         obtenerProductos()
-    })
+    }, [])
 
     return (
 

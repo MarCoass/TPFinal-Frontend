@@ -22,23 +22,28 @@ export default function infoProducto({params}) {
         async function obtenerProducto(){
             try {
                 const data = await fetchProductos(producto)
-                console.log(data)
+                console.log(data.nombre)
                 setProducto(data)
-                //esta variable queda null y no se pq D:
-                console.log(infoProducto)
             } catch (error) {
                 console.error ('Hubo un problema obteniendo los datos: ', error)
             }
         }
         obtenerProducto()
-    })
+    },[])
     // 
     return (
         <AppLayout>
+
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="container bg-white overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
-                        <h1>Producto</h1>
+                                         {infoProducto === null ? (
+                            <div>Cargando producto...</div>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6 bg-white border-b border-gray-200">
+                                producto {infoProducto.nombre}
+                        </div>
+                        )}
                     </div>
                 </div>
             </div>
