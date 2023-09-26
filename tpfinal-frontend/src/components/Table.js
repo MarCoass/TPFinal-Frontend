@@ -20,10 +20,11 @@ export default function Tabla({
     estados,
     categorias,
     children,
+    urlUpdate
 }) {
     const [productoIdToUpdate, setProductoIdToUpdate] = useState()
     useEffect(() => {
-        console.log(productoIdToUpdate) // Muestra el nuevo valor
+        //console.log(productoIdToUpdate) // Muestra el nuevo valor
         onOpen()
     }, [productoIdToUpdate])
 
@@ -36,7 +37,7 @@ export default function Tabla({
                 return (
                     <div className="relative flex items-center gap-2">
                         <Link
-                            href={`/administracion/productos/update/${item.id}`}>
+                            href={urlUpdate+item.id}>
                             <UpdateButton>Editar</UpdateButton>
                         </Link>
                         <DeleteButton onClick={() => handleDelete(item.id)}>
@@ -67,7 +68,7 @@ export default function Tabla({
 
     //PAGINACION
     const [page, setPage] = useState(1)
-    const cantidadPorPagina = 5
+    const cantidadPorPagina = 10
     const pages = Math.ceil(rows.length / cantidadPorPagina)
 
     const items = useMemo(() => {

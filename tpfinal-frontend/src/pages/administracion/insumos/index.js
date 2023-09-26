@@ -182,7 +182,8 @@ export default function IndexProductos() {
                                         rows={insumos}
                                         handleDelete={handleDelete}
                                         estados={estados}
-                                        categorias={categorias}></Tabla>
+                                        categorias={categorias}
+                                        urlUpdate ='/administracion/insumos/update/'></Tabla>
                                 )}
                             </div>
                         </div>

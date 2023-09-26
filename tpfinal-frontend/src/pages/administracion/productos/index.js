@@ -182,7 +182,8 @@ export default function ProdutosIndex() {
                                         rows={productos}
                                         handleDelete={handleDelete}
                                         ciudades={ciudades}
-                                        estados={estadosProductos()}>
+                                        estados={estadosProductos()}
+                                        urlUpdate ='/administracion/productos/update/'>
                                     </Tabla>
                                 )}
                             </div>

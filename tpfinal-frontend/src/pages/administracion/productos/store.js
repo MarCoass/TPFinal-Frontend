@@ -58,10 +58,7 @@ export default function ProductoStore() {
             const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
             formData.append('cantidadesInsumos', cantidadesInsumosJSON)
 
-            for (const pair of formData.entries()) {
-                const [field, value] = pair
-                console.log(`${field}: ${value}`)
-            }
+            
             let url = '/administracion/productoStore'
             if (categoriaSet != '') {
                 formData.append('id_categoria', categoriaSet)
@@ -80,7 +77,7 @@ export default function ProductoStore() {
             })
 
             // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+           // console.log('Respuesta del servidor:', response.data)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
