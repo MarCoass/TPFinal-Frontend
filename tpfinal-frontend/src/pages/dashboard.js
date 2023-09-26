@@ -5,9 +5,20 @@ const Dashboard = () => {
     return (
         <AppLayout
             header={
+                <div>
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Tienda
                 </h2>
+                <ul>
+                    <li>
+                        {/* <NavLink
+                            href="/catalogo"
+                            active={router.pathname === '/dashboard'}>
+                            Tienda
+                        </NavLink> */}
+                    </li>
+                </ul>
+            </div>
             }>
             <Head>
                 <title>Catalogo - Mar Nails</title>
