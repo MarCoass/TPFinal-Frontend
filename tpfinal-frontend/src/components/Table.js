@@ -35,8 +35,9 @@ export default function Tabla({
             case 'opciones':
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Link href={`/administracion/productos/update/${item.id}`}>
-                            Editar
+                        <Link
+                            href={`/administracion/productos/update/${item.id}`}>
+                            <UpdateButton>Editar</UpdateButton>
                         </Link>
                         <DeleteButton onClick={() => handleDelete(item.id)}>
                             Borrar

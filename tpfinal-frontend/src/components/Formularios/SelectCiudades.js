@@ -15,7 +15,7 @@ export default function SelectCiudades({ value, onChange }) {
             try {
                 const data = await fetchCiudades()
                 setCiudades(data)
-                console.log(ciudades)
+              //  console.log(ciudades)
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener ciudades:', error)

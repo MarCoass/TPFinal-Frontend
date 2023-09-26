@@ -61,10 +61,6 @@ export default function Page({ params }) {
             formData.append('ciudad', ciudad)
             formData.append('estado', estado)
             formData.append('imagen', imagen)
-            /*   console.log('Contenido de formData:');
-            for (const [key, value] of formData.entries()) {
-              console.log(key, value);
-            } */
             // Agrega el token CSRF al encabezado de la solicitud
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
