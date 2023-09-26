@@ -7,7 +7,20 @@ import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { NewButton } from '@/components/Button'
-import { Link } from '@nextui-org/react'
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    useDisclosure,
+} from '@nextui-org/react'
+import ProductoStore from './store'
+import { estadosProductos } from '@/lib/estados'
+
+
+const fetchCiudades = () => {
+    return axios.get('/ciudades').then(res => res.data)
+}
 
 const fetchProductos = () => {
     return axios.get('/administracion/productos').then(res => res.data)
@@ -31,7 +44,7 @@ const columns = [
         label: 'Precio',
     },
     {
-        key: 'ciudad',
+        key: 'id_ciudad',
         label: 'Ciudad',
     },
     {
@@ -44,9 +57,9 @@ const columns = [
     },
 ]
 
-export default function adminIndex() {
+export default function ProdutosIndex() {
+    //AUTORIZACION
     const { user } = useAuth()
-
     const rolesAutorizados = [1]
     useEffect(() => {
         if (user) {
@@ -56,6 +69,7 @@ export default function adminIndex() {
         }
     }, [user])
 
+    //OBTENER PRODUCTOS
     const [productos, setProductos] = useState(null)
 
     useEffect(() => {
@@ -72,6 +86,23 @@ export default function adminIndex() {
         obtenerProductos()
     }, [])
 
+    const [ciudades, setCiudades] = useState()
+    useEffect(() => {
+        async function obtenerCiudades() {
+            try {
+                const data = await fetchCiudades()
+                setCiudades(data)
+                // console.log(data)
+            } catch (error) {
+                console.error('Error al obtener ciudades:', error)
+                // En caso de error, simplemente establece ciudades como un array vacío
+            }
+        }
+
+        obtenerCiudades()
+    }, [])
+
+    //PARA ELIMINAR UN PRODCUTO
     const handleDelete = async id => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN')
@@ -94,9 +125,14 @@ export default function adminIndex() {
         }
     }
 
-    if (productos === null) {
-        // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando productos...</div>
+    //MODAL
+    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
+    //-----------------
+
+    if (productos === null || ciudades === null) {
+        // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
+        return <div>Cargando productos y ciudades...</div>
     }
 
     return (
@@ -115,13 +151,41 @@ export default function adminIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Link href="/administracion/productos/productoStore">
+                                {/* <Link href="/administracion/productos/productoStore">
                                     <NewButton>Agregar Producto</NewButton>
-                                </Link>
-                                <Tabla
-                                    columns={columns}
-                                    rows={productos}
-                                    handleDelete={handleDelete}></Tabla>
+                                </Link> */}
+                                <NewButton onClick={onOpen}>
+                                    Agregar Producto
+                                </NewButton>
+                                <Modal
+                                    className="bg-white border border-gray-200"
+                                    isOpen={isOpen}
+                                    onOpenChange={onOpenChange}
+                                    size="5xl"
+                                    backdrop="blur">
+                                    <ModalContent>
+                                        {onClose => (
+                                            <>
+                                                <ModalHeader className="flex flex-col gap-1">
+                                                    Crear producto
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <ProductoStore></ProductoStore>
+                                                </ModalBody>
+                                            </>
+                                        )}
+                                    </ModalContent>
+                                </Modal>
+                                {productos && ciudades && (
+                                    <Tabla
+                                        columns={columns}
+                                        rows={productos}
+                                        handleDelete={handleDelete}
+                                        ciudades={ciudades}
+                                        estados={estadosProductos()}
+                                        urlUpdate ='/administracion/productos/update/'>
+                                    </Tabla>
+                                )}
                             </div>
                         </div>
                     </div>

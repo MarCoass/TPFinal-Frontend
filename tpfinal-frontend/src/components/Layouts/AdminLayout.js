@@ -3,7 +3,7 @@ import SideNavigation from './SideNavigation'
 
 const AdminLayout = ({ header, children }) => {
     const { user } = useAuth()
-
+    
     return (
         <div className="min-h-screen bg-naranja-50 grid grid-flow-col ">
             <SideNavigation user={user} />

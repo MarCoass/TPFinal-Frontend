@@ -6,12 +6,23 @@ import axios from '@/lib/axios'
 import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { Link } from '@nextui-org/react'
 import { NewButton } from '@/components/Button'
-
+import { estadosInsumos } from '@/lib/estados'
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    useDisclosure,
+} from '@nextui-org/react'
+import InsumoStore from './insumoStore'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
+}
+
+const fetchCategorias = () => {
+    return axios.get('/administracion/categoriasInsumos').then(res => res.data)
 }
 
 const columns = [
@@ -49,7 +60,11 @@ const columns = [
     },
 ]
 
-export default function adminIndex() {
+export default function IndexProductos() {
+    //MODAL
+    const { isOpen, onOpen, onOpenChange } = useDisclosure()
+
+    //AUTORIZACION
     const { user } = useAuth()
 
     const rolesAutorizados = [1]
@@ -61,20 +76,33 @@ export default function adminIndex() {
         }
     }, [user])
 
+    //BUSCAR INSUMOS
     const [insumos, setInsumos] = useState(null)
+    const [categorias, setCategorias] = useState(null)
 
     useEffect(() => {
         async function obtenerInsumos() {
             try {
-                const data = await fetchInsumos()
-                setInsumos(data)
+                const insumos = await fetchInsumos()
+                setInsumos(insumos)
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener insumos:', error)
             }
         }
-
         obtenerInsumos()
+    }, [])
+
+    useEffect(() => {
+        async function obtenerCategorias() {
+            try {
+                const data = await fetchCategorias()
+                setCategorias(data)
+            } catch (error) {
+                console.error('Error al obtener insumos:', error)
+            }
+        }
+        obtenerCategorias()
     }, [])
 
     const handleDelete = async id => {
@@ -100,9 +128,11 @@ export default function adminIndex() {
         }
     }
 
-    if (insumos === null) {
+    const estados = estadosInsumos()
+
+    if (insumos === null || categorias === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando insumos...</div>
+        return <div>Cargando...</div>
     }
 
     return (
@@ -121,13 +151,40 @@ export default function adminIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Link href="/administracion/insumos/insumoStore">
+                                {/* <Link href="/administracion/insumos/insumoStore">
                                     <NewButton>Agregar Insumo</NewButton>
-                                </Link>
-                                <Tabla
-                                    columns={columns}
-                                    rows={insumos}
-                                    handleDelete={handleDelete}></Tabla>
+                                </Link> */}
+                                <NewButton onClick={onOpen}>
+                                    Agregar Insumo
+                                </NewButton>
+                                <Modal
+                                    className="bg-white border border-gray-200"
+                                    isOpen={isOpen}
+                                    onOpenChange={onOpenChange}
+                                    size="5xl"
+                                    backdrop="blur">
+                                    <ModalContent>
+                                        {onClose => (
+                                            <>
+                                                <ModalHeader className="flex flex-col gap-1">
+                                                    Crear Insumo
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <InsumoStore></InsumoStore>
+                                                </ModalBody>
+                                            </>
+                                        )}
+                                    </ModalContent>
+                                </Modal>
+                                {insumos && categorias && (
+                                    <Tabla
+                                        columns={columns}
+                                        rows={insumos}
+                                        handleDelete={handleDelete}
+                                        estados={estados}
+                                        categorias={categorias}
+                                        urlUpdate ='/administracion/insumos/update/'></Tabla>
+                                )}
                             </div>
                         </div>
                     </div>
