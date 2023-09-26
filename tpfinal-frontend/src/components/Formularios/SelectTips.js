@@ -39,7 +39,7 @@ export default function SelectTips({ value, onChange }) {
             value={value}
             onChange={handleChange}>
             {tip => (
-                <SelectItem key={tip.id} value={tip.id}>
+                <SelectItem className='bg-violeta-100 hover:bg-violeta-200' key={tip.id} value={tip.id}>
                     {tip.forma.toUpperCase()} {tip.largo}cm.
                 </SelectItem>
             )}

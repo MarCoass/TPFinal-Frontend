@@ -40,7 +40,7 @@ export default function SelectCategoriasSets({ value, onChange }) {
             value={value}
             onChange={handleChange}>
             {categoria => (
-                <SelectItem key={categoria.id} value={categoria.id}>
+                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={categoria.id} value={categoria.id}>
                     {categoria.nombre}
                 </SelectItem>
             )}

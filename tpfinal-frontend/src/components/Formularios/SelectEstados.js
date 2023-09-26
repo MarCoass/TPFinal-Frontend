@@ -41,7 +41,7 @@ export function SelectEstadosInsumo({ value, onChange }) {
             value={value}
             onChange={handleChange}>
             {estado => (
-                <SelectItem key={estado.id} value={estado.id}>
+                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={estado.id} value={estado.id}>
                     {estado.nombre}
                 </SelectItem>
             )}

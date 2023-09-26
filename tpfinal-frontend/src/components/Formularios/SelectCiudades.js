@@ -41,7 +41,7 @@ export default function SelectCiudades({ value, onChange }) {
             value={value}
             onChange={handleCiudadChange}>
             {ciudad => (
-                <SelectItem key={ciudad.id} value={ciudad.id}>
+                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={ciudad.id} value={ciudad.id}>
                     {ciudad.nombre}
                 </SelectItem>
             )}
