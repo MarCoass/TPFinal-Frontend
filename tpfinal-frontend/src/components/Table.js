@@ -20,7 +20,8 @@ export default function Tabla({
     estados,
     categorias,
     children,
-    urlUpdate
+    urlUpdate,
+    urlVer,
 }) {
     const [productoIdToUpdate, setProductoIdToUpdate] = useState()
     useEffect(() => {
@@ -39,6 +40,10 @@ export default function Tabla({
                         <Link
                             href={urlUpdate+item.id}>
                             <UpdateButton>Editar</UpdateButton>
+                        </Link>
+                        <Link
+                            href={urlVer+item.id}>
+                            <UpdateButton>Ver</UpdateButton>
                         </Link>
                         <DeleteButton onClick={() => handleDelete(item.id)}>
                             Borrar

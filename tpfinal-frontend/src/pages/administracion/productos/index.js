@@ -183,7 +183,8 @@ export default function ProdutosIndex() {
                                         handleDelete={handleDelete}
                                         ciudades={ciudades}
                                         estados={estadosProductos()}
-                                        urlUpdate ='/administracion/productos/update/'>
+                                        urlUpdate ='/administracion/productos/update/'
+                                        urlVer ='/administracion/productos/verProducto/'>
                                     </Tabla>
                                 )}
                             </div>
