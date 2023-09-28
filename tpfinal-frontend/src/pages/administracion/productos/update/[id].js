@@ -6,6 +6,13 @@ import getCookie from '@/lib/cookies'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+import { Tabs, Tab } from '@nextui-org/react'
+import ListadoInsumos from '@/components/Formularios/listado'
+import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
+import SelectTips from '@/components/Formularios/SelectTips'
+import SelectCiudades from '@/components/Formularios/SelectCiudades'
+
+
 const fetchProducto = id => {
     return axios
         .get(
@@ -15,8 +22,7 @@ const fetchProducto = id => {
 }
 
 export default function Page({ params }) {
-    const { id } = useRouter().query // Obtener el valor del parámetro 'id' de la URL
-
+    const { id } = useRouter().query
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -24,6 +30,9 @@ export default function Page({ params }) {
     const [ciudad, setCiudad] = useState('')
     const [estado, setEstado] = useState('')
     const [imagen, setImagen] = useState('')
+    const [categoriaSet, setCategoriaSet] = useState('')
+    const [tip, setTip] = useState('')
+    const [cantidadesInsumos, setCantidadesInsumos] = useState({})
 
     useEffect(() => {
         if (id != null) {
@@ -47,6 +56,14 @@ export default function Page({ params }) {
             obtenerProducto()
         }
     }, [id])
+
+    const handleCantidadInsumosChange = nuevasCantidades => {
+        // Combina las nuevas cantidades con el estado existente
+        setCantidadesInsumos(prevCantidades => ({
+            ...prevCantidades,
+            ...nuevasCantidades,
+        }))
+    }
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -95,97 +112,141 @@ export default function Page({ params }) {
     return (
         <>
             <AdminLayout>
-                <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="p-6 bg-white border-b border-gray-200">
-                                {nombre === null ? (
-                                    <div>Cargando...</div>
-                                ) : (
-                                    <form
-                                        onSubmit={handleSubmit}
-                                        encType="multipart/form-data"
-                                        className="grid grid-cols-2 gap-4">
-                                        {/* Campos del formulario */}
-                                        <div className="flex justify-around">
-                                            <label>Nombre:</label>
-                                            <Input
-                                                type="text"
-                                                value={nombre}
-                                                onChange={e =>
-                                                    setNombre(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <label>Descripcion:</label>
-                                            <Input
-                                                type="text"
-                                                value={descripcion}
-                                                onChange={e =>
-                                                    setDescripcion(
-                                                        e.target.value,
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <label>Stock:</label>
-                                            <Input
-                                                type="number"
-                                                value={stock}
-                                                onChange={e =>
-                                                    setStock(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <label>Precio:</label>
-                                            <Input
-                                                type="number"
-                                                value={precio}
-                                                onChange={e =>
-                                                    setPrecio(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <label>Ciudad:</label>
-                                            <Input
-                                                type="number"
-                                                value={ciudad}
-                                                onChange={e =>
-                                                    setCiudad(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <label>Estado:</label>
-                                            <Input
-                                                type="number"
-                                                value={estado}
-                                                onChange={e =>
-                                                    setEstado(e.target.value)
-                                                }
-                                            />
-                                        </div>
-                                        {/* Campo de carga de imagen */}
-                                        <div>
-                                            <label>Imagen:</label>
-                                            <input
-                                                type="file"
-                                                accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                                onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
-                                            />
-                                        </div>
-                                        <button
-                                            className="border border-violeta-500 w-20 "
-                                            type="submit">
-                                            Enviar
-                                        </button>
-                                    </form>
-                                )}
-                            </div>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6">
+                            {nombre === null ? (
+                                <div>Cargando...</div>
+                            ) : (
+                                <form
+                                    onSubmit={handleSubmit}
+                                    encType="multipart/form-data"
+                                    className="flex flex-col">
+                                    <Tabs aria-label="Formulario de editar producto">
+                                        <Tab
+                                            key="general"
+                                            title="Informacion general"
+                                            className="grid grid-cols-2 gap-4">
+                                            <div className="flex justify-around">
+                                                <label>Nombre:</label>
+                                                <Input
+                                                    type="text"
+                                                    value={nombre}
+                                                    onChange={e =>
+                                                        setNombre(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="flex justify-around">
+                                                <label>Descripcion:</label>
+                                                <Input
+                                                    type="text"
+                                                    value={descripcion}
+                                                    onChange={e =>
+                                                        setDescripcion(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="flex justify-around">
+                                                <label>Stock:</label>
+                                                <Input
+                                                    type="number"
+                                                    value={stock}
+                                                    onChange={e =>
+                                                        setStock(e.target.value)
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="flex justify-around">
+                                                <label>Precio:</label>
+                                                <Input
+                                                    type="number"
+                                                    value={precio}
+                                                    onChange={e =>
+                                                        setPrecio(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="flex justify-around">
+                                                <label>Ciudad:</label>
+                                                <Input
+                                                    type="number"
+                                                    value={ciudad}
+                                                    onChange={e =>
+                                                        setCiudad(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="flex justify-around">
+                                                <label>Estado:</label>
+                                                <Input
+                                                    type="number"
+                                                    value={estado}
+                                                    onChange={e =>
+                                                        setEstado(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                            {/* Campo de carga de imagen */}
+                                            <div>
+                                                <label>Imagen:</label>
+                                                <input
+                                                    type="file"
+                                                    accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
+                                                    onChange={
+                                                        handleImagenChange
+                                                    } // Maneja el cambio en la selección de imagen
+                                                />
+                                            </div>
+                                        </Tab>
+                                        <Tab
+                                            key="insumos"
+                                            title="Insumos utilizados">
+                                            <ListadoInsumos
+                                                onCantidadInsumosChange={
+                                                    handleCantidadInsumosChange
+                                                }></ListadoInsumos>
+                                        </Tab>
+                                        <Tab
+                                            key="sets"
+                                            title="Informacion de Set">
+                                            <div className="flex justify-around">
+                                                <SelectCategoriasSets
+                                                    value={categoriaSet}
+                                                    onChange={e =>
+                                                        setCategoriaSet(
+                                                            e.target.value,
+                                                        )
+                                                    }></SelectCategoriasSets>
+                                            </div>
+
+                                            <div className="flex justify-around">
+                                                <SelectTips
+                                                    value={tip}
+                                                    onChange={e =>
+                                                        setTip(e.target.value)
+                                                    }></SelectTips>
+                                            </div>
+                                        </Tab>
+                                    </Tabs>
+
+                                    <button
+                                        className="border border-violeta-500 w-20 "
+                                        type="submit">
+                                        Enviar
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>

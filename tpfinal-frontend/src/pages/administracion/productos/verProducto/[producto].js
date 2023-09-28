@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from '@/lib/axios'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import Button from '@/components/Button'
+import { Link } from '@nextui-org/react'
 
 
 const fetchProductos = producto => {
@@ -62,11 +63,7 @@ export default function infoProducto({ params }) {
     const [infoCiudades, setCiudades] = useState(null)
     const router = useRouter()
     const { producto } = router.query
-    //tengo que traer:
-    //categoriaSet --> es necesario?
-    //tips
-    //insumo
-    //ciudades
+
     useEffect(() => {
         if (producto != null) {
             async function obtenerDatos() {
@@ -106,6 +103,8 @@ export default function infoProducto({ params }) {
     }, [producto])
     //
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
+
+    
     return (
         <AdminLayout>
             <div className="py-12">
@@ -161,8 +160,9 @@ export default function infoProducto({ params }) {
                                     </div>
                                 </div>
                                 <div className="flex flex-row gap-4 ">
-                                  
-                                    <Button>Editar</Button>
+                                    <Link href={'/administracion/productos/update/' + infoProducto.id}>
+                                        <Button>Editar</Button>
+                                    </Link>
                                 </div>
                             </div>
                         ) : (

@@ -5,7 +5,7 @@ import SelectTips from '@/components/Formularios/SelectTips'
 import ListadoInsumos from '@/components/Formularios/listado'
 import Input from '@/components/Input'
 
-import { Tabs, Tab, Card, CardBody } from '@nextui-org/react'
+import { Tabs, Tab} from '@nextui-org/react'
 
 const { default: axios } = require('@/lib/axios')
 const { default: getCookie } = require('@/lib/cookies')
@@ -92,7 +92,7 @@ export default function ProductoStore() {
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                             className="flex flex-col">
-                            <Tabs aria-label="Formulario de producto">
+                            <Tabs aria-label="Formulario de cargar producto">
                                 <Tab
                                     key="general"
                                     title="Informacion general"
