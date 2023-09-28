@@ -32,6 +32,11 @@ const Navigation = ({ user }) => {
 
                         {user && user.id_rol == 1 ? (
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
+                                    href="/tienda"
+                                    active={router.pathname === '/tienda'}>
+                                    Tienda
+                                </NavLink>
                                 <NavLink
                                     href="/administracion/productos"
                                     active={router.pathname === '/administracion/productos'}>
@@ -77,7 +82,7 @@ const Navigation = ({ user }) => {
                                 width="48"
                                 trigger={
                                     <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                                        <div>{user?.name}</div>
+                                        <div>{user?.nombre}</div>
                                         <div className="ml-1">
                                             <svg
                                                 className="fill-current h-4 w-4"
