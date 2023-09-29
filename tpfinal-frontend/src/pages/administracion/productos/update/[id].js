@@ -12,6 +12,7 @@ import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectTips from '@/components/Formularios/SelectTips'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
 import { SelectEstadosSet } from '@/components/Formularios/SelectEstados'
+import { esSet } from '@/lib/producto'
 
 const fetchProducto = id => {
     return axios
@@ -34,6 +35,8 @@ export default function Page({ params }) {
     const [tip, setTip] = useState('')
     const [cantidadesInsumos, setCantidadesInsumos] = useState({})
 
+    const [set, setEsSet] = useState('')
+
     useEffect(() => {
         if (id != null) {
             async function obtenerProducto() {
@@ -46,6 +49,9 @@ export default function Page({ params }) {
                     setCiudad(data.id_ciudad || '')
                     setEstado(data.estado || '')
                     setImagen(data.imagen || '')
+
+                    const respuesta = await esSet(id)
+                    setEsSet(respuesta.esSet)
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -208,27 +214,31 @@ export default function Page({ params }) {
                                                     handleCantidadInsumosChange
                                                 }></ListadoInsumos>
                                         </Tab>
-                                        <Tab
-                                            key="sets"
-                                            title="Informacion de Set">
-                                            <div className="flex justify-around">
-                                                <SelectCategoriasSets
-                                                    value={categoriaSet}
-                                                    onChange={e =>
-                                                        setCategoriaSet(
-                                                            e.target.value,
-                                                        )
-                                                    }></SelectCategoriasSets>
-                                            </div>
+                                        {set  && (
+                                            <Tab
+                                                key="sets"
+                                                title="Informacion de Set">
+                                                <div className="flex justify-around">
+                                                    <SelectCategoriasSets
+                                                        value={categoriaSet}
+                                                        onChange={e =>
+                                                            setCategoriaSet(
+                                                                e.target.value,
+                                                            )
+                                                        }></SelectCategoriasSets>
+                                                </div>
 
-                                            <div className="flex justify-around">
-                                                <SelectTips
-                                                    value={tip}
-                                                    onChange={e =>
-                                                        setTip(e.target.value)
-                                                    }></SelectTips>
-                                            </div>
-                                        </Tab>
+                                                <div className="flex justify-around">
+                                                    <SelectTips
+                                                        value={tip}
+                                                        onChange={e =>
+                                                            setTip(
+                                                                e.target.value,
+                                                            )
+                                                        }></SelectTips>
+                                                </div>
+                                            </Tab>
+                                        )};
                                     </Tabs>
 
                                     <button
