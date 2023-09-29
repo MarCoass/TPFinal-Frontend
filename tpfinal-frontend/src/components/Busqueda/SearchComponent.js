@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { ListboxWrapper } from '../Formularios/listboxWrapper'
+import { Listbox, ListboxItem } from '@nextui-org/react'
 
-const SearchComponent = ({ data }) => {
+const SearchComponent = ({ data, selectedKeys, setSelectedKeys }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [resultados, setResultados] = useState([])
 
@@ -21,13 +23,23 @@ const SearchComponent = ({ data }) => {
                 onChange={e => setSearchTerm(e.target.value)}
             />
             <button onClick={handleSearch}>Buscar</button>
-            <ul>
-                {resultados.map(result => (
-                    <li key={result.id}>{result.nombre}</li>
-                ))}
-            </ul>
+
+            <ListboxWrapper>
+                <Listbox
+                    items={resultados}
+                    aria-label="Multiple selection example"
+                    variant="flat"
+                    selectionMode="multiple"
+                    selectedKeys={selectedKeys}
+                    onSelectionChange={setSelectedKeys}>
+                    {resultados => (
+                        <ListboxItem key={resultados.id}>{resultados.nombre}</ListboxItem>
+                    )}
+                </Listbox>
+            </ListboxWrapper>
+        
         </div>
     )
 }
 
-export default SearchComponent;
+export default SearchComponent

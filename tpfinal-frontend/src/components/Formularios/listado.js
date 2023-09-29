@@ -5,13 +5,12 @@ import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
 import SearchComponent from '../Busqueda/SearchComponent'
 
-
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
 export default function ListadoInsumos({ onCantidadInsumosChange }) {
-    const [insumos, setInsumos] = useState([])  
+    const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
     useEffect(() => {
@@ -30,7 +29,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
 
         obtenerInsumos()
     }, [])
-
 
     const getCantidadInsumosSeleccionados = () => {
         const cantidades = {}
@@ -52,24 +50,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
 
     return (
         <div className="flex gap-4 ">
-        <SearchComponent data={insumos}></SearchComponent>
-            <ListboxWrapper>
-                <p>Seleccione los insumos utilizados</p>
-                <Listbox
-                    items={insumos}
-                    aria-label="Multiple selection example"
-                    variant="flat"
-                    disallowEmptySelection
-                    selectionMode="multiple"
-                    selectedKeys={selectedKeys}
-                    onSelectionChange={setSelectedKeys}>
-                    {insumo => (
-                        <ListboxItem key={insumo.id}>
-                            {insumo.nombre}
-                        </ListboxItem>
-                    )}
-                </Listbox>
-            </ListboxWrapper>
+            <SearchComponent
+                data={insumos}
+                selectedKeys={selectedKeys}
+                setSelectedKeys={setSelectedKeys}></SearchComponent>
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
                 {selectedKeys.size > 0 ? (
@@ -84,7 +68,7 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                                 key={insumo.id}
                                 onCantidadChange={cantidad =>
                                     onCantidadInsumosChange({
-                                        [insumo.id]: cantidad
+                                        [insumo.id]: cantidad,
                                     })
                                 }></InputInsumo>
                         ) // Asegúrate de incluir un 'return' aquí
