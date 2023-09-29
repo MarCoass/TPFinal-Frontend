@@ -38,8 +38,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                 item => item.id === parseInt(id_insumo, 10),
             )
             if (insumo) {
-                // Aquí puedes definir cómo obtener la cantidad de cada insumo si es necesario.
-                // Por ejemplo, puedes solicitar la cantidad al usuario o tenerla como un estado local.
                 cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
             }
         })
@@ -71,10 +69,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                                         [insumo.id]: cantidad,
                                     })
                                 }></InputInsumo>
-                        ) // Asegúrate de incluir un 'return' aquí
+                        )
                     })
                 ) : (
-                    <p>No se han seleccionado insumos</p> // Puedes mostrar 'Selected value' aquí
+                    <p>No se han seleccionado insumos</p>
                 )}
             </div>
         </div>
