@@ -22,31 +22,36 @@ const fetchProductos = () => {
         .then(res => res.data)
 }
 
+const fetchCarrito = () => {
+    return axios
+        .get(
+            process.env.NEXT_PUBLIC_BACKEND_URL + '/carrito', // Usa axios.get en lugar de fetch
+        )
+        .then(res => res.data)
+}
+
 export default function ListadoProductos() {
     const [productos, setProductos] = useState(null)
+    const [carrito, setCarrito] = useState(null)
 
-    const handleDelete = async id => {
+    const handleAgregar = async id => {
         try {
             const xsrfToken = getCookie('XSRF-TOKEN')
-            /*   console.log(id)
-            console.log(xsrfToken) */
-            const response = await axios.delete(
-                `/administracion/productoDelete/${id}`,
-                {
-                    headers: {
-                        'X-XSRF-TOKEN': xsrfToken,
-                        Accept: 'application/json',
-                    },
+
+            const formData = new FormData()
+            formData.append('id_producto', id)
+            formData.append('cantidad', 2)
+
+            //console.log(xsrfToken)
+            const response = await axios.post(`/agregar-producto`, formData, {
+                headers: {
+                    'X-XSRF-TOKEN': xsrfToken,
+                    Accept: 'application/json',
                 },
-            )
-            console.log(response)
-            // Actualiza la lista de productos después de eliminar el producto
-            const updatedProductos = productos.filter(
-                producto => producto.id !== id,
-            )
-            setProductos(updatedProductos)
+            })
+            // console.log(response.data)
         } catch (error) {
-            console.error('Error al eliminar el producto:', error)
+            console.error('Error al agregar el producto:', error)
         }
     }
 
@@ -63,12 +68,28 @@ export default function ListadoProductos() {
         obtenerProductos()
     }, [])
 
+    useEffect(() => {
+        async function obtenerCarrito() {
+            try {
+                const data = await fetchCarrito()
+                setCarrito(data)
+            } catch (error) {
+                console.error('Error al obtener Carrito:', error)
+            }
+        }
+        obtenerCarrito()
+    }, [])
+
     if (productos === null) {
-        // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
+        //  mostrar un mensaje de carga mientras esperas que se resuelva la Promise
         return <div>Cargando productos...</div>
     }
+    if (carrito === null) {
+        //  mostrar un mensaje de carga mientras esperas que se resuelva la Promise
+        return <div>Cargando carrito...</div>
+    }
 
-    // Ahora que los datos están disponibles, puedes renderizarlos
+    // Ahora que los datos están disponibles,  renderizarlos
     return (
         <section>
             <h1>Productos</h1>
@@ -81,9 +102,9 @@ export default function ListadoProductos() {
                         <p>Stock: {producto.stock}</p>
 
                         <button
-                            onClick={() => handleDelete(producto.id)}
+                            onClick={() => handleAgregar(producto.id)}
                             className="bg-violeta-500 text-white p-2">
-                            Borrar
+                            Agregar a carrito
                         </button>
                     </li>
                 ))}

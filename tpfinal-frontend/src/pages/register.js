@@ -23,7 +23,10 @@ const Register = () => {
         redirectIfAuthenticated: '/dashboard',
     })
 
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
+    const [nombre, setNombre] = useState('')
+    const [apellido, setApellido] = useState('')
+    const [numTelefono, setNumTelefono] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -33,7 +36,10 @@ const Register = () => {
         event.preventDefault()
 
         register({
-            name,
+            username,
+            nombre, 
+            apellido,
+            numTelefono,
             email,
             password,
             password_confirmation: passwordConfirmation,
@@ -42,11 +48,6 @@ const Register = () => {
     }
 
 
-      {/* esto para seleccionar la provincia*/}
-    const [selectedOption, setSelectedOption] = useState('');
-    const handleSelectChange = e => {
-        setSelectedOption(e.target.value)
-    }
 
     return (
         <GuestLayout>
@@ -65,20 +66,71 @@ const Register = () => {
                 <form onSubmit={submitForm}>
                     {/* Name */}
                     <div>
-                        <Label htmlFor="name">Ingrese su nombre</Label>
+                        <Label htmlFor="username">Ingrese su usuario</Label>
 
                         <Input
-                            id="name"
+                            id="username"
                             type="text"
-                            value={name}
+                            value={username}
                             className="block mt-1 w-full"
-                            onChange={event => setName(event.target.value)}
+                            onChange={event => setUsername(event.target.value)}
                             required
                             autoFocus
-                            placeholder="Nombre Apellido"
+                            placeholder="Usuario"
                         />
 
-                        <InputError messages={errors.name} className="mt-2" />
+                        <InputError messages={errors.username} className="mt-2" />
+                    </div>
+                    
+                    <div className="mt-4">
+                        <Label htmlFor="nombre">Ingrese su nombre</Label>
+
+                        <Input
+                            id="nombre"
+                            type="text"
+                            value={nombre}
+                            className="block mt-1 w-full"
+                            onChange={event => setNombre(event.target.value)}
+                            required
+                            autoFocus
+                            placeholder="Nombre"
+                        />
+
+                        <InputError messages={errors.nombre} className="mt-2" />
+                    </div>
+                    
+                    <div className="mt-4">
+                        <Label htmlFor="apellido">Ingrese su apellido</Label>
+
+                        <Input
+                            id="apellido"
+                            type="text"
+                            value={apellido}
+                            className="block mt-1 w-full"
+                            onChange={event => setApellido(event.target.value)}
+                            required
+                            autoFocus
+                            placeholder="Apellido"
+                        />
+
+                        <InputError messages={errors.nombre} className="mt-2" />
+                    </div>
+
+                    <div className="mt-4">
+                        <Label htmlFor="num_telefono">Ingrese su numero de telefono</Label>
+
+                        <Input
+                            id="numTelefono"
+                            type="tel"
+                            value={numTelefono}
+                            className="block mt-1 w-full"
+                            onChange={event => setNumTelefono(event.target.value)}
+                            required
+                            autoFocus
+                            placeholder="Numero de telefono"
+                        />
+
+                        <InputError messages={errors.nombre} className="mt-2" />
                     </div>
 
                     {/* Email Address */}
