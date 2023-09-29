@@ -11,7 +11,7 @@ import ListadoInsumos from '@/components/Formularios/listado'
 import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectTips from '@/components/Formularios/SelectTips'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
-
+import { SelectEstadosSet } from '@/components/Formularios/SelectEstados'
 
 const fetchProducto = id => {
     return axios
@@ -174,28 +174,19 @@ export default function Page({ params }) {
                                                 />
                                             </div>
                                             <div className="flex justify-around">
-                                                <label>Ciudad:</label>
-                                                <Input
-                                                    type="number"
+                                                <SelectCiudades
                                                     value={ciudad}
-                                                    onChange={e =>
-                                                        setCiudad(
-                                                            e.target.value,
-                                                        )
+                                                    onChange={newCiudad =>
+                                                        setCiudad(newCiudad)
                                                     }
                                                 />
                                             </div>
                                             <div className="flex justify-around">
-                                                <label>Estado:</label>
-                                                <Input
-                                                    type="number"
+                                                <SelectEstadosSet
                                                     value={estado}
-                                                    onChange={e =>
-                                                        setEstado(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
+                                                    onChange={newEstado =>
+                                                        setEstado(newEstado)
+                                                    }></SelectEstadosSet>
                                             </div>
                                             {/* Campo de carga de imagen */}
                                             <div>
