@@ -3,13 +3,14 @@ import axios from '@/lib/axios'
 import { Listbox, ListboxItem } from '@nextui-org/react'
 import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
+import SearchInsumo from '../Busqueda/SearchComponent'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
 export default function ListadoInsumos({ onCantidadInsumosChange }) {
-    const [insumos, setInsumos] = useState([])  
+    const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
     useEffect(() => {
@@ -29,7 +30,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
         obtenerInsumos()
     }, [])
 
-
     const getCantidadInsumosSeleccionados = () => {
         const cantidades = {}
 
@@ -38,8 +38,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                 item => item.id === parseInt(id_insumo, 10),
             )
             if (insumo) {
-                // Aquí puedes definir cómo obtener la cantidad de cada insumo si es necesario.
-                // Por ejemplo, puedes solicitar la cantidad al usuario o tenerla como un estado local.
                 cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
             }
         })
@@ -50,23 +48,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
 
     return (
         <div className="flex gap-4 ">
-            <ListboxWrapper>
-                <p>Seleccione los insumos utilizados</p>
-                <Listbox
-                    items={insumos}
-                    aria-label="Multiple selection example"
-                    variant="flat"
-                    disallowEmptySelection
-                    selectionMode="multiple"
-                    selectedKeys={selectedKeys}
-                    onSelectionChange={setSelectedKeys}>
-                    {insumo => (
-                        <ListboxItem key={insumo.id}>
-                            {insumo.nombre}
-                        </ListboxItem>
-                    )}
-                </Listbox>
-            </ListboxWrapper>
+            <SearchInsumo
+                data={insumos}
+                selectedKeys={selectedKeys}
+                setSelectedKeys={setSelectedKeys}></SearchInsumo>
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
                 {selectedKeys.size > 0 ? (
@@ -81,13 +66,13 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                                 key={insumo.id}
                                 onCantidadChange={cantidad =>
                                     onCantidadInsumosChange({
-                                        [insumo.id]: cantidad
+                                        [insumo.id]: cantidad,
                                     })
                                 }></InputInsumo>
-                        ) // Asegúrate de incluir un 'return' aquí
+                        )
                     })
                 ) : (
-                    <p>No se han seleccionado insumos</p> // Puedes mostrar 'Selected value' aquí
+                    <p>No se han seleccionado insumos</p>
                 )}
             </div>
         </div>
