@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import { Listbox, ListboxItem } from '@nextui-org/react'
-import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
 import SearchInsumo from '../Busqueda/SearchComponent'
+import { insumosUsados } from '@/lib/producto'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
-export default function ListadoInsumos({ onCantidadInsumosChange }) {
+export default function ListadoInsumos({ onCantidadInsumosChange, idProducto }) {
     const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
@@ -29,6 +28,7 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
 
         obtenerInsumos()
     }, [])
+
 
     const getCantidadInsumosSeleccionados = () => {
         const cantidades = {}
