@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
+import CustomSpinner from '@/components/CustomSpinner'
 
 
 
@@ -138,7 +139,11 @@ export default function infoProducto({ params }) {
                             </div>
 
                         ) : (
-                            <div>Cargando producto...</div>
+                            <div>
+                                <CustomSpinner
+                                mensaje={'Cargando producto...'}>
+                                </CustomSpinner>
+                            </div>
                         )}
                     </div>
                 </div>
