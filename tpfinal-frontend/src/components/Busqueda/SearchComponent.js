@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ListboxWrapper } from '../Formularios/listboxWrapper'
 import { Listbox, ListboxItem } from '@nextui-org/react'
 
-const SearchComponent = ({ data, selectedKeys, setSelectedKeys }) => {
+const SearchInsumo = ({ data, selectedKeys, setSelectedKeys }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [resultados, setResultados] = useState([])
 
@@ -42,4 +42,4 @@ const SearchComponent = ({ data, selectedKeys, setSelectedKeys }) => {
     )
 }
 
-export default SearchComponent
+export default SearchInsumo

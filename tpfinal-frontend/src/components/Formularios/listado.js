@@ -3,7 +3,7 @@ import axios from '@/lib/axios'
 import { Listbox, ListboxItem } from '@nextui-org/react'
 import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
-import SearchComponent from '../Busqueda/SearchComponent'
+import SearchInsumo from '../Busqueda/SearchComponent'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -48,10 +48,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
 
     return (
         <div className="flex gap-4 ">
-            <SearchComponent
+            <SearchInsumo
                 data={insumos}
                 selectedKeys={selectedKeys}
-                setSelectedKeys={setSelectedKeys}></SearchComponent>
+                setSelectedKeys={setSelectedKeys}></SearchInsumo>
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
                 {selectedKeys.size > 0 ? (
