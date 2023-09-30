@@ -1,13 +1,12 @@
-import React from "react";
-import {Spinner} from "@nextui-org/react";
-
-const CustomSpinner = ({mensaje}) => {
+export default function CustomSpinner({ mensaje }) {
   return (
-    <div>
-    <Spinner label={`${mensaje}...`} color="violeta-800" />
+    <div
+      class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent text-violeta-600 align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+      role="status">
+      <span
+        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+      >{mensaje}</span>
     </div>
 
   );
 }
-
-export default CustomSpinner
