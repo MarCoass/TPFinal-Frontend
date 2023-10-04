@@ -12,6 +12,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { Checkbox } from '@/components/ui/checkbox'
+import { estadosProductos } from '@/lib/estados'
+import SelectCiudades from '@/components/Formularios/SelectCiudades'
+import { fetchCiudades } from '@/lib/ciudades'
 
 export const Producto = {
     id: '',
@@ -37,6 +40,7 @@ export const columns = [
         ),
         cell: ({ row }) => (
             <Checkbox
+          
                 checked={row.getIsSelected()}
                 onCheckedChange={value => row.toggleSelected(!!value)}
                 aria-label="Select row"
@@ -54,8 +58,12 @@ export const columns = [
         header: 'descripcion',
     },
     {
-        accessorKey: 'ciudad',
-        header: 'ciudad',
+        accessorKey: 'id_ciudad',
+        header: 'Ciudad',
+        cell:({row}) => {
+        
+          return <div>{row.getValue('id_ciudad')}</div>
+        }
     },
     {
         accessorKey: 'precio',
@@ -72,7 +80,13 @@ export const columns = [
     },
     {
         accessorKey: 'estado',
-        header: 'estado',
+        header: 'Estado',
+        cell:({row}) => {
+          const id_estado = row.getValue('estado')
+          const estados = estadosProductos();
+          const estado = estados.find(estado => estado.id === id_estado)
+          return <div>{estado.nombre}</div>
+        }
     },
     {
         accessorKey: 'stock',
@@ -91,7 +105,7 @@ export const columns = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent align="end"   className="bg-rosado-200">
                         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
 
                         <DropdownMenuItem>Editar</DropdownMenuItem>

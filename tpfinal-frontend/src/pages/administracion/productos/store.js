@@ -51,8 +51,8 @@ export default function ProductoStore() {
             formData.append('descripcion', descripcion)
             formData.append('precio', precio)
             formData.append('stock', stock)
-            formData.append('ciudad', ciudad.target.value)
-            formData.append('estado', estado.target.value)
+            formData.append('ciudad', ciudad)
+            formData.append('estado', estado)
             formData.append('imagen', imagen)
 
             const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
