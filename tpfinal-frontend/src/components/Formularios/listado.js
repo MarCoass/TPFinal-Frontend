@@ -8,8 +8,11 @@ const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
-export default function ListadoInsumos({ onCantidadInsumosChange }) {
-    const [insumos, setInsumos] = useState([])  
+export default function ListadoInsumos({
+    onCantidadInsumosChange,
+    idProducto,
+}) {
+    const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
     useEffect(() => {
@@ -17,8 +20,18 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
             try {
                 const data = await fetchInsumos()
                 setInsumos(data)
+                if (idProducto != null) {
+                    const insumosCargados = await insumosUsados(idProducto)
+                    // Filtrar los insumos que coinciden con data
+                    const insumosFiltrados = insumosCargados.filter(insumo =>
+                        data.some(dataInsumo => dataInsumo.id === insumo.id),
+                    )
+                    // Obtener los IDs de los insumos filtrados
+                    const insumoIDs = insumosFiltrados.map(insumo => insumo.id)
+                    setSelectedKeys(insumoIDs)
+                }
 
-                // console.log(data)
+                // setInsumos(data)
             } catch (error) {
                 console.error('Error al obtener insumos:', error)
                 // En caso de error, simplemente establece insumos como un array vacío
@@ -29,24 +42,9 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
         obtenerInsumos()
     }, [])
 
-
-    const getCantidadInsumosSeleccionados = () => {
-        const cantidades = {}
-
-        selectedKeys.forEach(id_insumo => {
-            const insumo = insumos.find(
-                item => item.id === parseInt(id_insumo, 10),
-            )
-            if (insumo) {
-                // Aquí puedes definir cómo obtener la cantidad de cada insumo si es necesario.
-                // Por ejemplo, puedes solicitar la cantidad al usuario o tenerla como un estado local.
-                cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
-            }
-        })
-
-        // Luego, llama a la función de devolución de llamada para pasar las cantidades al componente padre.
-        onCantidadInsumosChange(cantidades)
-    }
+    useEffect(() => {
+        console.log(selectedKeys)
+    }, [selectedKeys])
 
     return (
         <div className="flex gap-4 ">
@@ -69,11 +67,12 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
             </ListboxWrapper>
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
-                {selectedKeys.size > 0 ? (
+                {selectedKeys.length > 0 ? (
                     [...selectedKeys].map(id_insumo => {
                         const insumo = insumos.find(
                             insumo => insumo.id === parseInt(id_insumo, 10),
                         )
+
                         return (
                             <InputInsumo
                                 id={insumo.id}
