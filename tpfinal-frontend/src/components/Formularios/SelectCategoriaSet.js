@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Select, SelectItem } from '@nextui-org/react'
 import axios from '@/lib/axios'
+import SelectBasico from '../Select'
 
 const fetchCategorias = () => {
     return axios.get('/categoriasSets').then(res => res.data)
 }
 
-export default function SelectCategoriasSets({ value, onChange }) {
+export default function SelectCategoriasSets({ onChange }) {
     const [categorias, setCategorias] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function SelectCategoriasSets({ value, onChange }) {
             try {
                 const data = await fetchCategorias()
                 setCategorias(data)
-                console.log(categorias)
+
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener categorias:', error)
@@ -32,18 +32,9 @@ export default function SelectCategoriasSets({ value, onChange }) {
     }
 
     return (
-        <Select
+        <SelectBasico
             items={categorias}
-            label="Categoria del set"
-            placeholder="Seleccionar una categoria"
-            className="max-w-xs"
-            value={value}
-            onChange={handleChange}>
-            {categoria => (
-                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={categoria.id} value={categoria.id}>
-                    {categoria.nombre}
-                </SelectItem>
-            )}
-        </Select>
+            onChange={handleChange}
+            placeholder="Seleccione la categoria"></SelectBasico>
     )
 }

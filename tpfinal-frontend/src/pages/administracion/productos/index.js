@@ -7,16 +7,16 @@ import Tabla from '@/components/Table'
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { NewButton } from '@/components/Button'
-import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    useDisclosure,
-} from '@nextui-org/react'
 import ProductoStore from './store'
 import { estadosProductos } from '@/lib/estados'
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -126,7 +126,6 @@ export default function ProdutosIndex() {
     }
 
     //MODAL
-    const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     //-----------------
 
@@ -151,42 +150,33 @@ export default function ProdutosIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                {/* <Link href="/administracion/productos/productoStore">
-                                    <NewButton>Agregar Producto</NewButton>
-                                </Link> */}
-                                <NewButton onClick={onOpen}>
-                                    Agregar Producto
-                                </NewButton>
-                                <Modal
-                                    className="bg-white border border-gray-200"
-                                    isOpen={isOpen}
-                                    onOpenChange={onOpenChange}
-                                    size="5xl"
-                                    backdrop="blur">
-                                    <ModalContent>
-                                        {onClose => (
-                                            <>
-                                                <ModalHeader className="flex flex-col gap-1">
-                                                    Crear producto
-                                                </ModalHeader>
-                                                <ModalBody>
-                                                    <ProductoStore></ProductoStore>
-                                                </ModalBody>
-                                            </>
-                                        )}
-                                    </ModalContent>
-                                </Modal>
-                                {productos && ciudades && (
+                                <Dialog>
+                                    <DialogTrigger>
+                                        {' '}
+                                        Agregar Producto
+                                    </DialogTrigger>
+                                    <DialogContent className="bg-white border border-gray-200">
+                                        <DialogHeader>
+                                            <DialogTitle>
+                                                Crear producto
+                                            </DialogTitle>
+                                            <DialogDescription>
+                                                <ProductoStore></ProductoStore>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+
+                                {/*  {productos && ciudades && (
                                     <Tabla
                                         columns={columns}
                                         rows={productos}
                                         handleDelete={handleDelete}
                                         ciudades={ciudades}
                                         estados={estadosProductos()}
-                                        urlUpdate ='/administracion/productos/update/'
-                                        urlVer ='/administracion/productos/verProducto/'>
-                                    </Tabla>
-                                )}
+                                        urlUpdate="/administracion/productos/update/"
+                                        urlVer="/administracion/productos/verProducto/"></Tabla>
+                                )} */}
                             </div>
                         </div>
                     </div>

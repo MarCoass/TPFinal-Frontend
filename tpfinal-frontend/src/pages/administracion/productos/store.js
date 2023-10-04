@@ -1,11 +1,11 @@
 import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
-import { SelectEstadosSet } from '@/components/Formularios/SelectEstados'
+import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
 import SelectTips from '@/components/Formularios/SelectTips'
 import ListadoInsumos from '@/components/Formularios/listado'
-import Input from '@/components/Input'
 
-import { Tabs, Tab} from '@nextui-org/react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Input } from '@/components/ui/input'
 
 const { default: axios } = require('@/lib/axios')
 const { default: getCookie } = require('@/lib/cookies')
@@ -58,7 +58,6 @@ export default function ProductoStore() {
             const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
             formData.append('cantidadesInsumos', cantidadesInsumosJSON)
 
-            
             let url = '/administracion/productoStore'
             if (categoriaSet != '') {
                 formData.append('id_categoria', categoriaSet)
@@ -77,7 +76,7 @@ export default function ProductoStore() {
             })
 
             // Maneja la respuesta del servidor si es necesario
-           // console.log('Respuesta del servidor:', response.data)
+            // console.log('Respuesta del servidor:', response.data)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -92,11 +91,19 @@ export default function ProductoStore() {
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                             className="flex flex-col">
-                            <Tabs aria-label="Formulario de cargar producto">
-                                <Tab
-                                    key="general"
-                                    title="Informacion general"
-                                    className="grid grid-cols-2 gap-4">
+                            <Tabs defaultValue="general" className="w-[400px]">
+                                <TabsList>
+                                    <TabsTrigger value="general">
+                                        Informacion general
+                                    </TabsTrigger>
+                                    <TabsTrigger value="insumos">
+                                        Insumos
+                                    </TabsTrigger>
+                                    <TabsTrigger value="set">
+                                        Informacion sobre Set
+                                    </TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="general">
                                     <div className="flex justify-around">
                                         <label>Nombre:</label>
                                         <Input
@@ -138,6 +145,7 @@ export default function ProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-around">
+                                        <label>Ciudades:</label>
                                         <SelectCiudades
                                             value={ciudad}
                                             onChange={newCiudad =>
@@ -146,13 +154,13 @@ export default function ProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <SelectEstadosSet
+                                        <label>Estado:</label>
+                                        <SelectEstadosProducto
                                             value={estado}
                                             onChange={newEstado =>
                                                 setEstado(newEstado)
-                                            }></SelectEstadosSet>
+                                            }></SelectEstadosProducto>
                                     </div>
-                                    {/* Campo de carga de imagen */}
                                     <div>
                                         <label>Imagen:</label>
                                         <input
@@ -161,13 +169,34 @@ export default function ProductoStore() {
                                             onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
                                         />
                                     </div>
-                                </Tab>
-                                <Tab key="insumos" title="Insumos utilizados">
-                                    <ListadoInsumos
+                                </TabsContent>
+                                <TabsContent value="insumos">
+                                    {/*  <ListadoInsumos
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
-                                        }></ListadoInsumos>
-                                </Tab>
+                                        }></ListadoInsumos> */}
+                                </TabsContent>
+                                <TabsContent value="set">
+                                    <div className="flex justify-around">
+                                        <SelectTips
+                                            value={tip}
+                                            onChange={newTip =>
+                                                setTip(newTip)
+                                            }></SelectTips>
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <SelectCategoriasSets
+                                            value={categoriaSet}
+                                            onChange={newCategoria =>
+                                                setCategoriaSet(newCategoria)
+                                            }></SelectCategoriasSets>
+                                    </div>
+                                </TabsContent>
+                            </Tabs>
+
+                            {/*  <Tabs aria-label="Formulario de cargar producto">
+            
+                        
                                 <Tab key="sets" title="Informacion de Set">
                                     <div className="flex justify-around">
                                         <SelectCategoriasSets
@@ -185,7 +214,7 @@ export default function ProductoStore() {
                                             }></SelectTips>
                                     </div>
                                 </Tab>
-                            </Tabs>
+                            </Tabs> */}
 
                             <button
                                 className="border border-violeta-500 w-20 m-6"
