@@ -91,7 +91,7 @@ export default function ProductoStore() {
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                             className="flex flex-col">
-                            <Tabs defaultValue="general" className="w-[400px]">
+                            <Tabs defaultValue="general" >
                                 <TabsList>
                                     <TabsTrigger value="general">
                                         Informacion general
@@ -171,10 +171,10 @@ export default function ProductoStore() {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                    {/*  <ListadoInsumos
+                                   <ListadoInsumos
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
-                                        }></ListadoInsumos> */}
+                                        }></ListadoInsumos> 
                                 </TabsContent>
                                 <TabsContent value="set">
                                     <div className="flex justify-around">

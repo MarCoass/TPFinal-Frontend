@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import { Listbox, ListboxItem } from '@nextui-org/react'
+import { Listbox, ListboxItem } from '@nextui-org/listbox'
 import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
 

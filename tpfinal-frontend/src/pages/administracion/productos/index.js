@@ -151,11 +151,10 @@ export default function ProdutosIndex() {
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
                                 <Dialog>
-                                    <DialogTrigger>
-                                        {' '}
+                                    <DialogTrigger >
                                         Agregar Producto
                                     </DialogTrigger>
-                                    <DialogContent className="bg-white border border-gray-200">
+                                    <DialogContent className="bg-white border border-gray-200 ">
                                         <DialogHeader>
                                             <DialogTitle>
                                                 Crear producto
