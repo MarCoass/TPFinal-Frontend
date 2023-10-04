@@ -194,28 +194,6 @@ export default function ProductoStore() {
                                 </TabsContent>
                             </Tabs>
 
-                            {/*  <Tabs aria-label="Formulario de cargar producto">
-            
-                        
-                                <Tab key="sets" title="Informacion de Set">
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasSets
-                                            value={categoriaSet}
-                                            onChange={e =>
-                                                setCategoriaSet(e.target.value)
-                                            }></SelectCategoriasSets>
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <SelectTips
-                                            value={tip}
-                                            onChange={e =>
-                                                setTip(e.target.value)
-                                            }></SelectTips>
-                                    </div>
-                                </Tab>
-                            </Tabs> */}
-
                             <button
                                 className="border border-violeta-500 w-20 m-6"
                                 type="submit">

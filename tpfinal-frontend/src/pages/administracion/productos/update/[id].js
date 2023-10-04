@@ -1,4 +1,4 @@
-import Input from '@/components/Input'
+
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import axios from '@/lib/axios'
 import getCookie from '@/lib/cookies'
@@ -6,11 +6,13 @@ import getCookie from '@/lib/cookies'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { Tabs, Tab } from '@nextui-org/react'
 import ListadoInsumos from '@/components/Formularios/listado'
 import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectTips from '@/components/Formularios/SelectTips'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Input } from '@/components/ui/input'
+import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
 
 
 const fetchProducto = id => {
@@ -119,133 +121,118 @@ export default function Page({ params }) {
                                 <div>Cargando...</div>
                             ) : (
                                 <form
-                                    onSubmit={handleSubmit}
-                                    encType="multipart/form-data"
-                                    className="flex flex-col">
-                                    <Tabs aria-label="Formulario de editar producto">
-                                        <Tab
-                                            key="general"
-                                            title="Informacion general"
-                                            className="grid grid-cols-2 gap-4">
-                                            <div className="flex justify-around">
-                                                <label>Nombre:</label>
-                                                <Input
-                                                    type="text"
-                                                    value={nombre}
-                                                    onChange={e =>
-                                                        setNombre(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="flex justify-around">
-                                                <label>Descripcion:</label>
-                                                <Input
-                                                    type="text"
-                                                    value={descripcion}
-                                                    onChange={e =>
-                                                        setDescripcion(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="flex justify-around">
-                                                <label>Stock:</label>
-                                                <Input
-                                                    type="number"
-                                                    value={stock}
-                                                    onChange={e =>
-                                                        setStock(e.target.value)
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="flex justify-around">
-                                                <label>Precio:</label>
-                                                <Input
-                                                    type="number"
-                                                    value={precio}
-                                                    onChange={e =>
-                                                        setPrecio(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="flex justify-around">
-                                                <label>Ciudad:</label>
-                                                <Input
-                                                    type="number"
-                                                    value={ciudad}
-                                                    onChange={e =>
-                                                        setCiudad(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="flex justify-around">
-                                                <label>Estado:</label>
-                                                <Input
-                                                    type="number"
-                                                    value={estado}
-                                                    onChange={e =>
-                                                        setEstado(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                            {/* Campo de carga de imagen */}
-                                            <div>
-                                                <label>Imagen:</label>
-                                                <input
-                                                    type="file"
-                                                    accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                                    onChange={
-                                                        handleImagenChange
-                                                    } // Maneja el cambio en la selección de imagen
-                                                />
-                                            </div>
-                                        </Tab>
-                                        <Tab
-                                            key="insumos"
-                                            title="Insumos utilizados">
-                                            <ListadoInsumos
-                                                onCantidadInsumosChange={
-                                                    handleCantidadInsumosChange
-                                                }></ListadoInsumos>
-                                        </Tab>
-                                        <Tab
-                                            key="sets"
-                                            title="Informacion de Set">
-                                            <div className="flex justify-around">
-                                                <SelectCategoriasSets
-                                                    value={categoriaSet}
-                                                    onChange={e =>
-                                                        setCategoriaSet(
-                                                            e.target.value,
-                                                        )
-                                                    }></SelectCategoriasSets>
-                                            </div>
+                            onSubmit={handleSubmit}
+                            encType="multipart/form-data"
+                            className="flex flex-col">
+                            <Tabs defaultValue="general" >
+                                <TabsList>
+                                    <TabsTrigger value="general">
+                                        Informacion general
+                                    </TabsTrigger>
+                                    <TabsTrigger value="insumos">
+                                        Insumos
+                                    </TabsTrigger>
+                                    <TabsTrigger value="set">
+                                        Informacion sobre Set
+                                    </TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="general">
+                                    <div className="flex justify-around">
+                                        <label>Nombre:</label>
+                                        <Input
+                                            type="text"
+                                            value={nombre}
+                                            onChange={e =>
+                                                setNombre(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <label>Descripcion:</label>
+                                        <Input
+                                            type="text"
+                                            value={descripcion}
+                                            onChange={e =>
+                                                setDescripcion(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <label>Stock:</label>
+                                        <Input
+                                            type="number"
+                                            value={stock}
+                                            onChange={e =>
+                                                setStock(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <label>Precio:</label>
+                                        <Input
+                                            type="number"
+                                            value={precio}
+                                            onChange={e =>
+                                                setPrecio(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <label>Ciudades:</label>
+                                        <SelectCiudades
+                                            value={ciudad}
+                                            onChange={newCiudad =>
+                                                setCiudad(newCiudad)
+                                            }
+                                        />
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <label>Estado:</label>
+                                        <SelectEstadosProducto
+                                            value={estado}
+                                            onChange={newEstado =>
+                                                setEstado(newEstado)
+                                            }></SelectEstadosProducto>
+                                    </div>
+                                    <div>
+                                        <label>Imagen:</label>
+                                        <input
+                                            type="file"
+                                            accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
+                                            onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
+                                        />
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="insumos">
+                                   <ListadoInsumos
+                                        onCantidadInsumosChange={
+                                            handleCantidadInsumosChange
+                                        }></ListadoInsumos> 
+                                </TabsContent>
+                                <TabsContent value="set">
+                                    <div className="flex justify-around">
+                                        <SelectTips
+                                            value={tip}
+                                            onChange={newTip =>
+                                                setTip(newTip)
+                                            }></SelectTips>
+                                    </div>
+                                    <div className="flex justify-around">
+                                        <SelectCategoriasSets
+                                            value={categoriaSet}
+                                            onChange={newCategoria =>
+                                                setCategoriaSet(newCategoria)
+                                            }></SelectCategoriasSets>
+                                    </div>
+                                </TabsContent>
+                            </Tabs>
 
-                                            <div className="flex justify-around">
-                                                <SelectTips
-                                                    value={tip}
-                                                    onChange={e =>
-                                                        setTip(e.target.value)
-                                                    }></SelectTips>
-                                            </div>
-                                        </Tab>
-                                    </Tabs>
-
-                                    <button
-                                        className="border border-violeta-500 w-20 "
-                                        type="submit">
-                                        Enviar
-                                    </button>
-                                </form>
+                            <button
+                                className="border border-violeta-500 w-20 m-6"
+                                type="submit">
+                                Enviar
+                            </button>
+                        </form>
                             )}
                         </div>
                     </div>
