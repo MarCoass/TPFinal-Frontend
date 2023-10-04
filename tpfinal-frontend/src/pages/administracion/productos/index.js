@@ -17,6 +17,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
+import TablaProductos from './data-table/page'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -165,7 +166,7 @@ export default function ProdutosIndex() {
                                         </DialogHeader>
                                     </DialogContent>
                                 </Dialog>
-
+                                <TablaProductos></TablaProductos>
                                 {/*  {productos && ciudades && (
                                     <Tabla
                                         columns={columns}
