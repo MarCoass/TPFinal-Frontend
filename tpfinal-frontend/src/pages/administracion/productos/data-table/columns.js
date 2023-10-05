@@ -50,7 +50,18 @@ export const columns = [
     },
     {
         accessorKey: 'nombre',
-        header: 'Nombre',
+        header: ({ column }) => {
+            return (
+                <Button className="uppercase text-lg"
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === 'asc')
+                    }>
+                    Nombre
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
         cell: ({ row }) => {
             return <p className="font-bold">{row.getValue('nombre')}</p>
         },
@@ -68,7 +79,19 @@ export const columns = [
     },
     {
         accessorKey: 'precio',
-        header: 'Precio',
+        header: ({ column }) => {
+            return (
+                <Button
+                className="uppercase text-lg"
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === 'asc')
+                    }>
+                    Precio
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue('precio'))
             const formatted = new Intl.NumberFormat('en-US', {

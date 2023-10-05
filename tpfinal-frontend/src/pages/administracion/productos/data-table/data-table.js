@@ -1,9 +1,10 @@
 import * as React from 'react'
 import {
-    ColumnDef,
+    SortingState,
     flexRender,
     getCoreRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table'
 
@@ -20,6 +21,7 @@ import { Button } from '@/components/ui/button'
 
 // Definición del componente DataTable en JavaScript
 export default function DataTable({ columns, data }) {
+    const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const table = useReactTable({
         data,
@@ -27,8 +29,11 @@ export default function DataTable({ columns, data }) {
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         onRowSelectionChange: setRowSelection,
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         state: {
             rowSelection,
+            sorting
         },
     })
 
