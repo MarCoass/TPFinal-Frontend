@@ -48,11 +48,14 @@ export const columns = [
     },
     {
         accessorKey: 'nombre',
-        header: 'nombre',
+        header: 'Nombre',
+        cell: ({row}) => {
+            return <p className='font-bold'>{row.getValue('nombre')}</p>
+        }
     },
     {
         accessorKey: 'descripcion',
-        header: 'descripcion',
+        header: 'Descripcion',
     },
     {
         accessorKey: 'id_ciudad',
@@ -86,10 +89,11 @@ export const columns = [
     },
     {
         accessorKey: 'stock',
-        header: 'stock',
+        header: 'Stock',
     },
     {
         id: 'actions',
+        header: 'Opciones',
         cell: ({ row }) => {
            
             const producto = row.original

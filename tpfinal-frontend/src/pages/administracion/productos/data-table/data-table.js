@@ -34,14 +34,14 @@ export default function DataTable({ columns, data }) {
 
     return (
         <div>
-            <div className="rounded-md border">
-                <Table>
+            <div className="rounded-md">
+                <Table className="rounded border">
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map(header => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className="bg-rosado-200 uppercase text-lg">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -102,8 +102,9 @@ export default function DataTable({ columns, data }) {
                 </Button>
             </div>
             <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} de {' '}
-                {table.getFilteredRowModel().rows.length} producto(s) seleccionados.
+                {table.getFilteredSelectedRowModel().rows.length} de{' '}
+                {table.getFilteredRowModel().rows.length} producto(s)
+                seleccionados.
             </div>
         </div>
     )
