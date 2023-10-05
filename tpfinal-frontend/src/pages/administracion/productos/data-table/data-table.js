@@ -87,14 +87,16 @@ export default function DataTable({ columns, data }) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
-                    variant="outline"
+                className=" bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
+                  
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}>
                     Previous
                 </Button>
                 <Button
-                    variant="outline"
+                 className="m-5 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
+                   
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}>

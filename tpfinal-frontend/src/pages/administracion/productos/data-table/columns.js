@@ -29,6 +29,7 @@ export const columns = [
         id: 'select',
         header: ({ table }) => (
             <Checkbox
+                className="border-violeta-600"
                 checked={table.getIsAllPageRowsSelected()}
                 onCheckedChange={value =>
                     table.toggleAllPageRowsSelected(!!value)
@@ -38,6 +39,7 @@ export const columns = [
         ),
         cell: ({ row }) => (
             <Checkbox
+                className="border-violeta-600"
                 checked={row.getIsSelected()}
                 onCheckedChange={value => row.toggleSelected(!!value)}
                 aria-label="Select row"
@@ -49,9 +51,9 @@ export const columns = [
     {
         accessorKey: 'nombre',
         header: 'Nombre',
-        cell: ({row}) => {
-            return <p className='font-bold'>{row.getValue('nombre')}</p>
-        }
+        cell: ({ row }) => {
+            return <p className="font-bold">{row.getValue('nombre')}</p>
+        },
     },
     {
         accessorKey: 'descripcion',
@@ -95,7 +97,6 @@ export const columns = [
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
-           
             const producto = row.original
             const url = '/administracion/productos/update/' + producto.id
             return (
