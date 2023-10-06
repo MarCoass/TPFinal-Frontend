@@ -21,7 +21,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-
+import { Search } from 'lucide-react';
 // Definición del componente DataTable en JavaScript
 export default function DataTable({ columns, data }) {
     const [sorting, setSorting] = React.useState([])
@@ -46,8 +46,8 @@ export default function DataTable({ columns, data }) {
 
     return (
         <div>
-            <div className="flex items-center py-4">
-                <Input
+            <div className="flex items-center py-2 gap-2">
+                <Search /><Input
                     placeholder="Filtrar por nombre..."
                     value={table.getColumn('nombre')?.getFilterValue() ?? ''}
                     onChange={event =>
@@ -56,7 +56,7 @@ export default function DataTable({ columns, data }) {
                             ?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
-                />
+                /> 
             </div>
             <div className="rounded-md">
                 <Table className="rounded border">

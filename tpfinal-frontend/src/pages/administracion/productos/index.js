@@ -123,7 +123,7 @@ export default function ProdutosIndex() {
                             <div className=" bg-white border-b border-gray-200">
                                 <Dialog>
                                     <DialogTrigger >
-                                        <Button className="m-5 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                                        <Button className="mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                                             <PlusSquare className="mr-2 h-4 w-4" />
                                             NUEVO PRODUCTO
                                         </Button>
