@@ -3,7 +3,7 @@ import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import getCookie from '@/lib/cookies'
+
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { PlusSquare } from 'lucide-react'
 import ProductoStore from './store'
@@ -122,7 +122,7 @@ export default function ProdutosIndex() {
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
                                 <Dialog>
-                                    <DialogTrigger >
+                                    <DialogTrigger>
                                         <Button className="mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                                             <PlusSquare className="mr-2 h-4 w-4" />
                                             NUEVO PRODUCTO

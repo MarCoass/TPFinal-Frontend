@@ -13,6 +13,7 @@ import {
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { estadosProductos } from '@/lib/estados'
+import handleDelete from '../../../../lib/handleDelete'
 
 export const Producto = {
     id: '',
@@ -52,7 +53,8 @@ export const columns = [
         accessorKey: 'nombre',
         header: ({ column }) => {
             return (
-                <Button className="uppercase text-lg"
+                <Button
+                    className="uppercase text-lg"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
@@ -82,7 +84,7 @@ export const columns = [
         header: ({ column }) => {
             return (
                 <Button
-                className="uppercase text-lg"
+                    className="uppercase text-lg"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
@@ -121,7 +123,8 @@ export const columns = [
         header: 'Opciones',
         cell: ({ row }) => {
             const producto = row.original
-            const url = '/administracion/productos/update/' + producto.id
+            const urlUpdate = '/administracion/productos/update/' + producto.id
+            const urlDelete = '/administracion/productoDelete/'
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -132,12 +135,19 @@ export const columns = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="bg-rosado-200">
                         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-
-                        <DropdownMenuItem>
-                            <a href={url}>Editar</a>
+                        <DropdownMenuItem className="hover:bg-rosado-600">
+                            <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Modificar stock</DropdownMenuItem>
-                        <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                        <DropdownMenuItem className="hover:bg-rosado-600">
+                            Modificar stock
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            className="hover:bg-rosado-600"
+                            onClick={() =>
+                                handleDelete(producto.id, urlDelete)
+                            }>
+                            Eliminar
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

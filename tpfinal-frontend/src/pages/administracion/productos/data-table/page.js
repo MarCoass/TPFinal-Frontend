@@ -30,6 +30,9 @@ export default function TablaProductos() {
         obtenerProductos()
     }, [])
 
+    
+     
+
     // Renderiza DataTable solo cuando los datos están disponibles
     return (
         <div className="container mx-auto py-10">
