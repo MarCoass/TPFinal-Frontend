@@ -13,7 +13,9 @@ import SelectCiudades from '@/components/Formularios/SelectCiudades'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
-
+import { fetchInsumos, insumosUsados } from '@/lib/producto'
+import DataTable from '@/components/Tablas/data-table'
+import { columnsInsumos } from '@/components/Tablas/columnsInsumos'
 
 const fetchProducto = id => {
     return axios
@@ -35,12 +37,17 @@ export default function Page({ params }) {
     const [categoriaSet, setCategoriaSet] = useState('')
     const [tip, setTip] = useState('')
     const [cantidadesInsumos, setCantidadesInsumos] = useState({})
+    const [insumos, setInsumos] = useState([])
 
     useEffect(() => {
         if (id != null) {
             async function obtenerProducto() {
                 try {
                     const data = await fetchProducto(id)
+                    const info = await fetchInsumos()
+                    setInsumos(info)
+
+                    console.log(info)
                     setNombre(data.nombre || '')
                     setDescripcion(data.descripcion || '')
                     setStock(data.stock || '')
@@ -204,10 +211,12 @@ export default function Page({ params }) {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                   <ListadoInsumos
+                                  {/*  <ListadoInsumos
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
-                                        }></ListadoInsumos> 
+                                        }></ListadoInsumos>  */}
+
+                                        {insumos ? (<DataTable columns={columnsInsumos} data={insumos}></DataTable>):(<p>cargando insumos</p>)}
                                 </TabsContent>
                                 <TabsContent value="set">
                                     <div className="flex justify-around">
