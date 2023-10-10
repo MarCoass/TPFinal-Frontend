@@ -137,7 +137,7 @@ export default function Page({ params }) {
                                     </TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="general">
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around m-2">
                                         <label>Nombre:</label>
                                         <Input
                                             type="text"
@@ -147,7 +147,7 @@ export default function Page({ params }) {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around  m-2">
                                         <label>Descripcion:</label>
                                         <Input
                                             type="text"
@@ -157,7 +157,7 @@ export default function Page({ params }) {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around  m-2">
                                         <label>Stock:</label>
                                         <Input
                                             type="number"
@@ -167,7 +167,7 @@ export default function Page({ params }) {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around  m-2">
                                         <label>Precio:</label>
                                         <Input
                                             type="number"
@@ -177,7 +177,7 @@ export default function Page({ params }) {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around  m-2">
                                         <label>Ciudades:</label>
                                         <SelectCiudades
                                             value={ciudad}
@@ -186,7 +186,7 @@ export default function Page({ params }) {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-around  m-2">
                                         <label>Estado:</label>
                                         <SelectEstadosProducto
                                             value={estado}
@@ -194,7 +194,7 @@ export default function Page({ params }) {
                                                 setEstado(newEstado)
                                             }></SelectEstadosProducto>
                                     </div>
-                                    <div>
+                                    <div className="flex justify-around  m-2">
                                         <label>Imagen:</label>
                                         <input
                                             type="file"
