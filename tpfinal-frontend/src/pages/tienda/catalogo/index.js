@@ -55,7 +55,7 @@ const Catalogo = () => {
                                         <ProductCard
                                             imgUrl={producto.url_imagen}
                                             nombreProducto={producto.nombre}
-                                            descripcionProducto={producto.descripcion}
+                                            // descripcionProducto={producto.descripcion}
                                             precioProducto={producto.precio}
                                             stock={producto.stock}
                                             esAdmin={false}
