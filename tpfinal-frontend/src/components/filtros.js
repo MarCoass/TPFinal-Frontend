@@ -63,18 +63,19 @@ export function Filtros() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="items"
-          render={() => (
-            <FormItem>
-              <div className="mb-4">
-                <FormLabel className="text-base">Sidebar</FormLabel>
-                <FormDescription>
-                  Select the items you want to display in the sidebar.
-                </FormDescription>
-              </div>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <FormField
+        control={form.control}
+        name="items"
+        render={() => (
+          <FormItem>
+            {/* <div className="mb-4">
+              <FormLabel className="text-base">Sidebar</FormLabel>
+              <FormDescription>
+                Select the items you want to display in the sidebar.
+              </FormDescription>
+            </div> */}
+            <div className="flex flex-row items-start space-x-3 space-y-0">
               {items.map((item) => (
                 <FormField
                   key={item.id}
@@ -96,7 +97,7 @@ export function Filtros() {
                                     field.value?.filter(
                                       (value) => value !== item.id
                                     )
-                                  )
+                                  );
                             }}
                           />
                         </FormControl>
@@ -104,17 +105,18 @@ export function Filtros() {
                           {item.label}
                         </FormLabel>
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               ))}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      {/* <Button type="submit">Submit</Button> */}
+    </form>
+  </Form>
   )
 }
 
