@@ -1,15 +1,18 @@
 'use client'
 
-import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
+import {ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+import { useState } from 'react'
+import ModalStockInsumo from '../Modales/modalInsumos'
 
 export const Insumo = {
     id: '',
     nombre: '',
     descripcion: '',
     stock: '',
-    cantidadUsada: '0'
+    cantidad: '',
 }
 
 export const columnsInsumos = [
@@ -34,25 +37,21 @@ export const columnsInsumos = [
     },
     {
         accessorKey: 'descripcion',
-        header: 'descripcion'
+        header: 'descripcion',
     },
     {
         accessorKey: 'stock',
-        header: 'stock'
+        header: 'stock',
     },
     {
-        accessorKey: 'cantidadUsada',
-        header: ({ column }) => {
+        accessorKey: 'cantidad',
+        cell: ({ row }) => {
+            
             return (
-                <Button
-                    className="uppercase text-lg"
-                    variant="ghost"
-                    onClick={() =>
-                        column.toggleSorting(column.getIsSorted() === 'asc')
-                    }>
-                    Cantidad Usada
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
+                <div className='flex gap-4'>
+                <p>{row.getValue('cantidad')}</p>
+                    <ModalStockInsumo idInsumo={row.original.id} idProducto={row.original.id_producto} cantidadOld={row.original.cantidad}></ModalStockInsumo>
+                </div>
             )
         },
     },

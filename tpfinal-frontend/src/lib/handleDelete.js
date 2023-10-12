@@ -11,9 +11,11 @@ export default function handleDelete(id, url){
                 headers: {
                     'X-XSRF-TOKEN': xsrfToken,
                     Accept: 'application/json',
+                   'Content-Type': 'application/json'
                 },
             },
         )
+        
     } catch (error) {
         console.error('Error al eliminar el producto:', error)
     }

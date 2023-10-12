@@ -128,11 +128,6 @@ export default function DataTable({ columns, data, handleDelete }) {
                     Next
                 </Button>
             </div>
-            <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} de{' '}
-                {table.getFilteredRowModel().rows.length} producto(s)
-                seleccionados.
-            </div>
         </div>
     )
 }
