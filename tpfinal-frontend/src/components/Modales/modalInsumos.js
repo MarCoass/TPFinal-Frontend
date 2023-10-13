@@ -34,7 +34,7 @@ export default function ModalStockInsumo({
                 Accept: 'application/json',
             }
             const response = await axios.post(url, formData, { headers })
-            console.log(response)
+           /*  console.log(response) */
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -49,8 +49,9 @@ export default function ModalStockInsumo({
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Modificar stock</AlertDialogTitle>
+                            <AlertDialogTitle>Modificar cantidad</AlertDialogTitle>
                             <AlertDialogDescription>
+                            <p>Modifique la cantidad del insumo usada para un producto</p>
                                 <input
                                     type="hidden"
                                     id="id_insumo"
