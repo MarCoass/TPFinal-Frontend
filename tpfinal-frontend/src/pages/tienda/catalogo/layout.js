@@ -10,7 +10,7 @@ import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
-
+//esto no sirve de nada xd
 export default function FilterLayout({ children }) {
     const router = useRouter()
     return (

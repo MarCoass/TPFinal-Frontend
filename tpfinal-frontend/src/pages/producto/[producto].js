@@ -14,87 +14,17 @@ const fetchProductos = (producto) => {
         .then(res => res.data)
 }
 
-const fetchSet = (producto) => {
-    return axios
-        .get(
-            `/set/${producto}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
-}
-
-const fetchCategoriaSet = (idSet) => {
-    return axios
-        .get(
-            `/categoriaSet/${idSet}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
-}
-
-const fetchTips = (idTips) => {
-    return axios
-        .get(
-            `/administracion/tip/${idTips}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
-}
-
-const fetchInsumos = (idInsumo) => {
-    return axios
-        .get(
-            `/administracion/insumo/${idInsumo}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
-}
-
-
-const fetchCiudad = (idCiudad) => {
-    return axios
-        .get(
-            `/ciudad/${idCiudad}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
-}
-
 export default function infoProducto({ params }) {
     const [infoProducto, setProducto] = useState(null)
-    const [infoSet, setSet] = useState(null)
-    const [infoTips, setTips] = useState(null)
-    const [infoInsumo, setInsumo] = useState(null)
-    const [infoCategoria, setCategoria] = useState(null)
-    const [infoCiudades, setCiudades] = useState(null)
     const router = useRouter()
     const { producto } = router.query
-    //tengo que traer:
-    //categoriaSet --> es necesario?
-    //tips
-    //insumo
-    //ciudades
     useEffect(() => {
         if (producto != null) {
             async function obtenerDatos() {
                 try {
                     const dataProducto = await fetchProductos(producto)
-                    // console.log(dataProducto)
+                    console.log(dataProducto)
                     setProducto(dataProducto)
-                    const dataSet = await fetchSet(producto)
-                    // console.log('entra al log', dataSet)
-                    setSet(dataSet)
-                    const dataTips = await fetchTips(dataSet.id_tips)
-                    // console.log(dataTips)
-                    setTips(dataTips)
-                    const dataInsumo = await fetchInsumos(dataTips.id_insumo)
-                    // console.log(dataInsumo)
-                    setInsumo(dataInsumo)
-                    const dataCategoria = await fetchCategoriaSet(dataSet.id_categoria)
-                    // console.log(dataCategoria)
-                    setCategoria(dataCategoria)
-                    //aca voy a tener que meter un foreach para generar un array cuando haya más de una ciudad
-                    const dataCiudades = await fetchCiudad(dataProducto.id_ciudad)
-                    // console.log(dataCiudades)
-                    setCiudades(dataCiudades)
-
-
-
                 } catch (error) {
                     console.error('Hubo un problema obteniendo los datos: ', error)
                 }
@@ -110,7 +40,7 @@ export default function infoProducto({ params }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex justify-center container bg-white overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8 ">
-                        {infoProducto && infoCategoria && infoInsumo && infoSet && infoTips && infoCiudades? (
+                        {infoProducto? (
                             <div className=" p-6 bg-white border-b border-gray-200">
 
                                 <div className='min-w-2xl'> <img
@@ -129,10 +59,10 @@ export default function infoProducto({ params }) {
 
                                     <div className='info-producto'>
                                         <p>Descripción:</p>
-                                        <div><p className='text-lg'>disponibilidad de entrega: {infoCiudades.nombre}</p></div>
+                                        <div><p className='text-lg'>disponibilidad de entrega: {infoProducto.ciudad.nombre}</p></div>
                                         <div><p className='text-lg'>{infoProducto.descripcion}</p></div>
-                                        <p>Largo: {infoTips.largo}cm ({infoInsumo.tags})</p>
-                                        <p>Categoría: {infoCategoria.nombre}</p>
+                                        <p>Largo: {infoProducto.set.tip.largo}cm ({infoProducto.set.tip.tags})</p>
+                                        <p>Categoría: {infoProducto.set.categoria_set.nombre}</p>
                                     </div>
                                 </div>
 

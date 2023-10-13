@@ -11,13 +11,16 @@ import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import AppLayout from '@/components/Layouts/AppLayout'
+import { DropdownMenu } from '@/components/ui/dropdown-menu'
+import { DropdownMenuCheckboxes } from '@/components/DropdownMenu'
 
 export default function StoreLayout({ children }) {
     const router = useRouter();
     const [isVisible, setIsVisible] = useState(false);
     const handleClick = () => {
         setIsVisible(!isVisible);
-      };
+    };
+
     return (
         <>
             <AppLayout
@@ -42,28 +45,47 @@ export default function StoreLayout({ children }) {
                                             active={router.pathname === '/tienda/favoritos'}>
                                             Favoritos
                                         </NavLink>
-                                        <div  className='inline-flex items-center px-1 pt-1 font-medium leading-5 focus:outline-none transition duration-150 ease-in-out'>
+                                        <div className='inline-flex items-center px-1 pt-1 font-medium leading-5 focus:outline-none transition duration-150 ease-in-out'>
                                             <button onClick={handleClick}>
-                                            filtros
+                                                filtros {isVisible?"<":">"}
                                             </button>
-                                            
+                                        </div>
+                                        <div className='inline-flex items-center px-1 pt-1 font-medium leading-5 focus:outline-none transition duration-150 ease-in-out'>
+                                            {isVisible && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                                    <div className="flex">
+                                                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex self-center  mt-1">
+                                                           <DropdownMenuCheckboxes 
+                                                           nombreMenu="Diseños"
+                                                           ></DropdownMenuCheckboxes>
+                                                           <DropdownMenuCheckboxes
+                                                           nombreMenu="Largo"
+                                                           ></DropdownMenuCheckboxes>
+                                                           <DropdownMenuCheckboxes
+                                                           nombreMenu="Forma"
+                                                           ></DropdownMenuCheckboxes>
+                                                           <DropdownMenuCheckboxes
+                                                           nombreMenu="Disponibilidad"
+                                                           ></DropdownMenuCheckboxes>
+                                                        </div>
+                                                    </div>
+                                                </div>}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {isVisible && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* {isVisible && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between h-8">
                                 <div className="flex">
                                     <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex self-center  mt-1">
-                                       <Filtros>
+                                        <Filtros>
 
-                                       </Filtros>
+                                        </Filtros>
                                     </div>
                                 </div>
                             </div>
-                        </div>}
-                        
+                        </div>} */}
+
                     </nav>}>
 
                 {children}
