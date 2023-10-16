@@ -3,20 +3,22 @@ import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import Tabla from '@/components/Table'
-import getCookie from '@/lib/cookies'
+
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { NewButton } from '@/components/Button'
-import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    useDisclosure,
-} from '@nextui-org/react'
+import { PlusSquare } from 'lucide-react'
 import ProductoStore from './store'
 import { estadosProductos } from '@/lib/estados'
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
+import TablaProductos from './data-table/page'
+import { Button } from '../../../components/ui/button'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -25,37 +27,6 @@ const fetchCiudades = () => {
 const fetchProductos = () => {
     return axios.get('/administracion/productos').then(res => res.data)
 }
-
-const columns = [
-    {
-        key: 'nombre',
-        label: 'Nombre',
-    },
-    {
-        key: 'descripcion',
-        label: 'Descripcion',
-    },
-    {
-        key: 'stock',
-        label: 'Stock',
-    },
-    {
-        key: 'precio',
-        label: 'Precio',
-    },
-    {
-        key: 'id_ciudad',
-        label: 'Ciudad',
-    },
-    {
-        key: 'estado',
-        label: 'Estado',
-    },
-    {
-        key: 'opciones',
-        label: 'Opciones',
-    },
-]
 
 export default function ProdutosIndex() {
     //AUTORIZACION
@@ -126,7 +97,6 @@ export default function ProdutosIndex() {
     }
 
     //MODAL
-    const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
     //-----------------
 
@@ -151,42 +121,25 @@ export default function ProdutosIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                {/* <Link href="/administracion/productos/productoStore">
-                                    <NewButton>Agregar Producto</NewButton>
-                                </Link> */}
-                                <NewButton onClick={onOpen}>
-                                    Agregar Producto
-                                </NewButton>
-                                <Modal
-                                    className="bg-white border border-gray-200"
-                                    isOpen={isOpen}
-                                    onOpenChange={onOpenChange}
-                                    size="5xl"
-                                    backdrop="blur">
-                                    <ModalContent>
-                                        {onClose => (
-                                            <>
-                                                <ModalHeader className="flex flex-col gap-1">
-                                                    Crear producto
-                                                </ModalHeader>
-                                                <ModalBody>
-                                                    <ProductoStore></ProductoStore>
-                                                </ModalBody>
-                                            </>
-                                        )}
-                                    </ModalContent>
-                                </Modal>
-                                {productos && ciudades && (
-                                    <Tabla
-                                        columns={columns}
-                                        rows={productos}
-                                        handleDelete={handleDelete}
-                                        ciudades={ciudades}
-                                        estados={estadosProductos()}
-                                        urlUpdate ='/administracion/productos/update/'
-                                        urlVer ='/administracion/productos/verProducto/'>
-                                    </Tabla>
-                                )}
+                                <Dialog>
+                                    <DialogTrigger>
+                                        <Button className="mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                                            <PlusSquare className="mr-2 h-4 w-4" />
+                                            NUEVO PRODUCTO
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="bg-white border border-gray-200 ">
+                                        <DialogHeader>
+                                            <DialogTitle>
+                                                Crear producto
+                                            </DialogTitle>
+                                            <DialogDescription>
+                                                <ProductoStore></ProductoStore>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+                                <TablaProductos></TablaProductos>
                             </div>
                         </div>
                     </div>

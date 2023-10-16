@@ -1,4 +1,3 @@
-import Input from '@/components/Input'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import axios from '@/lib/axios'
 import getCookie from '@/lib/cookies'
@@ -6,12 +5,16 @@ import getCookie from '@/lib/cookies'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { Tabs, Tab } from '@nextui-org/react'
 import ListadoInsumos from '@/components/Formularios/listado'
 import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectTips from '@/components/Formularios/SelectTips'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Input } from '@/components/ui/input'
+import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
+import { fetchInsumos, insumosUsados } from '@/lib/producto'
+import DataTable from '@/components/Tablas/data-table'
+import { columnsInsumos } from '@/components/Tablas/columnsInsumos'
 
 const fetchProducto = id => {
     return axios
@@ -33,12 +36,17 @@ export default function Page({ params }) {
     const [categoriaSet, setCategoriaSet] = useState('')
     const [tip, setTip] = useState('')
     const [cantidadesInsumos, setCantidadesInsumos] = useState({})
+    const [insumos, setInsumos] = useState([])
 
     useEffect(() => {
         if (id != null) {
             async function obtenerProducto() {
                 try {
                     const data = await fetchProducto(id)
+                    const info = await insumosUsados(id)
+                    setInsumos(info)
+
+                    console.log(info)
                     setNombre(data.nombre || '')
                     setDescripcion(data.descripcion || '')
                     setStock(data.stock || '')
@@ -118,16 +126,24 @@ export default function Page({ params }) {
                             {nombre === null ? (
                                 <div>Cargando...</div>
                             ) : (
-                                <form
-                                    onSubmit={handleSubmit}
-                                    encType="multipart/form-data"
-                                    className="flex flex-col">
-                                    <Tabs aria-label="Formulario de editar producto">
-                                        <Tab
-                                            key="general"
-                                            title="Informacion general"
-                                            className="grid grid-cols-2 gap-4">
-                                            <div className="flex justify-around">
+                                <Tabs defaultValue="general">
+                                    <TabsList>
+                                        <TabsTrigger value="general">
+                                            Informacion general
+                                        </TabsTrigger>
+                                        <TabsTrigger value="insumos">
+                                            Insumos
+                                        </TabsTrigger>
+                                        <TabsTrigger value="set">
+                                            Informacion sobre Set
+                                        </TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent value="general">
+                                        <form
+                                            onSubmit={handleSubmit}
+                                            encType="multipart/form-data"
+                                            className="flex flex-col">
+                                            <div className="flex justify-around m-2">
                                                 <label>Nombre:</label>
                                                 <Input
                                                     type="text"
@@ -139,7 +155,7 @@ export default function Page({ params }) {
                                                     }
                                                 />
                                             </div>
-                                            <div className="flex justify-around">
+                                            <div className="flex justify-around  m-2">
                                                 <label>Descripcion:</label>
                                                 <Input
                                                     type="text"
@@ -151,7 +167,7 @@ export default function Page({ params }) {
                                                     }
                                                 />
                                             </div>
-                                            <div className="flex justify-around">
+                                            <div className="flex justify-around  m-2">
                                                 <label>Stock:</label>
                                                 <Input
                                                     type="number"
@@ -161,7 +177,7 @@ export default function Page({ params }) {
                                                     }
                                                 />
                                             </div>
-                                            <div className="flex justify-around">
+                                            <div className="flex justify-around  m-2">
                                                 <label>Precio:</label>
                                                 <Input
                                                     type="number"
@@ -173,32 +189,24 @@ export default function Page({ params }) {
                                                     }
                                                 />
                                             </div>
-                                            <div className="flex justify-around">
-                                                <label>Ciudad:</label>
-                                                <Input
-                                                    type="number"
+                                            <div className="flex justify-around  m-2">
+                                                <label>Ciudades:</label>
+                                                <SelectCiudades
                                                     value={ciudad}
-                                                    onChange={e =>
-                                                        setCiudad(
-                                                            e.target.value,
-                                                        )
+                                                    onChange={newCiudad =>
+                                                        setCiudad(newCiudad)
                                                     }
                                                 />
                                             </div>
-                                            <div className="flex justify-around">
+                                            <div className="flex justify-around  m-2">
                                                 <label>Estado:</label>
-                                                <Input
-                                                    type="number"
+                                                <SelectEstadosProducto
                                                     value={estado}
-                                                    onChange={e =>
-                                                        setEstado(
-                                                            e.target.value,
-                                                        )
-                                                    }
-                                                />
+                                                    onChange={newEstado =>
+                                                        setEstado(newEstado)
+                                                    }></SelectEstadosProducto>
                                             </div>
-                                            {/* Campo de carga de imagen */}
-                                            <div>
+                                            <div className="flex justify-around  m-2">
                                                 <label>Imagen:</label>
                                                 <input
                                                     type="file"
@@ -208,44 +216,41 @@ export default function Page({ params }) {
                                                     } // Maneja el cambio en la selección de imagen
                                                 />
                                             </div>
-                                        </Tab>
-                                        <Tab
-                                            key="insumos"
-                                            title="Insumos utilizados">
-                                            <ListadoInsumos
-                                                onCantidadInsumosChange={
-                                                    handleCantidadInsumosChange
-                                                }></ListadoInsumos>
-                                        </Tab>
-                                        <Tab
-                                            key="sets"
-                                            title="Informacion de Set">
-                                            <div className="flex justify-around">
-                                                <SelectCategoriasSets
-                                                    value={categoriaSet}
-                                                    onChange={e =>
-                                                        setCategoriaSet(
-                                                            e.target.value,
-                                                        )
-                                                    }></SelectCategoriasSets>
-                                            </div>
-
-                                            <div className="flex justify-around">
-                                                <SelectTips
-                                                    value={tip}
-                                                    onChange={e =>
-                                                        setTip(e.target.value)
-                                                    }></SelectTips>
-                                            </div>
-                                        </Tab>
-                                    </Tabs>
-
-                                    <button
-                                        className="border border-violeta-500 w-20 "
-                                        type="submit">
-                                        Enviar
-                                    </button>
-                                </form>
+                                            <button
+                                                className="border border-violeta-500 w-20 m-6"
+                                                type="submit">
+                                                Enviar
+                                            </button>
+                                        </form>
+                                    </TabsContent>
+                                    <TabsContent value="insumos">
+                                        {insumos ? (
+                                            <DataTable
+                                                columns={columnsInsumos}
+                                                data={insumos}></DataTable>
+                                        ) : (
+                                            <p>cargando insumos</p>
+                                        )}
+                                    </TabsContent>
+                                    <TabsContent value="set">
+                                        <div className="flex justify-around">
+                                            <SelectTips
+                                                value={tip}
+                                                onChange={newTip =>
+                                                    setTip(newTip)
+                                                }></SelectTips>
+                                        </div>
+                                        <div className="flex justify-around">
+                                            <SelectCategoriasSets
+                                                value={categoriaSet}
+                                                onChange={newCategoria =>
+                                                    setCategoriaSet(
+                                                        newCategoria,
+                                                    )
+                                                }></SelectCategoriasSets>
+                                        </div>
+                                    </TabsContent>
+                                </Tabs>
                             )}
                         </div>
                     </div>

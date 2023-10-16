@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { Select, SelectItem } from '@nextui-org/react'
 import axios from '@/lib/axios'
+import SelectBasico from '../Select'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -15,7 +15,7 @@ export default function SelectCiudades({ value, onChange }) {
             try {
                 const data = await fetchCiudades()
                 setCiudades(data)
-              //  console.log(ciudades)
+                //  console.log(ciudades)
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener ciudades:', error)
@@ -33,18 +33,22 @@ export default function SelectCiudades({ value, onChange }) {
     }
 
     return (
-        <Select
+        <SelectBasico
             items={ciudades}
-            label="Ciudades"
+            onChange={onChange}
             placeholder="Seleccionar una ciudad"
-            className="max-w-xs"
-            value={value}
-            onChange={handleCiudadChange}>
-            {ciudad => (
-                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={ciudad.id} value={ciudad.id}>
-                    {ciudad.nombre}
-                </SelectItem>
-            )}
-        </Select>
+        />
+        /* <Select onValueChange={handleCiudadChange} >
+            <SelectTrigger>
+                <SelectValue placeholder="Seleccionar una ciudad" />
+            </SelectTrigger>
+            <SelectContent>
+                {ciudades.map((ciudad) => (
+                    <SelectItem key={ciudad.id} value={ciudad.id}>
+                        {ciudad.nombre}
+                    </SelectItem>
+                ))}
+            </SelectContent>
+                </Select> */
     )
 }

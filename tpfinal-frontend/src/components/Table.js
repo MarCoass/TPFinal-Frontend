@@ -29,7 +29,7 @@ export default function Tabla({
         onOpen()
     }, [productoIdToUpdate])
 
-    const { onOpen } = useDisclosure()
+    //const { onOpen } = useDisclosure()
 
     const renderCell = (item, columnKey) => {
         const cellValue = item[columnKey]

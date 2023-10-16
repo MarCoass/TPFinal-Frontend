@@ -1,7 +1,8 @@
 import { estadosInsumos, estadosProductos } from '@/lib/estados'
-import { Select, SelectItem } from '@nextui-org/react'
 
-export  function SelectEstadosSet({ value, onChange }) {
+import SelectBasico from '../Select'
+
+export  function SelectEstadosProducto({ onChange }) {
     const estados = estadosProductos()
 
     const handleChange = newValue => {
@@ -9,23 +10,15 @@ export  function SelectEstadosSet({ value, onChange }) {
     }
 
     return (
-        <Select
-            items={estados}
-            label="Estado"
-            placeholder="Seleccionar un estado"
-            className="max-w-xs"
-            value={value}
-            onChange={handleChange}>
-            {estado => (
-                <SelectItem key={estado.id} value={estado.id}>
-                    {estado.nombre}
-                </SelectItem>
-            )}
-        </Select>
+        <SelectBasico
+        items={estados}
+        onChange={handleChange}
+        placeholder="Seleccionar un estado"
+    />
     )
 }
 
-export function SelectEstadosInsumo({ value, onChange }) {
+export function SelectEstadosInsumo({ onChange }) {
     const estados = estadosInsumos()
 
     const handleChange = newValue => {
@@ -33,19 +26,11 @@ export function SelectEstadosInsumo({ value, onChange }) {
     }
 
     return (
-        <Select
-            items={estados}
-            label="Estado"
-            placeholder="Seleccionar un estado"
-            className="max-w-xs"
-            value={value}
-            onChange={handleChange}>
-            {estado => (
-                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={estado.id} value={estado.id}>
-                    {estado.nombre}
-                </SelectItem>
-            )}
-        </Select>
+        <SelectBasico
+        items={estados}
+        onChange={handleChange}
+        placeholder="Seleccionar un estado"
+    />
     )
 }
 
