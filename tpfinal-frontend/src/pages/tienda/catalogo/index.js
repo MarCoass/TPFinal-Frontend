@@ -14,7 +14,8 @@ const fetchProductos = () => {
         .then(res => res.data)
 }
 
-const Catalogo = () => {
+export default function Catalogo ({diseño, forma, largo, ciudad}) {
+    console.log(diseño)
     const [productos, setProductos] = useState(null)
     useEffect(() => {
         async function obtenerProductos() {
@@ -75,4 +76,3 @@ const Catalogo = () => {
     )
 }
 
-export default Catalogo
