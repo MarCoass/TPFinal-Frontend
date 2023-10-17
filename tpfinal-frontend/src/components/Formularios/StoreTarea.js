@@ -19,13 +19,14 @@ export default function StoreTarea() {
             formData.append('fecha_vencimiento', fechaVencimiento)
             formData.append('estado', estado)
 
-            let url = '/tareaStore'
+            let url = '/api/tareaStore'
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 Accept: 'application/json',
             }
 
             const response = await axios.post(url, formData, { headers })
+            console.log(response)
         } catch (error) {
             console.log('Error al crear la tarea: ', error)
         }
