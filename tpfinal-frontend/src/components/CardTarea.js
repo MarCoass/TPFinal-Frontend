@@ -1,5 +1,7 @@
 import { Pencil, Trash2 } from 'lucide-react'
 import { DeleteButton, UpdateButton } from './Button'
+import handleDelete from '../lib/handleDelete'
+
 
 const CardTarea = ({ tarea }) => (
     <div className="bg-rosado-200 grid grid-flow-row w-max p-4 rounded">
