@@ -26,7 +26,8 @@ export default function StoreTarea() {
             }
 
             const response = await axios.post(url, formData, { headers })
-            console.log(response)
+            //console.log(response)
+
         } catch (error) {
             console.log('Error al crear la tarea: ', error)
         }
@@ -62,7 +63,7 @@ export default function StoreTarea() {
                 <div className="flex justify-around">
                     <label>Fecha vencimiento:</label>
                     <Input
-                        type="text"
+                        type="date"
                         value={fechaVencimiento}
                         onChange={e => setFechaVencimiento(e.target.value)}
                     />
