@@ -1,6 +1,8 @@
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import Head from 'next/head'
 import CalendarioTareas from '../../components/CalendarioTareas'
+import TareasDashboard from './tareas/dashboard'
+
 
 const Dashboard = () => {
     return (
@@ -20,6 +22,7 @@ const Dashboard = () => {
                     <div className="p-5">
                         <p>Tareas</p>
                         <CalendarioTareas></CalendarioTareas>
+                        <TareasDashboard></TareasDashboard>
                     </div>
                     <div className="p-5 bg-rosado-400">
                         <p>Pedidos personalizados</p>
