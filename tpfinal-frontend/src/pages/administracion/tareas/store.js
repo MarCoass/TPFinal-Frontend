@@ -10,6 +10,7 @@ import { Button } from '../../../components/ui/button'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import { PlusSquare } from 'lucide-react'
+import StoreTarea from '../../../components/Formularios/StoreTarea'
 
 export default function CrearTarea() {
     return (
@@ -25,7 +26,8 @@ export default function CrearTarea() {
                     <DialogHeader>
                         <DialogTitle>Crear tarea</DialogTitle>
                         <DialogDescription>
-                           blablabla
+                           
+                           <StoreTarea></StoreTarea>
                         </DialogDescription>
                     </DialogHeader>
                 </DialogContent>
