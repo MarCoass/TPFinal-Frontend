@@ -20,7 +20,11 @@ const CardTarea = ({ tarea }) => (
 export default CardTarea
 
 export const CardTareaDashboard = ({ tarea }) => {
-    <div className="bg-naranja-200 m-2">
-        <p>{tarea.titulo}</p>
-    </div>
+    return (
+        <>
+            <div className="bg-naranja-200 m-1 p-4 w-max border rounded">
+                <p>{tarea.titulo}</p>
+            </div>
+        </>
+    )
 }

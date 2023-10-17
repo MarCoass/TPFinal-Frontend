@@ -25,7 +25,7 @@ export default function TareasDashboard() {
     return (
         <>
             {tareas ? (
-                <div>
+                <div className='flex flex-wrap flex-row'>
                     {tareas.map(tarea => (
                         <CardTareaDashboard key={tarea.id} tarea={tarea}></CardTareaDashboard>
                     ))}
