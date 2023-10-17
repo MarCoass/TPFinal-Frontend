@@ -41,6 +41,11 @@ const SideNavigation = ({ user }) => {
                         active={router.pathname === '/administracion/insumos'}>
                         Insumos
                     </NavLink>
+                    <NavLink
+                        href="/administracion/tareas"
+                        active={router.pathname === '/administracion/tareas'}>
+                        Tareas
+                    </NavLink>
                     <NavLink href="/" active={router.pathname === '/'}>
                         Proveedores
                     </NavLink>
