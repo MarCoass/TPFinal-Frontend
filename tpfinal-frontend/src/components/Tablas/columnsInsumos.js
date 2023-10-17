@@ -1,11 +1,11 @@
 'use client'
 
-import {ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { useState } from 'react'
-import ModalStockInsumo from '../Modales/modalInsumos'
+import ModalStockInsumo, { ModalEliminarInsumo } from '../Modales/modalInsumos'
 
 export const Insumo = {
     id: '',
@@ -46,12 +46,26 @@ export const columnsInsumos = [
     {
         accessorKey: 'cantidad',
         cell: ({ row }) => {
-            
             return (
-                <div className='flex gap-4'>
-                <p>{row.getValue('cantidad')}</p>
-                    <ModalStockInsumo idInsumo={row.original.id} idProducto={row.original.id_producto} cantidadOld={row.original.cantidad}></ModalStockInsumo>
+                <div className="flex gap-4">
+                    <p>{row.original.pivot.cantidad}</p>
+                    <ModalStockInsumo
+                        idInsumo={row.original.id}
+                        idProducto={row.original.pivot.id_producto}
+                        cantidadOld={row.original.cantidad}></ModalStockInsumo>
                 </div>
+            )
+        },
+    },
+    {
+        accessorKey: 'borrar',
+        cell: ({ row }) => {
+            return (
+                <ModalEliminarInsumo
+                    idInsumo={row.original.id}
+                    idProducto={
+                        row.original.pivot.id_producto
+                    }></ModalEliminarInsumo>
             )
         },
     },

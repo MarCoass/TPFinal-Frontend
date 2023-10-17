@@ -1,6 +1,6 @@
-import CardDashboard from '@/components/CardDashboard'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import Head from 'next/head'
+import CalendarioTareas from '../../components/CalendarioTareas'
 
 const Dashboard = () => {
     return (
@@ -15,27 +15,19 @@ const Dashboard = () => {
             </Head>
 
             <div className="py-12">
-                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div className="p-6 bg-white border-b border-gray-200">
-                        Administracion
+                <div className="bg-white grid grid-cols-2">
+                    <div className="bg-rosado-200 p-5">Accesos rapidos</div>
+                    <div className="p-5">
+                        <p>Tareas</p>
+                        <CalendarioTareas></CalendarioTareas>
                     </div>
-                    <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 p-5">
-                        <CardDashboard
-                            titulo="Productos"
-                            url="/administracion/productos"></CardDashboard>
-                        <CardDashboard
-                            titulo="Insumos"
-                            url="/administracion/insumos"></CardDashboard>
-                        <CardDashboard
-                            titulo="Pedidos personalizados"
-                            url="/"></CardDashboard>
-                        <CardDashboard
-                            titulo="Proveedores"
-                            url="/"></CardDashboard>
-                        <CardDashboard titulo="Tareas" url="/"></CardDashboard>
+                    <div className="p-5 bg-rosado-400">
+                        <p>Pedidos personalizados</p>
                     </div>
                 </div>
             </div>
+
+            
         </AdminLayout>
     )
 }

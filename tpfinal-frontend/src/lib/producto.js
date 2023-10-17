@@ -3,7 +3,7 @@ import axios from "./axios";
 export function insumosUsados(id){
     return axios
     .get(
-        `/insumosPorProducto/${id}`
+        `/insumosUsados/${id}`
     )
     .then(res => res.data)
 }

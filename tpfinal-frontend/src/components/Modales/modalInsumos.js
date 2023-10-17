@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil } from 'lucide-react'
+import { Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -34,7 +34,7 @@ export default function ModalStockInsumo({
                 Accept: 'application/json',
             }
             const response = await axios.post(url, formData, { headers })
-           /*  console.log(response) */
+            /*  console.log(response) */
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -49,9 +49,14 @@ export default function ModalStockInsumo({
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Modificar cantidad</AlertDialogTitle>
+                            <AlertDialogTitle>
+                                Modificar cantidad
+                            </AlertDialogTitle>
                             <AlertDialogDescription>
-                            <p>Modifique la cantidad del insumo usada para un producto</p>
+                                <p>
+                                    Modifique la cantidad del insumo usada para
+                                    un producto
+                                </p>
                                 <input
                                     type="hidden"
                                     id="id_insumo"
@@ -73,9 +78,41 @@ export default function ModalStockInsumo({
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction type='submit'>Modificar</AlertDialogAction>
+                            <AlertDialogAction type="submit">
+                                Modificar
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalEliminarInsumo(idInsumo, idProducto) {
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                    <Trash2 className="h-4 w-4 mx-2" />
+                    Eliminar
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Eliminar</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            <p>¿Desea eliminar el insumo del producto?</p>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() =>
+                                handleDelete(producto.id, urlDelete)
+                            }>
+                            Eliminar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
         </>

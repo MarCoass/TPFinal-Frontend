@@ -76,7 +76,8 @@ export const columns = [
         accessorKey: 'id_ciudad',
         header: 'Ciudad',
         cell: ({ row }) => {
-            return <div>{row.getValue('id_ciudad')}</div>
+            
+            return <div>{row.original.ciudad.nombre}</div>
         },
     },
     {

@@ -5,14 +5,13 @@ import getCookie from '@/lib/cookies'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import ListadoInsumos from '@/components/Formularios/listado'
 import SelectCategoriasSets from '@/components/Formularios/SelectCategoriaSet'
 import SelectTips from '@/components/Formularios/SelectTips'
 import SelectCiudades from '@/components/Formularios/SelectCiudades'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
-import { fetchInsumos, insumosUsados } from '@/lib/producto'
+import {insumosUsados } from '@/lib/producto'
 import DataTable from '@/components/Tablas/data-table'
 import { columnsInsumos } from '@/components/Tablas/columnsInsumos'
 
@@ -43,10 +42,9 @@ export default function Page({ params }) {
             async function obtenerProducto() {
                 try {
                     const data = await fetchProducto(id)
-                    const info = await insumosUsados(id)
-                    setInsumos(info)
-
-                    console.log(info)
+                    
+                  
+                    //console.log(info)
                     setNombre(data.nombre || '')
                     setDescripcion(data.descripcion || '')
                     setStock(data.stock || '')
@@ -54,6 +52,8 @@ export default function Page({ params }) {
                     setCiudad(data.id_ciudad || '')
                     setEstado(data.estado || '')
                     setImagen(data.imagen || '')
+                    setInsumos(data.insumos)
+                    
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
