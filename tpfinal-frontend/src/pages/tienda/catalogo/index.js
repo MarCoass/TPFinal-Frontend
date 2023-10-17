@@ -14,9 +14,79 @@ const fetchProductos = () => {
         .then(res => res.data)
 }
 
-export default function Catalogo ({diseño, forma, largo, ciudad}) {
+//tengo 3 arrays iguales, con la misma estructura y despues tengo largo, que se trata distinto
+function filtrarProductos(diseño, largo, forma, ciudad, productos) {
+    console.log('filtrando...')
+    // filtrosArrays.map((filtrosArray)=>{
+    //     filtros = obtenerFiltrosSeleccionados(filtrosArray)
+    //     if (filtros.length > 1 && filtros)
+    // })
+    let hayFiltrosAplicados = false
+    let productosFiltrados = []
+    if(diseño.some((filtro)=> filtro.seleccionado===true)){
+        hayFiltrosAplicados = true
+        diseño.map((filtro) => {
+            if (filtro.seleccionado) {
+                console.log(filtro)
+                productosFiltrados.push(...productos.filter(producto => producto.set.categoria_set.nombre === filtro.nombre)) 
+            }
+        })
+    }
+    if(forma.some((filtro)=> filtro.seleccionado===true)){
+        hayFiltrosAplicados = true
+        diseño.map((filtro) => {
+            if (filtro.seleccionado) {
+                console.log(filtro)
+                productosFiltrados.push(...productos.filter(producto => producto.set.tip.forma === filtro.nombre)) 
+            }
+        })
+    }
+
+    if(largo.some((filtro)=> filtro.seleccionado===true)){
+        hayFiltrosAplicados = true
+        diseño.map((filtro) => {
+            if (filtro.seleccionado) {
+                console.log(filtro)
+                if(filtro.nombre === 'Largo'){
+                    productosFiltrados.push(...productos.filter(producto => producto.set.tip.largo >= 2.5)) 
+                } else {
+                    productosFiltrados.push(...productos.filter(producto => producto.set.tip.largo < 2.5)) 
+                }
+            }
+        })
+    }
+
+    if(ciudad.some((filtro)=> filtro.seleccionado===true)){
+        hayFiltrosAplicados = true
+        diseño.map((filtro) => {
+            if (filtro.seleccionado) {
+                console.log(filtro)
+                productosFiltrados.push(...productos.filter(producto => producto.ciudad.nombre === filtro.nombre)) 
+            }
+        })
+    }
+   
+    if(!hayFiltrosAplicados){
+        productosFiltrados = productos
+    }
+    console.log(productosFiltrados)
+   return productosFiltrados
+
+}
+
+// function obtenerFiltrosSeleccionados(filtros, filtrosAplicados){
+//     filtros.map((filtro)=>{
+//         if(filtro.seleccionado){
+//             filtrosAplicados.push(filtro)
+//         }
+//     })
+//     return filtrosAplicados
+// }
+
+export default function Catalogo({ diseño, forma, largo, ciudad }) {
     console.log(diseño)
     const [productos, setProductos] = useState(null)
+    const [productosFiltrados, setProductosFiltrados] = useState(null)
     useEffect(() => {
         async function obtenerProductos() {
             try {
@@ -27,11 +97,14 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
             }
         }
         obtenerProductos()
+        
     }, [])
-
+    let productosConFiltro = filtrarProductos(diseño, largo, forma, ciudad, productos)
+    // setProductosFiltrados(productosConFiltro)
+    
     return (
 
-        <StoreLayout>
+        <>
             <Head>
                 <title>Catalogo - Mar Nails</title>
             </Head>
@@ -71,7 +144,7 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
                     </div>
                 </div>
             </div>
-        </StoreLayout>
+        </>
 
     )
 }

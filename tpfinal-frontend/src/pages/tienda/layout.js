@@ -151,18 +151,7 @@ export default function StoreLayout({ children }) {
                         </div>} */}
 
                     </nav>}>
-                {React.Children.map(children, (child) => {
-                    if (React.isValidElement(child)) {
-                        console.log(diseño)
-                        return React.cloneElement(child, {
-                            diseño: diseño,
-                            forma: forma,
-                            largo: largo,
-                            ciudad: ciudad,
-                        });
-                    }
-                    return child;
-                })}
+               {diseño!= undefined && router.pathname === '/tienda/catalogo' ? <Catalogo diseño={diseño}></Catalogo> : null}
 
             </AppLayout>
         </>
