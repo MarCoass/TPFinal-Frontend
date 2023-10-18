@@ -157,7 +157,7 @@ export function ModalTareaDelete({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
                     <Trash2 className="h-4 w-4 mx-2" />
                     Eliminar
                 </AlertDialogTrigger>
@@ -187,7 +187,7 @@ export function ModalTareaTerminar({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-green-500 hover:bg-green-600 rounded text-white">
+                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-green-500 hover:bg-green-600 rounded text-white">
                     <CheckCircle className="h-4 w-4 mx-2" />
                     Terminar
                 </AlertDialogTrigger>

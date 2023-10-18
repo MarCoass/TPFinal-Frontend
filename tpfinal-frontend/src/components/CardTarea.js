@@ -20,7 +20,8 @@ const CardTarea = ({ tarea }) => (
         <div className="flex gap-3 m-3">
             <ModalTareaUpdate id={tarea.id}></ModalTareaUpdate>
             <ModalTareaDelete id={tarea.id}></ModalTareaDelete>
-            <ModalTareaTerminar  id={tarea.id}></ModalTareaTerminar>
+            {tarea.estado===0 ? (  <ModalTareaTerminar  id={tarea.id}></ModalTareaTerminar>) : (<p></p>)}
+          
         </div>
     </div>
 )
