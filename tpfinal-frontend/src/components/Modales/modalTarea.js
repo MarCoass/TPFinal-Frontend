@@ -85,10 +85,10 @@ export default function ModalTareaUpdate({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger>
-                    <UpdateButton>
+                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                    
                         <Pencil className="h-4 w-4 mx-2"></Pencil>Editar
-                    </UpdateButton>
+                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-white border border-gray-200 ">
                     <AlertDialogHeader>
