@@ -1,7 +1,7 @@
 import { CalendarDays, Pencil, Trash2 } from 'lucide-react'
 import { DeleteButton, UpdateButton } from './Button'
 import handleDelete from '../lib/handleDelete'
-import ModalTarea from './Modales/modalTarea'
+import ModalTareaUpdate, { ModalTareaDelete } from './Modales/modalTarea'
 
 const CardTarea = ({ tarea }) => (
     <div className="bg-rosado-200 grid grid-flow-row  w-max p-4 rounded gap-2">
@@ -13,11 +13,10 @@ const CardTarea = ({ tarea }) => (
         </div>
         <hr />
         <div className="flex gap-3 m-3">
-            <ModalTarea
-                id={tarea.id}></ModalTarea>
-            <DeleteButton>
-                <Trash2 className="h-4 w-4 mx-2"></Trash2>Borrar
-            </DeleteButton>
+            <ModalTareaUpdate
+                id={tarea.id}></ModalTareaUpdate>
+                <ModalTareaDelete id={tarea.id}></ModalTareaDelete>
+            
         </div>
     </div>
 )

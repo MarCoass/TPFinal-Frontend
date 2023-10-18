@@ -11,16 +11,18 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { UpdateButton } from '../Button'
-import { Pencil } from 'lucide-react'
+import { Pencil, Trash2 } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'
+import handleDelete from '../../lib/handleDelete'
+
 
 const fetchTarea = id => {
     return axios.get('/api/tarea/' + id).then(res => res.data)
 }
 
-export default function ModalTarea({ id }) {
+export default function ModalTareaUpdate({ id }) {
     const [tarea, setTarea] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [titulo, setTitulo] = useState('')
@@ -149,4 +151,33 @@ export default function ModalTarea({ id }) {
             </AlertDialog>
         </>
     )
+}
+
+export function ModalTareaDelete({id}){
+
+    return <>
+    <AlertDialog>
+        <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+            <Trash2 className="h-4 w-4 mx-2" />
+            Eliminar
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-rosado-50">
+            <AlertDialogHeader>
+                <AlertDialogTitle>Eliminar</AlertDialogTitle>
+                <AlertDialogDescription>
+                    <p>¿Desea eliminar la tarea?</p>
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                    onClick={() =>
+                        handleDelete(id, '/api/tareaDelete/')
+                    }>
+                    Eliminar
+                </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
+</>
 }
