@@ -3,7 +3,6 @@ import Head from 'next/head'
 import CalendarioTareas from '../../components/CalendarioTareas'
 import TareasDashboard from './tareas/dashboard'
 
-
 const Dashboard = () => {
     return (
         <AdminLayout
@@ -20,17 +19,14 @@ const Dashboard = () => {
                 <div className="bg-white grid grid-cols-2">
                     <div className="bg-rosado-200 p-5">Accesos rapidos</div>
                     <div className="p-5">
-                        <p>Tareas</p>
-                        <CalendarioTareas></CalendarioTareas>
                         <TareasDashboard></TareasDashboard>
+                        <CalendarioTareas></CalendarioTareas>
                     </div>
                     <div className="p-5 bg-rosado-400">
                         <p>Pedidos personalizados</p>
                     </div>
                 </div>
             </div>
-
-            
         </AdminLayout>
     )
 }
