@@ -37,6 +37,8 @@ const IndexTareas = () => {
         setCurrentPage(newPage)
     }
 
+    const canGoToPreviousPage = currentPage > 1;
+    const canGoToNextPage = indexOfLastItem < tareas.length;
     // Botón para ir a la página anterior
     const goToPreviousPage = () => {
         if (currentPage > 1) {
@@ -82,13 +84,15 @@ const IndexTareas = () => {
                                             <Button
                                                 className=" bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                                                 size="sm"
-                                                onClick={goToPreviousPage} >
+                                                onClick={goToPreviousPage} 
+                                                disabled={!canGoToPreviousPage}>
                                                 Previous
                                             </Button>
                                             <Button
                                                 className="m-5 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                                                 size="sm"
-                                                onClick={goToNextPage} >
+                                                onClick={goToNextPage}
+                                                disabled={!canGoToNextPage} >
                                                 Next
                                             </Button>
                                         </div>
