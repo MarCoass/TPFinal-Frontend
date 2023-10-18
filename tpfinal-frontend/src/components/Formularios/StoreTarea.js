@@ -2,6 +2,7 @@ import { useState } from 'react'
 const { default: getCookie } = require('@/lib/cookies')
 const { default: axios } = require('@/lib/axios')
 import { Input } from '@/components/ui/input'
+import { SelectEstadosTareas } from './SelectEstados'
 
 export default function StoreTarea() {
     const [titulo, setTitulo] = useState('')
@@ -53,10 +54,9 @@ export default function StoreTarea() {
                 </div>
                 <div className="flex justify-around">
                     <label>Estado:</label>
-                    <Input
-                        type="text"
+                    <SelectEstadosTareas
                         value={estado}
-                        onChange={e => setEstado(e.target.value)}
+                        onChange={newEstado => setEstado(newEstado)}
                     />
                 </div>
                 <div className="flex justify-around">

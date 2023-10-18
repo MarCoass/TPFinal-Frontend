@@ -19,9 +19,9 @@ export default function SelectBasico({ items, onChange, placeholder }) {
             <SelectTrigger>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white ">
                 {items.map(item => (
-                    <SelectItem key={item.id} value={item.id}>
+                    <SelectItem className="hover:bg-rosado-200" key={item.id} value={item.id}>
                         {item.nombre}
                     </SelectItem>
                 ))}
