@@ -30,34 +30,46 @@ export default function CalendarioTareas() {
         if (tareas) {
             const tareasPorDia = {}
             tareas.forEach(tarea => {
-                const fechaVencimiento = new Date(
-                    tarea.fecha_vencimiento,
-                ).toDateString()
-                if (!tareasPorDia[fechaVencimiento]) {
-                    tareasPorDia[fechaVencimiento] = []
+                //traigo la fecha
+                const fechaVencimiento = new Date(tarea.fecha_vencimiento)
+                //le sumo un dia
+                let fechaNueva = new Date(fechaVencimiento)
+                fechaNueva.setDate(fechaNueva.getDate() + 1)
+                //la paso a string
+                fechaNueva = fechaNueva.toDateString()
+
+                if (!tareasPorDia[fechaNueva]) {
+                    tareasPorDia[fechaNueva] = []
                 }
-                tareasPorDia[fechaVencimiento].push(tarea.titulo)
+                tareasPorDia[fechaNueva].push(tarea.titulo)
+                
             })
 
             const datesWithTareas = Object.keys(tareasPorDia).map(
                 dateString => new Date(dateString),
             )
             setSeleccionadas(datesWithTareas)
+            
         }
     }, [tareas])
 
     const handleDayClick = day => {
+        
         setDiaSeleccionado(day.toLocaleDateString('es-ES'))
         const dateString = day.toDateString()
-        /*   console.log(dateString) */
+        /* console.log(dateString) */
+     
         if (tareas && tareas.length > 0) {
+          
             const tareasDiaSeleccionado = tareas.filter(tarea => {
+                let fechaNueva = new Date(tarea.fecha_vencimiento)
+                fechaNueva.setDate(fechaNueva.getDate() + 1)
                 return (
-                    new Date(tarea.fecha_vencimiento).toDateString() ===
+                    fechaNueva.toDateString() ===
                     dateString
                 )
             })
-
+            
             setTareasDelDia(tareasDiaSeleccionado.map(tarea => tarea.titulo))
         }
     }
@@ -80,7 +92,9 @@ export default function CalendarioTareas() {
                             ))}
                         </ul>
                     </div>
-                ): (<p>No hay tareas para este dia</p>)}
+                ) : (
+                    <p>No hay tareas para este dia</p>
+                )}
             </div>
         </div>
     )
