@@ -3,19 +3,21 @@ import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import Tabla from '@/components/Table'
+
 import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { NewButton } from '@/components/Button'
+
 import { estadosInsumos } from '@/lib/estados'
 import {
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    useDisclosure,
-} from '@nextui-org/react'
-import InsumoStore from './insumoStore'
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
+import { PlusSquare } from 'lucide-react'
+import TablaInsumos from './data-table/page'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -25,45 +27,7 @@ const fetchCategorias = () => {
     return axios.get('/administracion/categoriasInsumos').then(res => res.data)
 }
 
-const columns = [
-    {
-        key: 'nombre',
-        label: 'Nombre',
-    },
-    {
-        key: 'descripcion',
-        label: 'Descripcion',
-    },
-    {
-        key: 'marca',
-        label: 'Marca',
-    },
-    {
-        key: 'stock',
-        label: 'Stock',
-    },
-    {
-        key: 'id_categoria',
-        label: 'Categoria',
-    },
-    {
-        key: 'estado',
-        label: 'Estado',
-    },
-    {
-        key: 'stock_minimo',
-        label: 'Stock minimo',
-    },
-    {
-        key: 'opciones',
-        label: 'Opciones',
-    },
-]
-
 export default function IndexProductos() {
-    //MODAL
-    const { isOpen, onOpen, onOpenChange } = useDisclosure()
-
     //AUTORIZACION
     const { user } = useAuth()
 
@@ -105,34 +69,11 @@ export default function IndexProductos() {
         obtenerCategorias()
     }, [])
 
-    const handleDelete = async id => {
-        try {
-            const xsrfToken = getCookie('XSRF-TOKEN')
-
-            const response = await axios.delete(
-                `/administracion/insumosDelete/${id}`,
-                {
-                    headers: {
-                        'X-XSRF-TOKEN': xsrfToken,
-                        Accept: 'application/json',
-                    },
-                },
-            )
-
-            // Actualiza la lista de insumos después de eliminar el producto
-
-            const data = await fetchInsumos()
-            setInsumos(data)
-        } catch (error) {
-            console.error('Error al eliminar el insumo:', error)
-        }
-    }
-
     const estados = estadosInsumos()
 
     if (insumos === null || categorias === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando...</div>
+        return <div>Cargando insumos...</div>
     }
 
     return (
@@ -151,40 +92,21 @@ export default function IndexProductos() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                {/* <Link href="/administracion/insumos/insumoStore">
-                                    <NewButton>Agregar Insumo</NewButton>
-                                </Link> */}
-                                <NewButton onClick={onOpen}>
-                                    Agregar Insumo
-                                </NewButton>
-                                <Modal
-                                    className="bg-white border border-gray-200"
-                                    isOpen={isOpen}
-                                    onOpenChange={onOpenChange}
-                                    size="5xl"
-                                    backdrop="blur">
-                                    <ModalContent>
-                                        {onClose => (
-                                            <>
-                                                <ModalHeader className="flex flex-col gap-1">
-                                                    Crear Insumo
-                                                </ModalHeader>
-                                                <ModalBody>
-                                                    <InsumoStore></InsumoStore>
-                                                </ModalBody>
-                                            </>
-                                        )}
-                                    </ModalContent>
-                                </Modal>
-                                {insumos && categorias && (
-                                    <Tabla
-                                        columns={columns}
-                                        rows={insumos}
-                                        handleDelete={handleDelete}
-                                        estados={estados}
-                                        categorias={categorias}
-                                        urlUpdate ='/administracion/insumos/update/'></Tabla>
-                                )}
+                                <Dialog>
+                                    <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                                        <PlusSquare className="mr-2 h-4 w-4" />
+                                        NUEVO INSUMO
+                                    </DialogTrigger>
+                                    <DialogContent className="bg-white border border-gray-200 ">
+                                        <DialogHeader>
+                                            <DialogTitle>
+                                                Crear insumo
+                                            </DialogTitle>
+                                            <DialogDescription></DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+                                <TablaInsumos></TablaInsumos>
                             </div>
                         </div>
                     </div>

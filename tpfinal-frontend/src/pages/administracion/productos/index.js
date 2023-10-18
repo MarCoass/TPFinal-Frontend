@@ -97,9 +97,6 @@ export default function ProdutosIndex() {
         }
     }
 
-    //MODAL
-
-    //-----------------
 
     if (productos === null || ciudades === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
@@ -126,7 +123,6 @@ export default function ProdutosIndex() {
                                     <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                                             <PlusSquare className="mr-2 h-4 w-4" />
                                             NUEVO PRODUCTO
-                                        
                                     </DialogTrigger>
                                     <DialogContent className="bg-white border border-gray-200 ">
                                         <DialogHeader>
