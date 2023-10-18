@@ -19,12 +19,16 @@ import {
     DialogFooter,
 } from '@/components/ui/dialog'
 import { Pencil, Trash2, PlusSquare } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import Input from '@/components/Input'
 import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
+
+const fetchInsumo = id => {
+    return axios.get('/administracion/insumo/' + id).then(res => res.data)
+}
 
 export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
     const [cantidad, setCantidad] = useState(cantidadOld)
@@ -245,7 +249,7 @@ export function ModalInsumoCrear() {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction type='submit'>
+                            <AlertDialogAction type="submit">
                                 Guardar
                             </AlertDialogAction>
                         </AlertDialogFooter>
@@ -255,3 +259,5 @@ export function ModalInsumoCrear() {
         </>
     )
 }
+
+

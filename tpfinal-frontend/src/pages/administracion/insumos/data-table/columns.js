@@ -70,7 +70,7 @@ export const columns = [
         header: 'Opciones',
         cell: ({ row }) => {
             const insumo = row.original
-            const urlUpdate = '/api/administracion/insumosUpdate/' + insumo.id
+            const urlUpdate = '/administracion/insumos/update/' + insumo.id
             const urlDelete = '/api/administracion/insumosDelete/'
             return (
                 <DropdownMenu>
