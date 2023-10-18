@@ -1,4 +1,4 @@
-import { estadosInsumos, estadosProductos } from '@/lib/estados'
+import { estadosInsumos, estadosProductos, estadosTareas } from '@/lib/estados'
 
 import SelectBasico from '../Select'
 
@@ -30,6 +30,23 @@ export function SelectEstadosInsumo({ onChange }) {
         items={estados}
         onChange={handleChange}
         placeholder="Seleccionar un estado"
+    />
+    )
+}
+
+export function SelectEstadosTareas({ onChange }) {
+    const estados = estadosTareas()
+
+    const handleChange = newValue => {
+        onChange(newValue)
+    }
+
+    return (
+        <SelectBasico
+        items={estados}
+        onChange={handleChange}
+        placeholder="Seleccionar un estado"
+        className="bg-white"
     />
     )
 }

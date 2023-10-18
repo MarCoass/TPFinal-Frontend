@@ -43,3 +43,16 @@ export function estadosInsumos() {
     ]
     return estados
 }
+export function estadosTareas() {
+    const estados = [
+        {
+            id: 0,
+            nombre: 'Pendiente',
+        },
+        {
+            id: 1,
+            nombre: 'Terminada',
+        }
+    ]
+    return estados
+}
