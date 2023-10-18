@@ -156,9 +156,9 @@ export const columns = [
                         <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
+                      {/*   <DropdownMenuItem className="hover:bg-rosado-600">
                             Modificar stock
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                         <DropdownMenuItem
                             className="hover:bg-rosado-600"
                             onClick={() =>

@@ -94,7 +94,15 @@ export default function InsumoUpdate() {
 
     return (
         <>
-            <AdminLayout>
+            <AdminLayout
+                header={
+                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                        Editar insumo
+                    </h2>
+                }>
+                <Head>
+                    <title>Editar Insumo - Mar Nails</title>
+                </Head>
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200 ">
