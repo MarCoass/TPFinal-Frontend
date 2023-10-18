@@ -45,7 +45,7 @@ const IndexTareas = () => {
                             </div>
 
                             {tareas ? (
-                                <div className="flex gap-4 flex-wrap justify-center">
+                                <div className="m-4 grid grid-cols-2 lg:grid-cols-4 gap-4  justify-center">
                                     {tareas.map(tarea => (
                                         <CardTarea
                                             key={tarea.id}

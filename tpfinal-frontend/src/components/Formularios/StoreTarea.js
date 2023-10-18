@@ -27,7 +27,6 @@ export default function StoreTarea() {
 
             const response = await axios.post(url, formData, { headers })
             //console.log(response)
-
         } catch (error) {
             console.log('Error al crear la tarea: ', error)
         }
@@ -69,10 +68,10 @@ export default function StoreTarea() {
                     />
                 </div>
                 <button
-                                className="border border-violeta-500 w-20 m-6"
-                                type="submit">
-                                Enviar
-                            </button>
+                    className="border border-violeta-500 w-20 m-6"
+                    type="submit">
+                    Enviar
+                </button>
             </form>
         </>
     )

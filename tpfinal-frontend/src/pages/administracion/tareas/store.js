@@ -26,8 +26,7 @@ export default function CrearTarea() {
                     <DialogHeader>
                         <DialogTitle>Crear tarea</DialogTitle>
                         <DialogDescription>
-                           
-                           <StoreTarea></StoreTarea>
+                            <StoreTarea></StoreTarea>
                         </DialogDescription>
                     </DialogHeader>
                 </DialogContent>
