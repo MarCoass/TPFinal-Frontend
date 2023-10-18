@@ -8,16 +8,10 @@ import getCookie from '@/lib/cookies'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 
 import { estadosInsumos } from '@/lib/estados'
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog'
+
 import { PlusSquare } from 'lucide-react'
 import TablaInsumos from './data-table/page'
+import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -92,20 +86,7 @@ export default function IndexProductos() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Dialog>
-                                    <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                                        <PlusSquare className="mr-2 h-4 w-4" />
-                                        NUEVO INSUMO
-                                    </DialogTrigger>
-                                    <DialogContent className="bg-white border border-gray-200 ">
-                                        <DialogHeader>
-                                            <DialogTitle>
-                                                Crear insumo
-                                            </DialogTitle>
-                                            <DialogDescription></DialogDescription>
-                                        </DialogHeader>
-                                    </DialogContent>
-                                </Dialog>
+                                <ModalInsumoCrear></ModalInsumoCrear>
                                 <TablaInsumos></TablaInsumos>
                             </div>
                         </div>

@@ -9,16 +9,24 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2 } from 'lucide-react'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from '@/components/ui/dialog'
+import { Pencil, Trash2, PlusSquare } from 'lucide-react'
 import { useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
+import Input from '@/components/Input'
+import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
+import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 
-export default function ModalStockInsumo({
-    idInsumo,
-    idProducto,
-    cantidadOld,
-}) {
+export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
     const [cantidad, setCantidad] = useState(cantidadOld)
     const handleSubmit = async e => {
         e.preventDefault()
@@ -113,6 +121,135 @@ export function ModalEliminarInsumo(idInsumo, idProducto) {
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoCrear() {
+    const [nombre, setNombre] = useState('')
+    const [descripcion, setDescripcion] = useState('')
+    const [stock, setStock] = useState('')
+    const [stock_minimo, setStockMinimo] = useState('')
+    const [id_categoria, setCategoria] = useState('')
+    const [estado, setEstado] = useState('')
+    const [marca, setMarca] = useState('')
+    const handleSubmit = async e => {
+        e.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append('nombre', nombre)
+            formData.append('descripcion', descripcion)
+            formData.append('stock', stock)
+            formData.append('stock_minimo', stock_minimo)
+            formData.append('id_categoria', id_categoria)
+            formData.append('estado', estado)
+            formData.append('marca', marca)
+
+            const headers = {
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                Accept: 'application/json',
+            }
+
+            const response = await axios.post(
+                '/api/administracion/insumoStore',
+                formData,
+                {
+                    headers,
+                },
+            )
+            // Maneja la respuesta del servidor si es necesario
+            console.log('Respuesta del servidor:', response.data)
+        } catch (error) {
+            console.error('Error al enviar la solicitud:', error)
+        }
+    }
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="items-center  p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                    <PlusSquare className="h-4 w-4 mx-2" />
+                    NUEVO INSUMO
+                </AlertDialogTrigger>
+
+                <AlertDialogContent className="bg-white p-12">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="flex flex-col justify-start gap-4 ">
+                        <AlertDialogHeader className="flex">
+                            <AlertDialogTitle>Nuevo insumo</AlertDialogTitle>
+
+                            <div className="flex justify-between">
+                                <label>Nombre:</label>
+                                <Input
+                                    type="text"
+                                    value={nombre}
+                                    onChange={e => setNombre(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="flex justify-between">
+                                <label>Descripcion:</label>
+                                <Input
+                                    type="text"
+                                    value={descripcion}
+                                    onChange={e =>
+                                        setDescripcion(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-between">
+                                <label>Stock:</label>
+                                <Input
+                                    type="number"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="flex justify-between">
+                                <label>Stock minimo:</label>
+                                <Input
+                                    type="number"
+                                    value={stock_minimo}
+                                    onChange={e =>
+                                        setStockMinimo(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-between">
+                                <SelectCategoriasInsumos
+                                    value={id_categoria}
+                                    onChange={newCategoria =>
+                                        setCategoria(newCategoria)
+                                    }></SelectCategoriasInsumos>
+                            </div>
+                            <div className="flex justify-between">
+                                <SelectEstadosInsumo
+                                    value={estado}
+                                    onChange={newEstado =>
+                                        setEstado(newEstado)
+                                    }></SelectEstadosInsumo>
+                            </div>
+                            <div className="flex justify-between">
+                                <label>Marca:</label>
+                                <Input
+                                    type="text"
+                                    value={marca}
+                                    onChange={e => setMarca(e.target.value)}
+                                />
+                            </div>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction type='submit'>
+                                Guardar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
                 </AlertDialogContent>
             </AlertDialog>
         </>
