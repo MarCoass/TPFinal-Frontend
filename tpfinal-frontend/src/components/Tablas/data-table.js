@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react';
 // Definición del componente DataTable en JavaScript
-export default function DataTable({ columns, data, handleDelete }) {
+export default function Tabla({ columns, data, handleDelete }) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnFilters, setColumnFilters] = React.useState([])
