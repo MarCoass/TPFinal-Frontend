@@ -11,7 +11,6 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { Checkbox } from '@/components/ui/checkbox'
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
 

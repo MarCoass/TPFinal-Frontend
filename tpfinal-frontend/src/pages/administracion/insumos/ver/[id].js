@@ -9,6 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Tabla from '../../../../components/Tablas/data-table'
 import {columnsPrecios} from './columnsPrecios'
 
+import CustomSpinner from '../../../../components/CustomSpinner'
+
+
 const fetchInsumo = id => {
     return axios
         .get(
@@ -30,8 +33,8 @@ export default function InsumoUpdate() {
     }, [user])
 
     const { id } = useRouter().query
-    const [insumo, setInsumo] = useState([])
-    const [listadoPrecios, setListadoPrecios] = useState([])
+    const [insumo, setInsumo] = useState(null)
+    const [listadoPrecios, setListadoPrecios] = useState(null)
 
     useEffect(() => {
         if (id) {
@@ -49,10 +52,10 @@ export default function InsumoUpdate() {
             }
             obtenerInsumo()
         }
-    }, [])
+    }, [id])
 
     useEffect(() => {
-        if (insumo.precios_proveedores) {
+        if (insumo && insumo.precios_proveedores) {
             const formattedData = insumo.precios_proveedores.map(item => {
                 return {
                     id: item.id,
@@ -68,9 +71,7 @@ export default function InsumoUpdate() {
         }
     },[insumo])
 
-    if (insumo.nombre === null) {
-        return <div>Cargando insumo...</div>
-    }
+
 
     return (
         <>
@@ -87,7 +88,11 @@ export default function InsumoUpdate() {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200 ">
                             {insumo === null ? (
-                                <div>cargando....</div>
+                                <div>
+                                <CustomSpinner
+                                    mensaje={'Cargando productos...'}>
+                                </CustomSpinner>
+                            </div>
                             ) : (
                                 <div>
                                     <Tabs

@@ -2,7 +2,7 @@ import { Proveedor, columns } from './columns'
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import Tabla from '../../../components/Tablas/data-table'
-import AdminLayout from '../../../components/layouts/AdminLayout'
+import AdminLayout from '../../../components/Layouts/AdminLayout'
 import Head from 'next/head'
 import { ModalProveedorStore } from '../../../components/Modales/modalProveedor'
 

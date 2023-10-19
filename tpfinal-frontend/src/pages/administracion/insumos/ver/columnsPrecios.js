@@ -63,7 +63,6 @@ export const columnsPrecios = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="bg-rosado-200">
                         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-
                         <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>

@@ -36,6 +36,7 @@ export const columns = [
             )
         },
         cell: ({ row }) => {
+           
             return <p className="font-bold">{row.getValue('nombre')}</p>
         },
     },
