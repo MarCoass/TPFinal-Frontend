@@ -38,17 +38,5 @@ export default function SelectCiudades({ value, onChange }) {
             onChange={onChange}
             placeholder="Seleccionar una ciudad"
         />
-        /* <Select onValueChange={handleCiudadChange} >
-            <SelectTrigger>
-                <SelectValue placeholder="Seleccionar una ciudad" />
-            </SelectTrigger>
-            <SelectContent>
-                {ciudades.map((ciudad) => (
-                    <SelectItem key={ciudad.id} value={ciudad.id}>
-                        {ciudad.nombre}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-                </Select> */
     )
 }

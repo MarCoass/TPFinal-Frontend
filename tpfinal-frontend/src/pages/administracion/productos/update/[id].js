@@ -11,7 +11,6 @@ import SelectCiudades from '@/components/Formularios/SelectCiudades'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
-import {insumosUsados } from '@/lib/producto'
 import DataTable from '@/components/Tablas/data-table'
 import { columnsInsumos } from '@/components/Tablas/columnsInsumos'
 
@@ -42,8 +41,6 @@ export default function Page({ params }) {
             async function obtenerProducto() {
                 try {
                     const data = await fetchProducto(id)
-                    
-                  
                     //console.log(info)
                     setNombre(data.nombre || '')
                     setDescripcion(data.descripcion || '')
