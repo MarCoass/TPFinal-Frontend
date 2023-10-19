@@ -44,8 +44,8 @@ export const columns = [
         header: 'Direccion',
     },
     {
-        accessorKey: 'anotaciones',
-        header: 'Anotaciones',
+        accessorKey: 'anotacion',
+        header: 'Anotacion',
     },
     {
         id: 'actions',
@@ -53,7 +53,7 @@ export const columns = [
         cell: ({ row }) => {
             const proveedor = row.original
             const urlUpdate = '/administracion/proveedores/update/' + proveedor.id
-            const urlDelete = '/api/administracion/proveedoresDelete/'
+            const urlDelete = '/api/proveedorDelete/'
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
