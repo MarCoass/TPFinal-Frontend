@@ -10,22 +10,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
-import { Checkbox } from '@/components/ui/checkbox'
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
 
-export const Insumo = {
+export const PrecioProveedor = {
     id: '',
-    nombre: '',
-    descripcion: '',
-    estado: '',
-    stock: '',
+    precio: '',
+    id_proveedor: '',
+    id_insumo: '',
+    proveedor: '',
 }
 
-export const columns = [
+export const columnsPrecios = [
     {
-        accessorKey: 'nombre',
+        accessorKey: 'precio',
         header: ({ column }) => {
             return (
                 <Button
@@ -34,36 +32,18 @@ export const columns = [
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
                     }>
-                    Nombre
+                    Precio
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
         cell: ({ row }) => {
-            return <p className="font-bold">{row.getValue('nombre')}</p>
+            return <p className="font-bold">${row.getValue('precio')}</p>
         },
     },
     {
-        accessorKey: 'descripcion',
-        header: 'Descripcion',
-    },
-    {
-        accessorKey: 'marca',
-        header: 'Marca',
-    },
-    {
-        accessorKey: 'estado',
-        header: 'Estado',
-        cell: ({ row }) => {
-            const id_estado = row.getValue('estado')
-            const estados = estadosInsumos()
-            const estado = estados.find(estado => estado.id === id_estado)
-            return <div>{estado.nombre}</div>
-        },
-    },
-    {
-        accessorKey: 'stock',
-        header: 'Stock',
+        accessorKey: 'proveedor',
+        header: 'Proveedor',
     },
     {
         id: 'actions',
@@ -83,17 +63,13 @@ export const columns = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="bg-rosado-200">
                         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlVer}>Ver</a>
-                        </DropdownMenuItem>
+
                         <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
                         <DropdownMenuItem
                             className="hover:bg-rosado-600"
-                            onClick={() =>
-                                handleDelete(insumo.id, urlDelete)
-                            }>
+                            onClick={() => handleDelete(insumo.id, urlDelete)}>
                             Eliminar
                         </DropdownMenuItem>
                     </DropdownMenuContent>
