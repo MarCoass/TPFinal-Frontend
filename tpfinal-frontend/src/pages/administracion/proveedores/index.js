@@ -4,6 +4,7 @@ import axios from '@/lib/axios'
 import Tabla from '../../../components/Tablas/data-table'
 import AdminLayout from '../../../components/layouts/AdminLayout'
 import Head from 'next/head'
+import { ModalProveedorStore } from '../../../components/Modales/modalProveedor'
 
 const fetchProveedores = async () => {
     try {
@@ -42,6 +43,7 @@ export default function TablaProveedores() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
+                            <ModalProveedorStore></ModalProveedorStore>
                                 <div className="container mx-auto py-10">
                                     {proveedores ? (
                                         <Tabla
