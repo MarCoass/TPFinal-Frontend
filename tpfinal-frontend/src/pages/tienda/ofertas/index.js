@@ -5,10 +5,7 @@ import StoreLayout from '../layout'
 const Ofertas = () => {
     return (
 
-         <StoreLayout>
-            <Head>
-                <title>Ofertas - Mar Nails</title>
-            </Head>
+         <>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -19,7 +16,7 @@ const Ofertas = () => {
                     </div>
                 </div>
             </div>
-        </StoreLayout>
+        </>
 
     )
 }

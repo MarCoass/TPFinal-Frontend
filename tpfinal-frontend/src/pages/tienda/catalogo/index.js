@@ -14,9 +14,61 @@ const fetchProductos = () => {
         .then(res => res.data)
 }
 
-export default function Catalogo ({diseño, forma, largo, ciudad}) {
-    console.log(diseño)
+//TRAER LA CIUDAD DEL BACK CON ELOQUENT ASI FILTRA POR ESO TMB
+
+function filtrarProductos(diseño, largo, forma, ciudad, productos) {
+    console.log(productos)
+    // Create an array to store the filtered products
+    let productosFiltrados = [...productos];
+
+    // Filter by Diseño
+    const diseñoFilters = diseño.filter(filtro => filtro.seleccionado);
+    if (diseñoFilters.length > 0) {
+        productosFiltrados = productosFiltrados.filter(producto =>
+            diseñoFilters.some(filtro => producto.set.categoria_set.nombre === filtro.nombre)
+        );
+    }
+
+    // Filter by Forma
+    const formaFilters = forma.filter(filtro => filtro.seleccionado);
+    if (formaFilters.length > 0) {
+        productosFiltrados = productosFiltrados.filter(producto =>
+            formaFilters.some(filtro => producto.set.tip.forma === filtro.nombre)
+        );
+    }
+
+    // Filter by Largo
+    const largoFilters = largo.filter(filtro => filtro.seleccionado);
+    if (largoFilters.length > 0) {
+        productosFiltrados = productosFiltrados.filter(producto => {
+            return largoFilters.some(filtro => {
+                if (filtro.nombre === 'Largas' && parseInt(producto.set.tip.largo, 10) >= 2.5) {
+                    return true;
+                }
+                if (filtro.nombre === 'Cortas' && parseInt(producto.set.tip.largo, 10) < 2.5) {
+                    return true;
+                }
+                return false;
+            });
+        });
+    }
+
+
+    // Filter by Ciudad
+    const ciudadFilters = ciudad.filter(filtro => filtro.seleccionado);
+    if (ciudadFilters.length > 0) {
+        productosFiltrados = productosFiltrados.filter(producto =>
+            ciudadFilters.some(filtro => producto.ciudad.nombre === filtro.nombre)
+        );
+    }
+
+    return productosFiltrados;
+}
+
+
+export default function Catalogo({ diseño, forma, largo, ciudad }) {
     const [productos, setProductos] = useState(null)
+    const [productosFiltrados, setProductosFiltrados] = useState(null)
     useEffect(() => {
         async function obtenerProductos() {
             try {
@@ -27,11 +79,21 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
             }
         }
         obtenerProductos()
+        // setProductosFiltrados(productos)
+        // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
+        console.log(productosFiltrados)
     }, [])
+
+    useEffect(() => {
+        if (productos) {
+            const filteredProducts = filtrarProductos(diseño, largo, forma, ciudad, productos);
+            setProductosFiltrados(filteredProducts);
+        }
+    }, [diseño, largo, forma, ciudad, productos]);
 
     return (
 
-        <StoreLayout>
+        <>
             <Head>
                 <title>Catalogo - Mar Nails</title>
             </Head>
@@ -39,7 +101,7 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="container bg-white overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
-                        {productos === null ? (
+                        {productosFiltrados === null ? (
                             <div>
                                 <CustomSpinner
                                     mensaje={'Cargando productos...'}>
@@ -47,7 +109,7 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6 bg-white border-b border-gray-200">
-                                {productos.map(producto => (
+                                {productosFiltrados.map(producto => (
                                     <div key={producto.id}>
                                         {/* <p>Nombre: {producto.nombre}</p>
                                     <p>Descripcion: {producto.descripcion}</p>
@@ -71,7 +133,7 @@ export default function Catalogo ({diseño, forma, largo, ciudad}) {
                     </div>
                 </div>
             </div>
-        </StoreLayout>
+        </>
 
     )
 }
