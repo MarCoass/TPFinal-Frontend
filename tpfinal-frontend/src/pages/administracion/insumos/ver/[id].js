@@ -7,10 +7,10 @@ import AdminLayout from '@/components/Layouts/AdminLayout'
 import axios from '@/lib/axios'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Tabla from '../../../../components/Tablas/data-table'
-import {columnsPrecios} from './columnsPrecios'
+import { columnsPrecios } from './columnsPrecios'
 
 import CustomSpinner from '../../../../components/CustomSpinner'
-
+import { ModalPrecioStore, ModalPrecioUpdate } from '../../../../components/Modales/modalPrecio'
 
 const fetchInsumo = id => {
     return axios
@@ -65,13 +65,11 @@ export default function InsumoUpdate() {
                     proveedor: item.proveedor.nombre,
                 }
             })
-            /*    console.log(JSON.stringify(formattedData, null, 2)) */
+
             setListadoPrecios(formattedData)
             console.log(listadoPrecios)
         }
-    },[insumo])
-
-
+    }, [insumo])
 
     return (
         <>
@@ -89,10 +87,11 @@ export default function InsumoUpdate() {
                         <div className="p-6 bg-white border-b border-gray-200 ">
                             {insumo === null ? (
                                 <div>
-                                <CustomSpinner
-                                    mensaje={'Cargando productos...'}>
-                                </CustomSpinner>
-                            </div>
+                                    <CustomSpinner
+                                        mensaje={
+                                            'Cargando productos...'
+                                        }></CustomSpinner>
+                                </div>
                             ) : (
                                 <div>
                                     <Tabs
@@ -122,12 +121,15 @@ export default function InsumoUpdate() {
                                             </div>
                                         </TabsContent>
                                         <TabsContent value="precios">
-                                            Lista de precios
+                                            <ModalPrecioStore idInsumo={id}></ModalPrecioStore>
                                             {listadoPrecios ? (
-                                                <Tabla
-                                                    columns={columnsPrecios}
-                                                    data={listadoPrecios}
-                                                />
+                                                <div>
+                                                    <Tabla
+                                                        columns={columnsPrecios}
+                                                        data={listadoPrecios}
+                                                        o
+                                                    />
+                                                </div>
                                             ) : (
                                                 <p>Cargando datos...</p>
                                             )}

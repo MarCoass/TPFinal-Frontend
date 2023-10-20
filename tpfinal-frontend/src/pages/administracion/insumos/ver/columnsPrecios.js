@@ -12,6 +12,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
+import {
+    ModalPrecioDelete,
+    ModalPrecioUpdate,
+} from '../../../../components/Modales/modalPrecio'
 
 export const PrecioProveedor = {
     id: '',
@@ -46,33 +50,16 @@ export const columnsPrecios = [
         header: 'Proveedor',
     },
     {
-        id: 'actions',
+        accessorKey: 'eliminar',
         header: 'Opciones',
         cell: ({ row }) => {
-            const insumo = row.original
-            const urlVer = '/administracion/insumos/ver/' + insumo.id
-            const urlUpdate = '/administracion/insumos/update/' + insumo.id
-            const urlDelete = '/api/administracion/insumosDelete/'
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Opciones</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-rosado-200">
-                        <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlUpdate}>Editar</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            className="hover:bg-rosado-600"
-                            onClick={() => handleDelete(insumo.id, urlDelete)}>
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <>
+                    <ModalPrecioUpdate
+                        idPrecio={row.original.id}></ModalPrecioUpdate>
+                    <ModalPrecioDelete
+                        idPrecio={row.original.id}></ModalPrecioDelete>
+                </>
             )
         },
     },
