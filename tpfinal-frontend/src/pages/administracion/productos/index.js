@@ -48,7 +48,8 @@ export default function ProdutosIndex() {
             try {
                 const data = await fetchProductos()
                 setProductos(data)
-                // console.log(data)
+                
+                console.log(data)
             } catch (error) {
                 console.error('Error al obtener productos:', error)
             }
@@ -96,9 +97,6 @@ export default function ProdutosIndex() {
         }
     }
 
-    //MODAL
-
-    //-----------------
 
     if (productos === null || ciudades === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
@@ -122,11 +120,9 @@ export default function ProdutosIndex() {
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
                                 <Dialog>
-                                    <DialogTrigger>
-                                        <Button className="mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                                    <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                                             <PlusSquare className="mr-2 h-4 w-4" />
                                             NUEVO PRODUCTO
-                                        </Button>
                                     </DialogTrigger>
                                     <DialogContent className="bg-white border border-gray-200 ">
                                         <DialogHeader>

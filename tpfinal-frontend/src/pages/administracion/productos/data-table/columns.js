@@ -19,6 +19,7 @@ export const Producto = {
     id: '',
     nombre: '',
     descripcion: '',
+    imagen: '',
     ciudad: '',
     precio: '',
     estado: '',
@@ -73,10 +74,27 @@ export const columns = [
         header: 'Descripcion',
     },
     {
+        accessorKey: 'imagen',
+        header: 'Imagen',
+        cell: ({ row }) => {
+            const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+            return (
+                <div className="min-w-2xl">
+                    <img
+                        alt={row.original.descripcion}
+                        className="h-40 rounded-2xl w-full object-cover"
+                        src={urlBase + row.original.url_imagen}></img>
+                </div>
+            )
+
+            /*   return <div>{row.original.url_imagen}</div> */
+        },
+    },
+    {
         accessorKey: 'id_ciudad',
         header: 'Ciudad',
         cell: ({ row }) => {
-            return <div>{row.getValue('id_ciudad')}</div>
+            return <div>{row.original.ciudad.nombre}</div>
         },
     },
     {
@@ -138,9 +156,9 @@ export const columns = [
                         <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
+                      {/*   <DropdownMenuItem className="hover:bg-rosado-600">
                             Modificar stock
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                         <DropdownMenuItem
                             className="hover:bg-rosado-600"
                             onClick={() =>

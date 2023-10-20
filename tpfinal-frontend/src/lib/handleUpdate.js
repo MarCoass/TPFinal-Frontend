@@ -2,10 +2,10 @@ import getCookie from '@/lib/cookies'
 import axios from '@/lib/axios'
 
 
-export default function handleDelete(id, url){
+export default function handleUpdate(id, url){
     try {
         const xsrfToken = getCookie('XSRF-TOKEN')
-        const response = axios.delete(
+        const response = axios.post(
             `${url}${id}`,
             {
                 headers: {
@@ -17,6 +17,6 @@ export default function handleDelete(id, url){
         )
         
     } catch (error) {
-        console.error('Error al eliminar:', error)
+        console.error('Error al modificar:', error)
     }
 }
