@@ -15,7 +15,7 @@ const ProductCard = ({
         <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
             <div className="overflow-x-hidden rounded-2xl relative">
                 <Link href={`/producto/${idProducto}`}>
-                   <img
+                    <img
                         alt={descripcionProducto}
                         className="h-40 rounded-2xl w-full object-cover"
                         src={urlBase + imgUrl}></img>
@@ -41,9 +41,12 @@ const ProductCard = ({
                     <p className="text-lg font-semibold object-center text-gray-900 mb-0">
                         {nombreProducto}
                     </p>
-                    <p className="text-lg font-medium  text-gray-900 mb-0">
-                        {descripcionProducto}
-                    </p>
+                    {descripcionProducto ? (
+                        <p className="text-lg font-medium  text-gray-900 mb-0">
+                            {descripcionProducto}
+                        </p>
+                    ) : null
+                    }
                     <p className="text-md text-gray-800 mt-0">
                         ${precioProducto}
                     </p>
