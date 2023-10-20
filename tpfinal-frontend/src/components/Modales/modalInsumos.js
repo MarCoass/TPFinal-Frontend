@@ -92,7 +92,7 @@ export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
     )
 }
 
-export function ModalEliminarInsumo(idInsumo, idProducto) {
+export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     return (
         <>
             <AlertDialog>
