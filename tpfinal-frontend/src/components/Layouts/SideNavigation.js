@@ -9,7 +9,6 @@ const SideNavigation = ({ user }) => {
     const router = useRouter()
     const { logout } = useAuth()
 
-
     return (
         <nav className="bg-white border-b border-gray-100 w-64 h-screen">
             <div className="border-b ">
@@ -46,10 +45,13 @@ const SideNavigation = ({ user }) => {
                         active={router.pathname === '/administracion/tareas'}>
                         Tareas
                     </NavLink>
-                    <NavLink href="/" active={router.pathname === '/'}>
+                    <NavLink
+                        href="/administracion/proveedores"
+                        active={
+                            router.pathname === '/administracion/proveedores'
+                        }>
                         Proveedores
                     </NavLink>
-                
                 </div>
 
                 <div className="flex flex-col gap-4 mt-36 border-t">

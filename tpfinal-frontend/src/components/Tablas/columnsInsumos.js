@@ -2,10 +2,8 @@
 
 import { ArrowUpDown, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import { useState } from 'react'
-import ModalStockInsumo, { ModalEliminarInsumo } from '../Modales/modalInsumos'
+
+import ModalStockInsumo from '../Modales/modalInsumos'
 
 export const Insumo = {
     id: '',
@@ -61,11 +59,11 @@ export const columnsInsumos = [
         accessorKey: 'borrar',
         cell: ({ row }) => {
             return (
-                <ModalEliminarInsumo
+                <ModalEliminarInsumoProducto
                     idInsumo={row.original.id}
                     idProducto={
                         row.original.pivot.id_producto
-                    }></ModalEliminarInsumo>
+                    }></ModalEliminarInsumoProducto>
             )
         },
     },

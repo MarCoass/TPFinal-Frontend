@@ -1,8 +1,9 @@
 
 import { Insumo, columns } from './columns'
-import DataTable from './data-table'
+
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
+import Tabla from '../../../../components/Tablas/data-table';
 
 const fetchInsumos = async () => {
     try {
@@ -22,7 +23,7 @@ export default function TablaInsumos() {
         async function obtenerInsumos() {
             const data = await fetchInsumos()
             setInsumos(data)
-          /*   console.log(data) */
+            console.log(data)
         }
 
         obtenerInsumos()
@@ -32,7 +33,7 @@ export default function TablaInsumos() {
     return (
         <div className="container mx-auto py-10">
             {insumos ? (
-                <DataTable columns={columns} data={insumos} />
+                <Tabla columns={columns} data={insumos} />
                
             ) : (
                 <p>Cargando datos...</p>

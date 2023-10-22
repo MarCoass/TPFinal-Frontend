@@ -9,17 +9,8 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-    DialogFooter,
-} from '@/components/ui/dialog'
 import { Pencil, Trash2, PlusSquare } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import Input from '@/components/Input'
@@ -101,7 +92,7 @@ export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
     )
 }
 
-export function ModalEliminarInsumo(idInsumo, idProducto) {
+export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     return (
         <>
             <AlertDialog>

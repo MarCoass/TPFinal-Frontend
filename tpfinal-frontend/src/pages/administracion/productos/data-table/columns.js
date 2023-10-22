@@ -28,29 +28,6 @@ export const Producto = {
 
 export const columns = [
     {
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                className="border-violeta-600"
-                checked={table.getIsAllPageRowsSelected()}
-                onCheckedChange={value =>
-                    table.toggleAllPageRowsSelected(!!value)
-                }
-                aria-label="Select all"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                className="border-violeta-600"
-                checked={row.getIsSelected()}
-                onCheckedChange={value => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
         accessorKey: 'nombre',
         header: ({ column }) => {
             return (
@@ -72,30 +49,6 @@ export const columns = [
     {
         accessorKey: 'descripcion',
         header: 'Descripcion',
-    },
-    {
-        accessorKey: 'imagen',
-        header: 'Imagen',
-        cell: ({ row }) => {
-            const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
-            return (
-                <div className="min-w-2xl">
-                    <img
-                        alt={row.original.descripcion}
-                        className="h-40 rounded-2xl w-full object-cover"
-                        src={urlBase + row.original.url_imagen}></img>
-                </div>
-            )
-
-            /*   return <div>{row.original.url_imagen}</div> */
-        },
-    },
-    {
-        accessorKey: 'id_ciudad',
-        header: 'Ciudad',
-        cell: ({ row }) => {
-            return <div>{row.original.ciudad.nombre}</div>
-        },
     },
     {
         accessorKey: 'precio',
@@ -140,7 +93,7 @@ export const columns = [
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
-            const producto = row.original
+            /* const producto = row.original
             const urlUpdate = '/administracion/productos/update/' + producto.id
             const urlDelete = '/administracion/productoDelete/'
             return (
@@ -156,9 +109,7 @@ export const columns = [
                         <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
-                      {/*   <DropdownMenuItem className="hover:bg-rosado-600">
-                            Modificar stock
-                        </DropdownMenuItem> */}
+                        
                         <DropdownMenuItem
                             className="hover:bg-rosado-600"
                             onClick={() =>
@@ -168,7 +119,10 @@ export const columns = [
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            )
+            ) */
+            return <>
+                
+            </>
         },
     },
 ]

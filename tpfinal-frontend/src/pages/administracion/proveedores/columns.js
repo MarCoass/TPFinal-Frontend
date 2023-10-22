@@ -10,16 +10,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import handleDelete from '../../../lib/handleDelete'
 
-import { estadosInsumos } from '@/lib/estados'
-import handleDelete from '../../../../lib/handleDelete'
-
-export const Insumo = {
+export const Proveedor = {
     id: '',
     nombre: '',
-    descripcion: '',
-    estado: '',
-    stock: '',
+    direccion: '',
+    anotacion: ''
 }
 
 export const columns = [
@@ -39,39 +36,25 @@ export const columns = [
             )
         },
         cell: ({ row }) => {
+           
             return <p className="font-bold">{row.getValue('nombre')}</p>
         },
     },
     {
-        accessorKey: 'descripcion',
-        header: 'Descripcion',
+        accessorKey: 'direccion',
+        header: 'Direccion',
     },
     {
-        accessorKey: 'marca',
-        header: 'Marca',
-    },
-    {
-        accessorKey: 'estado',
-        header: 'Estado',
-        cell: ({ row }) => {
-            const id_estado = row.getValue('estado')
-            const estados = estadosInsumos()
-            const estado = estados.find(estado => estado.id === id_estado)
-            return <div>{estado.nombre}</div>
-        },
-    },
-    {
-        accessorKey: 'stock',
-        header: 'Stock',
+        accessorKey: 'anotacion',
+        header: 'Anotacion',
     },
     {
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
-            const insumo = row.original
-            const urlVer = '/administracion/insumos/ver/' + insumo.id
-            const urlUpdate = '/administracion/insumos/update/' + insumo.id
-            const urlDelete = '/api/administracion/insumosDelete/'
+            const proveedor = row.original
+            const urlUpdate = '/administracion/proveedores/update/' + proveedor.id
+            const urlDelete = '/api/proveedorDelete/'
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -83,15 +66,12 @@ export const columns = [
                     <DropdownMenuContent align="end" className="bg-rosado-200">
                         <DropdownMenuLabel>Opciones</DropdownMenuLabel>
                         <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlVer}>Ver</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
                             <a href={urlUpdate}>Editar</a>
                         </DropdownMenuItem>
                         <DropdownMenuItem
                             className="hover:bg-rosado-600"
                             onClick={() =>
-                                handleDelete(insumo.id, urlDelete)
+                                handleDelete(proveedor.id, urlDelete)
                             }>
                             Eliminar
                         </DropdownMenuItem>
