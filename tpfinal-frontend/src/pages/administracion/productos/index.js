@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog'
 import TablaProductos from './data-table/page'
 import { Button } from '../../../components/ui/button'
+import { ModalProductoStore } from '../../../components/Modales/modalProductos'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -119,7 +120,7 @@ export default function ProdutosIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <Dialog>
+                               {/*  <Dialog>
                                     <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                                             <PlusSquare className="mr-2 h-4 w-4" />
                                             NUEVO PRODUCTO
@@ -134,7 +135,8 @@ export default function ProdutosIndex() {
                                             </DialogDescription>
                                         </DialogHeader>
                                     </DialogContent>
-                                </Dialog>
+                                </Dialog> */}
+                                <ModalProductoStore></ModalProductoStore>
                                 <TablaProductos></TablaProductos>
                             </div>
                         </div>
