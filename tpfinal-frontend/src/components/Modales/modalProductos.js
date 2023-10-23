@@ -32,6 +32,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                 Accept: 'application/json',
             }
             const response = await axios.post(url, formData, { headers })
+            console.log(response.data)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
