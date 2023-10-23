@@ -2,19 +2,11 @@
 
 import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { estadosProductos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
-import { ModalStockProductos } from '../../../../components/Modales/modalProductos'
+import { ModalProductoEliminar, ModalStockProductos } from '../../../../components/Modales/modalProductos'
 
 export const Producto = {
     id: '',
@@ -107,7 +99,7 @@ export const columns = [
             const producto = row.original
             return (
                 <>
-                    
+                    <ModalProductoEliminar idProducto={producto.id}></ModalProductoEliminar>
                 </>
             )
         },

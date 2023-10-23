@@ -22,6 +22,8 @@ import { SelectEstadosProducto } from '@/components/Formularios/SelectEstados'
 import SelectTips from '@/components/Formularios/SelectTips'
 import ListadoInsumos from '@/components/Formularios/listado'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import handleDelete from '../../lib/handleDelete'
+
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -330,6 +332,37 @@ export function ModalProductoStore() {
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalProductoEliminar({ idProducto }) {
+    let urlDelete = '/administracion/productoDelete/'
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                    <Trash2 className="h-4 w-4 mx-2" />
+                    Eliminar
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Eliminar</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            <p>¿Desea eliminar el producto?</p>
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() =>
+                                handleDelete(idProducto, urlDelete)
+                            }>
+                            Eliminar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
         </>

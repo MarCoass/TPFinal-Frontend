@@ -120,22 +120,6 @@ export default function ProdutosIndex() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                               {/*  <Dialog>
-                                    <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                                            <PlusSquare className="mr-2 h-4 w-4" />
-                                            NUEVO PRODUCTO
-                                    </DialogTrigger>
-                                    <DialogContent className="bg-white border border-gray-200 ">
-                                        <DialogHeader>
-                                            <DialogTitle>
-                                                Crear producto
-                                            </DialogTitle>
-                                            <DialogDescription>
-                                                <ProductoStore></ProductoStore>
-                                            </DialogDescription>
-                                        </DialogHeader>
-                                    </DialogContent>
-                                </Dialog> */}
                                 <ModalProductoStore></ModalProductoStore>
                                 <TablaProductos></TablaProductos>
                             </div>
