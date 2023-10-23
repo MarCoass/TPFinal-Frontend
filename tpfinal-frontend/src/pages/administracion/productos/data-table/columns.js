@@ -14,6 +14,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { estadosProductos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
+import { ModalStockProductos } from '../../../../components/Modales/modalProductos'
 
 export const Producto = {
     id: '',
@@ -88,41 +89,27 @@ export const columns = [
     {
         accessorKey: 'stock',
         header: 'Stock',
+        cell: ({ row }) => {
+            const producto = row.original
+            return (
+                <><p>{producto.stock}</p>
+                    <ModalStockProductos
+                        idProducto={producto.id}
+                        stock={producto.stock}></ModalStockProductos>
+                </>
+            )
+        },
     },
     {
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
-            /* const producto = row.original
-            const urlUpdate = '/administracion/productos/update/' + producto.id
-            const urlDelete = '/administracion/productoDelete/'
+            const producto = row.original
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Opciones</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-rosado-200">
-                        <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlUpdate}>Editar</a>
-                        </DropdownMenuItem>
-                        
-                        <DropdownMenuItem
-                            className="hover:bg-rosado-600"
-                            onClick={() =>
-                                handleDelete(producto.id, urlDelete)
-                            }>
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            ) */
-            return <>
-                
-            </>
+                <>
+                    
+                </>
+            )
         },
     },
 ]
