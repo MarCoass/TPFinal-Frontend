@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { estadosProductos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
-import { ModalProductoEliminar, ModalStockProductos } from '../../../../components/Modales/modalProductos'
+import { ModalProductoEliminar, ModalProductoUpdate, ModalStockProductos } from '../../../../components/Modales/modalProductos'
 
 export const Producto = {
     id: '',
@@ -99,6 +99,7 @@ export const columns = [
             const producto = row.original
             return (
                 <>
+                <ModalProductoUpdate idProducto={producto.id}></ModalProductoUpdate>
                     <ModalProductoEliminar idProducto={producto.id}></ModalProductoEliminar>
                 </>
             )
