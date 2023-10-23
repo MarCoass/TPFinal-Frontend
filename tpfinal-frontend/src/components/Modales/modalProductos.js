@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare } from 'lucide-react'
+import { Pencil, Trash2, PlusSquare, Eye } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -24,7 +24,6 @@ import ListadoInsumos from '@/components/Formularios/listado'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
-
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -414,25 +413,24 @@ export function ModalProductoUpdate({ idProducto }) {
     }
     const handleSubmit = async e => {
         e.preventDefault()
-      
 
-            const formData = new FormData()
-            formData.append('nombre', nombre)
-            formData.append('descripcion', descripcion)
-            formData.append('precio', precio)
-            formData.append('stock', stock)
-            formData.append('ciudad', ciudad)
-            formData.append('estado', estado)
-            formData.append('imagen', imagen)
-            // Agrega el token CSRF al encabezado de la solicitud
-            const headers = {
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                Accept: 'application/json',
-            }
+        const formData = new FormData()
+        formData.append('nombre', nombre)
+        formData.append('descripcion', descripcion)
+        formData.append('precio', precio)
+        formData.append('stock', stock)
+        formData.append('ciudad', ciudad)
+        formData.append('estado', estado)
+        formData.append('imagen', imagen)
+        // Agrega el token CSRF al encabezado de la solicitud
+        const headers = {
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+            Accept: 'application/json',
+        }
 
-            // Realiza la solicitud POST a tu servidor Laravel
-            let urlUpdate = '/administracion/productoUpdate/'
-            handleUpdate(idProducto, urlUpdate, formData)
+        // Realiza la solicitud POST a tu servidor Laravel
+        let urlUpdate = '/administracion/productoUpdate/'
+        handleUpdate(idProducto, urlUpdate, formData)
     }
 
     const handleImagenChange = e => {
@@ -447,7 +445,7 @@ export function ModalProductoUpdate({ idProducto }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:violeta-red-600 rounded text-white">
+                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
                     <Pencil className="h-4 w-4 mx-2" />
                     Editar
                 </AlertDialogTrigger>
@@ -570,6 +568,70 @@ export function ModalProductoUpdate({ idProducto }) {
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalProductoVer({ idProducto }) {
+    const [producto, setProducto] = useState()
+    useEffect(() => {
+        if (idProducto != null) {
+            async function obtenerProducto() {
+                try {
+                    const data = await fetchProducto(idProducto)
+                    setProducto(data)
+                } catch (error) {
+                    console.error(
+                        'Hubo un problema obteniendo los datos: ',
+                        error,
+                    )
+                }
+            }
+            obtenerProducto()
+        }
+    }, [idProducto])
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                    <Eye className="h-4 w-4 mx-2" />
+                    Ver
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            {producto && <p>{producto.nombre}</p>}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            {producto ? (
+                                <div>
+                                    <p>Nombre: {producto.nombre}</p>
+                                    <p>Descripcion: {producto.descripcion}</p>
+                                    <p>Precio: {producto.precio}</p>
+                                    <p>Ciudad: {producto.ciudad.nombre}</p>
+                                    <p>Stock: {producto.stock}</p>
+                                    <div className="min-w-2xl">
+                                        {' '}
+                                        <img
+                                            alt={producto.descripcion}
+                                            className=" rounded-2xl w-full object-cover"
+                                            src={
+                                                urlBase +
+                                                producto.url_imagen
+                                            }></img>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>cargando</p>
+                            )}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
         </>
