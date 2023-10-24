@@ -9,8 +9,8 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare } from 'lucide-react'
-import { useState } from 'react'
+import { Pencil, Trash2, PlusSquare, Eye } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import Input from '@/components/Input'
@@ -251,4 +251,49 @@ export function ModalInsumoCrear() {
     )
 }
 
+export function ModalInsumoVer({ idInsumo }) {
+    const [insumo, setInsumo] = useState()
+    useEffect(() => {
+        if (idInsumo != null) {
+            async function obtenerInsumo() {
+                try {
+                    const data = await fetchInsumo(idInsumo)
+                    setInsumo(data)
+                } catch (error) {
+                    console.error(
+                        'Hubo un problema obteniendo los datos: ',
+                        error,
+                    )
+                }
+            }
+            obtenerInsumo()
+        }
+    }, [idInsumo])
 
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                    <Eye className="h-4 w-4 mx-2" />
+                    Ver
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            {insumo && <p>{insumo.nombre}</p>}
+                        </AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogDescription>
+                        <p>Nombre: {insumo.nombre}</p>
+                        <p>Descripcion: {insumo.descripcion}</p>
+                        <p>Stock: {insumo.stock}</p>
+                        <p>Stock minimo: {insumo.stock_minimo}</p>
+                    </AlertDialogDescription>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
