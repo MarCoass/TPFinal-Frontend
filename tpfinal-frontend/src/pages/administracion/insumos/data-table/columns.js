@@ -14,6 +14,7 @@ import {
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
 import {
+    ModalInsumoEliminar,
     ModalInsumoModificar,
     ModalInsumoVer,
 } from '../../../../components/Modales/modalInsumos'
@@ -81,6 +82,8 @@ export const columns = [
                     <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
                     <ModalInsumoModificar
                         idInsumo={insumo.id}></ModalInsumoModificar>
+                    <ModalInsumoEliminar
+                        idInsumo={insumo.id}></ModalInsumoEliminar>
                 </>
             )
         },

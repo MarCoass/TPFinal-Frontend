@@ -1,5 +1,7 @@
 import getCookie from '@/lib/cookies'
 import axios from '@/lib/axios'
+import swal from 'sweetalert'
+
 
 
 export default function handleDelete(id, url){

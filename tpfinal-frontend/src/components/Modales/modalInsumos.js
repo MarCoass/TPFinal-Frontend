@@ -17,6 +17,8 @@ import Input from '@/components/Input'
 import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 import handleUpdate from '../../lib/handleUpdate'
+import handleDelete from '../../lib/handleDelete'
+
 
 const fetchInsumo = id => {
     return axios.get('/administracion/insumo/' + id).then(res => res.data)
@@ -430,6 +432,35 @@ export function ModalInsumoModificar({ idInsumo }) {
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoEliminar({idInsumo}){
+    let urlDelete = '/administracion/insumosDelete/'
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                    <Trash2 className="h-4 w-4 mx-2" />
+                    Eliminar
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Eliminar</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            ¿Desea eliminar el insumo?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => handleDelete(idInsumo, urlDelete)}>
+                            Eliminar
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
         </>

@@ -423,11 +423,6 @@ export function ModalProductoUpdate({ idProducto }) {
         formData.append('ciudad', ciudad)
         formData.append('estado', estado)
         formData.append('imagen', imagen)
-        // Agrega el token CSRF al encabezado de la solicitud
-        const headers = {
-            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-            Accept: 'application/json',
-        }
 
         // Realiza la solicitud POST a tu servidor Laravel
         let urlUpdate = '/administracion/productoUpdate/'
