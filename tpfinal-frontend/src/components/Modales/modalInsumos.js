@@ -510,8 +510,8 @@ export function ModalInsumoPrecios({ idInsumo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                    <DollarSign className="h-4 w-4 mx-2" /> Ver precios
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                    <DollarSign className="h-4 w-4 mx-2" /> Ver
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <ModalPrecioStore idInsumo={idInsumo}></ModalPrecioStore>
@@ -525,8 +525,11 @@ export function ModalInsumoPrecios({ idInsumo }) {
                         </div>
                     ) : (
                         <p>Cargando datos...</p>
-                    )}
+                    )}<AlertDialogFooter>
+                    <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                </AlertDialogFooter>
                 </AlertDialogContent>
+                
             </AlertDialog>
         </>
     )
