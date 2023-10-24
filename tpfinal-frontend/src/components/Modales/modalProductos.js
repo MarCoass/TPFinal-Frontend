@@ -24,6 +24,7 @@ import ListadoInsumos from '@/components/Formularios/listado'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
+import { TablaInsumosProductos } from '../Tablas/TablaInsumosProducto'
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -582,6 +583,7 @@ export function ModalProductoVer({ idProducto }) {
                 try {
                     const data = await fetchProducto(idProducto)
                     setProducto(data)
+                    /*  console.log(producto) */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -592,7 +594,7 @@ export function ModalProductoVer({ idProducto }) {
             obtenerProducto()
         }
     }, [idProducto])
-    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
     return (
         <>
             <AlertDialog>
@@ -606,27 +608,82 @@ export function ModalProductoVer({ idProducto }) {
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            {producto ? (
-                                <div>
-                                    <p>Nombre: {producto.nombre}</p>
-                                    <p>Descripcion: {producto.descripcion}</p>
-                                    <p>Precio: {producto.precio}</p>
-                                    <p>Ciudad: {producto.ciudad.nombre}</p>
-                                    <p>Stock: {producto.stock}</p>
-                                    <div className="min-w-2xl">
-                                        {' '}
-                                        <img
-                                            alt={producto.descripcion}
-                                            className=" rounded-2xl w-full object-cover"
-                                            src={
-                                                urlBase +
-                                                producto.url_imagen
-                                            }></img>
-                                    </div>
-                                </div>
-                            ) : (
-                                <p>cargando</p>
-                            )}
+                            <Tabs defaultValue="general">
+                                <TabsList className="">
+                                    <TabsTrigger value="general">
+                                        Informacion General
+                                    </TabsTrigger>
+                                    <TabsTrigger value="insumos">
+                                        Insumos
+                                    </TabsTrigger>
+                                </TabsList>
+                                {producto ? (
+                                    <>
+                                        <TabsContent value="general">
+                                            <div className="text-left text-base">
+                                                <p>Nombre: {producto.nombre}</p>
+                                                <p>
+                                                    Descripcion:{' '}
+                                                    {producto.descripcion}
+                                                </p>
+                                                <p>Precio: {producto.precio}</p>
+                                                <p>
+                                                    Ciudad:{' '}
+                                                    {producto.ciudad.nombre}
+                                                </p>
+                                                <p>Stock: {producto.stock}</p>
+                                                {producto.set && (
+                                                    <>
+                                                        <p>
+                                                            Categoria:{' '}
+                                                            {
+                                                                producto.set
+                                                                    .categoria_set
+                                                                    .nombre
+                                                            }
+                                                        </p>
+                                                        <p>
+                                                            Forma:{' '}
+                                                            {
+                                                                producto.set.tip
+                                                                    .forma
+                                                            }
+                                                        </p>
+                                                        <p>
+                                                            Largo:{' '}
+                                                            {
+                                                                producto.set.tip
+                                                                    .largo
+                                                            }
+                                                        </p>
+                                                    </>
+                                                )}
+                                                <div className="min-w-2xl">
+                                                    <img
+                                                        alt={
+                                                            producto.descripcion
+                                                        }
+                                                        className=" rounded-2xl w-full object-cover"
+                                                        src={
+                                                            urlBase +
+                                                            producto.url_imagen
+                                                        }></img>
+                                                </div>
+                                            </div>
+                                        </TabsContent>
+                                        <TabsContent value="insumos">
+                                            {producto.insumos && (
+                                                <TablaInsumosProductos
+                                                    insumos={
+                                                        producto.insumos
+                                                    }></TablaInsumosProductos>
+                                            )}
+                                        </TabsContent>
+                                    </>
+                                ) : (
+                                    <p>cargando</p>
+                                )}
+                            </Tabs>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
