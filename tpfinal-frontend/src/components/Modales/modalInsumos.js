@@ -16,6 +16,7 @@ const { default: getCookie } = require('@/lib/cookies')
 import Input from '@/components/Input'
 import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
+import handleUpdate from '../../lib/handleUpdate'
 
 const fetchInsumo = id => {
     return axios.get('/administracion/insumo/' + id).then(res => res.data)
@@ -284,14 +285,151 @@ export function ModalInsumoVer({ idInsumo }) {
                         </AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogDescription>
-                        <p>Nombre: {insumo.nombre}</p>
-                        <p>Descripcion: {insumo.descripcion}</p>
-                        <p>Stock: {insumo.stock}</p>
-                        <p>Stock minimo: {insumo.stock_minimo}</p>
+                        {insumo && (
+                            <>
+                                <p>Nombre: {insumo.nombre}</p>
+                                <p>Descripcion: {insumo.descripcion}</p>
+                                <p>Stock: {insumo.stock}</p>
+                                <p>Stock minimo: {insumo.stock_minimo}</p>
+                            </>
+                        )}
                     </AlertDialogDescription>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoModificar({ idInsumo }) {
+    const [nombre, setNombre] = useState('')
+    const [descripcion, setDescripcion] = useState('')
+    const [stock, setStock] = useState('')
+    const [stock_minimo, setStockMinimo] = useState('')
+    const [id_categoria, setCategoria] = useState('')
+    const [estado, setEstado] = useState('')
+    const [marca, setMarca] = useState('')
+    useEffect(() => {
+        if (idInsumo) {
+            async function obtenerInsumo() {
+                try {
+                    const data = await fetchInsumo(idInsumo)
+                    setNombre(data.nombre)
+                    setDescripcion(data.descripcion)
+                    setStock(data.stock)
+                    setStockMinimo(data.stock_minimo)
+                    setEstado(data.estado)
+                    setMarca(data.marca)
+                } catch (error) {
+                    console.error(
+                        'Hubo un problema obteniendo los datos: ',
+                        error,
+                    )
+                }
+            }
+            obtenerInsumo()
+        }
+    }, [])
+    const handleSubmit = async e => {
+        e.preventDefault()
+
+        const formData = new FormData()
+        formData.append('nombre', nombre)
+        formData.append('descripcion', descripcion)
+        formData.append('stock', stock)
+        formData.append('stock_minimo', stock_minimo)
+        formData.append('id_categoria', id_categoria)
+        formData.append('estado', estado)
+        formData.append('marca', marca)
+
+        let urlUpdate = '/api/administracion/insumosUpdate/'
+        handleUpdate(idInsumo, urlUpdate, formData)
+    }
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                    <Pencil className="h-4 w-4 mx-2" />
+                    Editar
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <form onSubmit={handleSubmit}>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Editar insumo</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div className="">
+                            <div className="flex justify-around">
+                                <label>Nombre:</label>
+                                <Input
+                                    type="text"
+                                    value={nombre}
+                                    onChange={e => setNombre(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Descripcion:</label>
+                                <Input
+                                    type="text"
+                                    value={descripcion}
+                                    onChange={e =>
+                                        setDescripcion(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <label>Stock:</label>
+                                <Input
+                                    type="number"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <label>Stock minimo:</label>
+                                <Input
+                                    type="number"
+                                    value={stock_minimo}
+                                    onChange={e =>
+                                        setStockMinimo(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="flex justify-around">
+                                <SelectCategoriasInsumos
+                                    value={id_categoria}
+                                    onChange={newCategoria =>
+                                        setCategoria(newCategoria)
+                                    }></SelectCategoriasInsumos>
+                            </div>
+                            <div className="flex justify-around">
+                                <SelectEstadosInsumo
+                                    value={estado}
+                                    onChange={newEstado =>
+                                        setEstado(newEstado)
+                                    }></SelectEstadosInsumo>
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Marca:</label>
+                                <Input
+                                    type="text"
+                                    value={marca}
+                                    onChange={e => setMarca(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cerrar </AlertDialogCancel>
+                            <AlertDialogAction type="subtmit">
+                                Enviar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
                 </AlertDialogContent>
             </AlertDialog>
         </>

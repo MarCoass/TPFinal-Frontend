@@ -13,7 +13,10 @@ import {
 
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
-import { ModalInsumoVer } from '../../../../components/Modales/modalInsumos'
+import {
+    ModalInsumoModificar,
+    ModalInsumoVer,
+} from '../../../../components/Modales/modalInsumos'
 
 export const Insumo = {
     id: '',
@@ -74,7 +77,11 @@ export const columns = [
             const urlUpdate = '/administracion/insumos/update/' + insumo.id
             const urlDelete = '/api/administracion/insumosDelete/'
             return (
-               <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
+                <>
+                    <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
+                    <ModalInsumoModificar
+                        idInsumo={insumo.id}></ModalInsumoModificar>
+                </>
             )
         },
     },
