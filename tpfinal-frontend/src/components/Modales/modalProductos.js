@@ -653,12 +653,12 @@ export function ModalProductoVer({ idProducto }) {
                                                         </p>
                                                     </>
                                                 )}
-                                                <div className="min-w-2xl">
+                                                <div className="">
                                                     <img
                                                         alt={
                                                             producto.descripcion
                                                         }
-                                                        className=" rounded-2xl w-full object-cover"
+                                                        className=" rounded-2xl w-60 object-cover"
                                                         src={
                                                             urlBase +
                                                             producto.url_imagen
