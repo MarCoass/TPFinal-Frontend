@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye } from 'lucide-react'
+import { Pencil, Trash2, PlusSquare, Eye, DollarSign } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -18,7 +18,9 @@ import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasIn
 import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 import handleUpdate from '../../lib/handleUpdate'
 import handleDelete from '../../lib/handleDelete'
-
+import { ModalPrecioStore } from './modalPrecio'
+import Tabla from '../Tablas/data-table'
+import { columnsPrecios } from '../../pages/administracion/insumos/ver/columnsPrecios'
 
 const fetchInsumo = id => {
     return axios.get('/administracion/insumo/' + id).then(res => res.data)
@@ -438,7 +440,7 @@ export function ModalInsumoModificar({ idInsumo }) {
     )
 }
 
-export function ModalInsumoEliminar({idInsumo}){
+export function ModalInsumoEliminar({ idInsumo }) {
     let urlDelete = '/administracion/insumosDelete/'
     return (
         <>
@@ -461,6 +463,69 @@ export function ModalInsumoEliminar({idInsumo}){
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoPrecios({ idInsumo }) {
+    const [listadoPrecios, setListadoPrecios] = useState(null)
+    const [insumo, setInsumo] = useState(null)
+
+    useEffect(() => {
+        if (idInsumo) {
+            async function obtenerInsumo() {
+                try {
+                    const data = await fetchInsumo(idInsumo)
+                    /* console.log(data) */
+                    setInsumo(data)
+                } catch (error) {
+                    console.error(
+                        'Hubo un problema obteniendo los datos: ',
+                        error,
+                    )
+                }
+            }
+            obtenerInsumo()
+        }
+    }, [idInsumo])
+
+    useEffect(() => {
+        if (insumo && insumo.precios_proveedores) {
+            const formattedData = insumo.precios_proveedores.map(item => {
+                return {
+                    id: item.id,
+                    id_insumo: item.id_insumo,
+                    id_proveedor: item.id_proveedor,
+                    precio: item.precio,
+                    proveedor: item.proveedor.nombre,
+                }
+            })
+
+            setListadoPrecios(formattedData)
+            console.log(listadoPrecios)
+        }
+    }, [insumo])
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                    <DollarSign className="h-4 w-4 mx-2" /> Ver precios
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <ModalPrecioStore idInsumo={idInsumo}></ModalPrecioStore>
+                    {listadoPrecios ? (
+                        <div>
+                            <Tabla
+                                columns={columnsPrecios}
+                                data={listadoPrecios}
+                                o
+                            />
+                        </div>
+                    ) : (
+                        <p>Cargando datos...</p>
+                    )}
                 </AlertDialogContent>
             </AlertDialog>
         </>

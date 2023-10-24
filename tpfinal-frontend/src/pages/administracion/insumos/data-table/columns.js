@@ -16,6 +16,7 @@ import handleDelete from '../../../../lib/handleDelete'
 import {
     ModalInsumoEliminar,
     ModalInsumoModificar,
+    ModalInsumoPrecios,
     ModalInsumoVer,
 } from '../../../../components/Modales/modalInsumos'
 
@@ -56,27 +57,28 @@ export const columns = [
         header: 'Marca',
     },
     {
-        accessorKey: 'estado',
-        header: 'Estado',
-        cell: ({ row }) => {
-            const id_estado = row.getValue('estado')
-            const estados = estadosInsumos()
-            const estado = estados.find(estado => estado.id === id_estado)
-            return <div>{estado.nombre}</div>
-        },
-    },
-    {
         accessorKey: 'stock',
         header: 'Stock',
+    },
+    {
+        accessorKey: 'precio',
+        header: 'Precio',
+        cell: ({ row }) => {
+            const insumo = row.original
+            return (
+                <>
+                    <ModalInsumoPrecios
+                        idInsumo={insumo.id}></ModalInsumoPrecios>
+                </>
+            )
+        },
     },
     {
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
             const insumo = row.original
-            const urlVer = '/administracion/insumos/ver/' + insumo.id
-            const urlUpdate = '/administracion/insumos/update/' + insumo.id
-            const urlDelete = '/api/administracion/insumosDelete/'
+         
             return (
                 <>
                     <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
