@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye } from 'lucide-react'
+import { Pencil, Trash2, PlusSquare, Eye, Plus, Minus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -90,21 +90,39 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
-                            <AlertDialogDescription>
+
                                 <p>Modificar el stock</p>
                                 <input
                                     type="hidden"
                                     id="id_producto"
                                     value={idProducto}
                                 />
-                                <label htmlFor="name">Stock:</label>
-                                <input
-                                    type="number"
-                                    id="stock"
-                                    value={stock}
-                                    onChange={e => setStock(e.target.value)}
-                                />
-                            </AlertDialogDescription>
+                                <div className='flex gap-1'>
+                                    <button
+                                    className='p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white'
+                                        type="button"
+                                        onClick={e =>
+                                            setStock(parseInt(stock) - 1)
+                                        }>
+                                        <Minus></Minus>
+                                    </button>
+                                    <input
+                                        className="w-16"
+                                        type="number"
+                                        id="stock"
+                                        value={stock}
+                                        onChange={e => setStock(e.target.value)}
+                                    />
+
+                                    <button
+                                        type="button"
+                                        className='p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white'
+                                        onClick={e =>
+                                            setStock(parseInt(stock) + 1)
+                                        }>
+                                        <Plus></Plus>
+                                    </button>
+                                </div>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
