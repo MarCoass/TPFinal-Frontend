@@ -90,39 +90,40 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
-
-                                <p>Modificar el stock</p>
-                                <input
-                                    type="hidden"
-                                    id="id_producto"
-                                    value={idProducto}
-                                />
-                                <div className='flex gap-1'>
-                                    <button
-                                    className='p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white'
-                                        type="button"
-                                        onClick={e =>
+                            <input
+                                type="hidden"
+                                id="id_producto"
+                                value={idProducto}
+                            />
+                            <div className="flex gap-1">
+                                <button
+                                    disabled={stock === 0}
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 disabled:bg-rosado-200 rounded font-semibold text-white"
+                                    type="button"
+                                    onClick={e => {
+                                        if (stock > 0) {
                                             setStock(parseInt(stock) - 1)
-                                        }>
-                                        <Minus></Minus>
-                                    </button>
-                                    <input
-                                        className="w-16"
-                                        type="number"
-                                        id="stock"
-                                        value={stock}
-                                        onChange={e => setStock(e.target.value)}
-                                    />
+                                        }
+                                    }}>
+                                    <Minus></Minus>
+                                </button>
+                                <input
+                                    className="w-16"
+                                    type="number"
+                                    id="stock"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                />
 
-                                    <button
-                                        type="button"
-                                        className='p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white'
-                                        onClick={e =>
-                                            setStock(parseInt(stock) + 1)
-                                        }>
-                                        <Plus></Plus>
-                                    </button>
-                                </div>
+                                <button
+                                    type="button"
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
+                                    onClick={e =>
+                                        setStock(parseInt(stock) + 1)
+                                    }>
+                                    <Plus></Plus>
+                                </button>
+                            </div>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
