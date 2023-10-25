@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye, Plus, Minus } from 'lucide-react'
+import { Pencil, Trash2, PlusSquare, Eye, Plus, Minus, Info } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -90,6 +90,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
+                            <p>Stock actual: {stockViejo}</p>
                             <input
                                 type="hidden"
                                 id="id_producto"
@@ -113,6 +114,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                                     id="stock"
                                     value={stock}
                                     onChange={e => setStock(e.target.value)}
+                                    min="0"
                                 />
 
                                 <button
