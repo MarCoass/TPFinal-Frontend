@@ -88,7 +88,6 @@ export default function IndexProductos() {
                                     <ModalInsumoCrear></ModalInsumoCrear>
                                     <ModalCategoriasInsumos></ModalCategoriasInsumos>
                                 </div>
-
                                 <TablaInsumos></TablaInsumos>
                             </div>
                         </div>

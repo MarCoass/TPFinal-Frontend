@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input'
 import handleDelete from '../../lib/handleDelete'
 import { columns } from '../../pages/administracion/categorias/insumos/columnsCategoriaInsumos'
 import Tabla from '../Tablas/data-table'
+import swal from 'sweetalert'
 
 const fetchCategoria = id => {
     return axios
@@ -68,8 +69,18 @@ export function ModalCategoriaInsumoUpdate({ id }) {
                 formData,
                 { headers },
             )
-            // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            if (response.data.exito) {
+                swal({
+                    icon: 'success',
+                    title: 'Categoria editada correctamente.',
+                    text: response.data.message,
+                    button: {
+                        text: 'Cerrar',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -166,8 +177,18 @@ export function ModalCategoriaInsumoStore({}) {
                 formData,
                 { headers },
             )
-            // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            if (response.data.exito) {
+                swal({
+                    icon: 'success',
+                    title: 'Categoria creada correctamente.',
+                    text: response.data.message,
+                    button: {
+                        text: 'Cerrar',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
