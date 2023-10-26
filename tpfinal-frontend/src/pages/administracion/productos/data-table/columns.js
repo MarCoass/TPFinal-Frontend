@@ -93,7 +93,7 @@ export const columns = [
                     <p>{producto.stock}</p>
                     <ModalStockProductos
                         idProducto={producto.id}
-                        stock={producto.stock}></ModalStockProductos>
+                        stockViejo={producto.stock}></ModalStockProductos>
                 </>
             )
         },

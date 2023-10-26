@@ -17,6 +17,7 @@ import {
     ModalInsumoEliminar,
     ModalInsumoModificar,
     ModalInsumoPrecios,
+    ModalInsumoStockUpdate,
     ModalInsumoVer,
 } from '../../../../components/Modales/modalInsumos'
 
@@ -59,6 +60,17 @@ export const columns = [
     {
         accessorKey: 'stock',
         header: 'Stock',
+        cell: ({ row }) => {
+            const insumo = row.original
+            return (
+                <>
+                    <p>{insumo.stock}</p>
+                    <ModalInsumoStockUpdate
+                        idInsumo={insumo.id}
+                        stockViejo={insumo.stock}></ModalInsumoStockUpdate>
+                </>
+            )
+        },
     },
     {
         accessorKey: 'precio',

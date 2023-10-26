@@ -9,7 +9,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye, DollarSign } from 'lucide-react'
+import { Pencil, Trash2, PlusSquare, Eye, DollarSign, Minus, Plus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -504,7 +504,7 @@ export function ModalInsumoPrecios({ idInsumo }) {
             })
 
             setListadoPrecios(formattedData)
-            console.log(listadoPrecios)
+          /*   console.log(listadoPrecios) */
         }
     }, [insumo])
     return (
@@ -525,11 +525,101 @@ export function ModalInsumoPrecios({ idInsumo }) {
                         </div>
                     ) : (
                         <p>Cargando datos...</p>
-                    )}<AlertDialogFooter>
-                    <AlertDialogCancel>Cerrar</AlertDialogCancel>
-                </AlertDialogFooter>
+                    )}
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
-                
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
+    const [stock, setStock] = useState(stockViejo)
+    const handleSubmit = async e => {
+        e.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append('stock', stock)
+            let url = '/administracion/insumoStockUpdate/' + idInsumo
+            const headers = {
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                Accept: 'application/json',
+            }
+            const response = await axios.post(url, formData, { headers })
+            /* console.log(response.data) */
+            if (response.data.exito) {
+                swal({
+                    icon: 'success',
+                    title: 'Stock agregado correctamente.',
+                    text: response.data.message,
+                    button: {
+                        text: 'Cerrar',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
+        } catch (error) {
+            console.error('Error al enviar la solicitud:', error)
+        }
+    }
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                    <Pencil className="h-4 w-4 mx-2" />
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <form onSubmit={handleSubmit}>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Modificar stock</AlertDialogTitle>
+                            <p>Stock actual: {stockViejo}</p>
+                            <input
+                                type="hidden"
+                                id="id_producto"
+                                value={idInsumo}
+                            />
+                            <div className="flex gap-1">
+                                <button
+                                    disabled={stock === 0}
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 disabled:bg-rosado-200 rounded font-semibold text-white"
+                                    type="button"
+                                    onClick={e => {
+                                        if (stock > 0) {
+                                            setStock(parseInt(stock) - 1)
+                                        }
+                                    }}>
+                                    <Minus></Minus>
+                                </button>
+                                <input
+                                    className="w-16"
+                                    type="number"
+                                    id="stock"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                    min="0"
+                                />
+
+                                <button
+                                    type="button"
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
+                                    onClick={e =>
+                                        setStock(parseInt(stock) + 1)
+                                    }>
+                                    <Plus></Plus>
+                                </button>
+                            </div>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Modificar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
+                </AlertDialogContent>
             </AlertDialog>
         </>
     )
