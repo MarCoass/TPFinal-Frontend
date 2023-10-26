@@ -18,7 +18,7 @@ const fetchInsumos = () => {
 }
 
 const fetchCategorias = () => {
-    return axios.get('/administracion/categoriasInsumos').then(res => res.data)
+    return axios.get('/api/administracion/categoriasInsumos').then(res => res.data)
 }
 
 export default function IndexProductos() {

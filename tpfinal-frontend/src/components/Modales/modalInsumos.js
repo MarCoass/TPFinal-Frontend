@@ -258,12 +258,14 @@ export function ModalInsumoCrear() {
 
 export function ModalInsumoVer({ idInsumo }) {
     const [insumo, setInsumo] = useState()
+
     useEffect(() => {
         if (idInsumo != null) {
             async function obtenerInsumo() {
                 try {
                     const data = await fetchInsumo(idInsumo)
                     setInsumo(data)
+                   
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -295,6 +297,7 @@ export function ModalInsumoVer({ idInsumo }) {
                                 <p>Descripcion: {insumo.descripcion}</p>
                                 <p>Stock: {insumo.stock}</p>
                                 <p>Stock minimo: {insumo.stock_minimo}</p>
+                                <p>Categoria: {insumo.categoria.nombre}</p>
                             </>
                         )}
                     </AlertDialogDescription>
