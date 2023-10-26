@@ -25,10 +25,8 @@ export default function TablaInsumos() {
             setInsumos(data)
             /* console.log(data) */
         }
-
         obtenerInsumos()
     }, [])
-
     
     return (
         <div className="container mx-auto py-10">

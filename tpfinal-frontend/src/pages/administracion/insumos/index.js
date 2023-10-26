@@ -3,13 +3,9 @@ import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-
-import getCookie from '@/lib/cookies'
+import Link from 'next/link'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-
 import { estadosInsumos } from '@/lib/estados'
-
-import { PlusSquare } from 'lucide-react'
 import TablaInsumos from './data-table/page'
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
 
@@ -18,7 +14,9 @@ const fetchInsumos = () => {
 }
 
 const fetchCategorias = () => {
-    return axios.get('/api/administracion/categoriasInsumos').then(res => res.data)
+    return axios
+        .get('/api/administracion/categoriasInsumos')
+        .then(res => res.data)
 }
 
 export default function IndexProductos() {
@@ -86,7 +84,15 @@ export default function IndexProductos() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <ModalInsumoCrear></ModalInsumoCrear>
+                                <div className="flex justify-between m-2">
+                                    <ModalInsumoCrear></ModalInsumoCrear>
+                                    <Link
+                                        href="/administracion/categorias/insumos"
+                                        className="text-violeta-500">
+                                        Ver categorias{' '}
+                                    </Link>
+                                </div>
+
                                 <TablaInsumos></TablaInsumos>
                             </div>
                         </div>
