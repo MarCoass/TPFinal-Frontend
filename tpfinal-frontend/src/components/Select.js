@@ -1,31 +1,19 @@
 import React from 'react'
 
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-
 export default function SelectBasico({ items, onChange, placeholder }) {
-    const handleChange = newValue => {
-        onChange(newValue)
-        console.log(newValue)
+    const handleChange = event => {
+        const newValue = event.target.value;
+        onChange(newValue);
     }
 
     return (
-        <Select onValueChange={handleChange}>
-            <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
-            </SelectTrigger>
-            <SelectContent className="bg-white ">
-                {items.map(item => (
-                    <SelectItem className="hover:bg-rosado-200" key={item.id} value={item.id}>
-                        {item.nombre}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+        <select onChange={handleChange}> 
+            <option value="">{placeholder}</option>
+            {items.map(item => (
+                <option className="hover:bg-rosado-200" key={item.id} value={item.id} >
+                    {item.nombre}
+                </option>
+            ))}
+        </select>
     )
 }

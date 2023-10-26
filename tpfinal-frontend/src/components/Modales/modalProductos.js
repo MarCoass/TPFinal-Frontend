@@ -221,7 +221,7 @@ export function ModalProductoStore() {
                         className="flex flex-col">
                         <AlertDialogHeader className="flex">
                             <AlertDialogTitle>
-                                Crear nuevo precio
+                                Crear nuevo producto
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
