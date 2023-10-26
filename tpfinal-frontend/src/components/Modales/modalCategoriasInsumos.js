@@ -138,19 +138,6 @@ export function ModalCategoriaInsumoDelete({ id }) {
 export function ModalCategoriaInsumoStore({}) {
     const [nombre, setNombre] = useState()
 
-    useEffect(() => {
-        async function obtenerCategoria() {
-            try {
-                const data = await fetchCategoria(id)
-                setNombre(data.nombre)
-                //console.log(data)
-            } catch (error) {
-                console.error('Error al obtener categoria:', error)
-            }
-        }
-        obtenerCategoria()
-    }, [])
-
     const handleSubmit = async e => {
         e.preventDefault()
 
