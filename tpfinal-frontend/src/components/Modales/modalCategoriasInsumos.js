@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, Eye } from 'lucide-react'
+import { Pencil, Trash2, Eye, List } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'
@@ -246,7 +246,7 @@ export function ModalCategoriasInsumos() {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
-                    <Eye className="h-4 w-4 mx-2" />
+                    <List className="h-4 w-4 mx-2" />
                     Ver categorias
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
