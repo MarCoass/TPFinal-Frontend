@@ -4,6 +4,7 @@ import Tabla from '../../../../components/Tablas/data-table'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import { columns } from './columnsCategoriaInsumos'
+import { ModalCategoriaInsumoStore } from '../../../../components/Modales/modalCategoriasInsumos'
 
 const fetchCategorias = async () => {
     try {
@@ -47,6 +48,7 @@ export default function index() {
                             <div className=" bg-white border-b border-gray-200">
                                 <div className="flex justify-between m-2">
                                     <div className="container mx-auto py-10">
+                                    <ModalCategoriaInsumoStore></ModalCategoriaInsumoStore>
                                         {categorias ? (
                                             <Tabla
                                                 columns={columns}
