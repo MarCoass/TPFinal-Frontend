@@ -8,7 +8,7 @@ import AdminLayout from '@/components/Layouts/AdminLayout'
 import { estadosInsumos } from '@/lib/estados'
 import TablaInsumos from './data-table/page'
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
-
+import { ModalCategoriasInsumos } from '../../../components/Modales/modalCategoriasInsumos'
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
@@ -86,11 +86,7 @@ export default function IndexProductos() {
                             <div className=" bg-white border-b border-gray-200">
                                 <div className="flex justify-between m-2">
                                     <ModalInsumoCrear></ModalInsumoCrear>
-                                    <Link
-                                        href="/administracion/categorias/insumos"
-                                        className="text-violeta-500">
-                                        Ver categorias{' '}
-                                    </Link>
+                                    <ModalCategoriasInsumos></ModalCategoriasInsumos>
                                 </div>
 
                                 <TablaInsumos></TablaInsumos>

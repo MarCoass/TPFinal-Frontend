@@ -10,18 +10,29 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { UpdateButton } from '../Button'
-import { Pencil, Trash2, CheckCircle } from 'lucide-react'
+import { Pencil, Trash2, Eye } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'
 import handleDelete from '../../lib/handleDelete'
-import handleUpdate from '../../lib/handleUpdate'
+import { columns } from '../../pages/administracion/categorias/insumos/columnsCategoriaInsumos'
+import Tabla from '../Tablas/data-table'
 
 const fetchCategoria = id => {
     return axios
         .get('/api/administracion/categoriaInsumo/' + id)
         .then(res => res.data)
+}
+const fetchCategorias = async () => {
+    try {
+        const response = await axios.get(
+            '/api/administracion/categoriasInsumos',
+        )
+        return response.data
+    } catch (error) {
+        console.error('Error al obtener categorias:', error)
+        return []
+    }
 }
 
 export function ModalCategoriaInsumoUpdate({ id }) {
@@ -192,6 +203,43 @@ export function ModalCategoriaInsumoStore({}) {
                         <AlertDialogAction onClick={handleSubmit}>
                             Guardar
                         </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalCategoriasInsumos() {
+    const [categorias, setCategorias] = useState(null)
+
+    useEffect(() => {
+        async function obtenerCategorias() {
+            const data = await fetchCategorias()
+            setCategorias(data)
+            /* console.log(data) */
+        }
+        obtenerCategorias()
+    }, [])
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                    <Eye className="h-4 w-4 mx-2" />
+                    Ver categorias
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Categorias de insumos</AlertDialogTitle>
+                        <ModalCategoriaInsumoStore></ModalCategoriaInsumoStore>
+                        {categorias ? (
+                            <Tabla columns={columns} data={categorias} />
+                        ) : (
+                            <p>Cargando datos...</p>
+                        )}
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
