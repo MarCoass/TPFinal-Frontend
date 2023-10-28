@@ -23,12 +23,10 @@ export default function TablaInsumos() {
         async function obtenerInsumos() {
             const data = await fetchInsumos()
             setInsumos(data)
-            console.log(data)
+            /* console.log(data) */
         }
-
         obtenerInsumos()
     }, [])
-
     
     return (
         <div className="container mx-auto py-10">
