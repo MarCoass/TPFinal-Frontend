@@ -32,7 +32,7 @@ const Navigation = ({ user }) => {
 
                         {user && user.id_rol == 1 ? (
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
+                                <NavLink
                                     href="/tienda"
                                     active={router.pathname === '/tienda'}>
                                     Tienda
@@ -105,6 +105,15 @@ const Navigation = ({ user }) => {
                                     <DropdownButton>Perfil</DropdownButton>
                                 )}
 
+                                {user && user.id_rol != 1 ? (
+                                    <DropdownButton>
+                                        <NavLink
+                                            href="/tienda/carrito"
+                                            active={router.pathname === '/tienda/carrito'}>
+                                             Carrito
+                                        </NavLink>
+                                       </DropdownButton>
+                                ) : (null)}
                                 <DropdownButton onClick={logout}>
                                     Logout
                                 </DropdownButton>
