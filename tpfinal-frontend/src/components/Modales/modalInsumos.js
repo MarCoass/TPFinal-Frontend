@@ -9,7 +9,15 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye, DollarSign, Minus, Plus } from 'lucide-react'
+import {
+    Pencil,
+    Trash2,
+    PlusSquare,
+    Eye,
+    DollarSign,
+    Minus,
+    Plus,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -265,7 +273,7 @@ export function ModalInsumoVer({ idInsumo }) {
                 try {
                     const data = await fetchInsumo(idInsumo)
                     setInsumo(data)
-                   
+                    /*   console.log(data)  */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -290,17 +298,17 @@ export function ModalInsumoVer({ idInsumo }) {
                             {insumo && <p>{insumo.nombre}</p>}
                         </AlertDialogTitle>
                     </AlertDialogHeader>
-                    <AlertDialogDescription>
-                        {insumo && (
-                            <>
-                                <p>Nombre: {insumo.nombre}</p>
-                                <p>Descripcion: {insumo.descripcion}</p>
-                                <p>Stock: {insumo.stock}</p>
-                                <p>Stock minimo: {insumo.stock_minimo}</p>
-                                <p>Categoria: {insumo.categoria.nombre}</p>
-                            </>
-                        )}
-                    </AlertDialogDescription>
+
+                    {insumo && (
+                        <>
+                            <p>Nombre: {insumo.nombre}</p>
+                            <p>Descripcion: {insumo.descripcion}</p>
+                            <p>Stock: {insumo.stock}</p>
+                            <p>Stock minimo: {insumo.stock_minimo}</p>
+                            <p>Categoria: {insumo.nombre}</p>
+                        </>
+                    )}
+
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogFooter>
@@ -507,7 +515,7 @@ export function ModalInsumoPrecios({ idInsumo }) {
             })
 
             setListadoPrecios(formattedData)
-          /*   console.log(listadoPrecios) */
+            /*   console.log(listadoPrecios) */
         }
     }, [insumo])
     return (
