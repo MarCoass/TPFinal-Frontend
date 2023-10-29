@@ -22,7 +22,7 @@ export default function Pedidos() {
         async function obtenerPedidos() {
             const data = await fetchPedidos()
             setPedidos(data)
-            console.log(data)
+            /* console.log(data) */
         }
         obtenerPedidos()
     }, [])
