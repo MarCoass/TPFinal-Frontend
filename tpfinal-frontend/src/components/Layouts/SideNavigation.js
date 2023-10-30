@@ -32,7 +32,7 @@ const SideNavigation = ({ user }) => {
                         }>
                         Productos
                     </NavLink>
-                    <NavLink href="/" active={router.pathname === '/'}>
+                    <NavLink href="/administracion/pedidos" active={router.pathname === '/administracion/pedidos'}>
                         Pedidos personalizados
                     </NavLink>
                     <NavLink
