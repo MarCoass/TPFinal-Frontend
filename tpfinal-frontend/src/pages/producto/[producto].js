@@ -9,7 +9,7 @@ import CustomSpinner from '@/components/CustomSpinner'
 const fetchProductos = (producto) => {
     return axios
         .get(
-            `/api/administracion/producto/${producto}`, // Usa axios.get en lugar de fetch
+            `api/administracion/producto/${producto}`, // Usa axios.get en lugar de fetch
         )
         .then(res => res.data)
 }
@@ -33,7 +33,7 @@ export default function infoProducto({ params }) {
         }
     }, [producto])
     // 
-    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + 'storage';
     return (
         <AppLayout>
 

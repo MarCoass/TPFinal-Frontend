@@ -7,7 +7,7 @@ import CustomSpinner from '@/components/CustomSpinner'
 const fetchCarrito = (carrito) => {
     return axios
         .get(
-            `/carrito`, // Usa axios.get en lugar de fetch
+            `carrito`, // Usa axios.get en lugar de fetch
         )
         .then(res => res.data)
 }
@@ -17,20 +17,21 @@ export default function Catalogo() {
     const router = useRouter()
     const { carrito } = router.query
     useEffect(() => {
-        if (carrito != null) {
+        if (infoCarrito === null || !infoCarrito) {
             async function obtenerDatos() {
                 try {
-                    const dataCarrito = await fetchCarrito(carrito)
-                    console.log(dataCarrito)
-                    setCarrito(dataCarrito)
+                    const dataCarrito = await fetchCarrito(carrito);;
+                    setCarrito(dataCarrito);
                 } catch (error) {
-                    console.error('Hubo un problema obteniendo los datos: ', error)
+                    console.error('Hubo un problema obteniendo los datos: ', error);
                 }
             }
-            obtenerDatos()
+            obtenerDatos();
         }
         console.log(infoCarrito)
     }, [carrito])
+
+
     return (
         <AppLayout>
             Habemus página de carrito

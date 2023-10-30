@@ -9,7 +9,7 @@ import CustomSpinner from '@/components/CustomSpinner'
 const fetchProductos = () => {
     return axios
         .get(
-            process.env.NEXT_PUBLIC_BACKEND_URL + '/api/administracion/productos', // Usa axios.get en lugar de fetch
+            process.env.NEXT_PUBLIC_BACKEND_URL + 'api/administracion/productos', // Usa axios.get en lugar de fetch
         )
         .then(res => res.data)
 }
@@ -81,7 +81,6 @@ export default function Catalogo({ diseño, forma, largo, ciudad }) {
         obtenerProductos()
         // setProductosFiltrados(productos)
         // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
-        console.log(productosFiltrados)
     }, [])
 
     useEffect(() => {
