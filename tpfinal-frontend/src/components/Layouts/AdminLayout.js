@@ -14,10 +14,10 @@ const AdminLayout = ({ header, children }) => {
         <div className="min-h-screen grid grid-flow-col ">
             {/*  <SideNavigation user={user} /> */}
 
-            <div className="justify-center col-span-12">
+            <div className="justify-center  col-span-12">
                 {/* Page Heading */}
-                <header className="bg-white shadow">
-                    <div className="flex gap-10 mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header className=" shadow w-full ">
+                    <div className=" w-full bg-lila-500 flex gap-10 mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         <div>
                             <button onClick={openNav}>
                                 <Menu></Menu>
@@ -26,7 +26,10 @@ const AdminLayout = ({ header, children }) => {
                                 active={isNavActive}
                                 setActive={setIsNavActive}></NeoSideNavigation>
                         </div>
-                        {header}
+                       
+                             {header}
+                       
+                       
                     </div>
                 </header>
 
