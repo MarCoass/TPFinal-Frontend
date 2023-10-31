@@ -22,6 +22,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+import { NeoButton, NeoButtonChico } from '../../../../components/Button'
 // Definición del componente DataTable en JavaScript
 export default function DataTable({ columns, data, handleDelete }) {
     const [sorting, setSorting] = React.useState([])
@@ -115,20 +116,20 @@ export default function DataTable({ columns, data, handleDelete }) {
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
+                <NeoButtonChico
                     className=" bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}>
-                    Previous
-                </Button>
-                <Button
+                    Anterior
+                </NeoButtonChico>
+                <NeoButtonChico
                     className="m-5 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}>
-                    Next
-                </Button>
+                    Siguiente
+                </NeoButtonChico>
             </div>
             <div className="flex-1 text-sm text-muted-foreground">
                 {table.getFilteredSelectedRowModel().rows.length} de{' '}
