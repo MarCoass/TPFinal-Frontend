@@ -5,7 +5,7 @@ import NavLink from '@/components/NavLink'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-
+import { LogOut } from 'lucide-react';
 
 const SideNavigation = ({ user }) => {
     const router = useRouter()
@@ -102,7 +102,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                 style={{
                     transform: `translateX(${isVisible ? '0' : '-300px'})`,
                 }}
-                className=" z-10 h-full w-[300px] border-2 border-black bg-[#bc95d4] font-bold transition-transform duration-300">
+                className=" z-10 h-full w-[300px] border-2 border-black bg-rosado-400 font-bold transition-transform duration-300">
                  <div className="flex flex-col  ">
                     <NavLink
                         href="/administracion/"
