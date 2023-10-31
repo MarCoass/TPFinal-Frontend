@@ -104,14 +104,14 @@ export const columns = [
         cell: ({ row }) => {
             const producto = row.original
             return (
-                <>
+                <div className='flex'>
                     <ModalProductoVer
                         idProducto={producto.id}></ModalProductoVer>
                     <ModalProductoUpdate
                         idProducto={producto.id}></ModalProductoUpdate>
                     <ModalProductoEliminar
                         idProducto={producto.id}></ModalProductoEliminar>
-                </>
+                </div>
             )
         },
     },
