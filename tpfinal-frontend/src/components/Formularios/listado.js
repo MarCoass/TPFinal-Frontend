@@ -49,10 +49,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
     }
 
     return (
-        <div className="flex gap-4 ">
-            <ListboxWrapper>
+        <div className="h-max gap-4 flex">
+            <ListboxWrapper className="h-60" >
                 <p>Seleccione los insumos utilizados</p>
-                <Listbox
+                <Listbox className='overflow-y-auto h-60'
                     items={insumos}
                     aria-label="Multiple selection example"
                     variant="flat"
