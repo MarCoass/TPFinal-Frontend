@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+
 const SideNavigation = ({ user }) => {
     const router = useRouter()
     const { logout } = useAuth()
