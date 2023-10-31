@@ -93,8 +93,9 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                    <Pencil className="h-4 w-4 mx-2" />
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
+                    {stockViejo}
+                    <Pencil className="h-4 w-4 mx-1" />
                 </AlertDialogTrigger>
                 <AlertDialogContent
                     className=" flex w-[350px] flex-col items-center justify-center rounded-md border-2 border-black bg-rosado-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
@@ -240,7 +241,7 @@ export function ModalProductoStore() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger  className='flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none'>
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <PlusSquare className="h-4 w-4 mx-2" />
                     NUEVO PRODUCTO
                 </AlertDialogTrigger>
@@ -472,7 +473,6 @@ export function ModalProductoUpdate({ idProducto }) {
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
-
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form
@@ -624,7 +624,6 @@ export function ModalProductoVer({ idProducto }) {
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
                     <Eye className="h-4 w-4 mx-2" />
-                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>

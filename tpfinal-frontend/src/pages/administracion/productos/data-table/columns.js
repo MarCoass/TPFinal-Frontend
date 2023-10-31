@@ -89,12 +89,11 @@ export const columns = [
         cell: ({ row }) => {
             const producto = row.original
             return (
-                <>
-                    <p>{producto.stock}</p>
+                <div className="flex">
                     <ModalStockProductos
                         idProducto={producto.id}
                         stockViejo={producto.stock}></ModalStockProductos>
-                </>
+                </div>
             )
         },
     },

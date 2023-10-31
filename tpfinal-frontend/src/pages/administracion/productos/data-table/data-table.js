@@ -47,21 +47,27 @@ export default function DataTable({ columns, data, handleDelete }) {
 
     return (
         <div>
-            <div className="flex items-center py-3 gap-2">
-                <Search />
-                <Input
-                    placeholder="Filtrar por nombre..."
-                    value={table.getColumn('nombre')?.getFilterValue() ?? ''}
-                    onChange={event =>
-                        table
-                            .getColumn('nombre')
-                            ?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
+            <div className="py-3">
+                <div className="flex w-min items-center  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <input
+                        placeholder="Filtrar por nombre..."
+                        value={
+                            table.getColumn('nombre')?.getFilterValue() ?? ''
+                        }
+                        onChange={event =>
+                            table
+                                .getColumn('nombre')
+                                ?.setFilterValue(event.target.value)
+                        }
+                        className="w-[30ch] p-[10px] outline-none"
+                    />
+                    <button className="border-l-2 border-black bg-lila-500 p-[10px] px-5">
+                        <Search />
+                    </button>
+                </div>
             </div>
             <div className="">
-                <Table className="rounded-md border-2 border-black">
+                <Table className="rounded-[5px] border-2 border-black">
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
@@ -69,7 +75,7 @@ export default function DataTable({ columns, data, handleDelete }) {
                                     return (
                                         <TableHead
                                             key={header.id}
-                                            className="bg-lila-400 uppercase text-lg font-bold border-b-2 border-black">
+                                            className="bg-lila-400 uppercase text-lg font-bold border-b-2  border-black">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -129,11 +135,6 @@ export default function DataTable({ columns, data, handleDelete }) {
                     disabled={!table.getCanNextPage()}>
                     Siguiente
                 </NeoButtonChico>
-            </div>
-            <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} de{' '}
-                {table.getFilteredRowModel().rows.length} producto(s)
-                seleccionados.
             </div>
         </div>
     )
