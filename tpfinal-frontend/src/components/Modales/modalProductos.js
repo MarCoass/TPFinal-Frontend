@@ -267,7 +267,7 @@ export function ModalProductoStore() {
                                     </TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="general" className="grid grid-cols-2 gap-3">
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Nombre:</label>
                                         <NeoInput
                                             type="text"
@@ -277,7 +277,7 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Descripcion:</label>
                                         <NeoInput
                                             type="text"
@@ -287,7 +287,7 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Stock:</label>
                                         <NeoInput
                                             type="number"
@@ -297,7 +297,7 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Precio:</label>
                                         <NeoInput
                                             type="number"
