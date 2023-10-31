@@ -105,6 +105,7 @@ export function ModalCambiarEstado({ id }) {
 
                         {pedido && estadoActual && (
                             <>
+
                                 {estadosPedido().map(estado => {
                                     return (
                                         <div
@@ -125,6 +126,7 @@ export function ModalCambiarEstado({ id }) {
                                         </div>
                                     )
                                 })}
+
                             </>
                         )}
 

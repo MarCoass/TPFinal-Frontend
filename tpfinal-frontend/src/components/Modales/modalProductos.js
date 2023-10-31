@@ -334,7 +334,7 @@ export function ModalProductoStore() {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                    <ListadoInsumos
+                                    <ListadoInsumos 
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
                                         }></ListadoInsumos>
@@ -481,7 +481,7 @@ export function ModalProductoUpdate({ idProducto }) {
                         className="flex flex-col">
                         <AlertDialogHeader className="flex">
                             <AlertDialogTitle>
-                                Crear nuevo precio
+                                Editar
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
