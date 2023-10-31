@@ -98,7 +98,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <Pencil className="h-4 w-4 mx-1" />
                 </AlertDialogTrigger>
                 <AlertDialogContent
-                    className=" flex w-[350px] flex-col items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
+                    className=" flex w-[350px] flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
 }">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
@@ -378,7 +378,7 @@ export function ModalProductoEliminar({ idProducto }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -474,7 +474,7 @@ export function ModalProductoUpdate({ idProducto }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
@@ -648,7 +648,7 @@ export function ModalProductoVer({ idProducto }) {
                                 <>
                                     <TabsContent
                                         value="general"
-                                        className="flex px-10 w-100">
+                                        className="flex px-10 w-[600px]">
                                         <div className="text-left text-base ">
                                             <p>Nombre: {producto.nombre}</p>
                                             <p>
@@ -691,15 +691,15 @@ export function ModalProductoVer({ idProducto }) {
                                                 }></img>
                                         </div>
                                     </TabsContent>
-                                    <TabsContent value="insumos" className="px-10 w-100">
-                                        <div >
+                                    <TabsContent value="insumos" className="flex px-10 w-full">
+                                       
                                             {producto.insumos && (
                                                 <TablaInsumosProductos
                                                     insumos={
                                                         producto.insumos
                                                     }></TablaInsumosProductos>
                                             )}
-                                        </div>
+                                        
                                     </TabsContent>
                                 </>
                             ) : (
