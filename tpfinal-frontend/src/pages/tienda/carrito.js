@@ -20,7 +20,8 @@ export default function Catalogo() {
         if (infoCarrito === null || !infoCarrito) {
             async function obtenerDatos() {
                 try {
-                    const dataCarrito = await fetchCarrito(carrito);;
+                    const dataCarrito = await fetchCarrito(carrito);
+                    console.log(dataCarrito)
                     setCarrito(dataCarrito);
                 } catch (error) {
                     console.error('Hubo un problema obteniendo los datos: ', error);
