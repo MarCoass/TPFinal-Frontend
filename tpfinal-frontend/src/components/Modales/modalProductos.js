@@ -626,12 +626,12 @@ export function ModalProductoVer({ idProducto }) {
                     <Eye className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
-                    <AlertDialogHeader className="">
+                    <AlertDialogHeader className="mr-5">
                         <AlertDialogTitle>
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
 
-                        <Tabs defaultValue="general" className="">
+                        <Tabs defaultValue="general" className="w-100">
                             <TabsList className="flex">
                                 <TabsTrigger
                                     value="general"
@@ -648,7 +648,7 @@ export function ModalProductoVer({ idProducto }) {
                                 <>
                                     <TabsContent
                                         value="general"
-                                        className="flex w-[500px] px-10">
+                                        className="flex px-10 w-100">
                                         <div className="text-left text-base ">
                                             <p>Nombre: {producto.nombre}</p>
                                             <p>
@@ -691,7 +691,7 @@ export function ModalProductoVer({ idProducto }) {
                                                 }></img>
                                         </div>
                                     </TabsContent>
-                                    <TabsContent value="insumos" className="w-[500px]">
+                                    <TabsContent value="insumos" className="px-10 w-100">
                                         <div >
                                             {producto.insumos && (
                                                 <TablaInsumosProductos
@@ -707,7 +707,7 @@ export function ModalProductoVer({ idProducto }) {
                             )}
                         </Tabs>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
+                    <AlertDialogFooter className="mr-5">
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogFooter>
                 </AlertDialogContent>
