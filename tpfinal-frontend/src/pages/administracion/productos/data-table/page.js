@@ -2,6 +2,7 @@
 import { Producto, columns } from './columns'
 // Importa el componente DataTable desde el archivo "./data-table.js"
 import DataTable from './data-table'
+
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 
@@ -35,7 +36,7 @@ export default function TablaProductos() {
 
     // Renderiza DataTable solo cuando los datos están disponibles
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto py-2">
             {productos ? (
                 <DataTable columns={columns} data={productos} />
             ) : (

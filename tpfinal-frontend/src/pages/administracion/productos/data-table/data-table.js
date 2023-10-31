@@ -21,7 +21,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-react';
+import { Search } from 'lucide-react'
 // Definición del componente DataTable en JavaScript
 export default function DataTable({ columns, data, handleDelete }) {
     const [sorting, setSorting] = React.useState([])
@@ -44,11 +44,11 @@ export default function DataTable({ columns, data, handleDelete }) {
         },
     })
 
-
     return (
         <div>
-            <div className="flex items-center py-2 gap-2">
-                <Search /><Input
+            <div className="flex items-center py-3 gap-2">
+                <Search />
+                <Input
                     placeholder="Filtrar por nombre..."
                     value={table.getColumn('nombre')?.getFilterValue() ?? ''}
                     onChange={event =>
@@ -57,10 +57,10 @@ export default function DataTable({ columns, data, handleDelete }) {
                             ?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
-                /> 
+                />
             </div>
-            <div className="rounded-md">
-                <Table className="rounded border">
+            <div className="">
+                <Table className="rounded-md border-2 border-black">
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
@@ -68,7 +68,7 @@ export default function DataTable({ columns, data, handleDelete }) {
                                     return (
                                         <TableHead
                                             key={header.id}
-                                            className="bg-rosado-200 uppercase text-lg">
+                                            className="bg-lila-400 uppercase text-lg font-bold border-b-2 border-black">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -86,12 +86,14 @@ export default function DataTable({ columns, data, handleDelete }) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow
+                                    className="border-black border-2"
                                     key={row.id}
                                     data-state={
                                         row.getIsSelected() && 'selected'
                                     }>
                                     {row.getVisibleCells().map(cell => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell
+                                            key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext(),

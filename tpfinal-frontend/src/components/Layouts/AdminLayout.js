@@ -26,10 +26,8 @@ const AdminLayout = ({ header, children }) => {
                                 active={isNavActive}
                                 setActive={setIsNavActive}></NeoSideNavigation>
                         </div>
-                       
-                             {header}
-                       
-                       
+
+                        {header}
                     </div>
                 </header>
 

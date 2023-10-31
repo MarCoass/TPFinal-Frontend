@@ -107,7 +107,7 @@ export default function ProdutosIndex() {
         <>
             <AdminLayout
                 header={
-                    <div className='font-bold flex w-full justify-between '>
+                    <div className="font-bold flex w-full justify-between ">
                         <p className="text-xl text-black leading-tight">
                             Productos
                         </p>
@@ -118,12 +118,10 @@ export default function ProdutosIndex() {
                     <title>Productos - Mar Nails</title>
                 </Head>
 
-                <div className="py-12">
+                <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className=" bg-white border-b border-gray-200">
-                                <TablaProductos></TablaProductos>
-                            </div>
+                        <div className="overflow-hidden ">
+                            <TablaProductos></TablaProductos>
                         </div>
                     </div>
                 </div>
