@@ -98,7 +98,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <Pencil className="h-4 w-4 mx-1" />
                 </AlertDialogTrigger>
                 <AlertDialogContent
-                    className=" flex w-[350px] flex-col items-center justify-center rounded-md border-2 border-black bg-rosado-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
+                    className=" flex w-[350px] flex-col items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
 }">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
@@ -137,7 +137,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                                 </NeoButtonChico>
                             </div>
                         </AlertDialogHeader>
-                        <AlertDialogFooter className="my-5">
+                        <AlertDialogFooter className="mt-10 ">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Modificar
@@ -625,89 +625,87 @@ export function ModalProductoVer({ idProducto }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
                     <Eye className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
-                    <AlertDialogHeader>
+                <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                    <AlertDialogHeader className="">
                         <AlertDialogTitle>
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
-                        <AlertDialogDescription>
-                            <Tabs defaultValue="general">
-                                <TabsList className="">
-                                    <TabsTrigger value="general">
-                                        Informacion General
-                                    </TabsTrigger>
-                                    <TabsTrigger value="insumos">
-                                        Insumos
-                                    </TabsTrigger>
-                                </TabsList>
-                                {producto ? (
-                                    <>
-                                        <TabsContent value="general">
-                                            <div className="text-left text-base">
-                                                <p>Nombre: {producto.nombre}</p>
-                                                <p>
-                                                    Descripcion:{' '}
-                                                    {producto.descripcion}
-                                                </p>
-                                                <p>Precio: {producto.precio}</p>
-                                                <p>
-                                                    Ciudad:{' '}
-                                                    {producto.ciudad.nombre}
-                                                </p>
-                                                <p>Stock: {producto.stock}</p>
-                                                {producto.set && (
-                                                    <>
-                                                        <p>
-                                                            Categoria:{' '}
-                                                            {
-                                                                producto.set
-                                                                    .categoria_set
-                                                                    .nombre
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Forma:{' '}
-                                                            {
-                                                                producto.set.tip
-                                                                    .forma
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Largo:{' '}
-                                                            {
-                                                                producto.set.tip
-                                                                    .largo
-                                                            }
-                                                        </p>
-                                                    </>
-                                                )}
-                                                <div className="">
-                                                    <img
-                                                        alt={
-                                                            producto.descripcion
+
+                        <Tabs defaultValue="general" className="">
+                            <TabsList className="flex">
+                                <TabsTrigger
+                                    value="general"
+                                    className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
+                                    Informacion General
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="insumos"
+                                    className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                    Insumos
+                                </TabsTrigger>
+                            </TabsList>
+                            {producto ? (
+                                <>
+                                    <TabsContent
+                                        value="general"
+                                        className="flex w-[500px] px-10">
+                                        <div className="text-left text-base ">
+                                            <p>Nombre: {producto.nombre}</p>
+                                            <p>
+                                                Descripcion:{' '}
+                                                {producto.descripcion}
+                                            </p>
+                                            <p>Precio: {producto.precio}</p>
+                                            <p>
+                                                Ciudad: {producto.ciudad.nombre}
+                                            </p>
+                                            <p>Stock: {producto.stock}</p>
+                                            {producto.set && (
+                                                <>
+                                                    <p>
+                                                        Categoria:{' '}
+                                                        {
+                                                            producto.set
+                                                                .categoria_set
+                                                                .nombre
                                                         }
-                                                        className=" rounded-2xl w-60 object-cover"
-                                                        src={
-                                                            urlBase +
-                                                            producto.url_imagen
-                                                        }></img>
-                                                </div>
-                                            </div>
-                                        </TabsContent>
-                                        <TabsContent value="insumos">
+                                                    </p>
+                                                    <p>
+                                                        Forma:{' '}
+                                                        {producto.set.tip.forma}
+                                                    </p>
+                                                    <p>
+                                                        Largo:{' '}
+                                                        {producto.set.tip.largo}
+                                                    </p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="">
+                                            <img
+                                                alt={producto.descripcion}
+                                                className=" rounded-[5px] w-60 object-cover border-2 border-black"
+                                                src={
+                                                    urlBase +
+                                                    producto.url_imagen
+                                                }></img>
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent value="insumos" className="w-[500px]">
+                                        <div >
                                             {producto.insumos && (
                                                 <TablaInsumosProductos
                                                     insumos={
                                                         producto.insumos
                                                     }></TablaInsumosProductos>
                                             )}
-                                        </TabsContent>
-                                    </>
-                                ) : (
-                                    <p>cargando</p>
-                                )}
-                            </Tabs>
-                        </AlertDialogDescription>
+                                        </div>
+                                    </TabsContent>
+                                </>
+                            ) : (
+                                <p>cargando</p>
+                            )}
+                        </Tabs>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
