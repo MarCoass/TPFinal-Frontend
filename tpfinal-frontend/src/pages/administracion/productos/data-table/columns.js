@@ -30,7 +30,7 @@ export const columns = [
         header: ({ column }) => {
             return (
                 <Button
-                    className="uppercase text-lg"
+                    className="uppercase text-lg font-bold"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
@@ -41,7 +41,7 @@ export const columns = [
             )
         },
         cell: ({ row }) => {
-            return <p className="font-bold">{row.getValue('nombre')}</p>
+            return <p className="text-lg">{row.getValue('nombre')}</p>
         },
     },
     {
@@ -53,7 +53,7 @@ export const columns = [
         header: ({ column }) => {
             return (
                 <Button
-                    className="uppercase text-lg"
+                    className="uppercase text-lg font-bold"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
@@ -70,7 +70,7 @@ export const columns = [
                 currency: 'USD',
             }).format(amount)
 
-            return <div className="text-right font-medium">{formatted}</div>
+            return <div className="text-right">{formatted}</div>
         },
     },
     {

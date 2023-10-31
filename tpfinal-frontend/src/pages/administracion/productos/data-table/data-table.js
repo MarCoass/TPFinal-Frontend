@@ -87,14 +87,13 @@ export default function DataTable({ columns, data, handleDelete }) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow
-                                    className="border-black border-2"
+                                    className="border-black border-2 font-bold"
                                     key={row.id}
                                     data-state={
                                         row.getIsSelected() && 'selected'
                                     }>
                                     {row.getVisibleCells().map(cell => (
-                                        <TableCell
-                                            key={cell.id}>
+                                        <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext(),
