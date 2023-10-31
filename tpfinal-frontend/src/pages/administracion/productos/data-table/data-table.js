@@ -47,7 +47,7 @@ export default function DataTable({ columns, data, handleDelete }) {
 
     return (
         <div>
-            <div className="py-3">
+            <div className="py-3 flex justify-end">
                 <div className="flex w-min items-center  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                     <input
                         placeholder="Filtrar por nombre..."
