@@ -61,9 +61,9 @@ export default function DataTable({ columns, data, handleDelete }) {
                         }
                         className="w-[30ch] p-[10px] outline-none"
                     />
-                    <button className="border-l-2 border-black bg-lila-500 p-[10px] px-5">
+                    <div className="h-full border-l-2 border-black bg-lila-500 p-[10px] px-5">
                         <Search />
-                    </button>
+                    </div>
                 </div>
             </div>
             <div className="">
