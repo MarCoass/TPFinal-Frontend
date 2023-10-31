@@ -9,7 +9,15 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye, Plus, Minus, Info } from 'lucide-react'
+import {
+    Pencil,
+    Trash2,
+    PlusSquare,
+    Eye,
+    Plus,
+    Minus,
+    Info,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -25,6 +33,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
 import { TablaInsumosProductos } from '../Tablas/TablaInsumosProducto'
+import { NeoButton, NeoButtonChico } from '../Button'
+import { NeoInput, NeoInputChico } from '../Input'
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -86,7 +96,9 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                 <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent
+                    className=" flex w-[350px] flex-col items-center justify-center rounded-md border-2 border-black bg-rosado-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
+}">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
@@ -96,10 +108,9 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                                 id="id_producto"
                                 value={idProducto}
                             />
-                            <div className="flex gap-1">
-                                <button
+                            <div className="flex gap-3">
+                                <NeoButtonChico
                                     disabled={stock === 0}
-                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 disabled:bg-rosado-200 rounded font-semibold text-white"
                                     type="button"
                                     onClick={e => {
                                         if (stock > 0) {
@@ -107,8 +118,8 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                                         }
                                     }}>
                                     <Minus></Minus>
-                                </button>
-                                <input
+                                </NeoButtonChico>
+                                <NeoInputChico
                                     className="w-16"
                                     type="number"
                                     id="stock"
@@ -116,18 +127,16 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                                     onChange={e => setStock(e.target.value)}
                                     min="0"
                                 />
-
-                                <button
+                                <NeoButtonChico
                                     type="button"
-                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                                     onClick={e =>
                                         setStock(parseInt(stock) + 1)
                                     }>
                                     <Plus></Plus>
-                                </button>
+                                </NeoButtonChico>
                             </div>
                         </AlertDialogHeader>
-                        <AlertDialogFooter>
+                        <AlertDialogFooter className="my-5">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Modificar
