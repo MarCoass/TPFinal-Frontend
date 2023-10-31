@@ -256,13 +256,13 @@ export function ModalProductoStore() {
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
-                                    <TabsTrigger value="general">
+                                    <TabsTrigger value="general" className='w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center'>
                                         Informacion general
                                     </TabsTrigger>
-                                    <TabsTrigger value="insumos">
+                                    <TabsTrigger value="insumos" className='w-1/3 font-bold border-2 border-black px-6 py-3 text-center'>
                                         Insumos
                                     </TabsTrigger>
-                                    <TabsTrigger value="set">
+                                    <TabsTrigger value="set" className='w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center'>
                                         Informacion sobre Set
                                     </TabsTrigger>
                                 </TabsList>
