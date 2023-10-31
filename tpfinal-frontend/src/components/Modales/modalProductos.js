@@ -266,10 +266,10 @@ export function ModalProductoStore() {
                                         Informacion sobre Set
                                     </TabsTrigger>
                                 </TabsList>
-                                <TabsContent value="general">
+                                <TabsContent value="general" className="grid grid-cols-2 gap-3">
                                     <div className="flex justify-around">
                                         <label>Nombre:</label>
-                                        <Input
+                                        <NeoInput
                                             type="text"
                                             value={nombre}
                                             onChange={e =>
@@ -279,7 +279,7 @@ export function ModalProductoStore() {
                                     </div>
                                     <div className="flex justify-around">
                                         <label>Descripcion:</label>
-                                        <Input
+                                        <NeoInput
                                             type="text"
                                             value={descripcion}
                                             onChange={e =>
@@ -289,7 +289,7 @@ export function ModalProductoStore() {
                                     </div>
                                     <div className="flex justify-around">
                                         <label>Stock:</label>
-                                        <Input
+                                        <NeoInput
                                             type="number"
                                             value={stock}
                                             onChange={e =>
@@ -299,7 +299,7 @@ export function ModalProductoStore() {
                                     </div>
                                     <div className="flex justify-around">
                                         <label>Precio:</label>
-                                        <Input
+                                        <NeoInput
                                             type="number"
                                             value={precio}
                                             onChange={e =>
@@ -339,7 +339,7 @@ export function ModalProductoStore() {
                                             handleCantidadInsumosChange
                                         }></ListadoInsumos>
                                 </TabsContent>
-                                <TabsContent value="set">
+                                <TabsContent value="set" className="flex justify-around">
                                     <div className="flex justify-around">
                                         <SelectTips
                                             value={tip}
@@ -357,7 +357,7 @@ export function ModalProductoStore() {
                                 </TabsContent>
                             </Tabs>
                         </AlertDialogHeader>
-                        <AlertDialogFooter>
+                        <AlertDialogFooter className="mt-10">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Guardar
