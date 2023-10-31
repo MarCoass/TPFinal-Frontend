@@ -107,7 +107,7 @@ export default function ProdutosIndex() {
         <>
             <AdminLayout
                 header={
-                    <div className='font-bold flex w-full justify-between'>
+                    <div className='font-bold flex w-full justify-between '>
                         <p className="text-xl text-black leading-tight">
                             Productos
                         </p>

@@ -17,7 +17,7 @@ const AdminLayout = ({ header, children }) => {
             <div className="justify-center  col-span-12">
                 {/* Page Heading */}
                 <header className=" shadow w-full ">
-                    <div className=" w-full bg-lila-500 flex gap-10 mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div className=" w-full border-b-2 border-black bg-lila-500 flex gap-10 mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         <div>
                             <button onClick={openNav}>
                                 <Menu></Menu>
