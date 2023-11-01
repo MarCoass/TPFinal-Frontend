@@ -85,9 +85,9 @@ export default function ModalTareaUpdate({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-lila-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     
-                        <Pencil className="h-4 w-4 mx-2"></Pencil>Editar
+                        <Pencil className="h-4 w-4 mx-1"></Pencil>Editar
                     
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-white border border-gray-200 ">
@@ -157,8 +157,8 @@ export function ModalTareaDelete({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
-                    <Trash2 className="h-4 w-4 mx-2" />
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-red-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    <Trash2 className="h-4 w-4 mx-1" />
                     Eliminar
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
@@ -187,8 +187,8 @@ export function ModalTareaTerminar({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-green-500 hover:bg-green-600 rounded text-white">
-                    <CheckCircle className="h-4 w-4 mx-2" />
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-green-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    <CheckCircle className="h-4 w-4 mx-1" />
                     Terminar
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
