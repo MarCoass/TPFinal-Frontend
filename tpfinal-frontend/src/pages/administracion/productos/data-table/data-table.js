@@ -1,7 +1,5 @@
 import * as React from 'react'
 import {
-    SortingState,
-    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -18,11 +16,8 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
-import { NeoButton, NeoButtonChico } from '../../../../components/Button'
+import {NeoButtonChico } from '../../../../components/Button'
 // Definición del componente DataTable en JavaScript
 export default function DataTable({ columns, data, handleDelete }) {
     const [sorting, setSorting] = React.useState([])

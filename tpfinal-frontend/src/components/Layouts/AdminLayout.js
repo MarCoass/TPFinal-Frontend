@@ -11,8 +11,8 @@ const AdminLayout = ({ header, children }) => {
         setIsNavActive(true)
     }
     return (
-        <div className="min-h-screen grid grid-flow-col ">
-            {/*  <SideNavigation user={user} /> */}
+        <div className="h-screen grid grid-flow-col ">
+           
 
             <div className="justify-center  col-span-12">
                 {/* Page Heading */}
@@ -32,7 +32,7 @@ const AdminLayout = ({ header, children }) => {
                 </header>
 
                 {/* Page Content */}
-                <main>{children}</main>
+                <main className='h-100'>{children}</main>
             </div>
         </div>
     )

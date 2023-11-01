@@ -64,7 +64,6 @@ export const columns = [
             const insumo = row.original
             return (
                 <>
-                    <p>{insumo.stock}</p>
                     <ModalInsumoStockUpdate
                         idInsumo={insumo.id}
                         stockViejo={insumo.stock}></ModalInsumoStockUpdate>

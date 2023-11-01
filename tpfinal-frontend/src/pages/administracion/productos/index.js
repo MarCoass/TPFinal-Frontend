@@ -1,25 +1,12 @@
 import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { PlusSquare } from 'lucide-react'
-import ProductoStore from './store'
-import { estadosProductos } from '@/lib/estados'
-
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog'
 import TablaProductos from './data-table/page'
-import { Button } from '../../../components/ui/button'
 import { ModalProductoStore } from '../../../components/Modales/modalProductos'
+
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -120,7 +107,7 @@ export default function ProdutosIndex() {
 
                 <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="overflow-hidden ">
+                        <div className="overflow-hidden">
                             <TablaProductos></TablaProductos>
                         </div>
                     </div>

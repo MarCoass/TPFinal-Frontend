@@ -14,7 +14,7 @@ export default function CrearTarea() {
     return (
         <>
             <Dialog>
-                <DialogTrigger className="inline-flex items-center justify-center text-sm p-2 mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                <DialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-violeta-200 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <PlusSquare className="mr-2 h-4 w-4" />
                     NUEVA TAREA
                 </DialogTrigger>

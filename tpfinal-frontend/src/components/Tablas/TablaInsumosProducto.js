@@ -10,7 +10,7 @@ import {
 
 export function TablaInsumosProductos({ insumos }) {
     return (
-        <Table>
+        <Table className="w-full">
             <TableCaption className="text-sm">Insumos usados para una unidad de este producto.</TableCaption>
             <TableHeader>
                 <TableRow>
