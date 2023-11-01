@@ -130,14 +130,14 @@ export function ModalCategoriaInsumoDelete({ id }) {
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    Eliminar
+                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
-                        <AlertDialogDescription>
+                       
                             <p>¿Desea eliminar la categoria?</p>
-                        </AlertDialogDescription>
+                       
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
@@ -247,7 +247,7 @@ export function ModalCategoriasInsumos() {
             <AlertDialog>
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <List className="h-4 w-4 mx-2" />
-                    Ver categorias
+                    VER CATEGORIAS
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
