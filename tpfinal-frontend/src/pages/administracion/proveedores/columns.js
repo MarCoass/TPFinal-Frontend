@@ -26,7 +26,7 @@ export const columns = [
         header: ({ column }) => {
             return (
                 <Button
-                    className="uppercase text-lg"
+                    className="uppercase text-lg font-bold"
                     variant="ghost"
                     onClick={() =>
                         column.toggleSorting(column.getIsSorted() === 'asc')
