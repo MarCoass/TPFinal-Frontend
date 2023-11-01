@@ -5,7 +5,7 @@ const AppLayout = ({ header, children, footer }) => {
     const { user } = useAuth()
 
     return (
-        <div className="min-h-screen bg-naranja-100">
+        <div className="min-h-screen">
             <Navigation user={user} />
 
             {/* Page Heading */}
