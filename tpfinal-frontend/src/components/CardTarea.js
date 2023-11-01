@@ -31,7 +31,7 @@ export default CardTarea
 export const CardTareaDashboard = ({ tarea }) => {
     return (
         <>
-            <div className="bg-naranja-200 m-1 p-4 w-max border rounded">
+            <div className="flex items-center justify-center rounded-[5px] border-2 border-black bg-rosado-400 p-5 px-8 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 <p>{tarea.titulo}</p>
             </div>
         </>
