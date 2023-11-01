@@ -56,7 +56,7 @@ const IndexTareas = () => {
     return (
         <AdminLayout
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-bold text-xl leading-tight">
                     Tareas - Mar Nails
                 </h2>
             }>

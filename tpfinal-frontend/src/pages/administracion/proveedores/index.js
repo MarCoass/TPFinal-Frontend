@@ -23,7 +23,7 @@ export default function TablaProveedores() {
         async function obtenerProveedores() {
             const data = await fetchProveedores()
             setProveedores(data)
-              console.log(data)
+            console.log(data)
         }
         obtenerProveedores()
     }, [])
@@ -32,9 +32,12 @@ export default function TablaProveedores() {
         <>
             <AdminLayout
                 header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Proveedores
-                    </h2>
+                    <div className="font-bold flex w-full justify-between ">
+                        <p className="text-xl text-black leading-tight">
+                            Proveedores
+                        </p>
+                        <ModalProveedorStore></ModalProveedorStore>
+                    </div>
                 }>
                 <Head>
                     <title>Proveedores - Mar Nails</title>
@@ -43,7 +46,6 @@ export default function TablaProveedores() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                            <ModalProveedorStore></ModalProveedorStore>
                                 <div className="container mx-auto py-10">
                                     {proveedores ? (
                                         <Tabla

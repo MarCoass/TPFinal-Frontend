@@ -11,12 +11,13 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import handleDelete from '../../../lib/handleDelete'
+import { ModalProveedorDelete, ModalProveedorUpdate, ModalProveedorVer } from '../../../components/Modales/modalProveedor'
 
 export const Proveedor = {
     id: '',
     nombre: '',
     direccion: '',
-    anotacion: ''
+    anotacion: '',
 }
 
 export const columns = [
@@ -36,7 +37,6 @@ export const columns = [
             )
         },
         cell: ({ row }) => {
-           
             return <p className="font-bold">{row.getValue('nombre')}</p>
         },
     },
@@ -53,30 +53,14 @@ export const columns = [
         header: 'Opciones',
         cell: ({ row }) => {
             const proveedor = row.original
-            const urlUpdate = '/administracion/proveedores/update/' + proveedor.id
-            const urlDelete = '/api/proveedorDelete/'
+           /* console.log(proveedor.id) */
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Opciones</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-rosado-200">
-                        <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlUpdate}>Editar</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            className="hover:bg-rosado-600"
-                            onClick={() =>
-                                handleDelete(proveedor.id, urlDelete)
-                            }>
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <>
+                <ModalProveedorVer idProveedor={proveedor.id}></ModalProveedorVer>
+                <ModalProveedorUpdate idProveedor={proveedor.id}></ModalProveedorUpdate>
+                    <ModalProveedorDelete
+                        idProveedor={proveedor.id}></ModalProveedorDelete>
+                </>
             )
         },
     },
