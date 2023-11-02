@@ -256,17 +256,25 @@ export function ModalProductoStore() {
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
-                                    <TabsTrigger value="general" className='w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center'>
+                                    <TabsTrigger
+                                        value="general"
+                                        className="w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
                                         Informacion general
                                     </TabsTrigger>
-                                    <TabsTrigger value="insumos" className='w-1/3 font-bold border-2 border-black px-6 py-3 text-center'>
+                                    <TabsTrigger
+                                        value="insumos"
+                                        className="w-1/3 font-bold border-2 border-black px-6 py-3 text-center">
                                         Insumos
                                     </TabsTrigger>
-                                    <TabsTrigger value="set" className='w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center'>
+                                    <TabsTrigger
+                                        value="set"
+                                        className="w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center">
                                         Informacion sobre Set
                                     </TabsTrigger>
                                 </TabsList>
-                                <TabsContent value="general" className="grid grid-cols-2 gap-3">
+                                <TabsContent
+                                    value="general"
+                                    className="grid grid-cols-2 gap-3">
                                     <div className="flex justify-end gap-5">
                                         <label>Nombre:</label>
                                         <NeoInput
@@ -334,12 +342,14 @@ export function ModalProductoStore() {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                    <ListadoInsumos 
+                                    <ListadoInsumos
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
                                         }></ListadoInsumos>
                                 </TabsContent>
-                                <TabsContent value="set" className="flex justify-around">
+                                <TabsContent
+                                    value="set"
+                                    className="flex justify-around">
                                     <div className="flex justify-around">
                                         <SelectTips
                                             value={tip}
@@ -480,9 +490,7 @@ export function ModalProductoUpdate({ idProducto }) {
                         encType="multipart/form-data"
                         className="flex flex-col">
                         <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>
-                                Editar
-                            </AlertDialogTitle>
+                            <AlertDialogTitle>Editar</AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
                                     <TabsTrigger value="general">
@@ -655,11 +663,23 @@ export function ModalProductoVer({ idProducto }) {
                                                 Descripcion:{' '}
                                                 {producto.descripcion}
                                             </p>
-                                            <p>Precio: {producto.precio}</p>
                                             <p>
                                                 Ciudad: {producto.ciudad.nombre}
                                             </p>
-                                            <p>Stock: {producto.stock}</p>
+
+                                            <p>
+                                                Precio:{' '}
+                                                {producto.precio != 0 ? (
+                                                    <>${producto.precio}</>
+                                                ) : (
+                                                    <>Sin cotizar</>
+                                                )}
+                                            </p>
+                                            {producto.set.categoria_set.id !=
+                                                4 && (
+                                                <p>Stock: {producto.stock}</p>
+                                            )}
+
                                             {producto.set && (
                                                 <>
                                                     <p>
@@ -670,14 +690,27 @@ export function ModalProductoVer({ idProducto }) {
                                                                 .nombre
                                                         }
                                                     </p>
-                                                    <p>
-                                                        Forma:{' '}
-                                                        {producto.set.tip.forma}
-                                                    </p>
-                                                    <p>
-                                                        Largo:{' '}
-                                                        {producto.set.tip.largo}
-                                                    </p>
+                                                    {producto.set.tip && (
+                                                        <>
+                                                            {' '}
+                                                            <p>
+                                                                Forma:{' '}
+                                                                {
+                                                                    producto.set
+                                                                        .tip
+                                                                        .forma
+                                                                }
+                                                            </p>
+                                                            <p>
+                                                                Largo:{' '}
+                                                                {
+                                                                    producto.set
+                                                                        .tip
+                                                                        .largo
+                                                                }
+                                                            </p>
+                                                        </>
+                                                    )}
                                                 </>
                                             )}
                                         </div>
@@ -691,15 +724,15 @@ export function ModalProductoVer({ idProducto }) {
                                                 }></img>
                                         </div>
                                     </TabsContent>
-                                    <TabsContent value="insumos" className="flex px-10 w-full">
-                                       
-                                            {producto.insumos && (
-                                                <TablaInsumosProductos
-                                                    insumos={
-                                                        producto.insumos
-                                                    }></TablaInsumosProductos>
-                                            )}
-                                        
+                                    <TabsContent
+                                        value="insumos"
+                                        className="flex px-10 w-full">
+                                        {producto.insumos && (
+                                            <TablaInsumosProductos
+                                                insumos={
+                                                    producto.insumos
+                                                }></TablaInsumosProductos>
+                                        )}
                                     </TabsContent>
                                 </>
                             ) : (
