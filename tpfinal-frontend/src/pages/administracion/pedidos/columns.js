@@ -82,20 +82,34 @@ export const columns = [
             const id_estado = row.getValue('estado')
             const estados = estadosPedido()
             const estado = estados.find(estado => estado.id === id_estado)
+
             return (
                 <div>
-                    {estado.nombre}
+                {estado.nombre}
+                    {id_estado == 1 && (
+                        <p className="font-semibold">Esperando confirmacion.</p>
+                    )}
+                </div>
+            )
+        },
+    },
+    {
+        accessorKey: 'actions',
+        header: 'Opciones',
+        cell: ({ row }) => {
+            const id_estado = row.getValue('estado')
+            const estados = estadosPedido()
+            const estado = estados.find(estado => estado.id === id_estado)
+            return (
+                <div>
                     {id_estado == 0 && (
                         <>
                             <ModalCotizar id={row.original.id}></ModalCotizar>
                         </>
                     )}
-                    {id_estado == 1 && <>Esperando respuesta</>}
                     {id_estado == 2 && <>Empezar pedido</>}
                     {id_estado == 4 && <>Terminar pedido</>}
-                    {id_estado == 5 && <>Pedido enviado</>}
-                    {/* <ModalCambiarEstado
-                        id={row.original.id}></ModalCambiarEstado> */}
+                    {id_estado == 5 && <>Enviar pedido</>}
                 </div>
             )
         },

@@ -17,19 +17,17 @@ import {
     DollarSign,
     Minus,
     Plus,
+    Info,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
-import Input from '@/components/Input'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import Label from '@/components/ui/label'
+
 import handleUpdate from '../../lib/handleUpdate'
-import handleDelete from '../../lib/handleDelete'
 import { estadosPedido } from '../../lib/estados'
 import { fetchProducto } from '../../lib/producto'
-import { NeoInput, NeoInputChico } from '../Input'
-import { NeoButtonChico } from '../Button'
+import { NeoInput } from '../Input'
+import { NeoButton, NeoButtonChico } from '../Button'
 
 const fetchPedido = id => {
     return axios.get('/api/administracion/pedido/' + id).then(res => res.data)
@@ -205,8 +203,8 @@ export function ModalCotizar({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
-                    <Eye className="h-4 w-4 mx-2" />
+                <AlertDialogTrigger className="flex rounded-full border-2 border-black px-5 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
+                    <DollarSign className="h-4 w-4 " /> Cotizar
                 </AlertDialogTrigger>
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
@@ -261,7 +259,7 @@ export function ModalCotizar({ id }) {
                                             Fecha de entrega:
                                         </label>
                                         <NeoInput
-                                        required
+                                            required
                                             type="date"
                                             value={fecha}
                                             onChange={e =>
@@ -281,6 +279,79 @@ export function ModalCotizar({ id }) {
                     </AlertDialogHeader>
                     <AlertDialogFooter className="mr-5">
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalRespuestaCotizacion({ pedido }) {
+    const [estado, setEstado] = useState()
+
+    const handleAceptar = async e => {
+        setEstado(2)
+        handleSubmit()
+    }
+    const handleRechazar = async e => {
+        setEstado(3)
+        handleSubmit()
+    }
+
+    const handleSubmit = async e => {
+      
+        try {
+            const formData = new FormData()
+            formData.append('estado', estado)
+            const headers = {
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                Accept: 'application/json',
+            }
+
+            const response = await axios.post(
+                '/api/administracion/pedido/cambiarEstado/' + pedido.id,
+                formData,
+                {
+                    headers,
+                },
+            )
+            // Maneja la respuesta del servidor si es necesario
+            console.log('Respuesta del servidor:', response.data)
+        } catch (error) {
+            console.error('Error al enviar la solicitud:', error)
+        }
+    }
+
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    Aceptar/Rechazar
+                </AlertDialogTrigger>
+                <AlertDialogContent className="flex-col items-center justify-center rounded-md border-2 border-black bg-lila-500 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Aceptar o rechazar cotizacion
+                        </AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <div>
+                        <p>Informacion:</p>
+                        <p>Precio: ${pedido.producto.precio}</p>
+                        <p>Fecha de entrega: {pedido.fecha_entrega}</p>
+                    </div>
+                    <div
+                        role="alert"
+                        className="flex items-center justify-center rounded-md border-2 border-black bg-red-500 p-2 px-4 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <Info className="mr-3 h-6 min-h-[24px] w-6 min-w-[24px]" />
+                        Una vez aceptada la cotizacion no se aceptan cambios. Si
+                        cometio un error, rechace la cotizacion y solicite una
+                        nueva.
+                    </div>
+
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                        <NeoButton onClick={handleRechazar}>Rechazar</NeoButton>
+                        <NeoButton onClick={handleAceptar}>Aceptar</NeoButton>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
