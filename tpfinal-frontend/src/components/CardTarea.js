@@ -1,10 +1,10 @@
-import { CalendarDays, Pencil, Trash2 } from 'lucide-react'
-import { DeleteButton, UpdateButton } from './Button'
-import handleDelete from '../lib/handleDelete'
+import { CalendarDays} from 'lucide-react'
 import ModalTareaUpdate, {
     ModalTareaDelete,
     ModalTareaTerminar,
 } from './Modales/modalTarea'
+import { convertirFechaLarga } from '../lib/formatoFechas'
+
 
 const CardTarea = ({ tarea }) => (
     <div
@@ -20,7 +20,7 @@ const CardTarea = ({ tarea }) => (
             <p>{tarea.descripcion}</p>
             <div className="text-sm flex pt-2">
                 <CalendarDays className="h-4"></CalendarDays> Vencimiento:{' '}
-                {tarea.fecha_vencimiento}{' '}
+                {convertirFechaLarga(tarea.fecha_vencimiento)}{' '}
             </div>
         </div>
 
