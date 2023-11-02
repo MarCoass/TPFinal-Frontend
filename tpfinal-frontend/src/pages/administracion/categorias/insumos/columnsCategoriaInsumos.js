@@ -10,7 +10,7 @@ import {
     ModalInsumoStockUpdate,
     ModalInsumoVer,
 } from '../../../../components/Modales/modalInsumos'
-import { ModalCategoriaInsumoDelete, ModalCategoriaInsumoUpdate } from '../../../../components/Modales/modalCategoriasInsumos'
+import { ModalCategoriaInsumoDelete, ModalCategoriaInsumoUpdate, ModalCategoriasInsumos } from '../../../../components/Modales/modalCategoriasInsumos'
 
 export const Categorias = {
     id: '',
@@ -45,10 +45,9 @@ export const columns = [
 
             return (
                 <>
-                    <div className="flex">
                         <ModalCategoriaInsumoUpdate
-                            id={categoria.id}></ModalCategoriaInsumoUpdate>
-                    </div>
+                            id={categoria.id}></ModalCategoriaInsumoUpdate><ModalCategoriaInsumoDelete  id={categoria.id}></ModalCategoriaInsumoDelete>
+                   
                 </>
             )
         },

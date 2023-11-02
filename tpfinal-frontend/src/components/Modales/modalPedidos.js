@@ -105,31 +105,28 @@ export function ModalCambiarEstado({ id }) {
 
                         {pedido && estadoActual && (
                             <>
-                                <p>Estado actual: {estadoActual.nombre}</p>
-                                <RadioGroup defaultValue={estadoActual.id}>
-                                    {estadosPedido().map(estado => {
-                                        return (
-                                            <div
-                                                className="flex items-center space-x-2"
-                                                key={estado.id}>
-                                                <RadioGroupItem
-                                                    value={estado.id}
-                                                    id={estado.id}
-                                                    onClick={e => {
-                                                        setEstado(
-                                                            e.target.value,
-                                                        )
-                                                        console.log(estado)
-                                                    }}
-                                                />
 
-                                                <label htmlFor={estado.id}>
-                                                    {estado.nombre}
-                                                </label>
-                                            </div>
-                                        )
-                                    })}
-                                </RadioGroup>
+                                {estadosPedido().map(estado => {
+                                    return (
+                                        <div
+                                            className="font-bold"
+                                            key={estado.id}>
+                                            <input
+                                                type="radio"
+                                                value={estado.id}
+                                                id={estado.id}
+                                                onClick={e => {
+                                                    setEstado(e.target.value)
+                                                }}
+                                            />
+
+                                            <label htmlFor={estado.id}>
+                                                {estado.nombre}
+                                            </label>
+                                        </div>
+                                    )
+                                })}
+
                             </>
                         )}
 

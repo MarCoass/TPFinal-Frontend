@@ -35,7 +35,11 @@ const Dropdown = ({
         <Menu as="div" className="relative">
             {({ open }) => (
                 <>
-                    <Menu.Button as={React.Fragment}>{trigger}</Menu.Button>
+                    <Menu.Button
+                        as={React.Fragment}
+                        className="flex  cursor-pointer items-center rounded-[5px] border-2 border-black bg-lila-500 px-7 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        {trigger}
+                    </Menu.Button>
 
                     <Transition
                         show={open}
@@ -46,12 +50,8 @@ const Dropdown = ({
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95">
                         <div
-                            className={`absolute z-50 mt-2 ${width} rounded-md shadow-lg ${alignmentClasses}`}>
-                            <Menu.Items
-                                className={`rounded-md focus:outline-none ring-1 ring-black ring-opacity-5 ${contentClasses}`}
-                                static>
-                                {children}
-                            </Menu.Items>
+                            className={`absolute z-50 mt-2 ${width} ${alignmentClasses} rounded-[5px] border-2 bg-lila-500 border-black text-center font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all`}>
+                            <Menu.Items static>{children}</Menu.Items>
                         </div>
                     </Transition>
                 </>
