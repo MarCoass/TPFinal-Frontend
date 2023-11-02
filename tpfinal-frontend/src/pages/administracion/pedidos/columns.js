@@ -9,6 +9,8 @@ import {
     ModalCambiarEstado,
     ModalCotizar,
     ModalEmpezarTerminar,
+    ModalEntregado,
+    ModalPedidoEliminar,
 } from '../../../components/Modales/modalPedidos'
 import {
     convertirFechaCorta,
@@ -24,6 +26,23 @@ export const Pedido = {
 }
 
 export const columns = [
+    {
+        accessorKey: 'pedido',
+        header: 'Set',
+        cell: ({ row }) => {
+            let imageUrl =
+                process.env.NEXT_PUBLIC_BACKEND_URL +
+                '/storage/' +
+                row.original.producto.url_imagen
+            return (
+                <>
+                    <ModalProductoVer
+                        idProducto={row.original.id_producto}
+                        conImagen={true}></ModalProductoVer>
+                </>
+            )
+        },
+    },
     {
         accessorKey: 'Cliente',
         header: ({ column }) => {
@@ -42,25 +61,9 @@ export const columns = [
         cell: ({ row }) => {
             return (
                 <div className="font-bold">
-                    {' '}
-                    {row.original.usuario.nombre}
                     <ModalVerCliente
                         id={row.original.id_usuario}></ModalVerCliente>
                 </div>
-            )
-        },
-    },
-    {
-        accessorKey: 'pedido',
-        header: 'Set',
-        cell: ({ row }) => {
-            return (
-                <>
-                    <ModalProductoVer
-                        idProducto={
-                            row.original.id_producto
-                        }></ModalProductoVer>
-                </>
             )
         },
     },
@@ -96,13 +99,13 @@ export const columns = [
     },
     {
         accessorKey: 'actions',
-        header: 'Opciones',
+        header: '',
         cell: ({ row }) => {
             const id_estado = row.getValue('estado')
             const estados = estadosPedido()
             const estado = estados.find(estado => estado.id === id_estado)
             return (
-                <div>
+                <div className="flex  justify-center">
                     {id_estado == 0 && (
                         <>
                             <ModalCotizar id={row.original.id}></ModalCotizar>
@@ -111,6 +114,13 @@ export const columns = [
                     {(id_estado == 2 || id_estado == 4) && (
                         <ModalEmpezarTerminar
                             pedido={row.original}></ModalEmpezarTerminar>
+                    )}
+                    {(id_estado == 3 || id_estado == 6) && (
+                        <ModalPedidoEliminar
+                            pedido={row.original}></ModalPedidoEliminar>
+                    )}
+                    {id_estado == 5 && (
+                        <ModalEntregado pedido={row.original}></ModalEntregado>
                     )}
                 </div>
             )

@@ -607,7 +607,7 @@ export function ModalProductoUpdate({ idProducto }) {
     )
 }
 
-export function ModalProductoVer({ idProducto }) {
+export function ModalProductoVer({ idProducto, conImagen = false }) {
     const [producto, setProducto] = useState()
     useEffect(() => {
         if (idProducto != null) {
@@ -630,9 +630,20 @@ export function ModalProductoVer({ idProducto }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
-                    <Eye className="h-4 w-4 mx-2" />
-                </AlertDialogTrigger>
+                {conImagen && producto ? (
+                    <AlertDialogTrigger>
+                        <div title="Ver producto"
+                            style={{
+                                backgroundImage: `url(${urlBase}${producto.url_imagen})`,
+                            }}
+                            className="h-16 w-16 rounded-full border-2 border-black bg-cover bg-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"></div>
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
+                        <Eye className="h-4 w-4 mx-2" />
+                    </AlertDialogTrigger>
+                )}
+
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
                         <AlertDialogTitle>

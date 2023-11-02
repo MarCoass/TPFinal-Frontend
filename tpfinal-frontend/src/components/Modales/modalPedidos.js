@@ -11,13 +11,12 @@ import {
 } from '@/components/ui/alert-dialog'
 import {
     Pencil,
-    Trash2,
-    PlusSquare,
-    Eye,
     DollarSign,
-    Minus,
-    Plus,
+    Truck,
     Info,
+    Play,
+    Check,
+    Trash2,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
@@ -28,6 +27,7 @@ import { estadosPedido } from '../../lib/estados'
 import { fetchProducto } from '../../lib/producto'
 import { NeoInput } from '../Input'
 import { NeoButton, NeoButtonChico } from '../Button'
+import handleDelete from '../../lib/handleDelete'
 
 const fetchPedido = id => {
     return axios.get('/api/administracion/pedido/' + id).then(res => res.data)
@@ -203,8 +203,8 @@ export function ModalCotizar({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex rounded-full border-2 border-black px-5 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
-                    <DollarSign className="h-4 w-4 " /> Cotizar
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-violeta-300 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    <DollarSign className="h-4 w-4 mx-2" /> Cotizar
                 </AlertDialogTrigger>
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
@@ -358,6 +358,44 @@ export function ModalRespuestaCotizacion({ pedido }) {
     )
 }
 
+export function ModalEntregado({ pedido }) {
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('estado', 6)
+        let url = '/api/administracion/pedidoDelete/'
+        handleUpdate(pedido.id, url, formData)
+    }
+
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    <Truck className="h-4 w-4 mx-2" /> Entregado
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <form onSubmit={handleSubmit}>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                ¿Desea cambiar el estado del pedido?
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <p>
+                            Marcar como <b>Pedido entregado</b>
+                        </p>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Guardar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
 export function ModalEmpezarTerminar({ pedido }) {
     let estadoTexto
     let estado
@@ -385,12 +423,19 @@ export function ModalEmpezarTerminar({ pedido }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
-                    {pedido.estado == 2 ? <>Empezar</> : <>Terminar</>}
-                </AlertDialogTrigger>
+                {pedido.estado == 2 ? (
+                    <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-naranja-500 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        <Play className="h-4 w-4 mx-2" /> Empezar
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-green-500 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        <Check className="h-4 w-4 mx-2" />
+                        Terminar
+                    </AlertDialogTrigger>
+                )}
+
                 <AlertDialogContent className="bg-rosado-50">
-                    <form    onSubmit={handleSubmit}>
-                     
+                    <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
                                 ¿Desea cambiar el estado del pedido?
@@ -403,6 +448,50 @@ export function ModalEmpezarTerminar({ pedido }) {
                             <AlertDialogCancel>Cerrar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Guardar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalPedidoEliminar({ pedido }) {
+    const handleSubmit = async e => {
+        e.preventDefault()
+
+        // Crea un objeto con los datos del formulario
+        const formData = new FormData()
+
+        let url = '/api/administracion/pedidoDelete/'
+        handleDelete(pedido.id, url)
+    }
+
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-red-500 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                    <Trash2 className="h-4 w-4 mx-2" /> Eliminar
+                </AlertDialogTrigger>
+
+                <AlertDialogContent className="bg-rosado-50">
+                    <form onSubmit={handleSubmit}>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                ¿Desea cambiar eliminar el pedido?
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div
+                            role="alert"
+                            className="flex items-center justify-center rounded-md border-2 border-black bg-red-500 p-2 px-4 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                            <Info className="mr-3 h-6 min-h-[24px] w-6 min-w-[24px]" />
+                            Esta accion no puede deshacerse.
+                        </div>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Eliminar
                             </AlertDialogAction>
                         </AlertDialogFooter>
                     </form>
