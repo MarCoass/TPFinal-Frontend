@@ -299,7 +299,6 @@ export function ModalRespuestaCotizacion({ pedido }) {
     }
 
     const handleSubmit = async e => {
-      
         try {
             const formData = new FormData()
             formData.append('estado', estado)
@@ -353,6 +352,60 @@ export function ModalRespuestaCotizacion({ pedido }) {
                         <NeoButton onClick={handleRechazar}>Rechazar</NeoButton>
                         <NeoButton onClick={handleAceptar}>Aceptar</NeoButton>
                     </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalEmpezarTerminar({ pedido }) {
+    let estadoTexto
+    let estado
+    if (pedido.estado == 2) {
+        estadoTexto = 'Pedido empezado.'
+        estado = 4
+    } else {
+        estadoTexto = 'Pedido terminado'
+        estado = 5
+    }
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+        /*  console.log(ciudad.target.value) */
+
+        // Crea un objeto con los datos del formulario
+        const formData = new FormData()
+
+        formData.append('estado', estado)
+
+        let url = '/api/administracion/pedido/cambiarEstado/'
+        handleUpdate(pedido.id, url, formData)
+    }
+
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                    {pedido.estado == 2 ? <>Empezar</> : <>Terminar</>}
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <form    onSubmit={handleSubmit}>
+                     
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>
+                                ¿Desea cambiar el estado del pedido?
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <p>
+                            Marcar como <b>{estadoTexto}</b>
+                        </p>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Guardar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
                 </AlertDialogContent>
             </AlertDialog>
         </>

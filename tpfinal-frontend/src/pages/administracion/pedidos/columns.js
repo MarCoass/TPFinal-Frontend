@@ -8,6 +8,7 @@ import { ModalProductoVer } from '../../../components/Modales/modalProductos'
 import {
     ModalCambiarEstado,
     ModalCotizar,
+    ModalEmpezarTerminar,
 } from '../../../components/Modales/modalPedidos'
 import {
     convertirFechaCorta,
@@ -85,7 +86,7 @@ export const columns = [
 
             return (
                 <div>
-                {estado.nombre}
+                    {estado.nombre}
                     {id_estado == 1 && (
                         <p className="font-semibold">Esperando confirmacion.</p>
                     )}
@@ -107,9 +108,10 @@ export const columns = [
                             <ModalCotizar id={row.original.id}></ModalCotizar>
                         </>
                     )}
-                    {id_estado == 2 && <>Empezar pedido</>}
-                    {id_estado == 4 && <>Terminar pedido</>}
-                    {id_estado == 5 && <>Enviar pedido</>}
+                    {(id_estado == 2 || id_estado == 4) && (
+                        <ModalEmpezarTerminar
+                            pedido={row.original}></ModalEmpezarTerminar>
+                    )}
                 </div>
             )
         },
