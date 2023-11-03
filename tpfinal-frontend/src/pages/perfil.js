@@ -6,7 +6,6 @@ export default function Perfil() {
     return (
         <AppLayout>
             <DatosUsuario></DatosUsuario>
-            holis
         </AppLayout>
     )
 
