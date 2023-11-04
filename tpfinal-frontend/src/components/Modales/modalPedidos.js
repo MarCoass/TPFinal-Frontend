@@ -417,6 +417,7 @@ export function ModalEmpezarTerminar({ pedido }) {
         formData.append('estado', estado)
 
         let url = '/api/administracion/pedido/cambiarEstado/'
+        
         handleUpdate(pedido.id, url, formData)
     }
 

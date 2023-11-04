@@ -38,7 +38,7 @@ export function ModalVerCliente({ id }) {
                 try {
                     const data = await fetchCliente(id)
                     setCliente(data)
-                    console.log(data)
+                   /*  console.log(data) */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',

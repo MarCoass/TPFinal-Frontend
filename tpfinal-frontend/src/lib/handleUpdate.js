@@ -1,7 +1,7 @@
 import getCookie from '@/lib/cookies'
 import axios from '@/lib/axios'
 
-export default function handleUpdate(id, url, formData) {
+export default async function handleUpdate(id, url, formData) {
     try {
         const xsrfToken = getCookie('XSRF-TOKEN')
         const response = axios.post(`${url}${id}`, formData, {
@@ -11,9 +11,11 @@ export default function handleUpdate(id, url, formData) {
                 'Content-Type': 'application/json',
             },
         })
+
         swal({
             icon: 'success',
             title: 'Actualizado correctamente.',
+
             button: {
                 text: 'Cerrar',
                 className:
