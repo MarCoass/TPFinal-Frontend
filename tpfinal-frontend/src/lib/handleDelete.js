@@ -35,7 +35,7 @@ export default async function handleDelete(id, url) {
             })
         }
 
-        console.log(response.data)
+      /*   console.log(response.data) */
     } catch (error) {
         console.error('Error al eliminar:', error)
         swal({
