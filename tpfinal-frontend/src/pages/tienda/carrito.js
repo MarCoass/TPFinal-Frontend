@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import AppLayout from "@/components/Layouts/AppLayout";
 import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
+import CarritoGrid from '@/components/Grids/CarritoGrid';
+import Button from '@/components/Button';
 
 const fetchCarrito = (carrito) => {
     return axios
@@ -35,7 +37,13 @@ export default function Catalogo() {
 
     return (
         <AppLayout>
-            Habemus página de carrito
+            {infoCarrito ? (
+                <CarritoGrid data={infoCarrito} />
+            ) : (
+                <div>No se encontraron productos</div>
+            )}
+
+                <Button>Comprar</Button>
         </AppLayout>
     )
 }
