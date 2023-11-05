@@ -9,6 +9,7 @@ import { DropdownButton } from '@/components/DropdownLink'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { User } from 'lucide-react';
 
 const Navigation = ({ user }) => {
     const router = useRouter()
@@ -18,10 +19,10 @@ const Navigation = ({ user }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="bg-white border-b border-gray-100">
+        <nav className="border-b-2 border-black bg-lila-500">
             {/* Primary Navigation Menu */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
+                <div className="flex justify-between font-bold">
                     <div className="flex">
                         {/* Logo */}
                         <div className="flex-shrink-0 flex items-center">
@@ -38,23 +39,15 @@ const Navigation = ({ user }) => {
                                     Tienda
                                 </NavLink>
                                 <NavLink
-                                    href="/administracion/productos"
-                                    active={router.pathname === '/administracion/productos'}>
-                                    Productos
-                                </NavLink>
-                                <NavLink
-                                    href="/administracion/insumos"
-                                    active={router.pathname === '/administracion/insumos'}>
-                                    Insumos
+                                    href="/administracion/"
+                                    active={
+                                        router.pathname === '/administracion/'
+                                    }>
+                                    Administracion
                                 </NavLink>
                             </div>
                         ) : (
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                {/* <NavLink
-                                    href="/dashboard"
-                                    active={router.pathname === '/dashboard'}>
-                                    Catalogo
-                                </NavLink> */}
                                 <NavLink
                                     href="/tienda"
                                     active={router.pathname === '/tienda'}>
@@ -81,22 +74,7 @@ const Navigation = ({ user }) => {
                                 align="right"
                                 width="48"
                                 trigger={
-                                    <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                                        <div>{user?.nombre}</div>
-                                        <div className="ml-1">
-                                            <svg
-                                                className="fill-current h-4 w-4"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                }>
+                                    <div className="m-1 h-16 w-16 rounded-full border-2 border-black bg-cover bg-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"><User className=""/></div>}>
                                 {user && user.id_rol == 1 ? (
                                     <DropdownButton>
                                         Configuracion
@@ -170,7 +148,6 @@ const Navigation = ({ user }) => {
                 </div>
             </div>
 
-            {/* Responsive Navigation Menu */}
             {open && (
                 <div className="block sm:hidden">
                     <div className="pt-2 pb-3 space-y-1">

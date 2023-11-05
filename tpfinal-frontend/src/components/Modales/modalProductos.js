@@ -9,7 +9,15 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye } from 'lucide-react'
+import {
+    Pencil,
+    Trash2,
+    PlusSquare,
+    Eye,
+    Plus,
+    Minus,
+    Info,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -25,6 +33,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
 import { TablaInsumosProductos } from '../Tablas/TablaInsumosProducto'
+import { NeoButton, NeoButtonChico } from '../Button'
+import { NeoInput, NeoInputChico } from '../Input'
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -83,30 +93,51 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                    <Pencil className="h-4 w-4 mx-2" />
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
+                    {stockViejo}
+                    <Pencil className="h-4 w-4 mx-1" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent
+                    className=" flex w-[350px] flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
+}">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                <p>Modificar el stock</p>
-                                <input
-                                    type="hidden"
-                                    id="id_producto"
-                                    value={idProducto}
-                                />
-                                <label htmlFor="name">Stock:</label>
-                                <input
+                            <p>Stock actual: {stockViejo}</p>
+                            <input
+                                type="hidden"
+                                id="id_producto"
+                                value={idProducto}
+                            />
+                            <div className="flex gap-3">
+                                <NeoButtonChico
+                                    disabled={stock === 0}
+                                    type="button"
+                                    onClick={e => {
+                                        if (stock > 0) {
+                                            setStock(parseInt(stock) - 1)
+                                        }
+                                    }}>
+                                    <Minus></Minus>
+                                </NeoButtonChico>
+                                <NeoInputChico
+                                    className="w-16"
                                     type="number"
                                     id="stock"
                                     value={stock}
                                     onChange={e => setStock(e.target.value)}
+                                    min="0"
                                 />
-                            </AlertDialogDescription>
+                                <NeoButtonChico
+                                    type="button"
+                                    onClick={e =>
+                                        setStock(parseInt(stock) + 1)
+                                    }>
+                                    <Plus></Plus>
+                                </NeoButtonChico>
+                            </div>
                         </AlertDialogHeader>
-                        <AlertDialogFooter>
+                        <AlertDialogFooter className="mt-10 ">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Modificar
@@ -210,7 +241,7 @@ export function ModalProductoStore() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:violeta-red-600 rounded text-white">
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <PlusSquare className="h-4 w-4 mx-2" />
                     NUEVO PRODUCTO
                 </AlertDialogTrigger>
@@ -221,24 +252,24 @@ export function ModalProductoStore() {
                         className="flex flex-col">
                         <AlertDialogHeader className="flex">
                             <AlertDialogTitle>
-                                Crear nuevo precio
+                                Crear nuevo producto
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
-                                    <TabsTrigger value="general">
+                                    <TabsTrigger value="general" className='w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center'>
                                         Informacion general
                                     </TabsTrigger>
-                                    <TabsTrigger value="insumos">
+                                    <TabsTrigger value="insumos" className='w-1/3 font-bold border-2 border-black px-6 py-3 text-center'>
                                         Insumos
                                     </TabsTrigger>
-                                    <TabsTrigger value="set">
+                                    <TabsTrigger value="set" className='w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center'>
                                         Informacion sobre Set
                                     </TabsTrigger>
                                 </TabsList>
-                                <TabsContent value="general">
-                                    <div className="flex justify-around">
+                                <TabsContent value="general" className="grid grid-cols-2 gap-3">
+                                    <div className="flex justify-end gap-5">
                                         <label>Nombre:</label>
-                                        <Input
+                                        <NeoInput
                                             type="text"
                                             value={nombre}
                                             onChange={e =>
@@ -246,9 +277,9 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Descripcion:</label>
-                                        <Input
+                                        <NeoInput
                                             type="text"
                                             value={descripcion}
                                             onChange={e =>
@@ -256,9 +287,9 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Stock:</label>
-                                        <Input
+                                        <NeoInput
                                             type="number"
                                             value={stock}
                                             onChange={e =>
@@ -266,9 +297,9 @@ export function ModalProductoStore() {
                                             }
                                         />
                                     </div>
-                                    <div className="flex justify-around">
+                                    <div className="flex justify-end gap-5">
                                         <label>Precio:</label>
-                                        <Input
+                                        <NeoInput
                                             type="number"
                                             value={precio}
                                             onChange={e =>
@@ -303,12 +334,12 @@ export function ModalProductoStore() {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                    <ListadoInsumos
+                                    <ListadoInsumos 
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
                                         }></ListadoInsumos>
                                 </TabsContent>
-                                <TabsContent value="set">
+                                <TabsContent value="set" className="flex justify-around">
                                     <div className="flex justify-around">
                                         <SelectTips
                                             value={tip}
@@ -326,7 +357,7 @@ export function ModalProductoStore() {
                                 </TabsContent>
                             </Tabs>
                         </AlertDialogHeader>
-                        <AlertDialogFooter>
+                        <AlertDialogFooter className="mt-10">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Guardar
@@ -344,11 +375,10 @@ export function ModalProductoEliminar({ idProducto }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    Eliminar
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -441,18 +471,17 @@ export function ModalProductoUpdate({ idProducto }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
-                    Editar
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
                         className="flex flex-col">
                         <AlertDialogHeader className="flex">
                             <AlertDialogTitle>
-                                Crear nuevo precio
+                                Editar
                             </AlertDialogTitle>
                             <Tabs defaultValue="general">
                                 <TabsList>
@@ -593,95 +622,92 @@ export function ModalProductoVer({ idProducto }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
                     <Eye className="h-4 w-4 mx-2" />
-                    Ver
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
-                    <AlertDialogHeader>
+                <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                    <AlertDialogHeader className="mr-5">
                         <AlertDialogTitle>
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
-                        <AlertDialogDescription>
-                            <Tabs defaultValue="general">
-                                <TabsList className="">
-                                    <TabsTrigger value="general">
-                                        Informacion General
-                                    </TabsTrigger>
-                                    <TabsTrigger value="insumos">
-                                        Insumos
-                                    </TabsTrigger>
-                                </TabsList>
-                                {producto ? (
-                                    <>
-                                        <TabsContent value="general">
-                                            <div className="text-left text-base">
-                                                <p>Nombre: {producto.nombre}</p>
-                                                <p>
-                                                    Descripcion:{' '}
-                                                    {producto.descripcion}
-                                                </p>
-                                                <p>Precio: {producto.precio}</p>
-                                                <p>
-                                                    Ciudad:{' '}
-                                                    {producto.ciudad.nombre}
-                                                </p>
-                                                <p>Stock: {producto.stock}</p>
-                                                {producto.set && (
-                                                    <>
-                                                        <p>
-                                                            Categoria:{' '}
-                                                            {
-                                                                producto.set
-                                                                    .categoria_set
-                                                                    .nombre
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Forma:{' '}
-                                                            {
-                                                                producto.set.tip
-                                                                    .forma
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Largo:{' '}
-                                                            {
-                                                                producto.set.tip
-                                                                    .largo
-                                                            }
-                                                        </p>
-                                                    </>
-                                                )}
-                                                <div className="">
-                                                    <img
-                                                        alt={
-                                                            producto.descripcion
+
+                        <Tabs defaultValue="general" className="w-100">
+                            <TabsList className="flex">
+                                <TabsTrigger
+                                    value="general"
+                                    className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
+                                    Informacion General
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="insumos"
+                                    className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                    Insumos
+                                </TabsTrigger>
+                            </TabsList>
+                            {producto ? (
+                                <>
+                                    <TabsContent
+                                        value="general"
+                                        className="flex px-10 w-[600px]">
+                                        <div className="text-left text-base ">
+                                            <p>Nombre: {producto.nombre}</p>
+                                            <p>
+                                                Descripcion:{' '}
+                                                {producto.descripcion}
+                                            </p>
+                                            <p>Precio: {producto.precio}</p>
+                                            <p>
+                                                Ciudad: {producto.ciudad.nombre}
+                                            </p>
+                                            <p>Stock: {producto.stock}</p>
+                                            {producto.set && (
+                                                <>
+                                                    <p>
+                                                        Categoria:{' '}
+                                                        {
+                                                            producto.set
+                                                                .categoria_set
+                                                                .nombre
                                                         }
-                                                        className=" rounded-2xl w-60 object-cover"
-                                                        src={
-                                                            urlBase +
-                                                            producto.url_imagen
-                                                        }></img>
-                                                </div>
-                                            </div>
-                                        </TabsContent>
-                                        <TabsContent value="insumos">
+                                                    </p>
+                                                    <p>
+                                                        Forma:{' '}
+                                                        {producto.set.tip.forma}
+                                                    </p>
+                                                    <p>
+                                                        Largo:{' '}
+                                                        {producto.set.tip.largo}
+                                                    </p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="">
+                                            <img
+                                                alt={producto.descripcion}
+                                                className=" rounded-[5px] w-60 object-cover border-2 border-black"
+                                                src={
+                                                    urlBase +
+                                                    producto.url_imagen
+                                                }></img>
+                                        </div>
+                                    </TabsContent>
+                                    <TabsContent value="insumos" className="flex px-10 w-full">
+                                       
                                             {producto.insumos && (
                                                 <TablaInsumosProductos
                                                     insumos={
                                                         producto.insumos
                                                     }></TablaInsumosProductos>
                                             )}
-                                        </TabsContent>
-                                    </>
-                                ) : (
-                                    <p>cargando</p>
-                                )}
-                            </Tabs>
-                        </AlertDialogDescription>
+                                        
+                                    </TabsContent>
+                                </>
+                            ) : (
+                                <p>cargando</p>
+                            )}
+                        </Tabs>
                     </AlertDialogHeader>
-                    <AlertDialogFooter>
+                    <AlertDialogFooter className="mr-5">
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogFooter>
                 </AlertDialogContent>

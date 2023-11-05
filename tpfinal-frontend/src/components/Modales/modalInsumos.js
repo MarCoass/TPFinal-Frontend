@@ -9,7 +9,15 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, PlusSquare, Eye, DollarSign } from 'lucide-react'
+import {
+    Pencil,
+    Trash2,
+    PlusSquare,
+    Eye,
+    DollarSign,
+    Minus,
+    Plus,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -50,9 +58,9 @@ export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Pencil className="h-4 w-4 mx-2" />
-                    Editar
+                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
@@ -101,9 +109,8 @@ export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    Eliminar
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
@@ -168,7 +175,7 @@ export function ModalInsumoCrear() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center  p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <PlusSquare className="h-4 w-4 mx-2" />
                     NUEVO INSUMO
                 </AlertDialogTrigger>
@@ -258,12 +265,14 @@ export function ModalInsumoCrear() {
 
 export function ModalInsumoVer({ idInsumo }) {
     const [insumo, setInsumo] = useState()
+
     useEffect(() => {
         if (idInsumo != null) {
             async function obtenerInsumo() {
                 try {
                     const data = await fetchInsumo(idInsumo)
                     setInsumo(data)
+                    /*   console.log(data)  */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -278,9 +287,8 @@ export function ModalInsumoVer({ idInsumo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-rosado-500 hover:bg-rosado-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
                     <Eye className="h-4 w-4 mx-2" />
-                    Ver
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
@@ -288,16 +296,17 @@ export function ModalInsumoVer({ idInsumo }) {
                             {insumo && <p>{insumo.nombre}</p>}
                         </AlertDialogTitle>
                     </AlertDialogHeader>
-                    <AlertDialogDescription>
-                        {insumo && (
-                            <>
-                                <p>Nombre: {insumo.nombre}</p>
-                                <p>Descripcion: {insumo.descripcion}</p>
-                                <p>Stock: {insumo.stock}</p>
-                                <p>Stock minimo: {insumo.stock_minimo}</p>
-                            </>
-                        )}
-                    </AlertDialogDescription>
+
+                    {insumo && (
+                        <>
+                            <p>Nombre: {insumo.nombre}</p>
+                            <p>Descripcion: {insumo.descripcion}</p>
+                            <p>Stock: {insumo.stock}</p>
+                            <p>Stock minimo: {insumo.stock_minimo}</p>
+                            <p>Categoria: {insumo.nombre}</p>
+                        </>
+                    )}
+
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
                     </AlertDialogFooter>
@@ -354,9 +363,9 @@ export function ModalInsumoModificar({ idInsumo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-violeta-500 hover:bg-violeta-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
-                    Editar
+                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
@@ -445,9 +454,8 @@ export function ModalInsumoEliminar({ idInsumo }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    Eliminar
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
@@ -504,14 +512,14 @@ export function ModalInsumoPrecios({ idInsumo }) {
             })
 
             setListadoPrecios(formattedData)
-            console.log(listadoPrecios)
+            /*   console.log(listadoPrecios) */
         }
     }, [insumo])
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="p-1 pr-3 flex bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                    <DollarSign className="h-4 w-4 mx-2" /> Ver
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
+                    <DollarSign className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <ModalPrecioStore idInsumo={idInsumo}></ModalPrecioStore>
@@ -525,11 +533,101 @@ export function ModalInsumoPrecios({ idInsumo }) {
                         </div>
                     ) : (
                         <p>Cargando datos...</p>
-                    )}<AlertDialogFooter>
-                    <AlertDialogCancel>Cerrar</AlertDialogCancel>
-                </AlertDialogFooter>
+                    )}
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
-                
+            </AlertDialog>
+        </>
+    )
+}
+
+export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
+    const [stock, setStock] = useState(stockViejo)
+    const handleSubmit = async e => {
+        e.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append('stock', stock)
+            let url = '/administracion/insumoStockUpdate/' + idInsumo
+            const headers = {
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                Accept: 'application/json',
+            }
+            const response = await axios.post(url, formData, { headers })
+            /* console.log(response.data) */
+            if (response.data.exito) {
+                swal({
+                    icon: 'success',
+                    title: 'Stock agregado correctamente.',
+                    text: response.data.message,
+                    button: {
+                        text: 'Cerrar',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
+        } catch (error) {
+            console.error('Error al enviar la solicitud:', error)
+        }
+    }
+    return (
+        <>
+            <AlertDialog>
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
+                {stockViejo}<Pencil className="h-4 w-4 mx-2" />
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-rosado-50">
+                    <form onSubmit={handleSubmit}>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Modificar stock</AlertDialogTitle>
+                            <p>Stock actual: {stockViejo}</p>
+                            <input
+                                type="hidden"
+                                id="id_producto"
+                                value={idInsumo}
+                            />
+                            <div className="flex gap-1">
+                                <button
+                                    disabled={stock === 0}
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 disabled:bg-rosado-200 rounded font-semibold text-white"
+                                    type="button"
+                                    onClick={e => {
+                                        if (stock > 0) {
+                                            setStock(parseInt(stock) - 1)
+                                        }
+                                    }}>
+                                    <Minus></Minus>
+                                </button>
+                                <input
+                                    className="w-16"
+                                    type="number"
+                                    id="stock"
+                                    value={stock}
+                                    onChange={e => setStock(e.target.value)}
+                                    min="0"
+                                />
+
+                                <button
+                                    type="button"
+                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
+                                    onClick={e =>
+                                        setStock(parseInt(stock) + 1)
+                                    }>
+                                    <Plus></Plus>
+                                </button>
+                            </div>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Modificar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
+                </AlertDialogContent>
             </AlertDialog>
         </>
     )

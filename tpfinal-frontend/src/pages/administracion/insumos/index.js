@@ -3,22 +3,20 @@ import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-
-import getCookie from '@/lib/cookies'
+import Link from 'next/link'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-
 import { estadosInsumos } from '@/lib/estados'
-
-import { PlusSquare } from 'lucide-react'
 import TablaInsumos from './data-table/page'
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
-
+import { ModalCategoriasInsumos } from '../../../components/Modales/modalCategoriasInsumos'
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
 const fetchCategorias = () => {
-    return axios.get('/administracion/categoriasInsumos').then(res => res.data)
+    return axios
+        .get('/api/administracion/categoriasInsumos')
+        .then(res => res.data)
 }
 
 export default function IndexProductos() {
@@ -74,9 +72,15 @@ export default function IndexProductos() {
         <>
             <AdminLayout
                 header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Insumos
-                    </h2>
+                    <div className="font-bold flex w-full justify-between ">
+                        <p className="text-xl text-black leading-tight">
+                            Insumos
+                        </p>
+                        <div className="flex gap-2">
+                            <ModalInsumoCrear></ModalInsumoCrear>
+                            <ModalCategoriasInsumos></ModalCategoriasInsumos>
+                        </div>
+                    </div>
                 }>
                 <Head>
                     <title>Insumos - Mar Nails</title>
@@ -86,7 +90,6 @@ export default function IndexProductos() {
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <ModalInsumoCrear></ModalInsumoCrear>
                                 <TablaInsumos></TablaInsumos>
                             </div>
                         </div>

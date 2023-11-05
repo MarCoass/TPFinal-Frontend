@@ -47,11 +47,24 @@ export default function ListadoInsumos({ onCantidadInsumosChange, idProducto }) 
     }
 
     return (
-        <div className="flex gap-4 ">
-            <SearchInsumo
-                data={insumos}
-                selectedKeys={selectedKeys}
-                setSelectedKeys={setSelectedKeys}></SearchInsumo>
+        <div className="h-max gap-4 flex">
+            <ListboxWrapper className="h-60" >
+                <p>Seleccione los insumos utilizados</p>
+                <Listbox className='overflow-y-auto h-60'
+                    items={insumos}
+                    aria-label="Multiple selection example"
+                    variant="flat"
+                    disallowEmptySelection
+                    selectionMode="multiple"
+                    selectedKeys={selectedKeys}
+                    onSelectionChange={setSelectedKeys}>
+                    {insumo => (
+                        <ListboxItem key={insumo.id}>
+                            {insumo.nombre}
+                        </ListboxItem>
+                    )}
+                </Listbox>
+            </ListboxWrapper>
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
                 {selectedKeys.size > 0 ? (
