@@ -37,13 +37,20 @@ export default function Catalogo() {
 
     return (
         <AppLayout>
-            {infoCarrito ? (
-                <CarritoGrid data={infoCarrito} />
-            ) : (
-                <div>No se encontraron productos</div>
-            )}
+            <div className='mx-6'>
+                {infoCarrito ? (
+                    <div>
+                        <CarritoGrid data={infoCarrito} />
+                    </div>
+                ) : (
+                    <div>No se encontraron productos</div>
+                )}
+                <div className="mb-6 mr-6 flex justify-end">
+                    <Button>Comprar</Button>
+                </div>
 
-                <Button>Comprar</Button>
+            </div>
+
         </AppLayout>
     )
 }
