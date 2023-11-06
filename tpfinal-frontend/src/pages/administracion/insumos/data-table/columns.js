@@ -1,18 +1,7 @@
 'use client'
 
-import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
+import {ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-
-import { estadosInsumos } from '@/lib/estados'
-import handleDelete from '../../../../lib/handleDelete'
 import {
     ModalInsumoEliminar,
     ModalInsumoModificar,

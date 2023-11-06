@@ -9,6 +9,7 @@ import { estadosInsumos } from '@/lib/estados'
 import TablaInsumos from './data-table/page'
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
 import { ModalCategoriasInsumos } from '../../../components/Modales/modalCategoriasInsumos'
+import { ModalTipsRendimiento } from '../../../components/Modales/modalTips'
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
@@ -79,6 +80,7 @@ export default function IndexProductos() {
                         <div className="flex gap-2">
                             <ModalInsumoCrear></ModalInsumoCrear>
                             <ModalCategoriasInsumos></ModalCategoriasInsumos>
+                            <ModalTipsRendimiento></ModalTipsRendimiento>
                         </div>
                     </div>
                 }>
