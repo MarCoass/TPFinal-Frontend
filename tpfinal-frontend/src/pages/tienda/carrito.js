@@ -14,7 +14,7 @@ const fetchCarrito = (carrito) => {
         .then(res => res.data)
 }
 
-export default function Catalogo() {
+export default function Carrito() {
     const [infoCarrito, setCarrito] = useState(null)
     const router = useRouter()
     const { carrito } = router.query
