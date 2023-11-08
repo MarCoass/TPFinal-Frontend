@@ -38,12 +38,14 @@ export default function Catalogo() {
     return (
         <AppLayout>
             <div className='mx-6'>
-                {infoCarrito ? (
+                {infoCarrito != null ? (
                     <div>
                         <CarritoGrid data={infoCarrito} />
                     </div>
                 ) : (
-                    <div>No se encontraron productos</div>
+                    <CustomSpinner
+                        mensaje={'Cargando productos...'}>
+                    </CustomSpinner>
                 )}
                 <div className="mb-6 mr-6 flex justify-end">
                     <Button>Comprar</Button>

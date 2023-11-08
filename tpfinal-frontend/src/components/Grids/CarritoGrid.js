@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from 'react'
 import { NeoButtonChico, NeoButtonMini } from "../Button";
 import { Plus, Trash2, Minus } from 'lucide-react'
 
 const CarritoGrid = ({ data }) => {
   const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+  const [cantidades, setCantidades] = useState(data.id_productos.map((producto) => producto.cantidad));
   let i = 0;
+
+  const handleIncrement = (index) => {
+    const newCantidades = [...cantidades];
+    newCantidades[index] += 1;
+    setCantidades(newCantidades);
+
+    // Aquí puedes hacer una llamada a la API para guardar la nueva cantidad en la base de datos.
+    // Puedes utilizar axios u otra biblioteca para realizar la llamada POST.
+  };
+
+  const handleDecrement = (index) => {
+    if (cantidades[index] > 1) {
+      const newCantidades = [...cantidades];
+      newCantidades[index] -= 1;
+      setCantidades(newCantidades);
+  
+      // Llamada a la API para guardar la nueva cantidad en la base de datos.
+    }
+  };
+
   return (
     <>
       <div className="grid grid-cols-5 flex items-center">
@@ -39,9 +60,9 @@ const CarritoGrid = ({ data }) => {
                 <p>${producto.original.precio}</p>
               </div>
               <div className="flex flex-row gap-2 items-center justify-center">
-                <NeoButtonMini><Minus /></NeoButtonMini>
-                {data.id_productos[i]?.cantidad}
-                <NeoButtonMini><Plus /></NeoButtonMini>
+                <NeoButtonMini onClick={() => handleDecrement(i)}><Minus /></NeoButtonMini>
+                 {cantidades[i]}
+                <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
               </div>
               <div className="flex justify-center">
                 <NeoButtonMini><Trash2 /></NeoButtonMini>
