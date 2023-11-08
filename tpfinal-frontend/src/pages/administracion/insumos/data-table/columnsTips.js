@@ -33,6 +33,9 @@ export const columnsTips = [
     {
         accessorKey: 'stock',
         header: 'Stock',
+        cell: ({ row }) => {
+            return <p className="">{row.getValue('stock')}</p>
+        },
     },
     {
         accessorKey: 'setsPersonalizados',
