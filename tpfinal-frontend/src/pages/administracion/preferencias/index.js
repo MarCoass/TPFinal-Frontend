@@ -55,7 +55,7 @@ const Dashboard = () => {
                 formData.append(paramName, parametrosArray[paramName])
             }
 
-            handleUpdateParametros('/api/parametros/update', formData);
+            handleUpdateParametros('/api/parametros/update', formData)
         } catch (error) {
             console.error('Error al actualizar los parámetros:', error)
             alert('Hubo un error al actualizar los datos. Inténtalo de nuevo.')
@@ -73,114 +73,130 @@ const Dashboard = () => {
                 <title>Preferencias - Mar Nails</title>
             </Head>
 
-            <div className="py-12 ">
+            <div className="py-6 ">
                 {parametrosArray ? (
                     <form onSubmit={handleSubmit}>
                         <div className=" grid grid-cols-2 gap-4 mx-4">
                             <div className="rounded-[5px] border-2 border-black  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                <p className="font-bold text-lg border-b-2 border-black bg-rosado-400 p-3">
+                                <p className="font-bold text-xl border-b-2 border-black bg-rosado-400 p-3">
                                     Redes
                                 </p>
-                                <div>
-                                    <p className="font-bold">Instagram</p>
-                                    <div>
-                                        <label htmlFor="instagram_nombre">
-                                            Username
-                                        </label>
-                                        <Input
-                                            id="instagram_nombre"
-                                            value={
-                                                parametrosArray[
-                                                    'instagram_nombre'
-                                                ]
-                                            }
-                                            onChange={e =>
-                                                handleInputChange(
-                                                    'instagram_nombre',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
+                                <div className="p-4 gap-4 grid grid-cols-2">
+                                    <div className="mb-4">
+                                        <p className="font-bold text-lg">Instagram</p>
+                                        <div className="flex flex-col">
+                                            <label htmlFor="instagram_nombre">
+                                                Username
+                                            </label>
+                                            <Input
+                                                id="instagram_nombre"
+                                                value={
+                                                    parametrosArray[
+                                                        'instagram_nombre'
+                                                    ]
+                                                }
+                                                onChange={e =>
+                                                    handleInputChange(
+                                                        'instagram_nombre',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <label htmlFor="instagram_url">
+                                                URL
+                                            </label>
+                                            <Input
+                                                id="instagram_url"
+                                                value={
+                                                    parametrosArray[
+                                                        'instagram_url'
+                                                    ]
+                                                }
+                                                onChange={e =>
+                                                    handleInputChange(
+                                                        'instagram_url',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='mb-4'>
+                                        <p className="font-bold text-lg">WhatsApp</p>
+                                        <div className="flex flex-col  ">
+                                            <label htmlFor="whatsapp">
+                                                Numero
+                                            </label>
+                                            <Input
+                                                className="max-w-max"
+                                                id="whatsapp"
+                                                value={
+                                                    parametrosArray['whatsapp']
+                                                }
+                                                onChange={e =>
+                                                    handleInputChange(
+                                                        'whatsapp',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
                                     </div>
 
                                     <div>
-                                        <label htmlFor="instagram_url">URL</label>
-                                        <Input
-                                            id="instagram_url"
-                                            value={
-                                                parametrosArray['instagram_url']
-                                            }
-                                            onChange={e =>
-                                                handleInputChange(
-                                                    'instagram_url',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                    <p className="font-bold">WhatsApp</p>
-                                    <div>
-                                        <label htmlFor="whatsapp">WhatsApp</label>
-                                        <Input
-                                            id="whatsapp"
-                                            value={parametrosArray['whatsapp']}
-                                            onChange={e =>
-                                                handleInputChange(
-                                                    'whatsapp',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </div>
-
-                                    <p className="font-bold">
-                                        Horario de atencion
-                                    </p>
-                                    <div>
-                                        <label htmlFor="horario_atencion_apertura">
-                                            Desde:{' '}
-                                        </label>
-                                        <Input
-                                            id="horario_atencion_apertura"
-                                            value={
-                                                parametrosArray[
-                                                    'horario_atencion_apertura'
-                                                ]
-                                            }
-                                            onChange={e =>
-                                                handleInputChange(
-                                                    'horario_atencion_apertura',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="horario_atencion_cierre">
-                                            Hasta:{' '}
-                                        </label>
-                                        <Input
-                                            id="horario_atencion_cierre"
-                                            value={
-                                                parametrosArray[
-                                                    'horario_atencion_cierre'
-                                                ]
-                                            }
-                                            onChange={e =>
-                                                handleInputChange(
-                                                    'horario_atencion_cierre',
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
+                                        <p className="font-bold text-lg">
+                                            Horario de atencion
+                                        </p>
+                                        <div className='flex flex-col '>
+                                            <label htmlFor="horario_atencion_apertura">
+                                                Desde:{' '}
+                                            </label>
+                                            <Input
+                                                id="horario_atencion_apertura"
+                                                value={
+                                                    parametrosArray[
+                                                        'horario_atencion_apertura'
+                                                    ]
+                                                }
+                                                onChange={e =>
+                                                    handleInputChange(
+                                                        'horario_atencion_apertura',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className='flex flex-col '>
+                                            <label htmlFor="horario_atencion_cierre">
+                                                Hasta:{' '}
+                                            </label>
+                                            <Input
+                                                id="horario_atencion_cierre"
+                                                value={
+                                                    parametrosArray[
+                                                        'horario_atencion_cierre'
+                                                    ]
+                                                }
+                                                onChange={e =>
+                                                    handleInputChange(
+                                                        'horario_atencion_cierre',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="rounded-[5px] border-2 border-black  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                <p className="font-bold text-lg border-b-2 border-black bg-rosado-400 p-3">
+                                <p className="font-bold text-xl border-b-2 border-black bg-rosado-400 p-3">
                                     Tienda
                                 </p>
-                                <div>
+                                <div className='p-4 grid grid-cols-2 gap-4'>
                                     <div>
                                         <label htmlFor="valor_senia">
                                             Valor de la seña:
@@ -260,7 +276,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-6">
+                        <div className="mt-6 mx-4 flex justify-end">
                             {' '}
                             <NeoButton type="submit">Guardar cambios</NeoButton>
                         </div>
