@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import Input from '@/components/Input'
 import { NeoButton } from '../../../components/Button'
 import { handleUpdateParametros } from '../../../lib/handleUpdate'
+import { Toggle } from '../../../components/ui/toggle'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -83,7 +84,9 @@ const Dashboard = () => {
                                 </p>
                                 <div className="p-4 gap-4 grid grid-cols-2">
                                     <div className="mb-4">
-                                        <p className="font-bold text-lg">Instagram</p>
+                                        <p className="font-bold text-lg">
+                                            Instagram
+                                        </p>
                                         <div className="flex flex-col">
                                             <label htmlFor="instagram_nombre">
                                                 Username
@@ -125,8 +128,10 @@ const Dashboard = () => {
                                         </div>
                                     </div>
 
-                                    <div className='mb-4'>
-                                        <p className="font-bold text-lg">WhatsApp</p>
+                                    <div className="mb-4">
+                                        <p className="font-bold text-lg">
+                                            WhatsApp
+                                        </p>
                                         <div className="flex flex-col  ">
                                             <label htmlFor="whatsapp">
                                                 Numero
@@ -151,7 +156,7 @@ const Dashboard = () => {
                                         <p className="font-bold text-lg">
                                             Horario de atencion
                                         </p>
-                                        <div className='flex flex-col '>
+                                        <div className="flex flex-col ">
                                             <label htmlFor="horario_atencion_apertura">
                                                 Desde:{' '}
                                             </label>
@@ -170,7 +175,7 @@ const Dashboard = () => {
                                                 }
                                             />
                                         </div>
-                                        <div className='flex flex-col '>
+                                        <div className="flex flex-col ">
                                             <label htmlFor="horario_atencion_cierre">
                                                 Hasta:{' '}
                                             </label>
@@ -196,7 +201,7 @@ const Dashboard = () => {
                                 <p className="font-bold text-xl border-b-2 border-black bg-rosado-400 p-3">
                                     Tienda
                                 </p>
-                                <div className='p-4 grid grid-cols-2 gap-4'>
+                                <div className="p-4 grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor="valor_senia">
                                             Valor de la seña:
@@ -257,7 +262,7 @@ const Dashboard = () => {
                                         <label htmlFor="pedidos_abiertos">
                                             Pedidos abiertos:
                                         </label>
-                                        <input
+                                         <input
                                             type="radio"
                                             id="pedidos_abiertos"
                                             value={
