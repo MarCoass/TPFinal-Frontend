@@ -3,6 +3,7 @@ import Navigation from '@/components/Layouts/Navigation'
 import { useAuth } from '@/hooks/auth'
 import { Mail, Ruler, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { ImagenesIndex } from '../components/ImagenesIndex'
 
 export default function Home() {
     const { user } = useAuth({ middleware: 'guest' })
@@ -40,7 +41,8 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
-                    <div className="bg-naranja-300">Imagen</div>
+                    <div className="bg-naranja-300 flex align-middle  justify-center">
+                    <ImagenesIndex></ImagenesIndex></div>
                 </div>
             </div>
         </>
