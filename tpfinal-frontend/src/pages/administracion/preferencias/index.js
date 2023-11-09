@@ -92,6 +92,7 @@ const Dashboard = () => {
                                                 Username
                                             </label>
                                             <Input
+                                                className="max-w-max"
                                                 id="instagram_nombre"
                                                 value={
                                                     parametrosArray[
@@ -112,6 +113,7 @@ const Dashboard = () => {
                                                 URL
                                             </label>
                                             <Input
+                                                className="max-w-max"
                                                 id="instagram_url"
                                                 value={
                                                     parametrosArray[
@@ -161,6 +163,7 @@ const Dashboard = () => {
                                                 Desde:{' '}
                                             </label>
                                             <Input
+                                                className="max-w-max"
                                                 id="horario_atencion_apertura"
                                                 value={
                                                     parametrosArray[
@@ -180,6 +183,7 @@ const Dashboard = () => {
                                                 Hasta:{' '}
                                             </label>
                                             <Input
+                                                className="max-w-max"
                                                 id="horario_atencion_cierre"
                                                 value={
                                                     parametrosArray[
@@ -202,11 +206,12 @@ const Dashboard = () => {
                                     Tienda
                                 </p>
                                 <div className="p-4 grid grid-cols-2 gap-4">
-                                    <div>
+                                    <div className="flex flex-col">
                                         <label htmlFor="valor_senia">
                                             Valor de la seña:
                                         </label>
                                         <Input
+                                            className="max-w-max"
                                             type="number"
                                             id="valor_senia"
                                             value={
@@ -220,11 +225,12 @@ const Dashboard = () => {
                                             }
                                         />
                                     </div>
-                                    <div>
+                                    <div className="flex flex-col">
                                         <label htmlFor="demora_cotizacion">
                                             Demora cotizacion:
                                         </label>
                                         <Input
+                                            className="max-w-max"
                                             id="demora_cotizacion"
                                             value={
                                                 parametrosArray[
@@ -239,11 +245,12 @@ const Dashboard = () => {
                                             }
                                         />
                                     </div>
-                                    <div>
+                                    <div className="flex flex-col">
                                         <label htmlFor="demora_trabajo">
                                             Demora trabajo:
                                         </label>
                                         <Input
+                                            className="max-w-max"
                                             id="demora_trabajo"
                                             value={
                                                 parametrosArray[
@@ -262,7 +269,7 @@ const Dashboard = () => {
                                         <label htmlFor="pedidos_abiertos">
                                             Pedidos abiertos:
                                         </label>
-                                         <input
+                                        <input
                                             type="radio"
                                             id="pedidos_abiertos"
                                             value={
