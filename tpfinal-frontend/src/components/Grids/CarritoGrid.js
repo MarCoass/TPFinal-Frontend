@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { NeoButtonChico, NeoButtonMini } from "../Button";
 import { Plus, Trash2, Minus } from 'lucide-react'
 
+const eliminarProducto = ()=>{
+  return axios
+  .get(
+      `eliminar-producto`, // Usa axios.get en lugar de fetch
+  )
+  .then(res => res.data)
+}
+
 const CarritoGrid = ({ data }) => {
   const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
   const [cantidades, setCantidades] = useState(data.id_productos.map((producto) => producto.cantidad));
   let i = 0;
+
 
   const handleIncrement = (index) => {
     const newCantidades = [...cantidades];
@@ -25,6 +34,21 @@ const CarritoGrid = ({ data }) => {
       // Llamada a la API para guardar la nueva cantidad en la base de datos.
     }
   };
+
+  const handleChanges = async e => {
+    e.preventDefault()
+    try {
+        let url = '/modificarCantidad'
+        const headers = {
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+            Accept: 'application/json',
+        }
+        const response = await axios.post(url, formData, { headers })
+        /*  console.log(response) */
+    } catch (error) {
+        console.error('Error al enviar la solicitud:', error)
+    }
+}
 
   const calculateTotalPrice = () => {
     let total = 0;
