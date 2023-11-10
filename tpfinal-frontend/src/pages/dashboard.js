@@ -7,14 +7,7 @@ import { router } from 'next/router'
 const Dashboard = () => {
     const { user } = useAuth()
 
-    const rolesAutorizados = [1]
-    useEffect(() => {
-        if (user) {
-            if (rolesAutorizados.includes(1)) {
-                router.push('/administracion')
-            }
-        }
-    }, [user])
+
     return (
         <AppLayout
             header={

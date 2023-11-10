@@ -8,6 +8,7 @@ import Head from 'next/head'
 const fetchPedidos = async () => {
     try {
         const response = await axios.get('/api/administracion/pedidos/')
+        /* console.log(response) */
         return response.data
     } catch (error) {
         console.error('Error al obtener pedidos:', error)
@@ -22,7 +23,7 @@ export default function Pedidos() {
         async function obtenerPedidos() {
             const data = await fetchPedidos()
             setPedidos(data)
-            /* console.log(data) */
+            /*   console.log(data) */
         }
         obtenerPedidos()
     }, [])

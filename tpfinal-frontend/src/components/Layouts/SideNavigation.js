@@ -7,68 +7,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { LogOut } from 'lucide-react';
 
-const SideNavigation = ({ user }) => {
-    const router = useRouter()
-    const { logout } = useAuth()
-
-    return (
-        <nav className="bg-white border-b border-gray-100 w-64 h-screen">
-            <div className="border-b ">
-                <div className="flex-shrink-0 flex justify-center items-center p-4">
-                    <Link href="/">
-                        <ApplicationLogo className="block h-14 w-auto fill-current text-violeta-500" />
-                    </Link>
-                </div>
-            </div>
-            <div className=" grid content-between h-100">
-                <div className="flex flex-col gap-4 my-6">
-                    <NavLink
-                        href="/administracion/"
-                        active={router.pathname === '/administracion'}>
-                        Inicio
-                    </NavLink>
-                    <NavLink
-                        href="/administracion/productos"
-                        active={
-                            router.pathname === '/administracion/productos'
-                        }>
-                        Productos
-                    </NavLink>
-                    <NavLink href="/administracion/pedidos" active={router.pathname === '/administracion/pedidos'}>
-                        Pedidos personalizados
-                    </NavLink>
-                    <NavLink
-                        href="/administracion/insumos"
-                        active={router.pathname === '/administracion/insumos'}>
-                        Insumos
-                    </NavLink>
-                    <NavLink
-                        href="/administracion/tareas"
-                        active={router.pathname === '/administracion/tareas'}>
-                        Tareas
-                    </NavLink>
-                    <NavLink
-                        href="/administracion/proveedores"
-                        active={
-                            router.pathname === '/administracion/proveedores'
-                        }>
-                        Proveedores
-                    </NavLink>
-                </div>
-
-                <div className="flex flex-col gap-4 mt-36 border-t">
-                    <NavLink href="/">Configuracion</NavLink>
-                    <NavLink href="/" onClick={logout}>
-                        Cerrar Sesion
-                    </NavLink>
-                </div>
-            </div>
-        </nav>
-    )
-}
-
-export default SideNavigation
-
 export function NeoSideNavigation({ active, setActive, children }) {
      const router = useRouter()
     const { logout } = useAuth()
@@ -116,7 +54,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                         }>
                         Productos
                     </NavLink>
-                    <NavLink href="/" active={router.pathname === '/'}>
+                    <NavLink href="/administracion/pedidos" active={router.pathname === '/'}>
                         Pedidos personalizados
                     </NavLink>
                     <NavLink
@@ -138,7 +76,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                     </NavLink>
                 </div>
                 <div className="flex flex-col border-t-2 border-black">
-                    <NavLink href="/">Configuracion</NavLink>
+                    <NavLink href="/administracion/preferencias">Preferencias</NavLink>
                     <NavLink href="/" onClick={logout}>
                         Cerrar Sesion
                     </NavLink>
