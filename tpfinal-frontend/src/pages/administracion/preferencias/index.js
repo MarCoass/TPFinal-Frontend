@@ -6,6 +6,8 @@ import Input from '@/components/Input'
 import { NeoButton } from '../../../components/Button'
 import { handleUpdateParametros } from '../../../lib/handleUpdate'
 import { Toggle } from '../../../components/ui/toggle'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -266,23 +268,28 @@ const Dashboard = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="pedidos_abiertos">
-                                            Pedidos abiertos:
-                                        </label>
+                                        <Label htmlFor="pedidos_abiertos">
+                                            Pedidos abiertos:{' '}
+                                        </Label>
                                         <input
-                                            type="radio"
+                                            className="rounded-full p-3 appearance-none  checked:hover:bg-violeta-500 checked:focus:bg-violeta-400 checked:bg-violeta-400 checked:focus:ring-violeta-400 focus:ring-violeta-400"
+                                            type="checkbox"
                                             id="pedidos_abiertos"
-                                            value={
+                                            checked={
                                                 parametrosArray[
                                                     'pedidos_abiertos'
-                                                ]
+                                                ] == 1
                                             }
-                                            onChange={e =>
+                                            onChange={e => {
+                                                const newValue = e.target
+                                                    .checked
+                                                    ? 1
+                                                    : 0
                                                 handleInputChange(
                                                     'pedidos_abiertos',
-                                                    e.target.value,
+                                                    newValue,
                                                 )
-                                            }
+                                            }}
                                         />
                                     </div>
                                 </div>

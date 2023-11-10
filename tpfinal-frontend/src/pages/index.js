@@ -88,8 +88,11 @@ export default function Home() {
                             <p className="text-xl pb-3">
                                 Informacion sobre pedidos
                             </p>
-
                             <p>
+                                Los pedidos personalizados son 10 uñas hechas a
+                                la medida con un diseño a eleccion.{' '}
+                            </p>
+                            <p className="my-4">
                                 Valor de la seña: $
                                 {parametrosArray['valor_senia']}
                                 <br />
@@ -103,8 +106,17 @@ export default function Home() {
                                 </span>
                             </p>
                             <div className="border-2 border-black p-2 rounded-[5px] my-4 bg-rose-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                {!parametrosArray['valor_senia'] ? (
-                                    <p>Tenemos los pedidos abiertos!</p>
+                                {parametrosArray['pedidos_abiertos'] == 1 ? (
+                                    <p>
+                                        Tenemos los pedidos abiertos! Podes
+                                        pedir un{' '}
+                                        <Link
+                                            href="/pedidos"
+                                            className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                            {' '}
+                                            pedido personalizado.
+                                        </Link>
+                                    </p>
                                 ) : (
                                     <p>
                                         Por el momento tenemos los pedidos
