@@ -36,22 +36,27 @@ const CarritoGrid = ({ data }) => {
     }
   };
 
+  const handleRemoveProduct = (index) => {
+    try {
+      // Llamada a la API para eliminar el producto
+      const response = axios.post('/eliminar-producto', cantidades[index]);
+      console.log('Producto eliminado:', response.data);
+      // Manejo de la respuesta si es necesario
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+      // Manejo de errores
+    }
+  };
+
   const handleChanges = async e => {
     try {
-      const productosActualizados = data.productos.map((producto, i) => {
-        return {
-          id_producto: cantidades[i].id_producto,
-          cantidad: cantidades[i].cantidad
-        };
-      });
-  
-      const carritoData = productosActualizados.map(producto => ({
-        id_producto: producto.id_producto,
-        cantidad: producto.cantidad
+      const cantidadesActualizadas = cantidades.map(cantidad => ({
+        id_producto: cantidad.id_producto,
+        cantidad: cantidad.cantidad
       }));
   
       // Llamada a la API para actualizar el carrito
-      const response = await axios.post('/actualizar-carrito', { id_productos: carritoData });
+      const response = await axios.post('/actualizar-carrito', { id_productos: cantidadesActualizadas });
       console.log('Carrito actualizado:', response.data);
       // Manejo de la respuesta si es necesario
     } catch (error) {
@@ -114,7 +119,7 @@ const CarritoGrid = ({ data }) => {
                   <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
                 </div>
                 <div className="flex justify-center">
-                  <NeoButtonMini><Trash2 /></NeoButtonMini>
+                  <NeoButtonMini  onClick={() => handleRemoveProduct(i)}><Trash2 /></NeoButtonMini>
                 </div>
               </div>
             </div>
