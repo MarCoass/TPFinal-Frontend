@@ -27,7 +27,7 @@ const CarritoGrid = ({ data }) => {
   };
 
   const handleDecrement = (index) => {
-    if (cantidades[index] > 1) {
+    if (cantidades[index].cantidad > 1) {
       const newCantidades = [...cantidades];
       newCantidades[index].cantidad -= 1;
       setCantidades(newCantidades);
