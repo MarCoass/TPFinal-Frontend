@@ -20,27 +20,28 @@ export default function Carrito() {
     const { carrito } = router.query
     useEffect(() => {
         if (infoCarrito === null || !infoCarrito) {
-            async function obtenerDatos() {
-                try {
-                    const dataCarrito = await fetchCarrito(carrito);
-                    console.log(dataCarrito)
-                    setCarrito(dataCarrito);
-                } catch (error) {
-                    console.error('Hubo un problema obteniendo los datos: ', error);
-                }
-            }
             obtenerDatos();
         }
         console.log(infoCarrito)
     }, [carrito])
 
+    const obtenerDatos= async ()=>
+    {
+        try {
+            const dataCarrito = await fetchCarrito(carrito);
+            console.log(dataCarrito)
+            setCarrito(dataCarrito);
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error);
+        }
+    }
 
     return (
         <AppLayout>
             <div className='mx-6'>
                 {infoCarrito != null ? (
                     <div>
-                        <CarritoGrid data={infoCarrito} />
+                        <CarritoGrid obtenerDatos={obtenerDatos} data={infoCarrito} />
                     </div>
                 ) : (
                     <CustomSpinner

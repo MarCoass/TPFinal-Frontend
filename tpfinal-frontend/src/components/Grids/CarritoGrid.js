@@ -11,7 +11,7 @@ const eliminarProducto = () => {
     .then(res => res.data)
 }
 
-const CarritoGrid = ({ data }) => {
+const CarritoGrid = ({ obtenerDatos, data }) => {
   const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
   const [cantidades, setCantidades] = useState(data.id_productos.map((producto) => ({ id_producto: producto.id_producto, cantidad: producto.cantidad })));
   let i = 0;
@@ -41,11 +41,13 @@ const CarritoGrid = ({ data }) => {
       // Llamada a la API para eliminar el producto
       const response = axios.post('/eliminar-producto', cantidades[index]);
       console.log('Producto eliminado:', response.data);
+      obtenerDatos()
       // Manejo de la respuesta si es necesario
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
       // Manejo de errores
     }
+
   };
 
   const handleChanges = async e => {
