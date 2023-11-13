@@ -83,12 +83,12 @@ const Tienda = () => {
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
 
                                     <div className='inline-flex items-center px-1 pt-1 font-medium leading-5 focus:outline-none transition duration-150 ease-in-out'>
-                                        <button onClick={handleClick}>
-                                            filtros {isVisible ? "<" : ">"}
-                                        </button>
+                                        {/* <button onClick={handleClick}> */}
+                                            Filtros 
+                                        {/* </button> */}
                                     </div>
                                     <div className='inline-flex items-center px-1 pt-1 font-medium leading-5 focus:outline-none transition duration-150 ease-in-out'>
-                                        {isVisible && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                        { <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                             <div className="flex">
                                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex self-center  mt-1">
                                                     <DropdownMenuCheckboxes
