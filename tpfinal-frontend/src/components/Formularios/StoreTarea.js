@@ -37,31 +37,35 @@ export default function StoreTarea() {
         <>
             <form onSubmit={handleSubmit} className="flex flex-col">
                 <div className="flex justify-around">
-                    <label>Titulo:</label>
+                    <label htmlFor='titulo'>Titulo:</label>
                     <Input
+                    id='titulo'
                         type="text"
                         value={titulo}
                         onChange={e => setTitulo(e.target.value)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label>Descripcion:</label>
-                    <Input
+                    <label htmlFor='descripcion'>Descripcion:</label>
+                    <Input 
+                      id='descripcion'
                         type="text"
                         value={descripcion}
                         onChange={e => setDescripcion(e.target.value)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label>Estado:</label>
+                    <label htmlFor='estado'>Estado:</label>
                     <SelectEstadosTareas
+                      id='estado'
                         value={estado}
                         onChange={newEstado => setEstado(newEstado)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label>Fecha vencimiento:</label>
+                    <label htmlFor='fecha'>Fecha vencimiento:</label>
                     <Input
+                      id='fecha'
                         type="date"
                         value={fechaVencimiento}
                         onChange={e => setFechaVencimiento(e.target.value)}

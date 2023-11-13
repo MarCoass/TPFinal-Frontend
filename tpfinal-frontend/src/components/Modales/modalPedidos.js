@@ -244,7 +244,7 @@ export function ModalCotizar({ id }) {
                                     onSubmit={handleSubmit}
                                     className="border-l-2 border-black px-4 col-span-2 row-span-2 col-start-4">
                                     <div className="my-5 flex flex-col">
-                                        <label for="precio">Precio:</label>
+                                        <label htmlFor="precio">Precio:</label>
                                         <NeoInput
                                             type="number"
                                             value={precio}
@@ -256,7 +256,7 @@ export function ModalCotizar({ id }) {
                                         />
                                     </div>
                                     <div className="my-5 flex flex-col">
-                                        <label for="fecha">
+                                        <label htmlFor="fecha">
                                             Fecha de entrega:
                                         </label>
                                         <NeoInput

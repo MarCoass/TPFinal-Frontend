@@ -100,8 +100,9 @@ export function ModalCategoriaInsumoUpdate({ id }) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label>Nombre:</label>
+                                    <label htmlFor='nombre'>Nombre:</label>
                                     <Input
+                                    id='nombre'
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
@@ -207,8 +208,9 @@ export function ModalCategoriaInsumoStore({}) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label>Nombre:</label>
+                                    <label htmlFor='nombre'>Nombre:</label>
                                     <Input
+                                    id='nombre'
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
