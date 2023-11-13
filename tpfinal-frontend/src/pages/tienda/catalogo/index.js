@@ -17,7 +17,6 @@ const fetchProductos = () => {
 //TRAER LA CIUDAD DEL BACK CON ELOQUENT ASI FILTRA POR ESO TMB
 
 function filtrarProductos(diseño, largo, forma, ciudad, productos) {
-    console.log(productos)
     // Create an array to store the filtered products
     let productosFiltrados = [...productos];
 
