@@ -15,7 +15,7 @@ const Dashboard = () => {
             <Head>
                 <title>Pedidos Personalizados - Mar Nails</title>
             </Head>
-            <div className="px-12">
+            <div className="px-40">
                 <CrearPedido></CrearPedido>
 
                 <PedidosUsuario></PedidosUsuario>
