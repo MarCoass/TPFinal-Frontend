@@ -46,7 +46,6 @@ export function CrearPedido() {
             formData.append('ciudad', ciudad)
             formData.append('imagen', imagen)
             formData.append('id_user', user.id)
-
             formData.append('id_tip', tip)
             let url = '/api/pedidoStore'
 
@@ -92,7 +91,10 @@ export function CrearPedido() {
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
                 className="flex flex-col gap-3">
-                Crear pedido personalizado
+                <p className='text-lg'>
+                      Crear pedido personalizado
+                </p>
+              
                 <div className="flex flex-col">
                     <label htmlFor="descripcion">Descripcion:</label>
                     <textarea
@@ -108,6 +110,7 @@ export function CrearPedido() {
                 <div className="">
                     <label htmlFor="ciudades">Ciudad de retiro:</label>
                     <SelectCiudades
+                    mostrarEnvio={true}
                         id="ciudades"
                         value={ciudad}
                         onChange={newCiudad => setCiudad(newCiudad)}
