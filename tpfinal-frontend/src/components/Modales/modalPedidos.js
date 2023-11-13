@@ -44,6 +44,7 @@ export function ModalCambiarEstado({ id }) {
                 try {
                     const data = await fetchPedido(id)
                     setPedido(data)
+                    console.log(data)
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -53,7 +54,7 @@ export function ModalCambiarEstado({ id }) {
             }
             obtenerPedido()
         }
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if (pedido != null) {
@@ -363,8 +364,18 @@ export function ModalEntregado({ pedido }) {
         e.preventDefault()
         const formData = new FormData()
         formData.append('estado', 6)
-        let url = '/api/administracion/pedidoDelete/'
-        handleUpdate(pedido.id, url, formData)
+        const headers = {
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+            Accept: 'application/json',
+        }
+
+        const response = await axios.post(
+            '/api/administracion/pedido/cambiarEstado/' + pedido.id,
+            formData,
+            {
+                headers,
+            },
+        )
     }
 
     return (
