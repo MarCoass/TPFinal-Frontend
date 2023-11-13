@@ -3,7 +3,7 @@ import axios from '@/lib/axios'
 import SelectBasico from '../Select'
 
 const fetchCategorias = () => {
-    return axios.get('/categoriasSets').then(res => res.data)
+    return axios.get('/api/categoriasSets').then(res => res.data)
 }
 
 export default function SelectCategoriasSets({ onChange }) {
@@ -14,7 +14,6 @@ export default function SelectCategoriasSets({ onChange }) {
             try {
                 const data = await fetchCategorias()
                 setCategorias(data)
-
                 // console.log(data)
             } catch (error) {
                 console.error('Error al obtener categorias:', error)

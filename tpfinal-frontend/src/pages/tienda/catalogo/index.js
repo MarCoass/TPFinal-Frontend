@@ -81,7 +81,6 @@ export default function Catalogo({ diseño, forma, largo, ciudad }) {
         obtenerProductos()
         // setProductosFiltrados(productos)
         // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
-        console.log(productosFiltrados)
     }, [])
 
     useEffect(() => {

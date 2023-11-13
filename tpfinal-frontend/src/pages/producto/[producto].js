@@ -3,13 +3,14 @@ import { useRouter } from 'next/router'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
+import Button from '../../components/Button'
 
 
 
 const fetchProductos = (producto) => {
     return axios
         .get(
-            `/api/administracion/producto/${producto}`, // Usa axios.get en lugar de fetch
+            `api/administracion/producto/${producto}`, // Usa axios.get en lugar de fetch
         )
         .then(res => res.data)
 }
@@ -32,8 +33,21 @@ export default function infoProducto({ params }) {
             obtenerDatos()
         }
     }, [producto])
+
+    const handleAddToCart = (id, cantidad) => {
+        try {
+          // Llamada a la API para agregar el producto
+          const response = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
+          console.log('Producto agregado:', response.data);
+          console.log(response.data.status)
+          // Manejo de la respuesta si es necesario
+        } catch (error) {
+          console.error('Error al agregar el producto:', error);
+          // Manejo de errores
+        }
+      };
     // 
-    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage';
     return (
         <AppLayout>
 
@@ -54,7 +68,7 @@ export default function infoProducto({ params }) {
                                         <p className='text-lg'>${infoProducto.precio}</p></div>
                                     <div className='flex flex-row gap-4 '>
                                         {/* <div className='cantidad-producto flex flex-row itens-center border-2 max-w-min rounded-full'><button name='quitar una unidad de producto' className='flex-items-center text-xs bg-gray-300 p-1 rounded-full h-min leading-none'>-</button><input className='border-0 w-20' value={1}></input><button  name='sumar una unidad de producto' >+</button></div> */}
-                                        <button className='inline-flex items-center justify-center px-4 py-2 bg-violeta-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-violeta-600 active:bg-violeta-800 focus:outline-none focus:border-gray-900 focus:ring ring-violeta-200 disabled:opacity-25 transition ease-in-out duration-150'>Agregar al carrito</button>
+                                        <Button className='inline-flex items-center justify-center px-4 py-2 ' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
                                     </div>
 
                                     <div className='info-producto'>

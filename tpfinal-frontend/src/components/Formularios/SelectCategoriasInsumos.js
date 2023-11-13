@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Select, SelectItem } from '@nextui-org/react'
+import SelectBasico from '../Select'
 import axios from '@/lib/axios'
 
 const fetchCategorias = () => {
@@ -32,18 +32,10 @@ export default function SelectCategoriasInsumos({ value, onChange }) {
     }
 
     return (
-        <Select
+        <SelectBasico
             items={categorias}
-            label="Categoria insumo"
+            onChange={onChange}
             placeholder="Seleccionar una categoria"
-            className="max-w-xs"
-            value={value}
-            onChange={handleChange}>
-            {categoria => (
-                <SelectItem className='bg-violeta-100  hover:bg-violeta-200' key={categoria.id} value={categoria.id}>
-                    {categoria.nombre}
-                </SelectItem>
-            )}
-        </Select>
+        />
     )
 }

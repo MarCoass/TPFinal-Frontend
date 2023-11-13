@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import { Listbox, ListboxItem } from '@nextui-org/listbox'
-import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
+import SearchInsumo from '../Busqueda/SearchComponent'
+import { insumosUsados } from '@/lib/producto'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
-export default function ListadoInsumos({ onCantidadInsumosChange }) {
-    const [insumos, setInsumos] = useState([])  
+export default function ListadoInsumos({ onCantidadInsumosChange, idProducto }) {
+    const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
     useEffect(() => {
@@ -38,8 +38,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                 item => item.id === parseInt(id_insumo, 10),
             )
             if (insumo) {
-                // Aquí puedes definir cómo obtener la cantidad de cada insumo si es necesario.
-                // Por ejemplo, puedes solicitar la cantidad al usuario o tenerla como un estado local.
                 cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
             }
         })
@@ -49,10 +47,10 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
     }
 
     return (
-        <div className="flex gap-4 ">
-            <ListboxWrapper>
+        <div className="h-max gap-4 flex">
+            <ListboxWrapper className="h-60" >
                 <p>Seleccione los insumos utilizados</p>
-                <Listbox
+                <Listbox className='overflow-y-auto h-60'
                     items={insumos}
                     aria-label="Multiple selection example"
                     variant="flat"
@@ -81,13 +79,13 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                                 key={insumo.id}
                                 onCantidadChange={cantidad =>
                                     onCantidadInsumosChange({
-                                        [insumo.id]: cantidad
+                                        [insumo.id]: cantidad,
                                     })
                                 }></InputInsumo>
-                        ) // Asegúrate de incluir un 'return' aquí
+                        )
                     })
                 ) : (
-                    <p>No se han seleccionado insumos</p> // Puedes mostrar 'Selected value' aquí
+                    <p>No se han seleccionado insumos</p>
                 )}
             </div>
         </div>

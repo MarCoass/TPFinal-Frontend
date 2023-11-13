@@ -1,5 +1,8 @@
 import React from 'react'
-import Link from 'next/link';
+import Link from 'next/link'
+import { convertirFechaLarga } from '../lib/formatoFechas'
+import { estadosPedido } from '../lib/estados'
+import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 
 const ProductCard = ({
     imgUrl,
@@ -8,9 +11,9 @@ const ProductCard = ({
     precioProducto,
     stock,
     esAdmin,
-    idProducto
+    idProducto,
 }) => {
-    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
     return (
         <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
             <div className="overflow-x-hidden rounded-2xl relative">
@@ -20,7 +23,9 @@ const ProductCard = ({
                         className="h-40 rounded-2xl w-full object-cover"
                         src={urlBase + imgUrl}></img>
                 </Link>
-                <button title='agregar al carrito' className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
+                <button
+                    title="agregar al carrito"
+                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 group-hover:opacity-50 opacity-70"
@@ -45,8 +50,7 @@ const ProductCard = ({
                         <p className="text-lg font-medium  text-gray-900 mb-0">
                             {descripcionProducto}
                         </p>
-                    ) : null
-                    }
+                    ) : null}
                     <p className="text-md text-gray-800 mt-0">
                         ${precioProducto}
                     </p>
@@ -56,13 +60,11 @@ const ProductCard = ({
                         </p>
                     ) : null}
                     {stock === 0 ? (
-                        <p className="text-md text-red-800 mt-0">
-                            SIN STOCK
-                        </p>
+                        <p className="text-md text-red-800 mt-0">SIN STOCK</p>
                     ) : null}
                 </div>
                 <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                    <button title='agregar a favoritos'>
+                    <button title="agregar a favoritos">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6 group-hover:opacity-70"
@@ -83,3 +85,57 @@ const ProductCard = ({
     )
 }
 export default ProductCard
+
+export const PedidoCard = ({ pedido }) => {
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
+    const estados = estadosPedido()
+    const estado = estados.find(estado => estado.id === pedido.estado)
+
+    return (
+        <div className="m-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <div className="border-b-2 border-black p-4">
+                <h2 className="text-xl">{pedido.producto.nombre}</h2>
+            </div>
+            <div className="p-4 grid grid-flow-col gap-5">
+                <div>
+                    <img
+                        alt={pedido.producto.descripcion}
+                        className="h-40 w-40 rounded-2xl object-cover border-2 border-black"
+                        src={urlBase + pedido.producto.url_imagen}></img>
+                </div>
+                <div className="grid grid-cols-2">
+                    <div>
+                        <p className="text-lg">Informacion del set:</p>
+
+                        <p className="">
+                            Descripcion: {pedido.producto.descripcion}{' '}
+                        </p>
+                    </div>
+                    <div>
+                        <p className="text-lg">Informacion del pedido:</p>
+                        <p className="">
+                            Precio:{' '}
+                            {pedido.producto.precio ? (
+                                <>${pedido.producto.precio}</>
+                            ) : (
+                                <>Sin cotizar</>
+                            )}{' '}
+                        </p>
+                        <p className="">
+                            Fecha de entrega:{' '}
+                            {pedido.fecha_entrega ? (
+                                convertirFechaLarga(pedido.fecha_entrega)
+                            ) : (
+                                <>Sin cotizar</>
+                            )}{' '}
+                        </p>
+                        <p>Estado: {estado.nombre}</p>
+                        {pedido.estado == 1 && (
+                            <ModalRespuestaCotizacion pedido={pedido}></ModalRespuestaCotizacion>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

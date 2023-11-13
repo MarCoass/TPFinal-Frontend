@@ -1,24 +1,12 @@
 import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { router } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-
 import AdminLayout from '@/components/Layouts/AdminLayout'
-import { PlusSquare } from 'lucide-react'
-import ProductoStore from './store'
-import { estadosProductos } from '@/lib/estados'
-
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog'
 import TablaProductos from './data-table/page'
-import { Button } from '../../../components/ui/button'
+import { ModalProductoStore } from '../../../components/Modales/modalProductos'
+
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -48,7 +36,8 @@ export default function ProdutosIndex() {
             try {
                 const data = await fetchProductos()
                 setProductos(data)
-                // console.log(data)
+
+                console.log(data)
             } catch (error) {
                 console.error('Error al obtener productos:', error)
             }
@@ -96,10 +85,6 @@ export default function ProdutosIndex() {
         }
     }
 
-    //MODAL
-
-    //-----------------
-
     if (productos === null || ciudades === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
         return <div>Cargando productos y ciudades...</div>
@@ -109,38 +94,21 @@ export default function ProdutosIndex() {
         <>
             <AdminLayout
                 header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Productos
-                    </h2>
+                    <div className="font-bold flex w-full justify-between ">
+                        <p className="text-xl text-black leading-tight">
+                            Productos
+                        </p>
+                        <ModalProductoStore></ModalProductoStore>
+                    </div>
                 }>
                 <Head>
                     <title>Productos - Mar Nails</title>
                 </Head>
 
-                <div className="py-12">
+                <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className=" bg-white border-b border-gray-200">
-                                <Dialog>
-                                    <DialogTrigger>
-                                        <Button className="mt-4 ml-4 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white">
-                                            <PlusSquare className="mr-2 h-4 w-4" />
-                                            NUEVO PRODUCTO
-                                        </Button>
-                                    </DialogTrigger>
-                                    <DialogContent className="bg-white border border-gray-200 ">
-                                        <DialogHeader>
-                                            <DialogTitle>
-                                                Crear producto
-                                            </DialogTitle>
-                                            <DialogDescription>
-                                                <ProductoStore></ProductoStore>
-                                            </DialogDescription>
-                                        </DialogHeader>
-                                    </DialogContent>
-                                </Dialog>
-                                <TablaProductos></TablaProductos>
-                            </div>
+                        <div className="overflow-hidden">
+                            <TablaProductos></TablaProductos>
                         </div>
                     </div>
                 </div>

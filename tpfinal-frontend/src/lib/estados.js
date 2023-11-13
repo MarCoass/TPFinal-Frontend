@@ -43,3 +43,51 @@ export function estadosInsumos() {
     ]
     return estados
 }
+
+export function estadosTareas() {
+    const estados = [
+        {
+            id: 0,
+            nombre: 'Pendiente',
+        },
+        {
+            id: 1,
+            nombre: 'Terminada',
+        }
+    ]
+    return estados
+}
+
+export function estadosPedido() {
+    const estados = [
+        {
+            id: 0,
+            nombre: 'Sin cotizar',
+        },
+        {
+            id: 1,
+            nombre: 'Cotizacion enviada',
+        },
+        {
+            id: 2,
+            nombre: 'Cotizacion aceptada',
+        },
+        {
+            id: 3,
+            nombre: 'Cotizacion rechazada',
+        },
+        {
+            id: 4,
+            nombre: 'Pedido empezado',
+        },
+        {
+            id: 5,
+            nombre: 'Pedido terminado',
+        },
+        {
+            id: 6,
+            nombre: 'Pedido entregado',
+        },
+    ]
+    return estados
+}
