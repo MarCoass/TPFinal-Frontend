@@ -41,7 +41,7 @@ export function CrearPedido() {
         try {
             // Crea un objeto con los datos del formulario
             const formData = new FormData()
-            formData.append('nombre', 'Pedido personalizado '+user.username)
+            formData.append('nombre', 'Pedido personalizado ' + user.username)
             formData.append('descripcion', descripcion)
             formData.append('ciudad', ciudad)
             formData.append('imagen', imagen)
@@ -87,44 +87,48 @@ export function CrearPedido() {
         }
     }
     return (
-        <div className="">
+        <div className="bg-violeta-100 p-4">
             <form
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
-                className="">
+                className="flex flex-col gap-3">
                 Crear pedido personalizado
-                <div className="">
-                    <label>Descripcion:</label>
-                    <NeoInput
-                    required
-                        type="text"
+                <div className="flex flex-col">
+                    <label htmlFor="descripcion">Descripcion:</label>
+                    <textarea
+                    className=' resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none'
+                        required
+                        placeholder='Describa lo mas especificamente posible su idea.'
+                        id="descripcion"
+                        type="textarea"
                         value={descripcion}
                         onChange={e => setDescripcion(e.target.value)}
                     />
                 </div>
                 <div className="">
-                    <label>Ciudades:</label>
+                    <label htmlFor="ciudades">Ciudad de retiro:</label>
                     <SelectCiudades
+                        id="ciudades"
                         value={ciudad}
                         onChange={newCiudad => setCiudad(newCiudad)}
                     />
                 </div>
                 <div>
-                    <label>Imagen:</label>
+                    <label htmlFor="imagen">Imagen de inspiracion:</label>
                     <input
+                        id="imagen"
                         type="file"
                         accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
                         onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
                     />
                 </div>
-            
-
-<SelectTips
-    value={tip}
-    onChange={newTipId => setTip(newTipId)}>
-</SelectTips>
-
-
+                <div className="">
+                    <label htmlFor="tip">Forma y largo:</label>
+                    <SelectTips
+                    id='tip'
+                        value={tip}
+                        onChange={newTipId => setTip(newTipId)}></SelectTips>
+                </div>
                 <NeoButton>Hacer pedido</NeoButton>
             </form>
         </div>

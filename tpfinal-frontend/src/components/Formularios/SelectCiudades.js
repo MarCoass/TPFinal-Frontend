@@ -7,7 +7,7 @@ const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
 }
 
-export default function SelectCiudades({ value, onChange }) {
+export default function SelectCiudades({ value, onChange,id }) {
     const [ciudades, setCiudades] = useState([])
 
     useEffect(() => {
@@ -34,6 +34,7 @@ export default function SelectCiudades({ value, onChange }) {
 
     return (
         <SelectBasico
+        id={id}
             items={ciudades}
             onChange={onChange}
             placeholder="Seleccionar una ciudad"

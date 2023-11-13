@@ -21,8 +21,10 @@ const Dashboard = () => {
                 <title>Pedidos Personalizados - Mar Nails</title>
             </Head>
 
-            <div className="py-12">
+            <div className="font-bold grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 divide-x-2 divide-black border-y-2 border-black">
+                
                 <CrearPedido></CrearPedido>
+                <div className='bg-violeta-200'>Informacion importante</div>
             </div>
         </AppLayout>
     )

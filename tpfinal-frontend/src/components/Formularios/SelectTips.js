@@ -13,7 +13,7 @@ const fetchTips = () => {
     return axios.get('/administracion/tips').then(res => res.data)
 }
 
-export default function SelectTips({ onChange }) {
+export default function SelectTips({ onChange, id }) {
     const [tips, setTips] = useState([])
 
     useEffect(() => {
@@ -43,6 +43,7 @@ export default function SelectTips({ onChange }) {
     return (
         <>
             <select
+            id={id}
             required
                 onChange={handleChange}
                 className="flex w-[300px] cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-300 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
