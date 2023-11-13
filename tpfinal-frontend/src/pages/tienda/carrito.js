@@ -27,6 +27,7 @@ export default function Carrito() {
 
     const obtenerDatos= async ()=>
     {
+        console.log('anda')
         try {
             const dataCarrito = await fetchCarrito(carrito);
             console.log(dataCarrito)
@@ -35,6 +36,26 @@ export default function Carrito() {
             console.error('Hubo un problema obteniendo los datos: ', error);
         }
     }
+
+    const handleBuy = async () => {
+        console.log(infoCarrito.id_productos)
+        try {
+        const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`); 
+           console.log(response.data)
+        if (response.data && response.data.stock) {
+                // Si hay suficiente stock, procede con la compra
+                // await axios.get('/api/comprar');
+                alert('hay stock beibi');
+            } else {
+                // No hay suficiente stock para algunos productos
+                alert('No hay suficiente stock para algunos productos en su carrito.', response.data.data);
+            }
+        } catch (error) {
+            console.error('Error al verificar el stock:', error);
+            // Manejo de errores
+        }
+    };
+    
 
     return (
         <AppLayout>
@@ -49,7 +70,7 @@ export default function Carrito() {
                     </CustomSpinner>
                 )}
                 <div className="mb-6 mr-6 flex justify-end">
-                    <Button>Comprar</Button>
+                    <Button onClick={() => handleBuy()}>Comprar</Button>
                 </div>
 
             </div>
