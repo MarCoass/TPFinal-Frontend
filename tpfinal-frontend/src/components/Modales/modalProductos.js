@@ -72,7 +72,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     insumo => insumo.nombre_insumo,
                 )
                 const nombresTexto = nombres.join(', ')
-                console.log(nombresTexto)
+                /*   console.log(nombresTexto) */
                 swal({
                     icon: 'error',
                     title: 'No se actualizo el stock',
@@ -104,7 +104,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
                             <p>Stock actual: {stockViejo}</p>
-                            <Input 
+                            <Input
                                 type="hidden"
                                 id="id_producto"
                                 value={idProducto}
@@ -190,10 +190,9 @@ export function ModalProductoStore() {
             formData.append('descripcion', descripcion)
             formData.append('precio', precio)
             formData.append('stock', stock)
-            formData.append('ciudad', ciudad)
-            formData.append('estado', estado)
+            formData.append('ciudad', ciudad.id)
+            formData.append('estado', estado.id)
             formData.append('imagen', imagen)
-
             const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
             formData.append('cantidadesInsumos', cantidadesInsumosJSON)
 
@@ -201,7 +200,7 @@ export function ModalProductoStore() {
             if (categoriaSet != '') {
                 formData.append('id_categoria', categoriaSet)
                 formData.append('id_tip', tip)
-                url = '/setStore'
+                url = '/api/setStore'
             }
             // Agrega el token CSRF al encabezado de la solicitud
             const headers = {
@@ -213,6 +212,7 @@ export function ModalProductoStore() {
             const response = await axios.post(url, formData, {
                 headers,
             })
+            console.log(response)
 
             swal({
                 icon: 'success',
@@ -276,8 +276,9 @@ export function ModalProductoStore() {
                                     value="general"
                                     className="grid grid-cols-2 gap-3">
                                     <div className="flex justify-end gap-5">
-                                        <label htmlFor='nombre'>Nombre:</label>
-                                        <NeoInput id='nombre'
+                                        <label htmlFor="nombre">Nombre:</label>
+                                        <NeoInput
+                                            id="nombre"
                                             type="text"
                                             value={nombre}
                                             onChange={e =>
@@ -286,8 +287,11 @@ export function ModalProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-end gap-5">
-                                        <label htmlFor='descripcion'>Descripcion:</label>
-                                        <NeoInput id='descripcion'
+                                        <label htmlFor="descripcion">
+                                            Descripcion:
+                                        </label>
+                                        <NeoInput
+                                            id="descripcion"
                                             type="text"
                                             value={descripcion}
                                             onChange={e =>
@@ -296,8 +300,9 @@ export function ModalProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-end gap-5">
-                                        <label htmlFor='stock'>Stock:</label>
-                                        <NeoInput id='stock'
+                                        <label htmlFor="stock">Stock:</label>
+                                        <NeoInput
+                                            id="stock"
                                             type="number"
                                             value={stock}
                                             onChange={e =>
@@ -306,8 +311,9 @@ export function ModalProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-end gap-5">
-                                        <label htmlFor='precio'>Precio:</label>
-                                        <NeoInput id='precio'
+                                        <label htmlFor="precio">Precio:</label>
+                                        <NeoInput
+                                            id="precio"
                                             type="number"
                                             value={precio}
                                             onChange={e =>
@@ -316,7 +322,9 @@ export function ModalProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='ciudades'>Ciudades:</label>
+                                        <label htmlFor="ciudades">
+                                            Ciudades:
+                                        </label>
                                         <SelectCiudades
                                             value={ciudad}
                                             onChange={newCiudad =>
@@ -325,7 +333,7 @@ export function ModalProductoStore() {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='estado'>Estado:</label>
+                                        <label htmlFor="estado">Estado:</label>
                                         <SelectEstadosProducto
                                             value={estado}
                                             onChange={newEstado =>
@@ -333,9 +341,9 @@ export function ModalProductoStore() {
                                             }></SelectEstadosProducto>
                                     </div>
                                     <div>
-                                        <label htmlFor='imagen'>Imagen:</label>
-                                        <Input 
-                                        id='imagen'
+                                        <label htmlFor="imagen">Imagen:</label>
+                                        <Input
+                                            id="imagen"
                                             type="file"
                                             accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
                                             onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
@@ -427,7 +435,6 @@ export function ModalProductoUpdate({ idProducto }) {
             async function obtenerProducto() {
                 try {
                     const data = await fetchProducto(idProducto)
-                    //console.log(info)
                     setNombre(data.nombre || '')
                     setDescripcion(data.descripcion || '')
                     setStock(data.stock || '')
@@ -506,8 +513,9 @@ export function ModalProductoUpdate({ idProducto }) {
                                 </TabsList>
                                 <TabsContent value="general">
                                     <div className="flex justify-around">
-                                        <label htmlFor='nombre'>Nombre:</label>
-                                        <Input id='nombre'
+                                        <label htmlFor="nombre">Nombre:</label>
+                                        <Input
+                                            id="nombre"
                                             type="text"
                                             value={nombre}
                                             onChange={e =>
@@ -516,8 +524,11 @@ export function ModalProductoUpdate({ idProducto }) {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='descripcion'>Descripcion:</label>
-                                        <Input id='descripcion'
+                                        <label htmlFor="descripcion">
+                                            Descripcion:
+                                        </label>
+                                        <Input
+                                            id="descripcion"
                                             type="text"
                                             value={descripcion}
                                             onChange={e =>
@@ -526,8 +537,9 @@ export function ModalProductoUpdate({ idProducto }) {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='stock'>Stock:</label>
-                                        <Input id='stock'
+                                        <label htmlFor="stock">Stock:</label>
+                                        <Input
+                                            id="stock"
                                             type="number"
                                             value={stock}
                                             onChange={e =>
@@ -536,8 +548,9 @@ export function ModalProductoUpdate({ idProducto }) {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='precio'>Precio:</label>
-                                        <Input id='precio'
+                                        <label htmlFor="precio">Precio:</label>
+                                        <Input
+                                            id="precio"
                                             type="number"
                                             value={precio}
                                             onChange={e =>
@@ -546,7 +559,9 @@ export function ModalProductoUpdate({ idProducto }) {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='ciudades'>Ciudades:</label>
+                                        <label htmlFor="ciudades">
+                                            Ciudades:
+                                        </label>
                                         <SelectCiudades
                                             value={ciudad}
                                             onChange={newCiudad =>
@@ -555,7 +570,7 @@ export function ModalProductoUpdate({ idProducto }) {
                                         />
                                     </div>
                                     <div className="flex justify-around">
-                                        <label htmlFor='estado'>Estado:</label>
+                                        <label htmlFor="estado">Estado:</label>
                                         <SelectEstadosProducto
                                             value={estado}
                                             onChange={newEstado =>
@@ -563,8 +578,9 @@ export function ModalProductoUpdate({ idProducto }) {
                                             }></SelectEstadosProducto>
                                     </div>
                                     <div>
-                                        <label htmlFor='imagen'>Imagen:</label>
-                                        <Input id='imagen'
+                                        <label htmlFor="imagen">Imagen:</label>
+                                        <Input
+                                            id="imagen"
                                             type="file"
                                             accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
                                             onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
@@ -633,7 +649,8 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
             <AlertDialog>
                 {conImagen && producto ? (
                     <AlertDialogTrigger>
-                        <div title="Ver producto"
+                        <div
+                            title="Ver producto"
                             style={{
                                 backgroundImage: `url(${urlBase}${producto.url_imagen})`,
                             }}
@@ -687,7 +704,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                                     <>Sin cotizar</>
                                                 )}
                                             </p>
-                                            {producto.set.categoria_set.id !=
+                                            {producto.set && producto.set.categoria_set.id !=
                                                 4 && (
                                                 <p>Stock: {producto.stock}</p>
                                             )}

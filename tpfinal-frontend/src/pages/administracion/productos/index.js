@@ -37,7 +37,6 @@ export default function ProdutosIndex() {
                 const data = await fetchProductos()
                 setProductos(data)
 
-                console.log(data)
             } catch (error) {
                 console.error('Error al obtener productos:', error)
             }

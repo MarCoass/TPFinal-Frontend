@@ -29,6 +29,7 @@ export default function SelectCiudades({ value, onChange, id, mostrarEnvio }) {
     return (
         <>
             <SelectBasico
+            value={value}
                 mostrarEnvio={mostrarEnvio}
                 id={id}
                 items={ciudades}
