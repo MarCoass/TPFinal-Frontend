@@ -39,6 +39,7 @@ export default function infoProducto({ params }) {
           // Llamada a la API para agregar el producto
           const response = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
           console.log('Producto agregado:', response.data);
+          console.log(response.data.status)
           // Manejo de la respuesta si es necesario
         } catch (error) {
           console.error('Error al agregar el producto:', error);
