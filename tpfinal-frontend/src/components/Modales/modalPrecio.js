@@ -5,7 +5,6 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -63,8 +62,8 @@ export function ModalPrecioStore(idInsumo) {
                                 Crear nuevo precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label>Precio:</label>
-                                <Input
+                                <label htmlFor='precio'>Precio:</label>
+                                <Input id='precio'
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}
@@ -182,8 +181,8 @@ export function ModalPrecioUpdate(idPrecio) {
                                 Editar el precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label>Precio:</label>
-                                <Input
+                                <label htmlFor='precio'>Precio:</label>
+                                <Input id='precio'
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}

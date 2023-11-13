@@ -60,7 +60,6 @@ export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
             <AlertDialog>
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Pencil className="h-4 w-4 mx-2" />
-                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
@@ -188,8 +187,9 @@ export function ModalInsumoCrear() {
                             <AlertDialogTitle>Nuevo insumo</AlertDialogTitle>
 
                             <div className="flex justify-between">
-                                <label>Nombre:</label>
+                                <label htmlFor="nombre">Nombre:</label>
                                 <Input
+                                    id="nombre"
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
@@ -197,8 +197,11 @@ export function ModalInsumoCrear() {
                             </div>
 
                             <div className="flex justify-between">
-                                <label>Descripcion:</label>
+                                <label htmlFor="descripcion">
+                                    Descripcion:
+                                </label>
                                 <Input
+                                    id="descripcion"
                                     type="text"
                                     value={descripcion}
                                     onChange={e =>
@@ -208,8 +211,9 @@ export function ModalInsumoCrear() {
                             </div>
 
                             <div className="flex justify-between">
-                                <label>Stock:</label>
+                                <label htmlFor="stock">Stock:</label>
                                 <Input
+                                    id="stock"
                                     type="number"
                                     value={stock}
                                     onChange={e => setStock(e.target.value)}
@@ -217,8 +221,11 @@ export function ModalInsumoCrear() {
                             </div>
 
                             <div className="flex justify-between">
-                                <label>Stock minimo:</label>
+                                <label htmlFor="stock_minimo">
+                                    Stock minimo:
+                                </label>
                                 <Input
+                                    id="stock_minimo"
                                     type="number"
                                     value={stock_minimo}
                                     onChange={e =>
@@ -242,8 +249,9 @@ export function ModalInsumoCrear() {
                                     }></SelectEstadosInsumo>
                             </div>
                             <div className="flex justify-between">
-                                <label>Marca:</label>
+                                <label htmlFor="marca">Marca:</label>
                                 <Input
+                                    id="marca"
                                     type="text"
                                     value={marca}
                                     onChange={e => setMarca(e.target.value)}
@@ -365,7 +373,6 @@ export function ModalInsumoModificar({ idInsumo }) {
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
-                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
@@ -374,16 +381,20 @@ export function ModalInsumoModificar({ idInsumo }) {
                         </AlertDialogHeader>
                         <div className="">
                             <div className="flex justify-around">
-                                <label>Nombre:</label>
+                                <label htmlFor="nombre">Nombre:</label>
                                 <Input
+                                    id="nombre"
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
                                 />
                             </div>
                             <div className="flex justify-around">
-                                <label>Descripcion:</label>
+                                <label htmlFor="descripcion">
+                                    Descripcion:
+                                </label>
                                 <Input
+                                    id="descripcion"
                                     type="text"
                                     value={descripcion}
                                     onChange={e =>
@@ -393,8 +404,9 @@ export function ModalInsumoModificar({ idInsumo }) {
                             </div>
 
                             <div className="flex justify-around">
-                                <label>Stock:</label>
+                                <label htmlFor="stock">Stock:</label>
                                 <Input
+                                    id="stock"
                                     type="number"
                                     value={stock}
                                     onChange={e => setStock(e.target.value)}
@@ -402,8 +414,11 @@ export function ModalInsumoModificar({ idInsumo }) {
                             </div>
 
                             <div className="flex justify-around">
-                                <label>Stock minimo:</label>
+                                <label htmlFor="stock_minimo">
+                                    Stock minimo:
+                                </label>
                                 <Input
+                                    id="stock_minimo"
                                     type="number"
                                     value={stock_minimo}
                                     onChange={e =>
@@ -427,8 +442,9 @@ export function ModalInsumoModificar({ idInsumo }) {
                                     }></SelectEstadosInsumo>
                             </div>
                             <div className="flex justify-around">
-                                <label>Marca:</label>
+                                <label htmlFor="marca">Marca:</label>
                                 <Input
+                                    id="marca"
                                     type="text"
                                     value={marca}
                                     onChange={e => setMarca(e.target.value)}
@@ -577,7 +593,8 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
-                {stockViejo}<Pencil className="h-4 w-4 mx-2" />
+                    {stockViejo}
+                    <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>

@@ -7,7 +7,7 @@ const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
 }
 
-export default function SelectCiudades({ value, onChange }) {
+export default function SelectCiudades({ value, onChange, id, mostrarEnvio }) {
     const [ciudades, setCiudades] = useState([])
 
     useEffect(() => {
@@ -15,8 +15,7 @@ export default function SelectCiudades({ value, onChange }) {
             try {
                 const data = await fetchCiudades()
                 setCiudades(data)
-                //  console.log(ciudades)
-                // console.log(data)
+                /*    console.log(data) */
             } catch (error) {
                 console.error('Error al obtener ciudades:', error)
                 // En caso de error, simplemente establece ciudades como un array vacío
@@ -27,16 +26,15 @@ export default function SelectCiudades({ value, onChange }) {
         obtenerProductos()
     }, [])
 
-    // Maneja el cambio en el componente Select
-    const handleCiudadChange = newValue => {
-        onChange(newValue)
-    }
-
     return (
-        <SelectBasico
-            items={ciudades}
-            onChange={onChange}
-            placeholder="Seleccionar una ciudad"
-        />
+        <>
+            <SelectBasico
+                mostrarEnvio={mostrarEnvio}
+                id={id}
+                items={ciudades}
+                onChange={onChange}
+                placeholder="Seleccionar una ciudad"
+            />
+        </>
     )
 }

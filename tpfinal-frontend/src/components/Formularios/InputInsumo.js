@@ -11,8 +11,9 @@ export default function InputInsumo({ id, nombre, onCantidadChange  }) {
     }
     return (
         <div>
-            <label>{nombre}</label>
+            <label htmlFor='cantidad'>{nombre}</label>
             <Input
+            id='cantidad'
                 type="number"
                 value={cantidad}
                 onChange={handleCantidadChange}

@@ -44,6 +44,7 @@ export function ModalCambiarEstado({ id }) {
                 try {
                     const data = await fetchPedido(id)
                     setPedido(data)
+                    console.log(data)
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -53,7 +54,7 @@ export function ModalCambiarEstado({ id }) {
             }
             obtenerPedido()
         }
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if (pedido != null) {
@@ -243,7 +244,7 @@ export function ModalCotizar({ id }) {
                                     onSubmit={handleSubmit}
                                     className="border-l-2 border-black px-4 col-span-2 row-span-2 col-start-4">
                                     <div className="my-5 flex flex-col">
-                                        <label for="precio">Precio:</label>
+                                        <label htmlFor="precio">Precio:</label>
                                         <NeoInput
                                             type="number"
                                             value={precio}
@@ -255,7 +256,7 @@ export function ModalCotizar({ id }) {
                                         />
                                     </div>
                                     <div className="my-5 flex flex-col">
-                                        <label for="fecha">
+                                        <label htmlFor="fecha">
                                             Fecha de entrega:
                                         </label>
                                         <NeoInput
@@ -363,8 +364,18 @@ export function ModalEntregado({ pedido }) {
         e.preventDefault()
         const formData = new FormData()
         formData.append('estado', 6)
-        let url = '/api/administracion/pedidoDelete/'
-        handleUpdate(pedido.id, url, formData)
+        const headers = {
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+            Accept: 'application/json',
+        }
+
+        const response = await axios.post(
+            '/api/administracion/pedido/cambiarEstado/' + pedido.id,
+            formData,
+            {
+                headers,
+            },
+        )
     }
 
     return (

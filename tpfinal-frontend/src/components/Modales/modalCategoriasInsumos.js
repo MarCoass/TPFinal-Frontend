@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, Eye, List } from 'lucide-react'
+import { Pencil, Trash2, List } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'
@@ -100,8 +100,9 @@ export function ModalCategoriaInsumoUpdate({ id }) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label>Nombre:</label>
+                                    <label htmlFor='nombre'>Nombre:</label>
                                     <Input
+                                    id='nombre'
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
@@ -207,8 +208,9 @@ export function ModalCategoriaInsumoStore({}) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label>Nombre:</label>
+                                    <label htmlFor='nombre'>Nombre:</label>
                                     <Input
+                                    id='nombre'
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
