@@ -1,7 +1,7 @@
 "use client"
- 
+
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,12 +13,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
- 
-export function DropdownMenuCheckboxes({nombreMenu, filtro, onCheckboxChange}) {
+import Badge from "./Badge"
+
+export function DropdownMenuCheckboxes({ nombreMenu, filtro, onCheckboxChange }) {
   const [showStatusBar, setShowStatusBar] = useState(true)
   const [showActivityBar, setShowActivityBar] = useState(false)
   const [showPanel, setShowPanel] = useState(false)
- 
+  const [isFilterSelected, setIsFilterSelected] = useState(false);
+
   const handleClickOption = (nombre) => {
     const updatedFiltro = filtro.map((opcion) => {
       if (opcion.nombre === nombre) {
@@ -30,16 +32,29 @@ export function DropdownMenuCheckboxes({nombreMenu, filtro, onCheckboxChange}) {
     onCheckboxChange(nombreMenu, updatedFiltro);
   };
 
+  useEffect(() => {
+    const anyFilterSelected = filtro.some(f => f.seleccionado);
+    setIsFilterSelected(anyFilterSelected);
+  }, [filtro]);
+
+
   return (
     <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button variant="outline">{nombreMenu}</Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent className="w-56">
-      <DropdownMenuLabel>{nombreMenu}</DropdownMenuLabel>
-      <DropdownMenuSeparator />
+      <DropdownMenuTrigger asChild>
+        <div className="static">
+          <Button variant="outline" className="static border border-green rounded z-0">
+            {nombreMenu}
+            {isFilterSelected && (
+              <Badge className="absolute top-2 right-2 z-10" />
+            )}
+          </Button>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>{nombreMenu}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
 
-      {filtro.map((item) => (
+        {filtro.map((item) => (
           <div className="flex items-center" key={item.nombre}>
             <Checkbox
               checked={item.seleccionado}
@@ -50,7 +65,7 @@ export function DropdownMenuCheckboxes({nombreMenu, filtro, onCheckboxChange}) {
             <span>{item.nombre}</span>
           </div>
         ))}
-    </DropdownMenuContent>
-  </DropdownMenu>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

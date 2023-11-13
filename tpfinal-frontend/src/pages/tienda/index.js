@@ -124,11 +124,11 @@ const Tienda = () => {
             <Tabs defaultValue="catalogo" >
                 <TabsList>
                     <TabsTrigger value="catalogo">Catálogo</TabsTrigger>
-                    <TabsTrigger value="ofertas">Ofertas</TabsTrigger>
+                    {/* <TabsTrigger value="ofertas">Ofertas</TabsTrigger> */}
                     <TabsTrigger value="favoritos">Favoritos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="catalogo"><Catalogo diseño={diseño} ciudad={ciudad} forma={forma} largo={largo}></Catalogo></TabsContent>
-                <TabsContent value="ofertas"><Ofertas></Ofertas></TabsContent>
+                {/* <TabsContent value="ofertas"><Ofertas></Ofertas></TabsContent> */}
                 <TabsContent value="favoritos"><Favoritos></Favoritos></TabsContent>
             </Tabs>
         </AppLayout>
