@@ -10,7 +10,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Pencil, Trash2, Eye, List } from 'lucide-react'
+import { Pencil, Trash2, List } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'

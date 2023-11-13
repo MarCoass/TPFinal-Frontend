@@ -3,23 +3,12 @@ import Head from 'next/head'
 import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { router } from 'next/router'
-import { PedidoCard } from '../../components/ProductCard'
-import { fetchPedidosUsuario } from '../../lib/producto'
+import Input from '../../components/Input'
+import { CrearPedido } from './crearPedido'
+
 
 const Dashboard = () => {
     const { user } = useAuth()
-    const [pedidos, setPedidos] = useState()
-
-    useEffect(() => {
-        if (user) {
-            async function obtenerPedidos() {
-                const data = await fetchPedidosUsuario(user.id)
-                setPedidos(data)
-                /* console.log(data) */
-            }
-            obtenerPedidos()
-        }
-    }, [user])
 
     return (
         <AppLayout
@@ -33,17 +22,7 @@ const Dashboard = () => {
             </Head>
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    {pedidos ? (
-                        <>
-                            {pedidos.map(pedido => (
-                                <PedidoCard pedido={pedido} key={pedido.id}></PedidoCard>
-                            ))}
-                        </>
-                    ) : (
-                        <p>Cargando...</p>
-                    )}
-                </div>
+                <CrearPedido></CrearPedido>
             </div>
         </AppLayout>
     )

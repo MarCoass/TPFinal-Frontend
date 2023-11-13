@@ -1,23 +1,12 @@
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import {
-    Pencil,
-    Trash2,
-    PlusSquare,
-    Eye,
-    DollarSign,
-    Minus,
-    Plus,
-} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')

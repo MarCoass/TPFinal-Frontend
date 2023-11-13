@@ -21,9 +21,8 @@ export default function SelectTips({ onChange }) {
             try {
                 const data = await fetchTips()
                 setTips(data)
-                console.log(data)
             } catch (error) {
-                console.error('Error al obtener categorias:', error)
+                console.error('Error al obtener tips:', error)
                 // En caso de error, simplemente establece categorias como un array vacío
                 setTips([])
             }
@@ -33,13 +32,18 @@ export default function SelectTips({ onChange }) {
     }, [])
 
     // Maneja el cambio en el componente Select
-    const handleChange = newValue => {
-        onChange(newValue)
+    const handleChange = event => {
+        // Obtiene el valor seleccionado del evento
+        const selectedValue = event.target.value;
+    
+        // Pasa solo el ID al padre
+        onChange(selectedValue);
     }
 
     return (
         <>
             <select
+            required
                 onChange={handleChange}
                 className="flex w-[300px] cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-300 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                 <option value="" className="font-bold">
