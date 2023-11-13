@@ -13,7 +13,7 @@ export default function SelectBasico({
         const newValue = event.target.value
         const selectedItemBusqueda = items.find(item => item.id == newValue)
         setSelectedItem(selectedItemBusqueda)
-        onChange(selectedItem)
+        onChange(selectedItemBusqueda) 
     }
     return (
         <>
@@ -35,7 +35,9 @@ export default function SelectBasico({
                 ))}
             </select>
             {mostrarEnvio && selectedItem && (
-                <p className='text-violeta-500 mt-2'>Valor del envio a domicilio: ${selectedItem.valor_envio}</p>
+                <p className="text-violeta-500 mt-2">
+                    Valor del envio a domicilio: ${selectedItem.valor_envio}
+                </p>
             )}
         </>
     )

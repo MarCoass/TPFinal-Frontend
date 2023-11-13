@@ -5,30 +5,20 @@ import { useEffect, useState } from 'react'
 import { router } from 'next/router'
 import Input from '../../components/Input'
 import { CrearPedido } from './crearPedido'
+import PedidosUsuario from './pedidosUsuario'
 
 const Dashboard = () => {
     const { user } = useAuth()
 
     return (
-        <AppLayout
-            header={
-                <h2 className="font-bold text-xl text-gray-800 leading-tight">
-                    Pedidos personalizados
-                </h2>
-            }>
+        <AppLayout>
             <Head>
                 <title>Pedidos Personalizados - Mar Nails</title>
             </Head>
-
-            <div className="font-bold grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 divide-x-2 divide-black border-y-2 border-black">
+            <div className="px-12">
                 <CrearPedido></CrearPedido>
-                <div className="bg-rosado-200 p-4">Informacion importante:
-                <ul className='list-disc ml-4'>
-                    <li>Mientras mas especifica sea la descripcion, mejor.</li>
-                    <li>La imagen es ilustrativa, los colores pueden variar.</li>
-                    <li>El envio a domicilio no es obligatorio, tambien se puede retirar por el local sin cargo.</li>
-                    
-                </ul></div>
+
+                <PedidosUsuario></PedidosUsuario>
             </div>
         </AppLayout>
     )

@@ -92,7 +92,7 @@ export const PedidoCard = ({ pedido }) => {
     const estado = estados.find(estado => estado.id === pedido.estado)
 
     return (
-        <div className="m-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div className="my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <div className="border-b-2 border-black p-4">
                 <h2 className="text-xl">{pedido.producto.nombre}</h2>
             </div>

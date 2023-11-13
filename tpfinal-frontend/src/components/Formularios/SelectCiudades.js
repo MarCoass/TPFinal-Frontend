@@ -15,7 +15,7 @@ export default function SelectCiudades({ value, onChange, id, mostrarEnvio }) {
             try {
                 const data = await fetchCiudades()
                 setCiudades(data)
-             /*    console.log(data) */
+                /*    console.log(data) */
             } catch (error) {
                 console.error('Error al obtener ciudades:', error)
                 // En caso de error, simplemente establece ciudades como un array vacío
@@ -26,21 +26,15 @@ export default function SelectCiudades({ value, onChange, id, mostrarEnvio }) {
         obtenerProductos()
     }, [])
 
-    // Maneja el cambio en el componente Select
-    const handleCiudadChange = newValue => {
-        onChange(newValue)
-    }
-
     return (
         <>
             <SelectBasico
-            mostrarEnvio = {mostrarEnvio}
+                mostrarEnvio={mostrarEnvio}
                 id={id}
                 items={ciudades}
                 onChange={onChange}
                 placeholder="Seleccionar una ciudad"
             />
-            
         </>
     )
 }
