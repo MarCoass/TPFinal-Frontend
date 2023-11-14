@@ -45,7 +45,7 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
       // Manejo de la respuesta si es necesario
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
-      // Manejo de errores
+      // Manejo de errores 
     }
 
   };

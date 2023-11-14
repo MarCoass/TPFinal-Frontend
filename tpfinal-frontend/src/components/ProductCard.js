@@ -1,9 +1,23 @@
 import React from 'react'
 import Link from 'next/link'
+import axios from '@/lib/axios'
 import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 import { Image } from 'lucide-react';
+
+const handleAddToCart = (id, cantidad) => {
+    try {
+      // Llamada a la API para agregar el producto
+      const response = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
+      console.log('Producto agregado:', response.data);
+    //   console.log(response.data.status)
+      // Manejo de la respuesta si es necesario
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+      // Manejo de errores
+    }
+  };
 
 const ProductCard = ({
     imgUrl,
@@ -26,7 +40,7 @@ const ProductCard = ({
                 </Link>
                 <button
                     title="agregar al carrito"
-                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
+                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group" onClick={() => handleAddToCart(idProducto, 1)}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 group-hover:opacity-50 opacity-70"
