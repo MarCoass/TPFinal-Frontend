@@ -28,7 +28,7 @@ const ProductCard = ({
     esAdmin,
     idProducto,
 }) => {
-    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage'
     return (
         <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
             <div className="overflow-x-hidden rounded-2xl relative">
