@@ -4,6 +4,11 @@ import InputInsumo from './InputInsumo'
 import { insumosUsados } from '@/lib/producto'
 import { ModalAgregarInsumo } from '../Modales/modalInsumoProducto'
 import { ListboxWrapper } from '../Formularios/listboxWrapper'
+import {
+    Listbox,
+    ListboxSection,
+    ListboxItem
+  } from "@nextui-org/listbox";
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
