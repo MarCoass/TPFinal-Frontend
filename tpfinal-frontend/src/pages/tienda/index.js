@@ -129,7 +129,7 @@ const Tienda = () => {
                 </TabsList>
                 <TabsContent value="catalogo"><Catalogo diseño={diseño} ciudad={ciudad} forma={forma} largo={largo}></Catalogo></TabsContent>
                 {/* <TabsContent value="ofertas"><Ofertas></Ofertas></TabsContent> */}
-                <TabsContent value="favoritos"><Favoritos></Favoritos></TabsContent>
+                <TabsContent value="favoritos"><Favoritos diseño={diseño} ciudad={ciudad} forma={forma} largo={largo}></Favoritos></TabsContent>
             </Tabs>
         </AppLayout>
 
