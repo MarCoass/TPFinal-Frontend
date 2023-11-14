@@ -5,6 +5,7 @@ import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
 import CarritoGrid from '@/components/Grids/CarritoGrid';
 import Button from '@/components/Button';
+import { ModalCompra } from '../../components/Modales/modalCompra';
 
 const fetchCarrito = (carrito) => {
     return axios
@@ -16,21 +17,27 @@ const fetchCarrito = (carrito) => {
 
 export default function Carrito() {
     const [infoCarrito, setCarrito] = useState(null)
+    const [precioTotal, setPrecioTotal] = useState();
     const router = useRouter()
     const { carrito } = router.query
+
+
+    const obtenerPrecioTotal = (datoPrecio) => {
+        if (!precioTotal || precioTotal != datoPrecio) {
+            setPrecioTotal(datoPrecio);
+        }
+    }
+
     useEffect(() => {
         if (infoCarrito === null || !infoCarrito) {
             obtenerDatos();
         }
-        console.log(infoCarrito)
     }, [carrito])
 
-    const obtenerDatos= async ()=>
-    {
+    const obtenerDatos = async () => {
         console.log('anda')
         try {
             const dataCarrito = await fetchCarrito(carrito);
-            console.log(dataCarrito)
             setCarrito(dataCarrito);
         } catch (error) {
             console.error('Hubo un problema obteniendo los datos: ', error);
@@ -40,12 +47,12 @@ export default function Carrito() {
     const handleBuy = async () => {
         console.log(infoCarrito.id_productos)
         try {
-        const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`); 
-           console.log(response.data)
-        if (response.data && response.data.stock) {
+            const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`);
+            console.log(response.data)
+            if (response.data && response.data.stock) {
                 // Si hay suficiente stock, procede con la compra
-               const respuesta= await axios.get('/api/comprar');
-                if(respuesta){
+                const respuesta = await axios.get('/api/comprar');
+                if (respuesta) {
                     console.log(respuesta.data)
                 }
                 alert('hay stock beibi');
@@ -58,14 +65,14 @@ export default function Carrito() {
             // Manejo de errores
         }
     };
-    
+
 
     return (
         <AppLayout>
             <div className='mx-6'>
                 {infoCarrito != null ? (
                     <div>
-                        <CarritoGrid obtenerDatos={obtenerDatos} data={infoCarrito} />
+                        <CarritoGrid obtenerDatos={obtenerDatos} data={infoCarrito} obtenerPrecioTotal={obtenerPrecioTotal} />
                     </div>
                 ) : (
                     <CustomSpinner
@@ -73,7 +80,7 @@ export default function Carrito() {
                     </CustomSpinner>
                 )}
                 <div className="mb-6 mr-6 flex justify-end">
-                    <Button onClick={() => handleBuy()}>Comprar</Button>
+                    <ModalCompra infoCarrito={infoCarrito} precioTotal={precioTotal}></ModalCompra>
                 </div>
 
             </div>
