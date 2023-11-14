@@ -126,6 +126,7 @@ export default function Favoritos({ diseño, forma, largo, ciudad }) {
                                             stock={producto.stock}
                                             esAdmin={false}
                                             idProducto={producto.id}
+                                            esFavorito={true}
                                         >
                                         </ProductCard>
                                     </div>

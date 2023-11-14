@@ -4,7 +4,7 @@ import axios from '@/lib/axios'
 import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
-import { Image } from 'lucide-react';
+import { Image, Trash2 } from 'lucide-react';
 
 const handleAddToCart = async (id, cantidad) => {
     try {
@@ -44,6 +44,36 @@ const handleAddToCart = async (id, cantidad) => {
     }
 };
 
+const handleEliminarFavorito = (id) =>{
+    const responseAdd = axios.post('api/favorito-eliminar', { id_producto: id});
+    if (responseAdd) {
+        swal({
+            icon: 'success',
+            title: 'Producto eliminado de favoritos.',
+            button: {
+                text: 'X',
+                className:
+                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+            },
+        })
+    }
+}
+
+const handleAgregarFavorito = (id) =>{
+    const responseAdd = axios.post('api/favorito-agregar', { id_producto: id});
+    if (responseAdd) {
+        swal({
+            icon: 'success',
+            title: 'Producto agregado a favoritos.',
+            button: {
+                text: 'X',
+                className:
+                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+            },
+        })
+    }
+}
+
 const ProductCard = ({
     imgUrl,
     nombreProducto,
@@ -52,6 +82,7 @@ const ProductCard = ({
     stock,
     esAdmin,
     idProducto,
+    esFavorito
 }) => {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage'
     return (
@@ -103,25 +134,35 @@ const ProductCard = ({
                         <p className="text-md text-red-800 mt-0">SIN STOCK</p>
                     ) : null}
                 </div>
-                <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                    <button title="agregar a favoritos">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 group-hover:opacity-70"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="gray">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                        </svg>
-                    </button>
-                </div>
+                {!esFavorito ? (
+                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                        <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(idProducto)}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 group-hover:opacity-70"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="gray">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                        <button title="eliminar de favoritos" onClick={() => handleEliminarFavorito(idProducto)}>
+                            <Trash2   className="h-6 w-6 group-hover:opacity-70" stroke="gray"/>
+                        </button>
+                    </div>
+
+                )}
+
             </div>
-        </div>
+        </div >
     )
 }
 export default ProductCard

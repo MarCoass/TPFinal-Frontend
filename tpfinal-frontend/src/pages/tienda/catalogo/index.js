@@ -121,6 +121,7 @@ export default function Catalogo({ diseño, forma, largo, ciudad }) {
                                             stock={producto.stock}
                                             esAdmin={false}
                                             idProducto={producto.id}
+                                            esFavorito={false}
                                         >
                                         </ProductCard>
                                     </div>
