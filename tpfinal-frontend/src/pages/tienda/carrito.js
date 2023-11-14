@@ -44,7 +44,10 @@ export default function Carrito() {
            console.log(response.data)
         if (response.data && response.data.stock) {
                 // Si hay suficiente stock, procede con la compra
-                // await axios.get('/api/comprar');
+               const respuesta= await axios.get('/api/comprar');
+                if(respuesta){
+                    console.log(respuesta.data)
+                }
                 alert('hay stock beibi');
             } else {
                 // No hay suficiente stock para algunos productos
