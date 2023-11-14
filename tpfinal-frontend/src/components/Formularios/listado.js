@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import InputInsumo from './InputInsumo'
-import SearchInsumo from '../Busqueda/SearchComponent'
 import { insumosUsados } from '@/lib/producto'
 
 const fetchInsumos = () => {
