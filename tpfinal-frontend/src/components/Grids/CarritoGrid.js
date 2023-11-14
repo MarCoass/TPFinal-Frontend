@@ -11,10 +11,17 @@ const eliminarProducto = () => {
     .then(res => res.data)
 }
 
-const CarritoGrid = ({ obtenerDatos, data }) => {
+const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
   const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/';
   const [cantidades, setCantidades] = useState(data.id_productos.map((producto) => ({ id_producto: producto.id_producto, cantidad: producto.cantidad })));
   let i = 0;
+  // const [precioTotal, setPrecioTotal] = useState(0)
+
+  useEffect(() => {
+    if (cantidades && cantidades != null) {
+      obtenerPrecioTotal(calculateTotalPrice())
+    }
+  }, [cantidades])
 
 
   const handleIncrement = (index) => {
@@ -22,8 +29,6 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
     newCantidades[index].cantidad += 1;
     setCantidades(newCantidades);
     handleChanges()
-    // Aquí puedes hacer una llamada a la API para guardar la nueva cantidad en la base de datos.
-    // Puedes utilizar axios u otra biblioteca para realizar la llamada POST.
   };
 
   const handleDecrement = (index) => {
@@ -32,7 +37,6 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
       newCantidades[index].cantidad -= 1;
       setCantidades(newCantidades);
       handleChanges()
-      // Llamada a la API para guardar la nueva cantidad en la base de datos.
     }
   };
 
@@ -56,7 +60,7 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
         id_producto: cantidad.id_producto,
         cantidad: cantidad.cantidad
       }));
-  
+
       // Llamada a la API para actualizar el carrito
       const response = await axios.post('/actualizar-carrito', { id_productos: cantidadesActualizadas });
       console.log('Carrito actualizado:', response.data);
@@ -69,15 +73,17 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
 
   const calculateTotalPrice = () => {
     let total = 0;
-
-    for (let i = 0; i < data.productos.length; i++) {
-      const producto = data.productos[i].original;
-      const cantidad = cantidades[i].cantidad;
-      const precio = parseFloat(producto.precio);
-
-      total += cantidad * precio;
+    if(data.productos){
+      for (let i = 0; i < data.productos.length; i++) {
+        const producto = data.productos[i].original;
+        const cantidad = cantidades[i].cantidad;
+        const precio = parseFloat(producto.precio);
+  
+        total += cantidad * precio;
+      }
     }
-
+    
+    // setPrecioTotal(total.toFixed(2))
     return total.toFixed(2); // Redondear a 2 decimales si es necesario
   };
 
@@ -97,37 +103,48 @@ const CarritoGrid = ({ obtenerDatos, data }) => {
           </div>
           <div></div>
         </div>
-        <div className="grid grid-cols-1 gap-4 mb-6 mt-6">
-          {data.productos.map((producto, i) => (
-            <div key={producto.original.id} className="grid-item ">
-              <div className="grid grid-cols-5 flex items-center ">
-                <div className="flex justify-center">
-                  <img
-                    src={urlBase + producto.original.url_imagen}
-                    alt={producto.original.nombre}
-                    className="w-40 h-auto"
-                  />
-                </div>
+        {
+          data.productos && data.productos.length > 0 ? 
+          (<div className="grid grid-cols-1 gap-4 mb-6 mt-6">
+            {data.productos.map((producto, i) => (
+              <div key={producto.original.id} className="grid-item ">
+                <div className="grid grid-cols-5 flex items-center ">
+                  <div className="flex justify-center">
+                    <img
+                      src={urlBase + producto.original.url_imagen}
+                      alt={producto.original.nombre}
+                      className="w-40 h-auto"
+                    />
+                  </div>
 
-                <div className="flex justify-center pl-4">
-                  <p>{producto.original.nombre}</p>
+                  <div className="flex justify-center pl-4">
+                    <p>{producto.original.nombre}</p>
+                  </div>
+                  <div className="flex justify-center">
+                    <p>${producto.original.precio}</p>
+                  </div>
+                  <div className="flex flex-row gap-2 items-center justify-center">
+                    <NeoButtonMini onClick={() => handleDecrement(i)}><Minus /></NeoButtonMini>
+                    {cantidades[i].cantidad}
+                    <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
+                  </div>
+                  <div className="flex justify-center">
+                    <NeoButtonMini onClick={() => handleRemoveProduct(i)}><Trash2 /></NeoButtonMini>
+                  </div>
                 </div>
-                <div className="flex justify-center">
-                  <p>${producto.original.precio}</p>
-                </div>
-                <div className="flex flex-row gap-2 items-center justify-center">
-                  <NeoButtonMini onClick={() => handleDecrement(i)}><Minus /></NeoButtonMini>
-                  {cantidades[i].cantidad}
-                  <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
-                </div>
-                <div className="flex justify-center">
-                  <NeoButtonMini  onClick={() => handleRemoveProduct(i)}><Trash2 /></NeoButtonMini>
-                </div>
+              </div>
+
+            ))}
+          </div>) : (
+            <div className='mb-8 mt-8'>
+              <div className="flex justify-center">
+                No hay productos en el carrito
               </div>
             </div>
 
-          ))}
-        </div>
+          )
+        }
+
       </div>
       <div>
         <p>Total: ${calculateTotalPrice()} </p>

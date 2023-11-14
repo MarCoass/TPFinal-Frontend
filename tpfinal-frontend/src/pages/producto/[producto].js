@@ -34,12 +34,35 @@ export default function infoProducto({ params }) {
         }
     }, [producto])
 
-    const handleAddToCart = (id, cantidad) => {
+    const handleAddToCart = async (id, cantidad) => {
         try {
-          // Llamada a la API para agregar el producto
-          const response = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
-          console.log('Producto agregado:', response.data);
-          console.log(response.data.status)
+            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify([{id_producto:id, cantidad:cantidad}])}`);
+            if (responseStock.data && responseStock.data.stock) {
+                // Si hay suficiente stock, procede con la compra
+                const responseAdd = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
+                if (responseAdd) {
+                    swal({
+                        icon: 'success',
+                        title: 'Producto agregado al carrito.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                }
+            } else {
+                // No hay suficiente stock para algunos productos
+                swal({
+                    icon: 'error',
+                    title: 'No hay stock de este producto.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
           // Manejo de la respuesta si es necesario
         } catch (error) {
           console.error('Error al agregar el producto:', error);

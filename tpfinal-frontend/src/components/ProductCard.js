@@ -6,18 +6,43 @@ import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 import { Image } from 'lucide-react';
 
-const handleAddToCart = (id, cantidad) => {
+const handleAddToCart = async (id, cantidad) => {
     try {
-      // Llamada a la API para agregar el producto
-      const response = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
-      console.log('Producto agregado:', response.data);
-    //   console.log(response.data.status)
-      // Manejo de la respuesta si es necesario
+        const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify([{ id_producto: id, cantidad: cantidad }])}`);
+        console.log(responseStock.data)
+        if (responseStock.data && responseStock.data.stock) {
+            // Si hay suficiente stock, procede con la compra
+            const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
+            // console.log(responseAdd.data.status)
+            if (responseAdd) {
+                swal({
+                    icon: 'success',
+                    title: 'Producto agregado al carrito.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
+        } else {
+            // No hay suficiente stock para algunos productos
+            swal({
+                icon: 'error',
+                title: 'No hay stock de este producto.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        }
+        // Manejo de la respuesta si es necesario
     } catch (error) {
-      console.error('Error al agregar el producto:', error);
-      // Manejo de errores
+        console.error('Error al agregar el producto:', error);
+        // Manejo de errores
     }
-  };
+};
 
 const ProductCard = ({
     imgUrl,
@@ -113,11 +138,11 @@ export const PedidoCard = ({ pedido }) => {
             </div>
             <div className="p-4 grid grid-flow-col gap-5">
                 <div>
-                {!pedido.producto.url_imagen ? (<Image className='w-40 h-40'></Image>): (<img
+                    {!pedido.producto.url_imagen ? (<Image className='w-40 h-40'></Image>) : (<img
                         alt={pedido.producto.descripcion}
                         className="h-40 w-40 rounded-2xl object-cover border-2 border-black"
                         src={urlBase + pedido.producto.url_imagen}></img>)}
-                    
+
                 </div>
                 <div className="grid grid-cols-2">
                     <div>
