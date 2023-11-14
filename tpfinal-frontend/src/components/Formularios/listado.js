@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import InputInsumo from './InputInsumo'
 import { insumosUsados } from '@/lib/producto'
+import { ModalAgregarInsumo } from '../Modales/modalInsumoProducto'
+import { ListboxWrapper } from '../Formularios/listboxWrapper'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
@@ -127,7 +129,6 @@ export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
                 item => item.id === parseInt(id_insumo, 10),
             )
             if (insumo) {
-                
                 cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
             }
         })
@@ -140,7 +141,7 @@ export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
         <div className="h-max gap-4 flex">
             <div className="">
                 <p>Seleccione la cantidad de cada insumo</p>
-                {insumosUsados ? (
+                {insumosUsados && (
                     insumosUsados.map(id_insumo => {
                         const insumo = insumos.find(
                             insumo => insumo.id === parseInt(id_insumo.id, 10),
@@ -158,9 +159,8 @@ export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
                                 }></InputInsumo>
                         )
                     })
-                ) : (
-                    <p>No se han seleccionado insumos</p>
                 )}
+                <ModalAgregarInsumo></ModalAgregarInsumo>
             </div>
         </div>
     )
