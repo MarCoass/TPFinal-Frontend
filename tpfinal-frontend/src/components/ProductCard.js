@@ -59,12 +59,34 @@ const handleEliminarFavorito = (id) =>{
     }
 }
 
-const handleAgregarFavorito = (id) =>{
-    const responseAdd = axios.post('api/favorito-agregar', { id_producto: id});
-    if (responseAdd) {
+const handleAgregarFavorito = async (id) =>{
+    const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
+    if (responseAdd ) {
+        if(!responseAdd.data.repetido){
+            swal({
+                icon: 'success',
+                title: 'Producto agregado a favoritos.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        } else {
+            swal({
+                icon: 'error',
+                title: 'Este producto ya existe en tu lista de favoritos.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        }
+    } else {
         swal({
-            icon: 'success',
-            title: 'Producto agregado a favoritos.',
+            icon: 'error',
+            title: 'Hubo un error, vuelva a intentarlo.',
             button: {
                 text: 'X',
                 className:
