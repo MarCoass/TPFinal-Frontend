@@ -149,7 +149,7 @@ export function ModalInsumoCrear() {
             formData.append('descripcion', descripcion)
             formData.append('stock', stock)
             formData.append('stock_minimo', stock_minimo)
-            formData.append('id_categoria', id_categoria)
+            formData.append('id_categoria', id_categoria.id)
             formData.append('estado', estado)
             formData.append('marca', marca)
 
