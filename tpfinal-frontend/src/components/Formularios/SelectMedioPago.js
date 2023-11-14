@@ -3,8 +3,8 @@ import axios from '@/lib/axios'
 import SelectBasico from '../Select'
 
 
-export default function SelectMedioPago({ onChange }) {
-    const [mediosPago, setMediosPago] = useState([{id:1, nombre:'Transferencia'}, {id:2, nombre:'Mercado Pago'}])
+export default function SelectMedioPago({ id, onChange }) {
+    const [mediosPago, setMediosPago] = useState([{ id: 1, nombre: 'Transferencia' }, { id: 2, nombre: 'Mercado Pago' }])
 
     // Maneja el cambio en el componente Select
     const handleChange = newValue => {
@@ -13,8 +13,9 @@ export default function SelectMedioPago({ onChange }) {
 
     return (
         <SelectBasico
+            id={id}
             items={mediosPago}
             onChange={handleChange}
-            placeholder="Seleccione un medio de pago"></SelectBasico>
+            placeholder="Medio de pago"></SelectBasico>
     )
 }

@@ -35,7 +35,6 @@ export default function Carrito() {
     }, [carrito])
 
     const obtenerDatos = async () => {
-        console.log('anda')
         try {
             const dataCarrito = await fetchCarrito(carrito);
             setCarrito(dataCarrito);
@@ -80,7 +79,13 @@ export default function Carrito() {
                     </CustomSpinner>
                 )}
                 <div className="mb-6 mr-6 flex justify-end">
-                    <ModalCompra infoCarrito={infoCarrito} precioTotal={precioTotal}></ModalCompra>
+                    {infoCarrito != null && infoCarrito.id_productos.length>0?
+                    (
+                        <ModalCompra infoCarrito={infoCarrito} precioTotal={precioTotal} handleBuy={handleBuy}></ModalCompra>
+                    ):(
+                        <Button disabled>Comprar</Button>
+                    )}
+
                 </div>
 
             </div>
