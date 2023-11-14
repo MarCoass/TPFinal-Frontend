@@ -1,20 +1,26 @@
 import { ChevronDown } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function SelectBasico({
     items,
     onChange,
     placeholder,
     id,
-    mostrarEnvio, value
+    mostrarEnvio,
+    value,
 }) {
-    const [selectedItem, setSelectedItem] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(
+        items.find(item => item.id == value) || null,
+    )
+
     const handleChange = event => {
         const newValue = event.target.value
         const selectedItemBusqueda = items.find(item => item.id == newValue)
         setSelectedItem(selectedItemBusqueda)
-        onChange(selectedItemBusqueda) 
+        onChange(selectedItemBusqueda)
     }
+
+
     return (
         <>
             <select
@@ -22,7 +28,7 @@ export default function SelectBasico({
                 id={id}
                 onChange={handleChange}
                 className="flex w-[300px] cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-300 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                <option value={value} className="font-bold">
+                <option value="" className="font-bold">
                     {placeholder}
                 </option>
                 {items.map(item => (

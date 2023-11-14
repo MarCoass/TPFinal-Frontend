@@ -162,6 +162,7 @@ export function ModalProductoStore() {
     const [categoriaSet, setCategoriaSet] = useState('')
     const [tip, setTip] = useState('')
     const [cantidadesInsumos, setCantidadesInsumos] = useState({})
+    
     const handleImagenChange = e => {
         // Manejar el cambio en la selección de imagen
         const file = e.target.files[0] // Obtener el archivo de la selección
@@ -183,6 +184,7 @@ export function ModalProductoStore() {
 
     const handleSubmit = async e => {
         e.preventDefault()
+        
         /*  console.log(ciudad.target.value) */
         try {
             // Crea un objeto con los datos del formulario
