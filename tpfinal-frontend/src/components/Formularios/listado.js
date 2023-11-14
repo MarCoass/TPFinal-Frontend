@@ -146,7 +146,7 @@ export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
                 {insumosUsados &&
                     insumos &&
                     insumosUsados.map(insumo => {
-                        console.log(insumosUsados)
+                     
                         const insumoUsado = insumos.find(
                             usado => usado.id === insumo.id_insumo,
                         )
@@ -154,14 +154,14 @@ export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
                         return (
                             <InputInsumo
                                 value={insumo.cantidad }
-                                id={insumo.id}
+                                id={insumo.id_insumo}
                                 nombre={
                                     insumoUsado ? insumoUsado.nombre : '...'
                                 }
                                 key={insumo.id}
                                 onCantidadChange={cantidad =>
                                     onCantidadInsumosChange({
-                                        [insumo.id]: cantidad,
+                                        [insumo.id_insumo]: cantidad,
                                     })
                                 }
                             />
