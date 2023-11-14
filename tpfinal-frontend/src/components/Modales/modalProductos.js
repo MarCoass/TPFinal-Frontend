@@ -33,8 +33,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
 import { TablaInsumosProductos } from '../Tablas/TablaInsumosProducto'
-import { NeoButton, NeoButtonChico } from '../Button'
+import { NeoButtonChico } from '../Button'
 import { NeoInput, NeoInputChico } from '../Input'
+import { ListadoInsumosUpdate } from '../Formularios/listado'
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -198,7 +199,7 @@ export function ModalProductoStore() {
 
             let url = '/administracion/productoStore'
             if (categoriaSet != '') {
-                formData.append('id_categoria', categoriaSet)
+                formData.append('id_categoria', categoriaSet.id)
                 formData.append('id_tip', tip)
                 url = '/api/setStore'
             }
@@ -472,6 +473,9 @@ export function ModalProductoUpdate({ idProducto }) {
         formData.append('estado', estado)
         formData.append('imagen', imagen)
 
+        const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
+        formData.append('cantidadesInsumos', cantidadesInsumosJSON)
+
         // Realiza la solicitud POST a tu servidor Laravel
         let urlUpdate = '/administracion/productoUpdate/'
         handleUpdate(idProducto, urlUpdate, formData)
@@ -588,10 +592,11 @@ export function ModalProductoUpdate({ idProducto }) {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="insumos">
-                                    <ListadoInsumos
+                                    <ListadoInsumosUpdate
+                                    idProducto = {idProducto}
                                         onCantidadInsumosChange={
                                             handleCantidadInsumosChange
-                                        }></ListadoInsumos>
+                                        }></ListadoInsumosUpdate>
                                 </TabsContent>
                                 <TabsContent value="set">
                                     <div className="flex justify-around">
