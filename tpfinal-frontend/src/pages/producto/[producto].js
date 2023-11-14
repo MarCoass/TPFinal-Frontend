@@ -4,7 +4,7 @@ import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
 import Button from '../../components/Button'
-
+import swal from 'sweetalert'
 
 
 const fetchProductos = (producto) => {
@@ -130,7 +130,7 @@ export default function infoProducto({ params }) {
                                         {/* <div className='cantidad-producto flex flex-row itens-center border-2 max-w-min rounded-full'><button name='quitar una unidad de producto' className='flex-items-center text-xs bg-gray-300 p-1 rounded-full h-min leading-none'>-</button><input className='border-0 w-20' value={1}></input><button  name='sumar una unidad de producto' >+</button></div> */}
                                         <Button className='inline-flex items-center justify-center px-4 py-2 ' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
                                         <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                                            <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(idProducto)}>
+                                            <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(infoProducto.id)}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     className="h-6 w-6 group-hover:opacity-70"
