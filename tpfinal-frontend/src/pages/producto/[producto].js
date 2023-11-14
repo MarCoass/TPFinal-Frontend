@@ -37,19 +37,31 @@ export default function infoProducto({ params }) {
     const handleAddToCart = async (id, cantidad) => {
         try {
             const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify([{id_producto:id, cantidad:cantidad}])}`);
-            console.log(responseStock.data)
             if (responseStock.data && responseStock.data.stock) {
                 // Si hay suficiente stock, procede con la compra
                 const responseAdd = axios.post('/agregar-producto', {id_producto:id, cantidad:cantidad});
-                console.log('Producto agregado:', responseAdd.data);
-                // console.log(responseAdd.data.status)
                 if (responseAdd) {
-                    console.log(responseAdd.data)
+                    swal({
+                        icon: 'success',
+                        title: 'Producto agregado al carrito.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
                 }
-                alert('hay stock beibi');
             } else {
                 // No hay suficiente stock para algunos productos
-                alert('No hay stock de este producto.', responseStock.data.data);
+                swal({
+                    icon: 'error',
+                    title: 'No hay stock de este producto.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
             }
           // Manejo de la respuesta si es necesario
         } catch (error) {

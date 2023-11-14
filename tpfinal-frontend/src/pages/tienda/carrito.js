@@ -6,6 +6,7 @@ import CustomSpinner from '@/components/CustomSpinner'
 import CarritoGrid from '@/components/Grids/CarritoGrid';
 import Button from '@/components/Button';
 import { ModalCompra } from '../../components/Modales/modalCompra';
+import swal from 'sweetalert'
 
 const fetchCarrito = (carrito) => {
     return axios
@@ -47,20 +48,47 @@ export default function Carrito() {
         console.log(infoCarrito.id_productos)
         try {
             const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`);
-            console.log(response.data)
             if (response.data && response.data.stock) {
                 // Si hay suficiente stock, procede con la compra
                 const respuesta = await axios.get('/api/comprar');
-                if (respuesta) {
-                    console.log(respuesta.data)
+                if(respuesta){
+                    swal({
+                        icon: 'success',
+                        title: 'Gracias por tu compra.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
                 }
-                alert('hay stock beibi');
             } else {
                 // No hay suficiente stock para algunos productos
-                alert('No hay suficiente stock para algunos productos en su carrito.', response.data.data);
+                swal({
+                    icon: 'error',
+                    title: 'No hay stock suficiente.',
+                    text: 'No hay stock suficiente del/los siguientes productos:'+
+                    response.data.data.nombre + ', stock disponible:' + response.data.data.stock,
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+                return
             }
         } catch (error) {
             console.error('Error al verificar el stock:', error);
+            swal({
+                icon: 'error',
+                title: 'Hubo un error, vuelva a intentarlo.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+            return
             // Manejo de errores
         }
     };

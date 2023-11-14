@@ -18,9 +18,12 @@ export function ModalCompra({ infoCarrito, precioTotal, handleBuy }) {
   const [precio, setPrecio] = useState();
   const [ciudadEntrega, setCiudadEntrega] = useState('');
   const [medioPago, setMedioPago] = useState('');
-  const [modalOpen, setModalOpen] = useState(true);
   const [errors, setErrors] = useState({ errorMedioPago: '', errorCiudadEntrega: '' });
   const [buyInProgress, setBuyInProgress] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     setPrecio(precioTotal);
@@ -40,7 +43,7 @@ export function ModalCompra({ infoCarrito, precioTotal, handleBuy }) {
         await handleBuy();
 
         // Cierra el modal después de que handleBuy se complete
-        setModalOpen(false);
+        closeModal();
       } else {
         if (medioPago === '') {
           setErrors((prevErrors) => ({ ...prevErrors, errorMedioPago: 'Debe seleccionar un medio de pago' }));
@@ -50,10 +53,12 @@ export function ModalCompra({ infoCarrito, precioTotal, handleBuy }) {
       }
     } catch (error) {
       console.error('Error al validar el formulario:', error);
+      closeModal();
       // Manejo de errores
     } finally {
       // Indica que la compra ya no está en progreso
       setBuyInProgress(false);
+
     }
   };
 
