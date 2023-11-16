@@ -17,8 +17,9 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { NeoButtonChico } from '../Button'
+import { Search } from 'lucide-react'
 // Definición del componente DataTable en JavaScript
-export default function Tabla({ columns, data }) {
+export default function Tabla({ columns, data, filtrar }) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnFilters, setColumnFilters] = React.useState([])
@@ -41,7 +42,29 @@ export default function Tabla({ columns, data }) {
 
     return (
         <div>
-            <div className="flex items-center py-2 gap-2"></div>
+            {filtrar && (
+                <div className="py-3 flex justify-end">
+                    <div className="flex w-min items-center  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <input
+                            placeholder="Filtrar por nombre..."
+                            value={
+                                table.getColumn('nombre')?.getFilterValue() ??
+                                ''
+                            }
+                            onChange={event =>
+                                table
+                                    .getColumn('nombre')
+                                    ?.setFilterValue(event.target.value)
+                            }
+                            className="w-[30ch] p-[10px] outline-none"
+                        />
+                        <div className="h-full border-l-2 border-black bg-lila-500 p-[10px] px-5">
+                            <Search />
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="">
                 <Table className="rounded-[5px] border-2 border-black">
                     <TableHeader>
@@ -69,7 +92,7 @@ export default function Tabla({ columns, data }) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow
-                                className="border-black border-2 font-bold"
+                                    className="border-black border-2 font-bold"
                                     key={row.id}
                                     data-state={
                                         row.getIsSelected() && 'selected'
