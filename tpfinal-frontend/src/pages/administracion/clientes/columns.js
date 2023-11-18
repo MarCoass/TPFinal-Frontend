@@ -2,7 +2,7 @@
 
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ModalComentarCliente } from '../../../components/Modales/modalCliente'
+import { ModalComentarCliente, ModalVerClienteCompleto } from '../../../components/Modales/modalCliente'
 
 export const PrecioProveedor = {
     id: '',
@@ -46,8 +46,21 @@ export const columnsClientes = [
         header: 'Anotacion',
         cell: ({ row }) => {
             return (
+                <div className="max-w-[200px] truncate ...">
+                    {row.getValue('observacion')}
+                </div>
+            )
+        },
+    },
+    {
+        accessorKey: 'acciones',
+        header: '',
+        cell: ({ row }) => {
+            return (
                 <div className="">
-                    {row.getValue('observacion')} <ModalComentarCliente id={row.original.id}></ModalComentarCliente>
+                    <ModalComentarCliente
+                        id={row.original.id}></ModalComentarCliente>
+                        <ModalVerClienteCompleto  id={row.original.id}></ModalVerClienteCompleto>
                 </div>
             )
         },
