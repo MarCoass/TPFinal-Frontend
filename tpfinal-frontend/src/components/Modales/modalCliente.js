@@ -6,16 +6,22 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-    AlertDialogAction
+    AlertDialogAction,
 } from '@/components/ui/alert-dialog'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import { Eye, Pencil } from 'lucide-react'
+import { columns } from '../../pages/administracion/pedidos/columns'
+import Tabla from '../Tablas/data-table'
 const { default: getCookie } = require('@/lib/cookies')
-
 
 const fetchCliente = id => {
     return axios.get('/api/administracion/cliente/' + id).then(res => res.data)
+}
+const fetchPedidos = id => {
+    return axios
+        .get('/api/administracion/clientePedidos/' + id)
+        .then(res => res.data)
 }
 
 export function ModalVerCliente({ id }) {
@@ -124,7 +130,7 @@ export function ModalComentarCliente({ id }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="flex flex-row  rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
-                    <Pencil className='w-4 mx-2'></Pencil> Comentar
+                    <Pencil className="w-4 mx-2"></Pencil> Comentar
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit}>
@@ -166,15 +172,15 @@ export function ModalComentarCliente({ id }) {
     )
 }
 
-export function ModalVerClienteCompleto({ id }) {
-    const [cliente, setCliente] = useState()
+export function ModalVerClienteCompleto({ id, nombre }) {
+    const [pedidos, setPedidos] = useState()
 
     useEffect(() => {
         if (id != null) {
             async function obtenerCliente() {
                 try {
-                    const data = await fetchCliente(id)
-                    setCliente(data)
+                    const data = await fetchPedidos(id)
+                    setPedidos(data)
                     /*  console.log(data) */
                 } catch (error) {
                     console.error(
@@ -191,24 +197,14 @@ export function ModalVerClienteCompleto({ id }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
-                 <Eye className='h-4 mx-2'></Eye> Ver mas
+                    <Eye className="h-4 mx-2"></Eye> Ver pedidos
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            Informacion del cliente
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>Pedidos de {nombre}</AlertDialogTitle>
                     </AlertDialogHeader>
 
-                    {cliente && (
-                        <div className='font-bold'>
-                            <p>Nombre: {cliente.nombre}</p>
-                            <p>Apellido: {cliente.apellido}</p>
-                            <p>Email: {cliente.email}</p>
-                            <p>Numero de telefono: {cliente.num_telefono}</p>
-                            <p className='max-w-[450px] overflow-clip'>Observacion: {cliente.observacion}</p>
-                        </div>
-                    )}
+                    {pedidos && <Tabla columns={columns} data={pedidos} />}
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
