@@ -36,11 +36,21 @@ export default function Carrito() {
     }, [carrito])
 
     const obtenerDatos = async () => {
+        console.log('obtenerDatos')
         try {
             const dataCarrito = await fetchCarrito(carrito);
             setCarrito(dataCarrito);
         } catch (error) {
             console.error('Hubo un problema obteniendo los datos: ', error);
+            swal({
+                icon: 'error',
+                title: 'Hubo un problema eliminando el producto, inténtelo otra vez.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         }
     }
 
