@@ -8,7 +8,7 @@ import { Image, Trash2 } from 'lucide-react';
 
 const handleAddToCart = async (id, cantidad) => {
     try {
-        const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify([{ id_producto: id, cantidad: cantidad }])}`);
+        const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
         console.log(responseStock.data)
         if (responseStock.data && responseStock.data.stock) {
             // Si hay suficiente stock, procede con la compra
@@ -147,11 +147,11 @@ const ProductCard = ({
                     <p className="text-md text-gray-800 mt-0">
                         ${precioProducto}
                     </p>
-                    {esAdmin ? (
+                     {esAdmin ? ( 
                         <p className="text-md text-gray-800 mt-0">
                             Stock: {stock}
                         </p>
-                    ) : null}
+                    ) : null} 
                     {stock === 0 ? (
                         <p className="text-md text-red-800 mt-0">SIN STOCK</p>
                     ) : null}
