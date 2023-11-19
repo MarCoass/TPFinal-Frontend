@@ -49,6 +49,7 @@ export default function Carrito() {
         try {
             const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`);
             if (response.data && response.data.stock) {
+                console.log(response.data)
                 // Si hay suficiente stock, procede con la compra
                 const respuesta = await axios.get('/api/comprar');
                 if(respuesta){
@@ -64,11 +65,15 @@ export default function Carrito() {
                 }
             } else {
                 // No hay suficiente stock para algunos productos
+                console.log(response.data)
+                let cadenaTexto = 'No hay stock suficiente del/los siguientes productos:\n'
+                response.data.data.forEach(producto => {
+                    cadenaTexto = cadenaTexto + producto.nombre + ', stock disponible:' + producto.stock + '\n'
+                });
                 swal({
                     icon: 'error',
                     title: 'No hay stock suficiente.',
-                    text: 'No hay stock suficiente del/los siguientes productos:'+
-                    response.data.data.nombre + ', stock disponible:' + response.data.data.stock,
+                    text: cadenaTexto,
                     button: {
                         text: 'X',
                         className:
