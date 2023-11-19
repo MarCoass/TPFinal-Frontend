@@ -96,6 +96,7 @@ export default function Carrito() {
             return
             // Manejo de errores
         }
+        obtenerDatos()
     };
 
 
