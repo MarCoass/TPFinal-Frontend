@@ -39,6 +39,7 @@ export default function Carrito() {
         console.log('obtenerDatos')
         try {
             const dataCarrito = await fetchCarrito(carrito);
+            console.log(dataCarrito)
             setCarrito(dataCarrito);
         } catch (error) {
             console.error('Hubo un problema obteniendo los datos: ', error);

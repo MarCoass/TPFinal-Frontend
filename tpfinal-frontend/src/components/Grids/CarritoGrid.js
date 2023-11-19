@@ -40,17 +40,23 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
     }
   };
 
-  const handleRemoveProduct = (index) => {
+  const handleRemoveProduct = async (idProducto) => {
     try {
+      const productoEncontrado = cantidades.find((producto)=> producto.id_producto === idProducto)
+      console.log(idProducto)
       // Llamada a la API para eliminar el producto
-      const response = axios.post('/eliminar-producto', cantidades[index]);
+      const response = await axios.post('/eliminar-producto',productoEncontrado);
       console.log('Producto eliminado:', response.data);
-      obtenerDatos()
+      if(response){
+        console.log(response)
+        obtenerDatos()
+      }
       // Manejo de la respuesta si es necesario
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
       // Manejo de errores 
     }
+
 
   };
 
@@ -129,7 +135,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
                     <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
                   </div>
                   <div className="flex justify-center">
-                    <NeoButtonMini onClick={() => handleRemoveProduct(i)}><Trash2 /></NeoButtonMini>
+                    <NeoButtonMini onClick={() => handleRemoveProduct(producto.original.id)}><Trash2 /></NeoButtonMini>
                   </div>
                 </div>
               </div>
