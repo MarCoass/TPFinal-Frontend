@@ -47,7 +47,7 @@ export default function Carrito() {
     const handleBuy = async () => {
         console.log(infoCarrito.id_productos)
         try {
-            const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`);
+            const response = await axios.get(`/api/verificar-stock/${'carrito'}`);
             if (response.data && response.data.stock) {
                 console.log(response.data)
                 // Si hay suficiente stock, procede con la compra
