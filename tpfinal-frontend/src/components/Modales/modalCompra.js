@@ -58,17 +58,17 @@ export function ModalCompra({ infoCarrito, precioTotal, handleBuy }) {
     } finally {
       // Indica que la compra ya no está en progreso
       setBuyInProgress(false);
-
     }
   };
 
   return (
     <>
-      {modalOpen && (
+      {/* {modalOpen && ( */}
         <AlertDialog className="flex flex-col">
-          <AlertDialogTrigger className="flex cursor-pointer rounded-md items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] ">
+          <AlertDialogTrigger onClick={() => setModalOpen(true)} className="flex cursor-pointer rounded-md items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] ">
             Comprar
           </AlertDialogTrigger>
+          {modalOpen && (
           <AlertDialogContent className="bg-rosado-50">
             <form className="flex flex-col justify-start gap-4">
               <AlertDialogHeader className="flex">
@@ -93,8 +93,8 @@ export function ModalCompra({ infoCarrito, precioTotal, handleBuy }) {
               </AlertDialogFooter>
             </form>
           </AlertDialogContent>
+          )}
         </AlertDialog>
-      )}
     </>
   );
 }
