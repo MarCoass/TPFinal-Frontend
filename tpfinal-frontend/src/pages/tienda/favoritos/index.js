@@ -69,23 +69,24 @@ export default function Favoritos({ diseño, forma, largo, ciudad }) {
     const [productos, setProductos] = useState(null)
     const [productosFiltrados, setProductosFiltrados] = useState(null)
     useEffect(() => {
-        async function obtenerProductos() {
-            try {
-                const data = await fetchProductos()
-                let productosArray=[];
-                data.map((producto)=>{
-                    productosArray.push(producto.original)
-                })
-                setProductos(productosArray)
-                console.log(data)
-            } catch (error) {
-                console.error('Error al obtener productos:', error)
-            }
-        }
         obtenerProductos()
         // setProductosFiltrados(productos)
         // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
     }, [])
+
+    const obtenerProductos = async()=>{
+        try {
+            const data = await fetchProductos()
+            let productosArray=[];
+            data.map((producto)=>{
+                productosArray.push(producto.original)
+            })
+            setProductos(productosArray)
+            console.log(data)
+        } catch (error) {
+            console.error('Error al obtener productos:', error)
+        }
+    }
 
     useEffect(() => {
         if (productos) {
@@ -127,6 +128,7 @@ export default function Favoritos({ diseño, forma, largo, ciudad }) {
                                             esAdmin={false}
                                             idProducto={producto.id}
                                             esFavorito={true}
+                                            obtenerProductos={obtenerProductos}
                                         >
                                         </ProductCard>
                                     </div>

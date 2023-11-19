@@ -6,95 +6,6 @@ import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 import { Image, Trash2 } from 'lucide-react';
 
-const handleAddToCart = async (id, cantidad) => {
-    try {
-        const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
-        console.log(responseStock.data)
-        if (responseStock.data && responseStock.data.stock) {
-            // Si hay suficiente stock, procede con la compra
-            const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
-            // console.log(responseAdd.data.status)
-            if (responseAdd) {
-                swal({
-                    icon: 'success',
-                    title: 'Producto agregado al carrito.',
-                    button: {
-                        text: 'X',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
-            }
-        } else {
-            // No hay suficiente stock para algunos productos
-            swal({
-                icon: 'error',
-                title: 'No hay stock de este producto.',
-                button: {
-                    text: 'X',
-                    className:
-                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                },
-            })
-        }
-        // Manejo de la respuesta si es necesario
-    } catch (error) {
-        console.error('Error al agregar el producto:', error);
-        // Manejo de errores
-    }
-};
-
-const handleEliminarFavorito = (id) =>{
-    const responseAdd = axios.post('api/favorito-eliminar', { id_producto: id});
-    if (responseAdd) {
-        swal({
-            icon: 'success',
-            title: 'Producto eliminado de favoritos.',
-            button: {
-                text: 'X',
-                className:
-                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-            },
-        })
-    }
-}
-
-const handleAgregarFavorito = async (id) =>{
-    const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
-    if (responseAdd ) {
-        if(!responseAdd.data.repetido){
-            swal({
-                icon: 'success',
-                title: 'Producto agregado a favoritos.',
-                button: {
-                    text: 'X',
-                    className:
-                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                },
-            })
-        } else {
-            swal({
-                icon: 'error',
-                title: 'Este producto ya existe en tu lista de favoritos.',
-                button: {
-                    text: 'X',
-                    className:
-                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                },
-            })
-        }
-    } else {
-        swal({
-            icon: 'error',
-            title: 'Hubo un error, vuelva a intentarlo.',
-            button: {
-                text: 'X',
-                className:
-                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-            },
-        })
-    }
-}
 
 const ProductCard = ({
     imgUrl,
@@ -104,9 +15,103 @@ const ProductCard = ({
     stock,
     esAdmin,
     idProducto,
-    esFavorito
+    esFavorito,
+    obtenerProductos
 }) => {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage'
+
+    const handleAddToCart = async (id, cantidad) => {
+        try {
+            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
+            console.log(responseStock.data)
+            if (responseStock.data && responseStock.data.stock) {
+                // Si hay suficiente stock, procede con la compra
+                const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
+                // console.log(responseAdd.data.status)
+                if (responseAdd) {
+                    swal({
+                        icon: 'success',
+                        title: 'Producto agregado al carrito.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                }
+            } else {
+                // No hay suficiente stock para algunos productos
+                swal({
+                    icon: 'error',
+                    title: 'No hay stock de este producto.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
+            // Manejo de la respuesta si es necesario
+        } catch (error) {
+            console.error('Error al agregar el producto:', error);
+            // Manejo de errores
+        }
+    };
+    
+    
+
+    const handleEliminarFavorito = async (id) =>{
+        const responseAdd = await axios.post('api/favorito-eliminar', { id_producto: id});
+        if (responseAdd) {
+            swal({
+                icon: 'success',
+                title: 'Producto eliminado de favoritos.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        }
+        obtenerProductos()
+    }
+
+    const handleAgregarFavorito = async (id) =>{
+        const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
+        if (responseAdd ) {
+            if(!responseAdd.data.repetido){
+                swal({
+                    icon: 'success',
+                    title: 'Producto agregado a favoritos.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            } else {
+                swal({
+                    icon: 'error',
+                    title: 'Este producto ya existe en tu lista de favoritos.',
+                    button: {
+                        text: 'X',
+                        className:
+                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                    },
+                })
+            }
+        } else {
+            swal({
+                icon: 'error',
+                title: 'Hubo un error, vuelva a intentarlo.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        }
+    }
     return (
         <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
             <div className="overflow-x-hidden rounded-2xl relative">
