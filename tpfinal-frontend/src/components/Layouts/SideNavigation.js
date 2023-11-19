@@ -67,12 +67,18 @@ export function NeoSideNavigation({ active, setActive, children }) {
                         active={router.pathname === '/administracion/tareas'}>
                         Tareas
                     </NavLink>
+                  
                     <NavLink
                         href="/administracion/proveedores"
                         active={
                             router.pathname === '/administracion/proveedores'
                         }>
                         Proveedores
+                    </NavLink>
+                    <NavLink
+                        href="/administracion/clientes"
+                        active={router.pathname === '/administracion/clientes'}>
+                        Clientes
                     </NavLink>
                 </div>
                 <div className="flex flex-col border-t-2 border-black">
