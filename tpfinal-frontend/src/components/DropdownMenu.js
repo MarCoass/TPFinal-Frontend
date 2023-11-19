@@ -50,7 +50,7 @@ export function DropdownMenuCheckboxes({ nombreMenu, filtro, onCheckboxChange })
           </Button>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-56 bg-white">
         <DropdownMenuLabel>{nombreMenu}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
