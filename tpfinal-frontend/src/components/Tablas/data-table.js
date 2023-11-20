@@ -1,7 +1,5 @@
 import * as React from 'react'
 import {
-    SortingState,
-    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -18,12 +16,10 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Search } from 'lucide-react';
+import { NeoButtonChico } from '../Button'
+import { Search } from 'lucide-react'
 // Definición del componente DataTable en JavaScript
-export default function DataTable({ columns, data, handleDelete }) {
+export default function Tabla({ columns, data, filtrar }) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnFilters, setColumnFilters] = React.useState([])
@@ -44,23 +40,33 @@ export default function DataTable({ columns, data, handleDelete }) {
         },
     })
 
-
     return (
         <div>
-            <div className="flex items-center py-2 gap-2">
-               {/*  <Search /><Input
-                    placeholder="Filtrar por nombre..."
-                    value={table.getColumn('nombre')?.getFilterValue() ?? ''}
-                    onChange={event =>
-                        table
-                            .getColumn('nombre')
-                            ?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />  */}
-            </div>
-            <div className="rounded-md">
-                <Table className="rounded border">
+            {filtrar && (
+                <div className="py-3 flex justify-end">
+                    <div className="flex w-min items-center  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <input
+                            placeholder="Filtrar por nombre..."
+                            value={
+                                table.getColumn('nombre')?.getFilterValue() ??
+                                ''
+                            }
+                            onChange={event =>
+                                table
+                                    .getColumn('nombre')
+                                    ?.setFilterValue(event.target.value)
+                            }
+                            className="w-[30ch] p-[10px] outline-none"
+                        />
+                        <div className="h-full border-l-2 border-black bg-lila-500 p-[10px] px-5">
+                            <Search />
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="">
+                <Table className="rounded-[5px] border-2 border-black">
                     <TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
@@ -68,7 +74,7 @@ export default function DataTable({ columns, data, handleDelete }) {
                                     return (
                                         <TableHead
                                             key={header.id}
-                                            className="bg-rosado-200 uppercase text-lg">
+                                            className="bg-lila-400 uppercase text-lg font-bold border-b-2  border-black">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -86,6 +92,7 @@ export default function DataTable({ columns, data, handleDelete }) {
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow
+                                    className="border-black border-2 font-bold"
                                     key={row.id}
                                     data-state={
                                         row.getIsSelected() && 'selected'
@@ -113,20 +120,20 @@ export default function DataTable({ columns, data, handleDelete }) {
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
+                <NeoButtonChico
                     className=" bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}>
-                    Previous
-                </Button>
-                <Button
+                    Anterior
+                </NeoButtonChico>
+                <NeoButtonChico
                     className="m-5 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}>
-                    Next
-                </Button>
+                    Siguiente
+                </NeoButtonChico>
             </div>
         </div>
     )

@@ -1,22 +1,28 @@
-import React, { useState } from 'react'
-import Input from '../Input'
+import React, { useState, useEffect } from 'react';
+import Input from '../Input';
 
-export default function InputInsumo({ id, nombre, onCantidadChange  }) {
-    const [cantidad, setCantidad] = useState(0)
+export default function InputInsumo({ id, nombre, onCantidadChange, value }) {
+    const [cantidad, setCantidad] = useState(value);
 
-    const handleCantidadChange = e => {
-        const nuevaCantidad = parseInt(e.target.value, 10)
-        setCantidad(nuevaCantidad)
-        onCantidadChange(nuevaCantidad) // Llama a la función de devolución de llamada con la nueva cantidad.
-    }
+    useEffect(() => {
+        setCantidad(value);
+    }, [value]);
+
+    const handleCantidadChange = (e) => {
+        const nuevaCantidad = parseInt(e.target.value, 10);
+        setCantidad(nuevaCantidad);
+        onCantidadChange(nuevaCantidad);
+    };
+
     return (
         <div>
-            <label>{nombre}</label>
+            <label htmlFor={id}>{nombre}</label>
             <Input
+                id={id}
                 type="number"
                 value={cantidad}
                 onChange={handleCantidadChange}
             />
         </div>
-    )
+    );
 }

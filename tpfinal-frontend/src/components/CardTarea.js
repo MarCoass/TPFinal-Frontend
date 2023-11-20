@@ -1,7 +1,10 @@
-import { CalendarDays, Pencil, Trash2 } from 'lucide-react'
-import { DeleteButton, UpdateButton } from './Button'
-import handleDelete from '../lib/handleDelete'
-import ModalTareaUpdate, { ModalTareaDelete, ModalTareaTerminar } from './Modales/modalTarea'
+import { CalendarDays} from 'lucide-react'
+import ModalTareaUpdate, {
+    ModalTareaDelete,
+    ModalTareaTerminar,
+} from './Modales/modalTarea'
+import { convertirFechaLarga } from '../lib/formatoFechas'
+
 
 const CardTarea = ({ tarea }) => (
     <div
@@ -9,19 +12,26 @@ const CardTarea = ({ tarea }) => (
             tarea.estado === 0
                 ? 'bg-rosado-400 text-black'
                 : 'bg-gray-400 text-gray-700'
-        } bg-rosado-200 grid grid-flow-row w-max p-4 rounded gap-2`}>
-        <div className="font-bold">{tarea.titulo}</div>
-        <div className="pt-4">{tarea.descripcion}</div>
-        <div className="text-sm flex ">
-            <CalendarDays className="h-4"></CalendarDays> Vencimiento:{' '}
-            {tarea.fecha_vencimiento}{' '}
+        } rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`}>
+        <div className="border-b-2 border-black p-4">
+            <h2 className="text-lg">{tarea.titulo}</h2>
         </div>
-        <hr />
+        <div className="p-4 border-b-2 border-black">
+            <p>{tarea.descripcion}</p>
+            <div className="text-sm flex pt-2">
+                <CalendarDays className="h-4"></CalendarDays> Vencimiento:{' '}
+                {convertirFechaLarga(tarea.fecha_vencimiento)}{' '}
+            </div>
+        </div>
+
         <div className="flex gap-3 m-3">
             <ModalTareaUpdate id={tarea.id}></ModalTareaUpdate>
             <ModalTareaDelete id={tarea.id}></ModalTareaDelete>
-            {tarea.estado===0 ? (  <ModalTareaTerminar  id={tarea.id}></ModalTareaTerminar>) : (<p></p>)}
-          
+            {tarea.estado === 0 ? (
+                <ModalTareaTerminar id={tarea.id}></ModalTareaTerminar>
+            ) : (
+                <p></p>
+            )}
         </div>
     </div>
 )
@@ -31,7 +41,7 @@ export default CardTarea
 export const CardTareaDashboard = ({ tarea }) => {
     return (
         <>
-            <div className="bg-naranja-200 m-1 p-4 w-max border rounded">
+            <div className="flex items-center justify-center rounded-[5px] border-2 border-black bg-rosado-400 p-5 px-8 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 <p>{tarea.titulo}</p>
             </div>
         </>

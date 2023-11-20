@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
-import { Listbox, ListboxItem } from '@nextui-org/listbox'
-import { ListboxWrapper } from './listboxWrapper'
 import InputInsumo from './InputInsumo'
+import { insumosUsados } from '@/lib/producto'
+import { ModalAgregarInsumo } from '../Modales/modalInsumoProducto'
+import { ListboxWrapper } from '../Formularios/listboxWrapper'
+import { Listbox, ListboxSection, ListboxItem } from '@nextui-org/listbox'
 
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
+const fetchUsados = idProducto => {
+    return axios.get('/api/insumosUsados/' + idProducto).then(res => res.data)
+}
 
-export default function ListadoInsumos({ onCantidadInsumosChange }) {
-    const [insumos, setInsumos] = useState([])  
+export default function ListadoInsumos({
+    onCantidadInsumosChange,
+    idProducto,
+}) {
+    const [insumos, setInsumos] = useState([])
     const [selectedKeys, setSelectedKeys] = React.useState([])
 
     useEffect(() => {
@@ -29,7 +37,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
         obtenerInsumos()
     }, [])
 
-
     const getCantidadInsumosSeleccionados = () => {
         const cantidades = {}
 
@@ -38,8 +45,6 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                 item => item.id === parseInt(id_insumo, 10),
             )
             if (insumo) {
-                // Aquí puedes definir cómo obtener la cantidad de cada insumo si es necesario.
-                // Por ejemplo, puedes solicitar la cantidad al usuario o tenerla como un estado local.
                 cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
             }
         })
@@ -49,10 +54,11 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
     }
 
     return (
-        <div className="flex gap-4 ">
-            <ListboxWrapper>
+        <div className="h-max gap-4 flex">
+            <ListboxWrapper className="h-60">
                 <p>Seleccione los insumos utilizados</p>
                 <Listbox
+                    className="overflow-y-auto h-60"
                     items={insumos}
                     aria-label="Multiple selection example"
                     variant="flat"
@@ -81,7 +87,7 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                                 key={insumo.id}
                                 onCantidadChange={cantidad =>
                                     onCantidadInsumosChange({
-                                        [insumo.id]: cantidad
+                                        [insumo.id]: cantidad,
                                     })
                                 }></InputInsumo>
                         ) // Asegúrate de incluir un 'return' aquí
@@ -89,6 +95,80 @@ export default function ListadoInsumos({ onCantidadInsumosChange }) {
                 ) : (
                     <p>No se han seleccionado insumos</p> // Puedes mostrar 'Selected value' aquí
                 )}
+            </div>
+        </div>
+    )
+}
+
+export function ListadoInsumosUpdate({ onCantidadInsumosChange, idProducto }) {
+    const [insumosUsados, setInsumosUsados] = useState()
+    const [insumos, setInsumos] = useState([])
+    const [selectedKeys, setSelectedKeys] = React.useState([])
+
+    useEffect(() => {
+        async function obtenerInsumos() {
+            try {
+                const data = await fetchUsados(idProducto)
+                setInsumosUsados(data)
+                const data2 = await fetchInsumos()
+                setInsumos(data2)
+            } catch (error) {
+                console.error('Error al obtener insumos:', error)
+                // En caso de error, simplemente establece insumos como un array vacío
+                setInsumos([])
+            }
+        }
+
+        obtenerInsumos()
+    }, [])
+
+    const getCantidadInsumosSeleccionados = () => {
+        const cantidades = {}
+
+        selectedKeys.forEach(id_insumo => {
+            const insumo = insumos.find(
+                item => item.id === parseInt(id_insumo, 10),
+            )
+            if (insumo) {
+                cantidades[insumo.id] = 0 // Inicialmente, todas las cantidades son 0.
+            }
+        })
+
+        // Luego, llama a la función de devolución de llamada para pasar las cantidades al componente padre.
+        onCantidadInsumosChange(cantidades)
+    }
+
+    return (
+        <div className="h-max gap-4 flex">
+            <div className="">
+                <p>Seleccione la cantidad de cada insumo</p>
+
+                {insumosUsados &&
+                    insumos &&
+                    insumosUsados.map(insumo => {
+                     
+                        const insumoUsado = insumos.find(
+                            usado => usado.id === insumo.id_insumo,
+                        )
+
+                        return (
+                            <InputInsumo
+                                value={insumo.cantidad }
+                                id={insumo.id_insumo}
+                                nombre={
+                                    insumoUsado ? insumoUsado.nombre : '...'
+                                }
+                                key={insumo.id}
+                                onCantidadChange={cantidad =>
+                                    onCantidadInsumosChange({
+                                        [insumo.id_insumo]: cantidad,
+                                    })
+                                }
+                            />
+                        )
+                    })}
+                <ModalAgregarInsumo
+                    idProducto={{ idProducto }}></ModalAgregarInsumo>
             </div>
         </div>
     )

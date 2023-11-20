@@ -1,7 +1,6 @@
 import ApplicationLogo from '@/components/ApplicationLogo'
 import AuthCard from '@/components/AuthCard'
 import AuthSessionStatus from '@/components/AuthSessionStatus'
-import Button from '@/components/Button'
 import GuestLayout from '@/components/Layouts/GuestLayout'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
@@ -59,7 +58,7 @@ const Login = () => {
                 }>
                 {/* Session Status */}
                 <AuthSessionStatus className="mb-4" status={status} />
-                <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                <h1 className="text-black text-4xl m-5 text-center">
                     Iniciar sesion
                 </h1>
                 <form onSubmit={submitForm}>
@@ -132,7 +131,7 @@ const Login = () => {
                             ¿Olvidaste tu contraseña?
                         </Link>
                     </div>
-                    <Button className="mt-5 w-full">Iniciar sesion</Button>
+                    <button className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">Iniciar sesion</button>
                 </form>
             </AuthCard>
         </GuestLayout>

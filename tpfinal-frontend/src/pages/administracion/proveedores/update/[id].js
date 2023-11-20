@@ -3,22 +3,15 @@ import { useAuth } from '@/hooks/auth'
 import { router, useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import AdminLayout from '@/components/Layouts/AdminLayout'
-
 import axios from '@/lib/axios'
 import Input from '@/components/Input'
 import getCookie from '@/lib/cookies'
-import SelectCategoriasInsumos from '@/components/Formularios/SelectCategoriasInsumos'
-import { SelectEstadosInsumo } from '@/components/Formularios/SelectEstados'
 
-const fetchInsumo = id => {
-    return axios
-        .get(
-            `/api/administracion/insumo/${id}`, // Usa axios.get en lugar de fetch
-        )
-        .then(res => res.data)
+const fetchProveedor = id => {
+    return axios.get(`/api/proveedor/${id}`).then(res => res.data)
 }
 
-export default function InsumoUpdate() {
+export default function ProveedorUpdate() {
     const { user } = useAuth()
 
     const rolesAutorizados = [1]
@@ -32,24 +25,17 @@ export default function InsumoUpdate() {
 
     const { id } = useRouter().query
     const [nombre, setNombre] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [stock, setStock] = useState('')
-    const [stock_minimo, setStockMinimo] = useState('')
-    const [id_categoria, setCategoria] = useState('')
-    const [estado, setEstado] = useState('')
-    const [marca, setMarca] = useState('')
+    const [direccion, setDireccion] = useState('')
+    const [anotacion, setAnotacion] = useState('')
 
     useEffect(() => {
         if (id) {
-            async function obtenerInsumo() {
+            async function obtenerProveedor() {
                 try {
-                    const data = await fetchInsumo(id)
+                    const data = await fetchProveedor(id)
                     setNombre(data.nombre)
-                    setDescripcion(data.descripcion)
-                    setStock(data.stock)
-                    setStockMinimo(data.stock_minimo)
-                    setEstado(data.estado)
-                    setMarca(data.marca)
+                    setDireccion(data.direccion)
+                    setAnotacion(data.anotacion)
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -57,7 +43,7 @@ export default function InsumoUpdate() {
                     )
                 }
             }
-            obtenerInsumo()
+            obtenerProveedor()
         }
     }, [])
 
@@ -66,12 +52,8 @@ export default function InsumoUpdate() {
         try {
             const formData = new FormData()
             formData.append('nombre', nombre)
-            formData.append('descripcion', descripcion)
-            formData.append('stock', stock)
-            formData.append('stock_minimo', stock_minimo)
-            formData.append('id_categoria', id_categoria)
-            formData.append('estado', estado)
-            formData.append('marca', marca)
+            formData.append('direccion', direccion)
+            formData.append('anotacion', anotacion)
 
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
@@ -79,7 +61,7 @@ export default function InsumoUpdate() {
             }
 
             const response = await axios.post(
-                '/api/administracion/insumosUpdate/' + id,
+                '/api/proveedorUpdate/' + id,
                 formData,
                 {
                     headers,
@@ -97,11 +79,11 @@ export default function InsumoUpdate() {
             <AdminLayout
                 header={
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Editar insumo
+                        Editar proveedor
                     </h2>
                 }>
                 <Head>
-                    <title>Editar Insumo - Mar Nails</title>
+                    <title>Editar Proveedor - Mar Nails</title>
                 </Head>
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -124,62 +106,27 @@ export default function InsumoUpdate() {
                                     </div>
 
                                     <div className="flex justify-around">
-                                        <label>Descripcion:</label>
+                                        <label>Direccion:</label>
                                         <Input
                                             type="text"
-                                            value={descripcion}
+                                            value={direccion}
                                             onChange={e =>
-                                                setDescripcion(e.target.value)
+                                                setDireccion(e.target.value)
                                             }
                                         />
                                     </div>
 
                                     <div className="flex justify-around">
-                                        <label>Stock:</label>
-                                        <Input
-                                            type="number"
-                                            value={stock}
-                                            onChange={e =>
-                                                setStock(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <label>Stock minimo:</label>
-                                        <Input
-                                            type="number"
-                                            value={stock_minimo}
-                                            onChange={e =>
-                                                setStockMinimo(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasInsumos
-                                            value={id_categoria}
-                                            onChange={newCategoria =>
-                                                setCategoria(newCategoria)
-                                            }></SelectCategoriasInsumos>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <SelectEstadosInsumo
-                                            value={estado}
-                                            onChange={newEstado =>
-                                                setEstado(newEstado)
-                                            }></SelectEstadosInsumo>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label>Marca:</label>
+                                        <label>Anotacion:</label>
                                         <Input
                                             type="text"
-                                            value={marca}
+                                            value={anotacion}
                                             onChange={e =>
-                                                setMarca(e.target.value)
+                                                setAnotacion(e.target.value)
                                             }
                                         />
                                     </div>
+
                                     <button
                                         className="border border-violeta-500 w-20 "
                                         type="submit">

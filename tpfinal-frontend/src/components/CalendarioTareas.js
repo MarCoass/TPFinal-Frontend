@@ -75,15 +75,15 @@ export default function CalendarioTareas() {
     }
 
     return (
-        <div className="">
+        <div className=" max-w-min rounded-[5px] border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <Calendar
                 mode="multiple"
                 selected={seleccionadas}
                 onDayClick={handleDayClick}
-                className="rounded-md border"
+                className="border-b-black border-b-2 bg-lila-400 "
             />
-            <div>
-                <h3>Tareas para el día {diaSeleccionado}:</h3>
+            <div className='py-5 px-3 bg-lila-300'>
+                <p className='font-bold '>Tareas para el día {diaSeleccionado}:</p>
                 {tareasDelDia.length > 0 ? (
                     <div className="tareas-del-dia">
                         <ul>

@@ -11,9 +11,15 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { Checkbox } from '@/components/ui/checkbox'
 import { estadosInsumos } from '@/lib/estados'
 import handleDelete from '../../../../lib/handleDelete'
+import {
+    ModalInsumoEliminar,
+    ModalInsumoModificar,
+    ModalInsumoPrecios,
+    ModalInsumoStockUpdate,
+    ModalInsumoVer,
+} from '../../../../components/Modales/modalInsumos'
 
 export const Insumo = {
     id: '',
@@ -52,48 +58,46 @@ export const columns = [
         header: 'Marca',
     },
     {
-        accessorKey: 'estado',
-        header: 'Estado',
+        accessorKey: 'stock',
+        header: 'Stock',
         cell: ({ row }) => {
-            const id_estado = row.getValue('estado')
-            const estados = estadosInsumos()
-            const estado = estados.find(estado => estado.id === id_estado)
-            return <div>{estado.nombre}</div>
+            const insumo = row.original
+            return (
+                <>
+                    <ModalInsumoStockUpdate
+                        idInsumo={insumo.id}
+                        stockViejo={insumo.stock}></ModalInsumoStockUpdate>
+                </>
+            )
         },
     },
     {
-        accessorKey: 'stock',
-        header: 'Stock',
+        accessorKey: 'precio',
+        header: 'Precio',
+        cell: ({ row }) => {
+            const insumo = row.original
+            return (
+                <>
+                    <ModalInsumoPrecios
+                        idInsumo={insumo.id}></ModalInsumoPrecios>
+                </>
+            )
+        },
     },
     {
         id: 'actions',
         header: 'Opciones',
         cell: ({ row }) => {
             const insumo = row.original
-            const urlUpdate = '/administracion/insumos/update/' + insumo.id
-            const urlDelete = '/api/administracion/insumosDelete/'
+         
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Opciones</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-rosado-200">
-                        <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                        <DropdownMenuItem className="hover:bg-rosado-600">
-                            <a href={urlUpdate}>Editar</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            className="hover:bg-rosado-600"
-                            onClick={() =>
-                                handleDelete(insumo.id, urlDelete)
-                            }>
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <>
+                    <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
+                    <ModalInsumoModificar
+                        idInsumo={insumo.id}></ModalInsumoModificar>
+                    <ModalInsumoEliminar
+                        idInsumo={insumo.id}></ModalInsumoEliminar>
+                </>
             )
         },
     },

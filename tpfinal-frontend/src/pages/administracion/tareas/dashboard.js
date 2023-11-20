@@ -29,26 +29,26 @@ export default function TareasDashboard() {
     return (
         <>
             {tareas ? (
-                <div>
-                    <div className="flex">
-                    <div className="text-2xl">Tareas pendientes</div>
-                        <Badge className="bg-red-400 hover:bg-red-400 h-min w-min">
+                <div className='mb-5'>
+                    <div className="flex  gap-3">
+                        <div className="text-2xl font-bold ">Tareas pendientes</div>
+                        <Badge className="w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
                             {pendientes}
                         </Badge>
-                       
                     </div>
-                  
 
-                    <div className="flex flex-wrap flex-row">
+                    <div className="flex flex-wrap flex-row gap-4 my-5">
                         {tareas.map(tarea => (
                             <CardTareaDashboard
                                 key={tarea.id}
                                 tarea={tarea}></CardTareaDashboard>
                         ))}
                     </div>
-                    <Link href="/administracion/tareas" className='text-violeta-500 hover:text-violeta-400 hover:underline '>
-                            Ver todas las tareas.
-                        </Link>
+                    <Link
+                        href="/administracion/tareas"
+                        className="font-bold underline hover:text-rosado-600 hover:decoration-2">
+                        Ver todas las tareas.
+                    </Link>
                 </div>
             ) : (
                 <div>cargando...</div>

@@ -3,7 +3,7 @@
 const Button = ({ type = 'submit', className, ...props }) => (
     <button
         type={type}
-        className={`${className} inline-flex items-center justify-center px-4 py-2 bg-violeta-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-violeta-600 active:bg-violeta-800 focus:outline-none focus:border-gray-900 focus:ring ring-violeta-200 disabled:opacity-25 transition ease-in-out duration-150`}
+        className={`${className} flex cursor-pointer items-center  rounded-[5px] border-2 border-black bg-[#bc95d4] px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none`}
         {...props}
     />
 )
@@ -32,3 +32,27 @@ export const NewButton = ({ className, ...props})=>(
         {...props}
     />
 )
+
+
+export const NeoButton = ({ className, ...props})=>(
+    <button
+      className="flex cursor-pointer  items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] "
+        {...props}
+    />
+)
+
+export const NeoButtonChico = ({ className, ...props})=>(
+    <button
+      className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-5 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] "
+        {...props}
+    />
+)
+
+
+export const NeoButtonMini = ({ className, ...props})=>(
+    <button
+      className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-500 px-3 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] "
+        {...props}
+    />
+)
+

@@ -17,7 +17,6 @@ const fetchProductos = () => {
 //TRAER LA CIUDAD DEL BACK CON ELOQUENT ASI FILTRA POR ESO TMB
 
 function filtrarProductos(diseño, largo, forma, ciudad, productos) {
-    console.log(productos)
     // Create an array to store the filtered products
     let productosFiltrados = [...productos];
 
@@ -81,7 +80,6 @@ export default function Catalogo({ diseño, forma, largo, ciudad }) {
         obtenerProductos()
         // setProductosFiltrados(productos)
         // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
-        console.log(productosFiltrados)
     }, [])
 
     useEffect(() => {
@@ -123,6 +121,7 @@ export default function Catalogo({ diseño, forma, largo, ciudad }) {
                                             stock={producto.stock}
                                             esAdmin={false}
                                             idProducto={producto.id}
+                                            esFavorito={false}
                                         >
                                         </ProductCard>
                                     </div>
