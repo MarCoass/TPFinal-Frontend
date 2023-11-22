@@ -36,7 +36,7 @@ export default function infoProducto({ params }) {
 
     const handleAddToCart = async (id, cantidad) => {
         try {
-            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify([{ id_producto: id, cantidad: cantidad }])}`);
+            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
             if (responseStock.data && responseStock.data.stock) {
                 // Si hay suficiente stock, procede con la compra
                 const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });

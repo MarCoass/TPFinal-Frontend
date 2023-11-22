@@ -36,19 +36,31 @@ export default function Carrito() {
     }, [carrito])
 
     const obtenerDatos = async () => {
+        console.log('obtenerDatos')
         try {
             const dataCarrito = await fetchCarrito(carrito);
+            console.log(dataCarrito)
             setCarrito(dataCarrito);
         } catch (error) {
             console.error('Hubo un problema obteniendo los datos: ', error);
+            swal({
+                icon: 'error',
+                title: 'Hubo un problema eliminando el producto, inténtelo otra vez.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         }
     }
 
     const handleBuy = async () => {
         console.log(infoCarrito.id_productos)
         try {
-            const response = await axios.get(`/api/verificar-stock/${JSON.stringify(infoCarrito.id_productos)}`);
+            const response = await axios.get(`/api/verificar-stock/${'carrito'}`);
             if (response.data && response.data.stock) {
+                console.log(response.data)
                 // Si hay suficiente stock, procede con la compra
                 const respuesta = await axios.get('/api/comprar');
                 if(respuesta){
@@ -64,11 +76,15 @@ export default function Carrito() {
                 }
             } else {
                 // No hay suficiente stock para algunos productos
+                console.log(response.data)
+                let cadenaTexto = 'No hay stock suficiente del/los siguientes productos:\n'
+                response.data.data.forEach(producto => {
+                    cadenaTexto = cadenaTexto + producto.nombre + ', stock disponible:' + producto.stock + '\n'
+                });
                 swal({
                     icon: 'error',
                     title: 'No hay stock suficiente.',
-                    text: 'No hay stock suficiente del/los siguientes productos:'+
-                    response.data.data.nombre + ', stock disponible:' + response.data.data.stock,
+                    text: cadenaTexto,
                     button: {
                         text: 'X',
                         className:
@@ -91,6 +107,7 @@ export default function Carrito() {
             return
             // Manejo de errores
         }
+        obtenerDatos()
     };
 
 
