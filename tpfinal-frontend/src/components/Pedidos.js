@@ -13,7 +13,7 @@ export function TabsPedidos({ conteo, pedidos }) {
     console.log(pedidos[0])
     return (
         <>
-            <Tabs defaultValue="cotizaciones" className="w-max">
+            <Tabs defaultValue="cotizaciones" className="w-min md:w-max">
                 <TabsList>
                     <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
                     <TabsTrigger value="pedidosPendientes">
