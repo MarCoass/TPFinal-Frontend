@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Tabla from './Tablas/data-table'
 import { columnsDashboard } from '../pages/administracion/pedidos/columns'
+import { Badge } from './ui/Badge'
 
 export const ContadorPedidos = ({ titulo, cantidad, className, ...props }) => (
     <div
@@ -10,19 +11,42 @@ export const ContadorPedidos = ({ titulo, cantidad, className, ...props }) => (
 )
 
 export function TabsPedidos({ conteo, pedidos }) {
-    console.log(pedidos[0])
     return (
         <>
-            <Tabs defaultValue="cotizaciones" className="w-min md:w-max">
+            <Tabs defaultValue="cotizaciones" className="w-min md:w-max" >
                 <TabsList>
-                    <TabsTrigger value="cotizaciones">Cotizaciones</TabsTrigger>
-                    <TabsTrigger value="pedidosPendientes">
+                    <TabsTrigger value="cotizaciones" isabled={!pedidos[0]}>
+                        Cotizaciones{' '}
+                        {pedidos[0] && (
+                            <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
+                                {pedidos[0].length}
+                            </Badge>
+                        )}
+                    </TabsTrigger>
+                    <TabsTrigger value="pedidosPendientes"  disabled={!pedidos[2]} >
                         Pedidos pendientes
+                        {pedidos[2] && (
+                            <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
+                                {pedidos[2].length}
+                            </Badge>
+                        )}
                     </TabsTrigger>
-                    <TabsTrigger value="empezados">
+                    <TabsTrigger value="empezados" disabled={!pedidos[4]}>
                         Pedidos empezados
+                        {pedidos[4] && (
+                            <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
+                                {pedidos[4].length}
+                            </Badge>
+                        )}
                     </TabsTrigger>
-                    <TabsTrigger value="entregas">Entregas</TabsTrigger>
+                    <TabsTrigger value="entregas" disabled={!pedidos[5]}>
+                        Entregas
+                        {pedidos[5] && (
+                            <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
+                                {pedidos[5].length}
+                            </Badge>
+                        )}
+                    </TabsTrigger>
                 </TabsList>
                 <TabsContent value="cotizaciones">
                     <TablaPedidos pedidos={pedidos[0]}></TablaPedidos>
@@ -31,11 +55,9 @@ export function TabsPedidos({ conteo, pedidos }) {
                     <TablaPedidos pedidos={pedidos[2]}></TablaPedidos>
                 </TabsContent>
                 <TabsContent value="empezados">
-                    {' '}
                     <TablaPedidos pedidos={pedidos[4]}></TablaPedidos>
                 </TabsContent>
                 <TabsContent value="entregas">
-                    {' '}
                     <TablaPedidos pedidos={pedidos[5]}></TablaPedidos>
                 </TabsContent>
             </Tabs>
@@ -45,11 +67,14 @@ export function TabsPedidos({ conteo, pedidos }) {
 
 export function TablaPedidos({ pedidos }) {
     return (
-       /*  <div className="text-lg">
+        /*  <div className="text-lg">
             {pedidos.map(pedido => (
                 <p key={pedido.id}>{pedido.producto.nombre}</p>
             ))}
         </div> */
-        <Tabla data={pedidos} columns={columnsDashboard} sinCabecera={true}></Tabla>
+        <Tabla
+            data={pedidos}
+            columns={columnsDashboard}
+            sinCabecera={true}></Tabla>
     )
 }
