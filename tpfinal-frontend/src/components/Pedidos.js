@@ -13,9 +13,9 @@ export const ContadorPedidos = ({ titulo, cantidad, className, ...props }) => (
 export function TabsPedidos({ conteo, pedidos }) {
     return (
         <>
-            <Tabs defaultValue="cotizaciones" className="w-min md:w-max" >
+            <Tabs defaultValue="cotizaciones" className="w-min sm:w-max" >
                 <TabsList>
-                    <TabsTrigger value="cotizaciones" isabled={!pedidos[0]}>
+                    <TabsTrigger value="cotizaciones" className='' disabled={!pedidos[0]}>
                         Cotizaciones{' '}
                         {pedidos[0] && (
                             <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">

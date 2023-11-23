@@ -18,8 +18,10 @@ const Dashboard = () => {
 
             <div className="py-6">
                 <div className=" lg:grid lg:grid-cols-6 lg:grid-rows-5 gap-4 flex flex-col">
-                    <div className="lg:col-span-4 lg:row-span-5" id='accesosRapidos'>
-                        <div className='bg-rosado-200'>
+                    <div
+                        className="lg:col-span-4 lg:row-span-5"
+                        id="accesosRapidos">
+                        <div className="bg-rosado-200">
                             <p className="text-2xl font-bold ">
                                 Accesos rapidos
                             </p>
@@ -29,17 +31,18 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className="">
-                        <div className="text-2xl font-bold ">
-                            <PedidosDashboard></PedidosDashboard>
+                            <div className="text-2xl font-bold ">
+                                <PedidosDashboard></PedidosDashboard>
+                            </div>
                         </div>
                     </div>
-                    </div>
 
-                    <div className="lg:col-span-2 lg:row-span-5 lg:col-start-5 flex lg:flex-col sm:flex-row flex-col mx-5" id='tareas'>
+                    <div
+                        className="lg:col-span-2 lg:row-span-5 lg:col-start-5 flex lg:flex-col sm:flex-row flex-col mx-5"
+                        id="tareas">
                         <TareasDashboard></TareasDashboard>
                         <CalendarioTareas></CalendarioTareas>
                     </div>
-                  
                 </div>
             </div>
         </AdminLayout>
