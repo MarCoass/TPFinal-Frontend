@@ -50,14 +50,13 @@ export default function TablaProveedores() {
                 <Head>
                     <title>Proveedores - Mar Nails</title>
                 </Head>
-                <div className="py-12">
+                <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className=" bg-white border-b border-gray-200">
-                                <div className="container mx-auto py-10">
+                       
+                                <div className="overflow-hidden container md:mx-auto py-2">
                                     {proveedores ? (
                                         <Tabla
-                                         filtrar={true}
+                                            filtrar={true}
                                             obtenerDatos={obtenerDatos}
                                             columns={columns}
                                             data={proveedores}
@@ -69,8 +68,7 @@ export default function TablaProveedores() {
                                             }></CustomSpinner>
                                     )}
                                 </div>{' '}
-                            </div>
-                        </div>
+                            
                     </div>
                 </div>
             </AdminLayout>
