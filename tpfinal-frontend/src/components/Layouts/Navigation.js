@@ -59,12 +59,6 @@ const Navigation = ({ user }) => {
                                         Pedidos personalizados
                                     </NavLink>
                                 )}
-
-                                <NavLink
-                                    href="/informacion"
-                                    active={router.pathname === '/informacion'}>
-                                    Informacion
-                                </NavLink>
                             </div>
                         )}
                     </div>
@@ -121,7 +115,6 @@ const Navigation = ({ user }) => {
                             </div>
                         </div>
                     )}
-                    {/* Hamburger */}
                     <div className="mr-2 flex items-center sm:hidden">
                         <button
                             onClick={() => setOpen(open => !open)}
@@ -178,18 +171,34 @@ const Navigation = ({ user }) => {
                                 </ResponsiveNavLink>
                                 <ResponsiveNavLink
                                     href="/tienda/carrito"
-                                    active={router.pathname === '/tienda/carrito'}>
+                                    active={
+                                        router.pathname === '/tienda/carrito'
+                                    }>
                                     Carrito
                                 </ResponsiveNavLink>
                             </div>
                         )}
                     </div>
-                    <div className="pt-4 pb-1 ">
-                        <div className="mt-3 space-y-1">
-                            {/* Authentication */}
-                            <ResponsiveNavButton onClick={logout}>
-                                Cerrar sesion
-                            </ResponsiveNavButton>
+                    <div className=" pb-1 ">
+                        <div className=" space-y-1">
+                            {user ? (
+                                <ResponsiveNavButton onClick={logout}>
+                                    Cerrar sesion
+                                </ResponsiveNavButton>
+                            ) : (
+                                <div className='border-black border-t-2'>
+                                    <ResponsiveNavLink
+                                        href="/login"
+                                        active={router.pathname === '/login'}>
+                                        Iniciar sesion
+                                    </ResponsiveNavLink>
+                                    <ResponsiveNavLink
+                                        href="/register"
+                                        active={router.pathname === '/register'}>
+                                        Registrarse
+                                    </ResponsiveNavLink>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
