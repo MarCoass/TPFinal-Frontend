@@ -67,8 +67,8 @@ const Navigation = ({ user }) => {
                                 align="right"
                                 width="48"
                                 trigger={
-                                    <div className="m-1 h-16 w-16 rounded-full border-2 border-black bg-cover bg-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                                        <User className="" />
+                                    <div className=" rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                                        <User className="w-6 h-6" />
                                     </div>
                                 }>
                                 {user && user.id_rol == 1 ? (
@@ -185,7 +185,7 @@ const Navigation = ({ user }) => {
                                     Cerrar sesion
                                 </ResponsiveNavButton>
                             ) : (
-                                <div className='border-black border-t-2'>
+                                <div className="border-black border-t-2">
                                     <ResponsiveNavLink
                                         href="/login"
                                         active={router.pathname === '/login'}>
@@ -193,7 +193,9 @@ const Navigation = ({ user }) => {
                                     </ResponsiveNavLink>
                                     <ResponsiveNavLink
                                         href="/register"
-                                        active={router.pathname === '/register'}>
+                                        active={
+                                            router.pathname === '/register'
+                                        }>
                                         Registrarse
                                     </ResponsiveNavLink>
                                 </div>
