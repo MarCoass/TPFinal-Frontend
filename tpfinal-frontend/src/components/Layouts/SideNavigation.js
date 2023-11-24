@@ -5,10 +5,10 @@ import NavLink from '@/components/NavLink'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react'
 
 export function NeoSideNavigation({ active, setActive, children }) {
-     const router = useRouter()
+    const router = useRouter()
     const { logout } = useAuth()
     const [isVisible, setIsVisible] = useState(false)
     const closeDrawer = () => {
@@ -41,7 +41,12 @@ export function NeoSideNavigation({ active, setActive, children }) {
                     transform: `translateX(${isVisible ? '0' : '-300px'})`,
                 }}
                 className=" z-10 h-full w-[300px] border-2 border-black bg-rosado-400 font-bold transition-transform duration-300">
-                 <div className="flex flex-col  ">
+                <div className="p-5 justify-center flex items-center border-b-2 border-black">
+                    <Link href="/">
+                        <ApplicationLogo className="block h-16 w-auto fill-current text-violeta-500" />
+                    </Link>
+                </div>
+                <div className="flex flex-col  ">
                     <NavLink
                         href="/administracion/"
                         active={router.pathname === '/administracion'}>
@@ -54,7 +59,9 @@ export function NeoSideNavigation({ active, setActive, children }) {
                         }>
                         Productos
                     </NavLink>
-                    <NavLink href="/administracion/pedidos" active={router.pathname === '/'}>
+                    <NavLink
+                        href="/administracion/pedidos"
+                        active={router.pathname === '/'}>
                         Pedidos personalizados
                     </NavLink>
                     <NavLink
@@ -67,7 +74,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                         active={router.pathname === '/administracion/tareas'}>
                         Tareas
                     </NavLink>
-                  
+
                     <NavLink
                         href="/administracion/proveedores"
                         active={
@@ -82,7 +89,9 @@ export function NeoSideNavigation({ active, setActive, children }) {
                     </NavLink>
                 </div>
                 <div className="flex flex-col border-t-2 border-black">
-                    <NavLink href="/administracion/preferencias">Preferencias</NavLink>
+                    <NavLink href="/administracion/preferencias">
+                        Preferencias
+                    </NavLink>
                     <NavLink href="/" onClick={logout}>
                         Cerrar Sesion
                     </NavLink>
