@@ -81,7 +81,7 @@ export function ModalVerCliente({ id }) {
     )
 }
 
-export function ModalComentarCliente({ id, editar }) {
+export function ModalComentarCliente({ id, editar, obtenerDatos }) {
     const [cliente, setCliente] = useState()
     const [comentario, setComentario] = useState('')
 
@@ -120,7 +120,11 @@ export function ModalComentarCliente({ id, editar }) {
                     headers,
                 },
             )
-            console.log('Respuesta del servidor:', response.data)
+
+            if (response) {
+               /*  console.log('Respuesta del servidor:', response.data) */
+                obtenerDatos()
+            }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -130,7 +134,10 @@ export function ModalComentarCliente({ id, editar }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
-                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil><p className='hidden lg:block'>{editar ?(<p>Editar</p>):(<p>Comentar</p>)} </p> 
+                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil>
+                    <span className="hidden lg:block">
+                        {editar ? <p>Editar</p> : <p>Comentar</p>}{' '}
+                    </span>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form onSubmit={handleSubmit}>
@@ -197,14 +204,17 @@ export function ModalVerClienteCompleto({ id, nombre }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
-                    <Eye className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Eye> <p className='hidden lg:block'>Ver pedidos</p>
+                    <Eye className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Eye>{' '}
+                    <p className="hidden lg:block">Ver pedidos</p>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50 className='overscroll-contain overflow-auto'">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Pedidos de {nombre}</AlertDialogTitle>
                     </AlertDialogHeader>
 
-                    {pedidos && <Tabla columns={columns} data={pedidos} pageSize={5} />}
+                    {pedidos && (
+                        <Tabla columns={columns} data={pedidos} pageSize={5} />
+                    )}
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>

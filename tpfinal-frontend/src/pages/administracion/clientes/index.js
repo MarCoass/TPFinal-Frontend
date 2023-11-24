@@ -19,12 +19,19 @@ const Dashboard = () => {
     const [clientes, setClientes] = useState(null)
 
     useEffect(() => {
-        async function obtenerClientes() {
+        if (clientes === null || !clientes) {
+            obtenerDatos()
+        }
+    }, [clientes])
+
+    const obtenerDatos = async () => {
+        try {
             const data = await fetchClientes()
             setClientes(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-        obtenerClientes()
-    }, [])
+    }
     return (
         <AdminLayout
             header={
@@ -41,6 +48,7 @@ const Dashboard = () => {
                     <div className="overflow-hidden container md:mx-auto py-2">
                         {clientes ? (
                             <Tabla
+                                obtenerDatos={obtenerDatos}
                                 filtrar={true}
                                 columns={columnsClientes}
                                 data={clientes}

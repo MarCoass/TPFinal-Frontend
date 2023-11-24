@@ -20,14 +20,14 @@ import {
 import { NeoButtonChico } from '../Button'
 import { Search } from 'lucide-react'
 
-
 // Definición del componente DataTable en JavaScript
 export default function Tabla({
     columns,
     data,
     filtrar,
     sinCabecera,
-    pageSize
+    pageSize,
+    obtenerDatos,
 }) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
@@ -48,8 +48,6 @@ export default function Tabla({
             sorting,
             columnFilters,
         },
-
-        
     })
     useEffect(() => {
         if (table && pageSize) {
@@ -106,7 +104,7 @@ export default function Tabla({
                             ))}
                         </TableHeader>
                     )}
-                    <TableBody >
+                    <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow
@@ -119,7 +117,10 @@ export default function Tabla({
                                         <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
-                                                cell.getContext(),
+                                                {
+                                                    ...cell.getContext(),
+                                                    obtenerDatos,
+                                                }, // Pasa obtenerDatos al contexto
                                             )}
                                         </TableCell>
                                     ))}
