@@ -81,7 +81,7 @@ export function ModalVerCliente({ id }) {
     )
 }
 
-export function ModalComentarCliente({ id }) {
+export function ModalComentarCliente({ id, editar }) {
     const [cliente, setCliente] = useState()
     const [comentario, setComentario] = useState('')
 
@@ -130,13 +130,13 @@ export function ModalComentarCliente({ id }) {
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
-                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil><p className='hidden lg:block'>Comentar</p> 
+                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil><p className='hidden lg:block'>{editar ?(<p>Editar</p>):(<p>Comentar</p>)} </p> 
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
-                                Observaciones sobre{' '}
+                                Observaciones sobre
                                 {cliente && (
                                     <>
                                         {cliente.nombre} {cliente.apellido}

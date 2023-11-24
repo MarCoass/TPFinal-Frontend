@@ -46,13 +46,13 @@ export const columnsClientes = [
     },
     {
         accessorKey: 'observacion',
-        header: 'Anotacion',
+        header: 'Comentario',
         cell: ({ row }) => {
             return (
                 <div className="py-4 max-w-[200px] truncate ...">
                     {row.getValue('observacion')}
                     <ModalComentarCliente
-                        id={row.original.id}></ModalComentarCliente>
+                        id={row.original.id} editar={row.getValue('observacion')}></ModalComentarCliente>
                 </div>
             )
         },
