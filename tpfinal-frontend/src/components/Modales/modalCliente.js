@@ -14,6 +14,7 @@ import { Eye, Pencil } from 'lucide-react'
 import { columns } from '../../pages/administracion/pedidos/columns'
 import Tabla from '../Tablas/data-table'
 const { default: getCookie } = require('@/lib/cookies')
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchCliente = id => {
     return axios.get('/api/administracion/cliente/' + id).then(res => res.data)
@@ -209,13 +210,16 @@ export function ModalVerClienteCompleto({ id, nombre }) {
                         <AlertDialogTitle>Pedidos de {nombre}</AlertDialogTitle>
                     </AlertDialogHeader>
 
-                    {pedidos && (
+                    {pedidos ? (
                         <Tabla
                             columns={columns}
                             data={pedidos}
                             pageSize={5}
                             obtenerDatos={obtenerDatos}
                         />
+                    ) : (
+                        <CustomSpinner
+                            mensaje={'Cargando productos...'}></CustomSpinner>
                     )}
 
                     <AlertDialogFooter>

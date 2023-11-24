@@ -4,6 +4,7 @@ import Tabla from '../../../components/Tablas/data-table'
 import { columnsClientes } from './columns'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchClientes = async () => {
     try {
@@ -54,7 +55,9 @@ const Dashboard = () => {
                                 data={clientes}
                             />
                         ) : (
-                            <p>Cargando datos...</p>
+                            <CustomSpinner
+                        mensaje={'Cargando clientes...'}>
+                    </CustomSpinner>
                         )}
                     </div>{' '}
                 </div>

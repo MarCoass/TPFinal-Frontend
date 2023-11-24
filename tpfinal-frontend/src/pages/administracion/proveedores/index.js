@@ -5,6 +5,7 @@ import Tabla from '../../../components/Tablas/data-table'
 import AdminLayout from '../../../components/Layouts/AdminLayout'
 import Head from 'next/head'
 import { ModalProveedorStore } from '../../../components/Modales/modalProveedor'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchProveedores = async () => {
     try {
@@ -20,13 +21,19 @@ export default function TablaProveedores() {
     const [proveedores, setProveedores] = useState(null)
 
     useEffect(() => {
-        async function obtenerProveedores() {
+        if (proveedores === null || !proveedores) {
+            obtenerDatos()
+        }
+    }, [proveedores])
+
+    const obtenerDatos = async () => {
+        try {
             const data = await fetchProveedores()
             setProveedores(data)
-            console.log(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-        obtenerProveedores()
-    }, [])
+    }
 
     return (
         <>
@@ -36,7 +43,8 @@ export default function TablaProveedores() {
                         <p className="text-xl text-black leading-tight">
                             Proveedores
                         </p>
-                        <ModalProveedorStore></ModalProveedorStore>
+                        <ModalProveedorStore
+                            obtenerDatos={obtenerDatos}></ModalProveedorStore>
                     </div>
                 }>
                 <Head>
@@ -49,11 +57,15 @@ export default function TablaProveedores() {
                                 <div className="container mx-auto py-10">
                                     {proveedores ? (
                                         <Tabla
+                                            obtenerDatos={obtenerDatos}
                                             columns={columns}
                                             data={proveedores}
                                         />
                                     ) : (
-                                        <p>Cargando datos...</p>
+                                        <CustomSpinner
+                                            mensaje={
+                                                'Cargando proveedores...'
+                                            }></CustomSpinner>
                                     )}
                                 </div>{' '}
                             </div>

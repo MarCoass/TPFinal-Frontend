@@ -155,7 +155,7 @@ export function ModalCotizar({ id, obtenerDatos }) {
                 try {
                     const data = await fetchPedido(id)
                     setPedido(data)
-                    console.log(pedido)
+                    /* console.log(pedido) */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -287,7 +287,7 @@ export function ModalCotizar({ id, obtenerDatos }) {
     )
 }
 
-export function ModalRespuestaCotizacion({ pedido }) {
+export function ModalRespuestaCotizacion({ pedido, obtenerDatos }) {
     const [estado, setEstado] = useState()
 
     const handleAceptar = async e => {
@@ -316,7 +316,8 @@ export function ModalRespuestaCotizacion({ pedido }) {
                 },
             )
             // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            /* console.log('Respuesta del servidor:', response.data) */
+            obtenerDatos()
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -359,7 +360,7 @@ export function ModalRespuestaCotizacion({ pedido }) {
     )
 }
 
-export function ModalEntregado({ pedido }) {
+export function ModalEntregado({ pedido, obtenerDatos }) {
     const handleSubmit = async e => {
         e.preventDefault()
         const formData = new FormData()
@@ -376,6 +377,7 @@ export function ModalEntregado({ pedido }) {
                 headers,
             },
         )
+        obtenerDatos()
     }
 
     return (
@@ -407,7 +409,7 @@ export function ModalEntregado({ pedido }) {
     )
 }
 
-export function ModalEmpezarTerminar({ pedido }) {
+export function ModalEmpezarTerminar({ pedido, obtenerDatos }) {
     let estadoTexto
     let estado
     if (pedido.estado == 2) {
@@ -429,7 +431,7 @@ export function ModalEmpezarTerminar({ pedido }) {
 
         let url = '/api/administracion/pedido/cambiarEstado/'
         
-        handleUpdate(pedido.id, url, formData)
+        handleUpdate(pedido.id, url, formData, obtenerDatos)
     }
 
     return (
@@ -469,7 +471,7 @@ export function ModalEmpezarTerminar({ pedido }) {
     )
 }
 
-export function ModalPedidoEliminar({ pedido }) {
+export function ModalPedidoEliminar({ pedido, obtenerDatos }) {
     const handleSubmit = async e => {
         e.preventDefault()
 
@@ -477,7 +479,7 @@ export function ModalPedidoEliminar({ pedido }) {
         const formData = new FormData()
 
         let url = '/api/administracion/pedidoDelete/'
-        handleDelete(pedido.id, url)
+        handleDelete(pedido.id, url, obtenerDatos)
     }
 
     return (

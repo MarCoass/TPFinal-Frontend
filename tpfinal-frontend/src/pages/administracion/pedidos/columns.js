@@ -108,19 +108,25 @@ export const columns = [
                 <div className="flex  justify-center">
                     {id_estado == 0 && (
                         <>
-                            <ModalCotizar id={row.original.id} obtenerDatos={obtenerDatos}></ModalCotizar>
+                            <ModalCotizar
+                                id={row.original.id}
+                                obtenerDatos={obtenerDatos}></ModalCotizar>
                         </>
                     )}
                     {(id_estado == 2 || id_estado == 4) && (
                         <ModalEmpezarTerminar
+                            obtenerDatos={obtenerDatos}
                             pedido={row.original}></ModalEmpezarTerminar>
                     )}
                     {(id_estado == 3 || id_estado == 6) && (
                         <ModalPedidoEliminar
+                            obtenerDatos={obtenerDatos}
                             pedido={row.original}></ModalPedidoEliminar>
                     )}
                     {id_estado == 5 && (
-                        <ModalEntregado pedido={row.original}></ModalEntregado>
+                        <ModalEntregado
+                            obtenerDatos={obtenerDatos}
+                            pedido={row.original}></ModalEntregado>
                     )}
                 </div>
             )
