@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { User } from 'lucide-react'
+import DropdownLink from '../DropdownLink'
 
 const Navigation = ({ user }) => {
     const router = useRouter()
@@ -19,7 +20,7 @@ const Navigation = ({ user }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="border-b-2 border-black bg-lila-500 py-3">
+        <nav className="border-b-2 border-black bg-lila-500 ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between font-bold">
                     <div className="flex">
@@ -67,29 +68,22 @@ const Navigation = ({ user }) => {
                                 align="right"
                                 width="48"
                                 trigger={
-                                    <div className="m-1 h-16 w-16 rounded-full border-2 border-black bg-cover bg-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                                        <User className="" />
+                                    <div className=" rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                                        <User className="w-6 h-6" />
                                     </div>
                                 }>
                                 {user && user.id_rol == 1 ? (
-                                    <DropdownButton>
-                                        Configuracion
-                                    </DropdownButton>
+                                    <DropdownLink  href="/administracion/preferencias">
+                                        Preferencias
+                                    </DropdownLink>
                                 ) : (
-                                    <DropdownButton>Perfil</DropdownButton>
+                                    <DropdownLink  href="/perfil">Perfil</DropdownLink>
                                 )}
 
                                 {user && user.id_rol != 1 ? (
-                                    <DropdownButton>
-                                        <NavLink
-                                            href="/tienda/carrito"
-                                            active={
-                                                router.pathname ===
-                                                '/tienda/carrito'
-                                            }>
-                                            Carrito
-                                        </NavLink>
-                                    </DropdownButton>
+                                    <DropdownLink  href="/tienda/carrito">
+                                        Carrito
+                                    </DropdownLink>
                                 ) : null}
                                 <DropdownButton onClick={logout}>
                                     Logout
@@ -185,7 +179,7 @@ const Navigation = ({ user }) => {
                                     Cerrar sesion
                                 </ResponsiveNavButton>
                             ) : (
-                                <div className='border-black border-t-2'>
+                                <div className="border-black border-t-2">
                                     <ResponsiveNavLink
                                         href="/login"
                                         active={router.pathname === '/login'}>
@@ -193,7 +187,9 @@ const Navigation = ({ user }) => {
                                     </ResponsiveNavLink>
                                     <ResponsiveNavLink
                                         href="/register"
-                                        active={router.pathname === '/register'}>
+                                        active={
+                                            router.pathname === '/register'
+                                        }>
                                         Registrarse
                                     </ResponsiveNavLink>
                                 </div>
