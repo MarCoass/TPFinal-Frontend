@@ -2,7 +2,7 @@ import getCookie from '@/lib/cookies'
 import axios from '@/lib/axios'
 import swal from 'sweetalert'
 
-export default async function handleDelete(id, url) {
+export default async function handleDelete(id, url, obtenerDatos) {
     try {
         const xsrfToken = getCookie('XSRF-TOKEN')
         const response = await axios.delete(`${url}${id}`, {
@@ -22,6 +22,7 @@ export default async function handleDelete(id, url) {
                         'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                 },
             })
+            obtenerDatos()
         } else {
             swal({
                 icon: 'error',

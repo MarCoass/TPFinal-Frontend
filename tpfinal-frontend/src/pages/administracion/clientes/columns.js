@@ -47,12 +47,14 @@ export const columnsClientes = [
     {
         accessorKey: 'observacion',
         header: 'Comentario',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             return (
                 <div className="py-4 max-w-[200px] truncate ...">
                     {row.getValue('observacion')}
                     <ModalComentarCliente
-                        id={row.original.id} editar={row.getValue('observacion')}></ModalComentarCliente>
+                        id={row.original.id}
+                        editar={row.getValue('observacion')}
+                        obtenerDatos={obtenerDatos}></ModalComentarCliente>
                 </div>
             )
         },
@@ -61,10 +63,10 @@ export const columnsClientes = [
         accessorKey: 'pedidos',
         header: 'Pedidos',
         cell: ({ row }) => {
-            console.log(row.original.nombre)
             return (
                 <div className="">
-                    <ModalVerClienteCompleto nombre={row.original.nombre}
+                    <ModalVerClienteCompleto
+                        nombre={row.original.nombre}
                         id={row.original.id}></ModalVerClienteCompleto>
                 </div>
             )

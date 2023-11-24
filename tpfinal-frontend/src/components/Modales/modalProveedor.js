@@ -21,7 +21,7 @@ const fetchProveedor = id => {
     return axios.get('/api/proveedor/' + id).then(res => res.data)
 }
 
-export function ModalProveedorStore({ dashboard }) {
+export function ModalProveedorStore({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')
@@ -43,6 +43,7 @@ export function ModalProveedorStore({ dashboard }) {
             })
             // Maneja la respuesta del servidor si es necesario
             console.log('Respuesta del servidor:', response.data)
+            obtenerDatos()
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -108,8 +109,8 @@ export function ModalProveedorStore({ dashboard }) {
     )
 }
 
-export function ModalProveedorDelete({ idProveedor }) {
-    let urlDelete = '/administracion/proveedorDelete/'
+export function ModalProveedorDelete({ idProveedor, obtenerDatos }) {
+    let urlDelete = '/api/proveedorDelete/'
     return (
         <>
             <AlertDialog>
@@ -127,7 +128,7 @@ export function ModalProveedorDelete({ idProveedor }) {
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={() =>
-                                handleDelete(idProveedor, urlDelete)
+                                handleDelete(idProveedor, urlDelete, obtenerDatos)
                             }>
                             Eliminar
                         </AlertDialogAction>
@@ -138,7 +139,7 @@ export function ModalProveedorDelete({ idProveedor }) {
     )
 }
 
-export function ModalProveedorUpdate({ idProveedor }) {
+export function ModalProveedorUpdate({ idProveedor, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')
@@ -172,8 +173,8 @@ export function ModalProveedorUpdate({ idProveedor }) {
         formData.append('anotacion', anotacion)
 
         // Realiza la solicitud POST a tu servidor Laravel
-        let urlUpdate = '/administracion/proveedorUpdate/'
-        handleUpdate(idProveedor, urlUpdate, formData)
+        let urlUpdate = '/api/proveedorUpdate/'
+        handleUpdate(idProveedor, urlUpdate, formData, obtenerDatos)
     }
 
     return (
