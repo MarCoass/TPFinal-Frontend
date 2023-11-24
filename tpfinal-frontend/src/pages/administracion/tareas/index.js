@@ -11,47 +11,63 @@ const fetchTareas = () => {
 }
 
 const IndexTareas = () => {
-    const [tareas, setTareas] = useState([])
-
-    useEffect(() => {
-        async function obtenerTareas() {
-            try {
-                const data = await fetchTareas()
-                setTareas(data)
-                //console.log(data)
-            } catch (error) {
-                console.error('Error al obtener tareas:', error)
-            }
-        }
-        obtenerTareas()
-    }, [])
-
+    const [tareas, setTareas] = useState(null)
     //---------------PAGINACION---------------------------
     const [currentPage, setCurrentPage] = useState(1)
-    const itemsPerPage = 8
-    const indexOfLastItem = currentPage * itemsPerPage
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage
-    const itemsToShow = tareas.slice(indexOfFirstItem, indexOfLastItem)
+    const [itemsPerPage, setItemsPerPage] = useState(8)
+    const [indexOfLastItem, setIndexOfLastItem] = useState(
+        currentPage * itemsPerPage,
+    )
+    const [indexOfFirstItem, setIndexOfFirstItem] = useState(
+        indexOfLastItem - itemsPerPage,
+    )
+    const [itemsToShow, setItemsToShow] = useState()
+    const [canGoToPreviousPage, setCanGoToPreviousPage] = useState(
+        currentPage > 1,
+    )
+    const [canGoToNextPage, setCanGoToNextPage] = useState()
+
+    useEffect(() => {
+        if (tareas === null || !tareas) {
+            obtenerDatos();
+        } else {
+            const newIndexOfLastItem = currentPage * itemsPerPage;
+            const newIndexOfFirstItem = newIndexOfLastItem - itemsPerPage;
+            setIndexOfLastItem(newIndexOfLastItem);
+            setIndexOfFirstItem(newIndexOfFirstItem);
+            setItemsToShow(tareas.slice(newIndexOfFirstItem, newIndexOfLastItem));
+            setCanGoToPreviousPage(currentPage > 1);
+            setCanGoToNextPage(newIndexOfLastItem < tareas.length);
+        }
+    }, [tareas, currentPage]);
+
+    const obtenerDatos = async () => {
+        try {
+            const data = await fetchTareas()
+            setTareas(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
 
     const handlePageChange = newPage => {
         setCurrentPage(newPage)
     }
 
-    const canGoToPreviousPage = currentPage > 1
-    const canGoToNextPage = indexOfLastItem < tareas.length
-    // Botón para ir a la página anterior
-    const goToPreviousPage = () => {
-        if (currentPage > 1) {
-            handlePageChange(currentPage - 1)
-        }
+   // Botón para ir a la página anterior
+const goToPreviousPage = () => {
+    if (currentPage > 1) {
+        handlePageChange(currentPage - 1);
     }
+}
 
-    // Botón para ir a la página siguiente
-    const goToNextPage = () => {
-        if (indexOfLastItem < tareas.length) {
-            handlePageChange(currentPage + 1)
-        }
+// Botón para ir a la página siguiente
+const goToNextPage = () => {
+    const totalPages = Math.ceil(tareas.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        handlePageChange(currentPage + 1);
     }
+}
 
     return (
         <AdminLayout
@@ -60,7 +76,8 @@ const IndexTareas = () => {
                     <p className="text-xl text-black leading-tight">
                         Tareas - Mar Nails
                     </p>
-                    <ModalCrearTarea></ModalCrearTarea>
+                    <ModalCrearTarea
+                        obtenerDatos={obtenerDatos}></ModalCrearTarea>
                 </div>
             }>
             <Head>
@@ -72,11 +89,12 @@ const IndexTareas = () => {
                     {tareas ? (
                         <>
                             <div className="m-2 md:m-4 flex flex-row flex-wrap gap-5 justify-center md:justify-evenly">
-                                {itemsToShow.map(tarea => (
-                                    <CardTarea
-                                        key={tarea.id}
-                                        tarea={tarea}></CardTarea>
-                                ))}
+                                {itemsToShow &&
+                                    itemsToShow.map(tarea => (
+                                        <CardTarea
+                                            key={tarea.id}
+                                            tarea={tarea}></CardTarea>
+                                    ))}
                             </div>
                             <div className="flex items-center justify-end space-x-2 p-4">
                                 <NeoButtonChico

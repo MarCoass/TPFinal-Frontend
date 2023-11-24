@@ -214,7 +214,7 @@ export function ModalTareaTerminar({ id }) {
     )
 }
 
-export function ModalCrearTarea({ dashboard = false }) {
+export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
     const [titulo, setTitulo] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fechaVencimiento, setFechaVencimiento] = useState('')
@@ -247,6 +247,7 @@ export function ModalCrearTarea({ dashboard = false }) {
                         'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                 },
             })
+            obtenerDatos()
         } catch (error) {
             console.log('Error al crear la tarea: ', error)
             swal({
