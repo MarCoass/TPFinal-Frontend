@@ -6,7 +6,14 @@ import axios from '@/lib/axios'
 import Image from 'next/image'
 import { CardInicio, CardTrabajos } from '../components/CardDashboard'
 import Link from 'next/link'
-import { Clock, Instagram, Mail, Phone, Ruler, ShoppingCart } from 'lucide-react'
+import {
+    Clock,
+    Instagram,
+    Mail,
+    Phone,
+    Ruler,
+    ShoppingCart,
+} from 'lucide-react'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -112,63 +119,69 @@ export default function Home() {
                     </CardInicio>
                 </div>
                 <div className="pl-5 pt-10 bg-lila-100 flex flex-col justify-center align-middle md:grid md:grid-cols-3 gap-4 border-b-2 border-black">
-                    <div className="pr-5 col-span-2 flex flex-col self-center m-10">
-                        <p className="text-3xl md:text-5xl mb-3">
-                            Informacion sobre las press on
-                        </p>
-                        <p className="text-lg">
-                            Son uñas postizas hechas con tips de gel, los mismos
-                            que se usan para las SoftGel.
-                            <br />
-                            Reutilizables, cuidandolas se pueden reutilizar las
-                            veces que quieras.
-                            <br />
-                            Uñas listas en poco tiempo, la aplicacion es facil y
-                            rapida, lo haces vos misma desde tu casa.
-                            <br />
-                            Diferente duracion, podes usar pegamento liquido o
-                            stickers doble faz segun la duracion necesaria.
-                        </p>
-                        <p className="text-2xl md:text-4xl mb-3 my-4">
-                            Informacion sobre los pedidos
-                        </p>
-                        <p className="text-lg">
-                            Valor de la seña: ${parametrosArray['valor_senia']}
-                            <br />
-                            Demora para cotizaciones:{' '}
-                            {parametrosArray['demora_cotizacion']}
-                            <br />
-                            Demora para pedidos:{' '}
-                            {parametrosArray['demora_trabajo']} <br />
-                            <span className="font-normal text-violeta-500">
-                                La demora es un aproximado <br /> La seña es
-                                obligatoria para pedidos personalizados.
-                            </span>
-                        </p>
-                        {parametrosArray['pedidos_abiertos'] == 1 ? (
-                            <p className="text-xl">
-                                Tenemos los pedidos abiertos! Podes hacer un{' '}
-                                <Link
-                                    href="/pedidos"
-                                    className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
-                                    {' '}
-                                    pedido personalizado.
-                                </Link>
+                    {parametrosArray && (
+                        <div className="pr-5 col-span-2 flex flex-col self-center m-10">
+                            <p className="text-3xl md:text-5xl mb-3">
+                                Informacion sobre las press on
                             </p>
-                        ) : (
-                            <p className="text-xl">
-                                Por el momento tenemos los pedidos cerrados,
-                                pero podes ver nuestra{' '}
-                                <Link
-                                    href="/tienda"
-                                    className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
-                                    {' '}
-                                    tienda
-                                </Link>{' '}
-                                para conseguir sets en stock.
+                            <p className="text-lg">
+                                Son uñas postizas hechas con tips de gel, los
+                                mismos que se usan para las SoftGel.
+                                <br />
+                                Reutilizables, cuidandolas se pueden reutilizar
+                                las veces que quieras.
+                                <br />
+                                Uñas listas en poco tiempo, la aplicacion es
+                                facil y rapida, lo haces vos misma desde tu
+                                casa.
+                                <br />
+                                Diferente duracion, podes usar pegamento liquido
+                                o stickers doble faz segun la duracion
+                                necesaria.
                             </p>
-                        )}
-                    </div>
+                            <p className="text-2xl md:text-4xl mb-3 my-4">
+                                Informacion sobre los pedidos
+                            </p>
+                            <p className="text-lg">
+                                Valor de la seña: $
+                                {parametrosArray['valor_senia']}
+                                <br />
+                                Demora para cotizaciones:{' '}
+                                {parametrosArray['demora_cotizacion']}
+                                <br />
+                                Demora para pedidos:{' '}
+                                {parametrosArray['demora_trabajo']} <br />
+                                <span className="font-normal text-violeta-500">
+                                    La demora es un aproximado <br /> La seña es
+                                    obligatoria para pedidos personalizados.
+                                </span>
+                            </p>
+                            {parametrosArray['pedidos_abiertos'] == 1 ? (
+                                <p className="text-xl">
+                                    Tenemos los pedidos abiertos! Podes hacer un{' '}
+                                    <Link
+                                        href="/pedidos"
+                                        className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                        {' '}
+                                        pedido personalizado.
+                                    </Link>
+                                </p>
+                            ) : (
+                                <p className="text-xl">
+                                    Por el momento tenemos los pedidos cerrados,
+                                    pero podes ver nuestra{' '}
+                                    <Link
+                                        href="/tienda"
+                                        className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                        {' '}
+                                        tienda
+                                    </Link>{' '}
+                                    para conseguir sets en stock.
+                                </p>
+                            )}
+                        </div>
+                    )}
+
                     <Image
                         className="col-start-3"
                         src="/images/rojas.png"
@@ -285,12 +298,27 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="px-10 py-10 bg-lila-400 flex justify-around align-end border-b-2 border-black">
-                    <div>
-                        <p className="text-xl">Contacto</p>
-                        <p className="flex flex-row gap-2"> <Instagram></Instagram>{parametrosArray['instagram_nombre']}</p>
-                        <p className="flex flex-row gap-2"> <Phone></Phone>{parametrosArray['whatsapp']}</p>
-                        <p className="flex flex-row gap-2"><Clock></Clock>Respondemos de {parametrosArray['horario_atencion_apertura']} a {parametrosArray['horario_atencion_cierre']}</p>
-                    </div>
+                    {parametrosArray && (
+                        <div>
+                            <p className="text-xl">Contacto</p>
+                            <p className="flex flex-row gap-2">
+                                {' '}
+                                <Instagram></Instagram>
+                                {parametrosArray['instagram_nombre']}
+                            </p>
+                            <p className="flex flex-row gap-2">
+                                {' '}
+                                <Phone></Phone>
+                                {parametrosArray['whatsapp']}
+                            </p>
+                            <p className="flex flex-row gap-2">
+                                <Clock></Clock>Respondemos de{' '}
+                                {parametrosArray['horario_atencion_apertura']} a{' '}
+                                {parametrosArray['horario_atencion_cierre']}
+                            </p>
+                        </div>
+                    )}
+
                     <div>
                         <p className="text-xl">Grupo: Marti2</p>
                         <p className="">Martina Rosales</p>
