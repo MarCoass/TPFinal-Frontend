@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { User } from 'lucide-react'
+import DropdownLink from '../DropdownLink'
 
 const Navigation = ({ user }) => {
     const router = useRouter()
@@ -72,24 +73,17 @@ const Navigation = ({ user }) => {
                                     </div>
                                 }>
                                 {user && user.id_rol == 1 ? (
-                                    <DropdownButton>
-                                        Configuracion
-                                    </DropdownButton>
+                                    <DropdownLink  href="/administracion/preferencias">
+                                        Preferencias
+                                    </DropdownLink>
                                 ) : (
-                                    <DropdownButton>Perfil</DropdownButton>
+                                    <DropdownLink  href="/perfil">Perfil</DropdownLink>
                                 )}
 
                                 {user && user.id_rol != 1 ? (
-                                    <DropdownButton>
-                                        <NavLink
-                                            href="/tienda/carrito"
-                                            active={
-                                                router.pathname ===
-                                                '/tienda/carrito'
-                                            }>
-                                            Carrito
-                                        </NavLink>
-                                    </DropdownButton>
+                                    <DropdownLink  href="/tienda/carrito">
+                                        Carrito
+                                    </DropdownLink>
                                 ) : null}
                                 <DropdownButton onClick={logout}>
                                     Logout
