@@ -19,7 +19,7 @@ import {
 import { NeoButtonChico } from '../Button'
 import { Search } from 'lucide-react'
 // Definición del componente DataTable en JavaScript
-export default function Tabla({ columns, data, filtrar }) {
+export default function Tabla({ columns, data, filtrar,sinCabecera }) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnFilters, setColumnFilters] = React.useState([])
@@ -67,7 +67,7 @@ export default function Tabla({ columns, data, filtrar }) {
 
             <div className="">
                 <Table className="rounded-[5px] border-2 border-black">
-                    <TableHeader>
+                    {!sinCabecera && (<TableHeader>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map(header => {
@@ -87,7 +87,7 @@ export default function Tabla({ columns, data, filtrar }) {
                                 })}
                             </TableRow>
                         ))}
-                    </TableHeader>
+                    </TableHeader>)}
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (

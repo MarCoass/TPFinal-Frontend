@@ -21,7 +21,7 @@ const fetchProveedor = id => {
     return axios.get('/api/proveedor/' + id).then(res => res.data)
 }
 
-export function ModalProveedorStore() {
+export function ModalProveedorStore({ dashboard }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')
@@ -50,11 +50,17 @@ export function ModalProveedorStore() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                    <PlusSquare className="h-4 w-4 mx-2" />
-                    NUEVO PROVEEDOR
-                </AlertDialogTrigger>
-
+                {dashboard ? (
+                    <AlertDialogTrigger className="flex align-middle gap-2 ">
+                        <p>Nuevo proveedor</p>
+                        <PlusSquare className="" />
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        <PlusSquare className="h-4 w-4 mx-2" />
+                        NUEVO PROVEEDOR
+                    </AlertDialogTrigger>
+                )}
                 <AlertDialogContent className="bg-white p-12">
                     <form
                         onSubmit={handleSubmit}
@@ -132,7 +138,7 @@ export function ModalProveedorDelete({ idProveedor }) {
     )
 }
 
-export function ModalProveedorUpdate({idProveedor}) {
+export function ModalProveedorUpdate({ idProveedor }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')

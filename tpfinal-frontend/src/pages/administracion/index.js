@@ -2,6 +2,12 @@ import AdminLayout from '@/components/Layouts/AdminLayout'
 import Head from 'next/head'
 import CalendarioTareas from '../../components/CalendarioTareas'
 import TareasDashboard from './tareas/dashboard'
+import PedidosDashboard from './pedidos/dashboard'
+import { AccesoRapido } from '../../components/CardDashboard'
+import { ModalProductoStore } from '../../components/Modales/modalProductos'
+import { ModalInsumoCrear } from '../../components/Modales/modalInsumos'
+import CrearTarea from './tareas/store'
+import { ModalProveedorStore } from '../../components/Modales/modalProveedor'
 
 const Dashboard = () => {
     return (
@@ -15,22 +21,56 @@ const Dashboard = () => {
                 <title>Administracion - Mar Nails</title>
             </Head>
 
-            <div className="py-12 ">
-                <div className=" grid grid-cols-6 grid-rows-5 gap-4">
-                    <div className=" col-span-4 row-span-3">
-                        <div className="text-2xl font-bold ">
-                            Accesos rapidos
+            <div className="py-6">
+                <div className=" lg:grid lg:grid-cols-6 lg:grid-rows-5 gap-4 flex flex-col">
+                    <div
+                        className="lg:col-span-4 lg:row-span-5"
+                        id="accesosRapidos">
+                        <div className=" grid m-5">
+                            <p className="text-2xl font-bold ">
+                                Accesos rapidos
+                            </p>
+                            <div className="flex flex-wrap gap-5">
+                                <AccesoRapido
+                                    titulo="Productos"
+                                    url="administracion/productos/">
+                                    <ModalProductoStore
+                                        dashboard={true}></ModalProductoStore>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Insumos"
+                                    url="administracion/insumos/">
+                                    <ModalInsumoCrear
+                                        dashboard={true}></ModalInsumoCrear>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Tareas"
+                                    url="administracion/tareas/">
+                                    <CrearTarea dashboard={true}></CrearTarea>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Proveedores"
+                                    url="administracion/proveedores/">
+                                    <ModalProveedorStore
+                                        dashboard={true}></ModalProveedorStore>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Preferencias"
+                                    url="administracion/preferencias/"></AccesoRapido>
+                            </div>
+                        </div>
+                        <div className="m-5">
+                            <div className="text-2xl font-bold ">
+                                <PedidosDashboard></PedidosDashboard>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col-span-2 row-span-5 col-start-5">
+                    <div
+                        className="lg:col-span-2 lg:row-span-5 lg:col-start-5 flex lg:flex-col sm:flex-row flex-col mx-5 gap-3"
+                        id="tareas">
                         <TareasDashboard></TareasDashboard>
                         <CalendarioTareas></CalendarioTareas>
-                    </div>
-                    <div className="col-span-4 row-span-2 row-start-4">
-                    <div className="text-2xl font-bold ">
-                            Pedidos personalizados
-                        </div>
                     </div>
                 </div>
             </div>

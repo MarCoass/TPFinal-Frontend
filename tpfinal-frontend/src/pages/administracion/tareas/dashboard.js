@@ -37,7 +37,7 @@ export default function TareasDashboard() {
                         </Badge>
                     </div>
 
-                    <div className="flex flex-wrap flex-row gap-4 my-5">
+                    <div className="flex flex-wrap flex-row gap-2 my-5 w-100 md:gap-4">
                         {tareas.map(tarea => (
                             <CardTareaDashboard
                                 key={tarea.id}
