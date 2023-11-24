@@ -73,15 +73,17 @@ const Navigation = ({ user }) => {
                                     </div>
                                 }>
                                 {user && user.id_rol == 1 ? (
-                                    <DropdownLink  href="/administracion/preferencias">
+                                    <DropdownLink href="/administracion/preferencias">
                                         Preferencias
                                     </DropdownLink>
                                 ) : (
-                                    <DropdownLink  href="/perfil">Perfil</DropdownLink>
+                                    <DropdownLink href="/perfil">
+                                        Perfil
+                                    </DropdownLink>
                                 )}
 
                                 {user && user.id_rol != 1 ? (
-                                    <DropdownLink  href="/tienda/carrito">
+                                    <DropdownLink href="/tienda/carrito">
                                         Carrito
                                     </DropdownLink>
                                 ) : null}
