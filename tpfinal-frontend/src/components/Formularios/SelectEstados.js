@@ -36,6 +36,7 @@ export function SelectEstadosInsumo({ onChange }) {
 
 export function SelectEstadosTareas({ onChange }) {
     const estados = estadosTareas()
+    
 
     const handleChange = newValue => {
         onChange(newValue)

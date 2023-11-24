@@ -26,18 +26,11 @@ const fetchTarea = id => {
 
 export default function ModalTareaUpdate({ id, obtenerDatos }) {
     const [tarea, setTarea] = useState([])
-    const [isOpen, setIsOpen] = useState(false)
     const [titulo, setTitulo] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fechaVencimiento, setFechaVencimiento] = useState('')
     const [estado, setEstado] = useState('')
-
-    const handleOpen = () => {
-        setIsOpen(true)
-    }
-    const handleClose = () => {
-        setIsOpen(false)
-    }
+    
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -53,11 +46,10 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
             handleUpdate(id, url, formData, obtenerDatos)
 
             // Maneja la respuesta del servidor si es necesario
-            /* console.log('Respuesta del servidor:', response.data) */
+            /*  console.log('Respuesta del servidor:', response.data) */
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
-        setIsOpen(false)
     }
 
     useEffect(() => {
@@ -69,7 +61,7 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
                 setDescripcion(data.descripcion)
                 setEstado(data.estado)
                 setFechaVencimiento(data.fecha_vencimiento)
-                //console.log(data)
+               /*  console.log(data.estado) */
             } catch (error) {
                 console.error('Error al obtener tarea:', error)
             }
@@ -84,22 +76,29 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
                     <Pencil className="h-4 w-4 mx-1"></Pencil>
                     <span className="hidden md:block">Editar</span>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-white border border-gray-200 ">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Editar tarea</AlertDialogTitle>
-
-                        <form onSubmit={handleSubmit} className="flex flex-col">
-                            <div className="flex justify-around">
-                                <label>Titulo:</label>
+                <AlertDialogContent className="bg-rosado-50 border-black border-2 w-min md:min-w-min">
+                    <form onSubmit={handleSubmit} className="flex flex-col">
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
+                                Crear tarea
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div className="flex flex-col  md:grid md:grid-cols-2 gap-3">
+                            <div className="flex justify-between md:justify-around gap-5">
+                                <label htmlFor="titulo">Titulo:</label>
                                 <Input
+                                    id="titulo"
                                     type="text"
                                     value={titulo}
                                     onChange={e => setTitulo(e.target.value)}
                                 />
                             </div>
-                            <div className="flex justify-around">
-                                <label>Descripcion:</label>
+                            <div className="flex justify-between md:justify-around gap-5">
+                                <label htmlFor="descripcion">
+                                    Descripcion:
+                                </label>
                                 <Input
+                                    id="descripcion"
                                     type="text"
                                     value={descripcion}
                                     onChange={e =>
@@ -107,16 +106,18 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
                                     }
                                 />
                             </div>
-                            <div className="flex justify-around">
-                                <label>Estado:</label>
-                                <Input
-                                    type="text"
+                            <div className="flex justify-between md:justify-around gap-5">
+                                <label htmlFor="estado">Estado:</label>
+                                <SelectEstadosTareas
+                                    id="estado"
                                     value={estado}
-                                    onChange={e => setEstado(e.target.value)}
+                                    onChange={newEstado => setEstado(newEstado)}
                                 />
                             </div>
-                            <div className="flex justify-around">
-                                <label>Fecha vencimiento:</label>
+                            <div className="flex justify-between md:justify-around gap-5">
+                                <label htmlFor="fecha">
+                                    Fecha vencimiento:
+                                </label>
                                 <Input
                                     id="fecha"
                                     type="date"
@@ -126,14 +127,15 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
                                     }
                                 />
                             </div>
-                        </form>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleSubmit}>
-                            Modificar
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
+                        </div>
+
+                        <AlertDialogFooter className="mt-10">
+                            <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                            <AlertDialogAction type="submit">
+                                Guardar
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </form>
                 </AlertDialogContent>
             </AlertDialog>
         </>
