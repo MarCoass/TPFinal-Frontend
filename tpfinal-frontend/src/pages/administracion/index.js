@@ -6,8 +6,8 @@ import PedidosDashboard from './pedidos/dashboard'
 import { AccesoRapido } from '../../components/CardDashboard'
 import { ModalProductoStore } from '../../components/Modales/modalProductos'
 import { ModalInsumoCrear } from '../../components/Modales/modalInsumos'
-import CrearTarea from './tareas/store'
 import { ModalProveedorStore } from '../../components/Modales/modalProveedor'
+import { ModalCrearTarea } from '../../components/Modales/modalTarea'
 
 const Dashboard = () => {
     return (
@@ -46,7 +46,7 @@ const Dashboard = () => {
                                 <AccesoRapido
                                     titulo="Tareas"
                                     url="administracion/tareas/">
-                                    <CrearTarea dashboard={true}></CrearTarea>
+                                    <ModalCrearTarea dashboard={true}></ModalCrearTarea>
                                 </AccesoRapido>
                                 <AccesoRapido
                                     titulo="Proveedores"

@@ -10,13 +10,17 @@ const CardTarea = ({ tarea }) => (
     <div
         className={`${
             tarea.estado === 0
-                ? 'bg-rosado-400 text-black'
-                : 'bg-gray-400 text-gray-700'
-        } rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`}>
-        <div className="border-b-2 border-black p-4">
+                ? 'bg-violeta-100 text-black'
+                : 'bg-gray-300 text-gray-700'
+        } w-100  md:w-min md:min-w-max  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`}>
+        <div  className={`${
+            tarea.estado === 0
+                ? 'bg-violeta-200 text-black'
+                : 'bg-gray-400 text-gray-900'
+        } border-b-2 border-black p-4`}>
             <h2 className="text-lg">{tarea.titulo}</h2>
         </div>
-        <div className="p-4 border-b-2 border-black">
+        <div className="p-2 md:p-4 border-b-2 border-black">
             <p>{tarea.descripcion}</p>
             <div className="text-sm flex pt-2">
                 <CalendarDays className="h-4"></CalendarDays> Vencimiento:{' '}
