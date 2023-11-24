@@ -67,7 +67,7 @@ const Dashboard = () => {
                     </div>
 
                     <div
-                        className="lg:col-span-2 lg:row-span-5 lg:col-start-5 flex lg:flex-col sm:flex-row flex-col mx-5"
+                        className="lg:col-span-2 lg:row-span-5 lg:col-start-5 flex lg:flex-col sm:flex-row flex-col mx-5 gap-3"
                         id="tareas">
                         <TareasDashboard></TareasDashboard>
                         <CalendarioTareas></CalendarioTareas>
