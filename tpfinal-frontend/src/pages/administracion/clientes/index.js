@@ -4,6 +4,7 @@ import Tabla from '../../../components/Tablas/data-table'
 import { columnsClientes } from './columns'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchClientes = async () => {
     try {
@@ -19,12 +20,19 @@ const Dashboard = () => {
     const [clientes, setClientes] = useState(null)
 
     useEffect(() => {
-        async function obtenerClientes() {
+        if (clientes === null || !clientes) {
+            obtenerDatos()
+        }
+    }, [clientes])
+
+    const obtenerDatos = async () => {
+        try {
             const data = await fetchClientes()
             setClientes(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-        obtenerClientes()
-    }, [])
+    }
     return (
         <AdminLayout
             header={
@@ -41,12 +49,15 @@ const Dashboard = () => {
                     <div className="overflow-hidden container md:mx-auto py-2">
                         {clientes ? (
                             <Tabla
+                                obtenerDatos={obtenerDatos}
                                 filtrar={true}
                                 columns={columnsClientes}
                                 data={clientes}
                             />
                         ) : (
-                            <p>Cargando datos...</p>
+                            <CustomSpinner
+                        mensaje={'Cargando clientes...'}>
+                    </CustomSpinner>
                         )}
                     </div>{' '}
                 </div>
