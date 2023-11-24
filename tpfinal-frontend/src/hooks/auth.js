@@ -23,7 +23,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         await csrf()
 
         setErrors([])
-        
+
         axios
             .post('/register', props)
             .then(() => mutate())
@@ -99,8 +99,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user)
+        if (middleware === 'guest' && redirectIfAuthenticated && user) {
+            if (user.id_rol==1) {
+                router.push('/administracion')
+            } 
             router.push(redirectIfAuthenticated)
+        }
+
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at
