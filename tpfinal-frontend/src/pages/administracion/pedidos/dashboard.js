@@ -40,7 +40,7 @@ export default function PedidosDashboard() {
 
     return (
         <>
-            <div className=" rounded-[5px] m-5 p-5 border-2 border-black">
+            <div className=" rounded-[5px]  ">
                 Pedidos personalizados
                 {pedidos && conteo ? (
                     <TabsPedidos pedidos={pedidos}></TabsPedidos>

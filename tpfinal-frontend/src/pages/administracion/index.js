@@ -3,6 +3,11 @@ import Head from 'next/head'
 import CalendarioTareas from '../../components/CalendarioTareas'
 import TareasDashboard from './tareas/dashboard'
 import PedidosDashboard from './pedidos/dashboard'
+import { AccesoRapido } from '../../components/CardDashboard'
+import { ModalProductoStore } from '../../components/Modales/modalProductos'
+import { ModalInsumoCrear } from '../../components/Modales/modalInsumos'
+import CrearTarea from './tareas/store'
+import { ModalProveedorStore } from '../../components/Modales/modalProveedor'
 
 const Dashboard = () => {
     return (
@@ -21,16 +26,40 @@ const Dashboard = () => {
                     <div
                         className="lg:col-span-4 lg:row-span-5"
                         id="accesosRapidos">
-                        <div className="bg-rosado-200">
+                        <div className=" grid m-5">
                             <p className="text-2xl font-bold ">
                                 Accesos rapidos
                             </p>
-                            <div>
-                                Crear producto Crear insumo Crear tarea Crear
-                                proveedor
+                            <div className="flex flex-wrap gap-5">
+                                <AccesoRapido
+                                    titulo="Productos"
+                                    url="administracion/productos/">
+                                    <ModalProductoStore
+                                        dashboard={true}></ModalProductoStore>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Insumos"
+                                    url="administracion/insumos/">
+                                    <ModalInsumoCrear
+                                        dashboard={true}></ModalInsumoCrear>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Tareas"
+                                    url="administracion/tareas/">
+                                    <CrearTarea dashboard={true}></CrearTarea>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Proveedores"
+                                    url="administracion/proveedores/">
+                                    <ModalProveedorStore
+                                        dashboard={true}></ModalProveedorStore>
+                                </AccesoRapido>
+                                <AccesoRapido
+                                    titulo="Preferencias"
+                                    url="administracion/preferencias/"></AccesoRapido>
                             </div>
                         </div>
-                        <div className="">
+                        <div className="m-5">
                             <div className="text-2xl font-bold ">
                                 <PedidosDashboard></PedidosDashboard>
                             </div>
