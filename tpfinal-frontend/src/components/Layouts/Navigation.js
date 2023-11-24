@@ -19,8 +19,7 @@ const Navigation = ({ user }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="border-b-2 border-black bg-lila-500">
-            {/* Primary Navigation Menu */}
+        <nav className="border-b-2 border-black bg-lila-500 py-3">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between font-bold">
                     <div className="flex">
