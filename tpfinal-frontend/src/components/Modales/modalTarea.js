@@ -24,7 +24,7 @@ const fetchTarea = id => {
     return axios.get('/api/tarea/' + id).then(res => res.data)
 }
 
-export default function ModalTareaUpdate({ id }) {
+export default function ModalTareaUpdate({ id, obtenerDatos }) {
     const [tarea, setTarea] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [titulo, setTitulo] = useState('')
@@ -49,18 +49,11 @@ export default function ModalTareaUpdate({ id }) {
             formData.append('fecha_vencimiento', fechaVencimiento)
             formData.append('estado', estado)
 
-            const headers = {
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                Accept: 'application/json',
-            }
+            let url = '/api/tareaUpdate/'
+            handleUpdate(id, url, formData, obtenerDatos)
 
-            const response = await axios.post(
-                '/api/tareaUpdate/' + tarea.id,
-                formData,
-                { headers },
-            )
             // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            /* console.log('Respuesta del servidor:', response.data) */
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -94,53 +87,46 @@ export default function ModalTareaUpdate({ id }) {
                 <AlertDialogContent className="bg-white border border-gray-200 ">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Editar tarea</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            <form
-                                onSubmit={handleSubmit}
-                                className="flex flex-col">
-                                <div className="flex justify-around">
-                                    <label>Titulo:</label>
-                                    <Input
-                                        type="text"
-                                        value={titulo}
-                                        onChange={e =>
-                                            setTitulo(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                <div className="flex justify-around">
-                                    <label>Descripcion:</label>
-                                    <Input
-                                        type="text"
-                                        value={descripcion}
-                                        onChange={e =>
-                                            setDescripcion(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                <div className="flex justify-around">
-                                    <label>Estado:</label>
-                                    <Input
-                                        type="text"
-                                        value={estado}
-                                        onChange={e =>
-                                            setEstado(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                <div className="flex justify-around">
-                                    <label>Fecha vencimiento:</label>
-                                    <Input
-                                        id="fecha"
-                                        type="date"
-                                        value={fechaVencimiento}
-                                        onChange={e =>
-                                            setFechaVencimiento(e.target.value)
-                                        }
-                                    />
-                                </div>
-                            </form>
-                        </AlertDialogDescription>
+
+                        <form onSubmit={handleSubmit} className="flex flex-col">
+                            <div className="flex justify-around">
+                                <label>Titulo:</label>
+                                <Input
+                                    type="text"
+                                    value={titulo}
+                                    onChange={e => setTitulo(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Descripcion:</label>
+                                <Input
+                                    type="text"
+                                    value={descripcion}
+                                    onChange={e =>
+                                        setDescripcion(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Estado:</label>
+                                <Input
+                                    type="text"
+                                    value={estado}
+                                    onChange={e => setEstado(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex justify-around">
+                                <label>Fecha vencimiento:</label>
+                                <Input
+                                    id="fecha"
+                                    type="date"
+                                    value={fechaVencimiento}
+                                    onChange={e =>
+                                        setFechaVencimiento(e.target.value)
+                                    }
+                                />
+                            </div>
+                        </form>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
@@ -154,7 +140,7 @@ export default function ModalTareaUpdate({ id }) {
     )
 }
 
-export function ModalTareaDelete({ id }) {
+export function ModalTareaDelete({ id, obtenerDatos }) {
     return (
         <>
             <AlertDialog>
@@ -166,14 +152,18 @@ export function ModalTareaDelete({ id }) {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
                         <AlertDialogDescription>
-                            <p>¿Desea eliminar la tarea?</p>
+                            ¿Desea eliminar la tarea?
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={() =>
-                                handleDelete(id, '/api/tareaDelete/')
+                                handleDelete(
+                                    id,
+                                    '/api/tareaDelete/',
+                                    obtenerDatos,
+                                )
                             }>
                             Eliminar
                         </AlertDialogAction>
@@ -184,7 +174,7 @@ export function ModalTareaDelete({ id }) {
     )
 }
 
-export function ModalTareaTerminar({ id }) {
+export function ModalTareaTerminar({ id, obtenerDatos }) {
     return (
         <>
             <AlertDialog>
@@ -196,14 +186,19 @@ export function ModalTareaTerminar({ id }) {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Terminar tarea</AlertDialogTitle>
                         <AlertDialogDescription>
-                            <p>¿Desea marcar la tarea como terminada?</p>
+                            ¿Desea marcar la tarea como terminada?
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={() =>
-                                handleUpdate(id, '/api/tareaTerminada/')
+                                handleUpdate(
+                                    id,
+                                    '/api/tareaTerminada/',
+                                    null,
+                                    obtenerDatos,
+                                )
                             }>
                             Terminar
                         </AlertDialogAction>
@@ -280,7 +275,9 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
                 <AlertDialogContent className="bg-rosado-50">
                     <form onSubmit={handleSubmit} className="flex flex-col">
                         <AlertDialogHeader className="mb-5">
-                            <AlertDialogTitle className='text-xl'>Crear tarea</AlertDialogTitle>
+                            <AlertDialogTitle className="text-xl">
+                                Crear tarea
+                            </AlertDialogTitle>
                         </AlertDialogHeader>
                         <div className="grid grid-cols-2 gap-3">
                             <div className="flex justify-around gap-5">

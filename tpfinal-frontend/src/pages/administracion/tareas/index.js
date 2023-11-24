@@ -92,6 +92,7 @@ const goToNextPage = () => {
                                 {itemsToShow &&
                                     itemsToShow.map(tarea => (
                                         <CardTarea
+                                        obtenerDatos={obtenerDatos}
                                             key={tarea.id}
                                             tarea={tarea}></CardTarea>
                                     ))}
