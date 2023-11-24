@@ -81,7 +81,7 @@ export function ModalVerCliente({ id }) {
     )
 }
 
-export function ModalComentarCliente({ id }) {
+export function ModalComentarCliente({ id, editar }) {
     const [cliente, setCliente] = useState()
     const [comentario, setComentario] = useState('')
 
@@ -129,14 +129,14 @@ export function ModalComentarCliente({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex flex-row  rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
-                    <Pencil className="w-4 mx-2"></Pencil> Comentar
+                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
+                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil><p className='hidden lg:block'>{editar ?(<p>Editar</p>):(<p>Comentar</p>)} </p> 
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
-                                Observaciones sobre{' '}
+                                Observaciones sobre
                                 {cliente && (
                                     <>
                                         {cliente.nombre} {cliente.apellido}
@@ -148,7 +148,7 @@ export function ModalComentarCliente({ id }) {
                         {cliente && (
                             <>
                                 <textarea
-                                    className="h-[150px] w-[400px] resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
+                                    className="h-[150px] md:w-[400px]  resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
                                     name="textarea"
                                     id="textarea"
                                     placeholder="Agregar un comentario..."
@@ -196,15 +196,15 @@ export function ModalVerClienteCompleto({ id, nombre }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
-                    <Eye className="h-4 mx-2"></Eye> Ver pedidos
+                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
+                    <Eye className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Eye> <p className='hidden lg:block'>Ver pedidos</p>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 className='overscroll-contain overflow-auto'">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Pedidos de {nombre}</AlertDialogTitle>
                     </AlertDialogHeader>
 
-                    {pedidos && <Tabla columns={columns} data={pedidos} />}
+                    {pedidos && <Tabla columns={columns} data={pedidos} pageSize={5} />}
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
