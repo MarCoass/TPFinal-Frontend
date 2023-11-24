@@ -236,15 +236,19 @@ export default function Home() {
                 </div>
                 <div className="pl-5 py-10 bg-cremita-400 flex flex-col justify-center align-middle  gap-4 border-b-2 border-black">
                     <p className="text-4xl ">Algunos pedidos personalizados</p>
-                    <div className='flex flex-col justify-around md:flex-row md:flex-wrap gap-5'>
-                        <CardTrabajos img='/images/degrade-verde.jpg'></CardTrabajos>
-                        <CardTrabajos img='/images/fuego.jpg'></CardTrabajos>
-                        <CardTrabajos img='/images/bakugo.jpg'></CardTrabajos>
-                        <CardTrabajos img='/images/brillo-rojo.jpg'></CardTrabajos>
+                    <div className="flex flex-col justify-around md:flex-row md:flex-wrap gap-5">
+                        <CardTrabajos img="/images/degrade-verde.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/fuego.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/bakugo.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/brillo-rojo.jpg"></CardTrabajos>
                     </div>
                 </div>
-                <div className="pl-5 py-10 bg-lila-400 flex flex-col justify-center align-middle md:grid md:grid-cols-3 gap-4 border-b-2 border-black">
-                    <p className="text-4xl ">Footer</p>
+                <div className="px-10 py-10 bg-lila-400 flex justify-end align-end border-b-2 border-black">
+                    <div>
+                        <p className="text-lg" >Grupo: Marti2</p>
+                        <p className="">Martina Rosales</p>
+                        <p className="">Martina Coassin</p>
+                    </div>
                 </div>
             </div>
         </>
