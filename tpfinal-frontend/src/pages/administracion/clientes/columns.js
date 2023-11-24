@@ -37,7 +37,7 @@ export const columnsClientes = [
         header: 'Contacto',
         cell: ({ row }) => {
             return (
-                <div className="flex flex-col">
+                <div className="flex flex-col ">
                     <p>{row.original.num_telefono}</p>{' '}
                     <p>{row.original.email}</p>
                 </div>

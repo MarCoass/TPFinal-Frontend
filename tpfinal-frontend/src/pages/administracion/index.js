@@ -55,6 +55,9 @@ const Dashboard = () => {
                                         dashboard={true}></ModalProveedorStore>
                                 </AccesoRapido>
                                 <AccesoRapido
+                                    titulo="Clientes"
+                                    url="administracion/clientes/"></AccesoRapido>
+                                <AccesoRapido
                                     titulo="Preferencias"
                                     url="administracion/preferencias/"></AccesoRapido>
                             </div>
