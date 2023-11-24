@@ -87,7 +87,7 @@ export default function ModalTareaUpdate({ id }) {
             <AlertDialog>
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-lila-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     
-                        <Pencil className="h-4 w-4 mx-1"></Pencil>Editar
+                        <Pencil className="h-4 w-4 mx-1"></Pencil><span className='hidden md:block'>Editar</span>
                     
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-white border border-gray-200 ">
@@ -159,7 +159,7 @@ export function ModalTareaDelete({ id }) {
             <AlertDialog>
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-red-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Trash2 className="h-4 w-4 mx-1" />
-                    Eliminar
+                    <span className='hidden md:block'>Eliminar</span>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
@@ -189,7 +189,7 @@ export function ModalTareaTerminar({ id }) {
             <AlertDialog>
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-green-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <CheckCircle className="h-4 w-4 mx-1" />
-                    Terminar
+                   <span className='hidden md:block'>Terminar</span>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
