@@ -80,7 +80,7 @@ export default function ModalTareaUpdate({ id, obtenerDatos }) {
                     <form onSubmit={handleSubmit} className="flex flex-col">
                         <AlertDialogHeader className="mb-5">
                             <AlertDialogTitle className="text-xl">
-                                Crear tarea
+                                Editar tarea
                             </AlertDialogTitle>
                         </AlertDialogHeader>
                         <div className="flex flex-col  md:grid md:grid-cols-2 gap-3">
@@ -274,15 +274,15 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
                         NUEVA TAREA
                     </AlertDialogTrigger>
                 )}
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 border-black border-2 w-min md:min-w-min">
                     <form onSubmit={handleSubmit} className="flex flex-col">
                         <AlertDialogHeader className="mb-5">
                             <AlertDialogTitle className="text-xl">
                                 Crear tarea
                             </AlertDialogTitle>
                         </AlertDialogHeader>
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="flex justify-around gap-5">
+                        <div className="flex flex-col  md:grid md:grid-cols-2 gap-3">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="titulo">Titulo:</label>
                                 <Input
                                     id="titulo"
@@ -291,7 +291,7 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
                                     onChange={e => setTitulo(e.target.value)}
                                 />
                             </div>
-                            <div className="flex justify-around gap-5">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="descripcion">
                                     Descripcion:
                                 </label>
@@ -304,7 +304,7 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
                                     }
                                 />
                             </div>
-                            <div className="flex justify-around gap-5">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="estado">Estado:</label>
                                 <SelectEstadosTareas
                                     id="estado"
@@ -312,7 +312,7 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
                                     onChange={newEstado => setEstado(newEstado)}
                                 />
                             </div>
-                            <div className="flex justify-around gap-5">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="fecha">
                                     Fecha vencimiento:
                                 </label>
