@@ -57,6 +57,7 @@ export default function TablaProveedores() {
                                 <div className="container mx-auto py-10">
                                     {proveedores ? (
                                         <Tabla
+                                         filtrar={true}
                                             obtenerDatos={obtenerDatos}
                                             columns={columns}
                                             data={proveedores}
