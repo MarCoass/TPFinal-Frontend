@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input'
 import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
 import { SelectEstadosTareas } from '@/components/Formularios/SelectEstados'
+import swal from 'sweetalert'
 
 const fetchTarea = id => {
     return axios.get('/api/tarea/' + id).then(res => res.data)
@@ -236,9 +237,28 @@ export function ModalCrearTarea({ dashboard = false }) {
             }
 
             const response = await axios.post(url, formData, { headers })
-            //console.log(response)
+            swal({
+                icon: 'success',
+                title: 'Tarea agregads correctamente.',
+                text: 'Se creo una tarea exitosamente.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         } catch (error) {
             console.log('Error al crear la tarea: ', error)
+            swal({
+                icon: 'error',
+                title: 'Error al crear una nueva tarea.',
+                text: 'Ocurrio un error al cargar la tarea.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         }
     }
 
