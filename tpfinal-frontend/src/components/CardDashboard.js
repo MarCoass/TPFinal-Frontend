@@ -35,7 +35,7 @@ export function AccesoRapido({ titulo, url, children }) {
     )
 }
 
-export function CardInicio({ url, titulo, texto, img, children }) {
+export function CardInicio({ titulo, texto, img, children }) {
     return (
         <div className=" border-2 border-black rounded-[5px] w-[250px] bg-lila-400 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <Image
@@ -45,16 +45,27 @@ export function CardInicio({ url, titulo, texto, img, children }) {
                 height={250}
                 alt=""
             />
-            <div className='py-3 flex flex-col'>
-            <div>
-                <p className='text-lg'>{titulo}</p>
-                <p>{texto}</p>
-            </div>
+            <div className="py-3 flex flex-col">
                 <div>
-                    {children}
+                    <p className="text-lg">{titulo}</p>
+                    <p>{texto}</p>
                 </div>
-               
+                <div>{children}</div>
             </div>
+        </div>
+    )
+}
+
+export function CardTrabajos({ img }) {
+    return (
+        <div className=" border-2 border-black rounded-[5px] w-max bg-lila-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <Image
+                className="bg-white rounded-[5px] border-2 border-black m-3"
+                src={img}
+                width={300}
+                height={300}
+                alt=""
+            />
         </div>
     )
 }

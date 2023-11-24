@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import Image from 'next/image'
-import { CardInicio } from '../components/CardDashboard'
+import { CardInicio, CardTrabajos } from '../components/CardDashboard'
 import Link from 'next/link'
 import { Mail, Ruler, ShoppingCart } from 'lucide-react'
 
@@ -139,7 +139,7 @@ export default function Home() {
                     />
                 </div>
                 <div className=" border-b-2 border-black lg:grid lg:grid-cols-3 lg:divide-x-2 lg:divide-y-0 divide-black divide-y-2">
-                    <div className="py-10 px-5 bg-violeta-100">
+                    <div className="py-10 px-5  bg-violeta-100">
                         <p className="text-4xl">¿Como pegarlas?</p>
                         <div className="flex flex-col gap-3 py-4">
                             <ul>
@@ -233,6 +233,18 @@ export default function Home() {
                             sumergi mas tiempo las uñas en agua.
                         </p>
                     </div>
+                </div>
+                <div className="pl-5 py-10 bg-cremita-400 flex flex-col justify-center align-middle  gap-4 border-b-2 border-black">
+                    <p className="text-4xl ">Algunos pedidos personalizados</p>
+                    <div className='flex flex-col justify-around md:flex-row md:flex-wrap gap-5'>
+                        <CardTrabajos img='/images/stilletto-negras.png'></CardTrabajos>
+                        <CardTrabajos img='/images/stilletto-negras.png'></CardTrabajos>
+                        <CardTrabajos img='/images/stilletto-negras.png'></CardTrabajos>
+                        <CardTrabajos img='/images/stilletto-negras.png'></CardTrabajos>
+                    </div>
+                </div>
+                <div className="pl-5 py-10 bg-lila-400 flex flex-col justify-center align-middle md:grid md:grid-cols-3 gap-4 border-b-2 border-black">
+                    <p className="text-4xl ">Footer</p>
                 </div>
             </div>
         </>
