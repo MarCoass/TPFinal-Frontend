@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import CardTarea from '../../../components/CardTarea'
-import CrearTarea from './store'
 import Button, { NeoButton, NeoButtonChico } from '../../../components/Button'
 import { ModalCrearTarea } from '../../../components/Modales/modalTarea'
 
