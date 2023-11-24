@@ -37,35 +37,35 @@ export default function StoreTarea() {
         <>
             <form onSubmit={handleSubmit} className="flex flex-col">
                 <div className="flex justify-around">
-                    <label htmlFor='titulo'>Titulo:</label>
+                    <label htmlFor="titulo">Titulo:</label>
                     <Input
-                    id='titulo'
+                        id="titulo"
                         type="text"
                         value={titulo}
                         onChange={e => setTitulo(e.target.value)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label htmlFor='descripcion'>Descripcion:</label>
-                    <Input 
-                      id='descripcion'
+                    <label htmlFor="descripcion">Descripcion:</label>
+                    <Input
+                        id="descripcion"
                         type="text"
                         value={descripcion}
                         onChange={e => setDescripcion(e.target.value)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label htmlFor='estado'>Estado:</label>
+                    <label htmlFor="estado">Estado:</label>
                     <SelectEstadosTareas
-                      id='estado'
+                        id="estado"
                         value={estado}
                         onChange={newEstado => setEstado(newEstado)}
                     />
                 </div>
                 <div className="flex justify-around">
-                    <label htmlFor='fecha'>Fecha vencimiento:</label>
+                    <label htmlFor="fecha">Fecha vencimiento:</label>
                     <Input
-                      id='fecha'
+                        id="fecha"
                         type="date"
                         value={fechaVencimiento}
                         onChange={e => setFechaVencimiento(e.target.value)}

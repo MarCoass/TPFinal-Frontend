@@ -5,6 +5,7 @@ import axios from '@/lib/axios'
 import CardTarea from '../../../components/CardTarea'
 import CrearTarea from './store'
 import Button, { NeoButton, NeoButtonChico } from '../../../components/Button'
+import { ModalCrearTarea } from '../../../components/Modales/modalTarea'
 
 const fetchTareas = () => {
     return axios.get('/api/tareas').then(res => res.data)
@@ -28,7 +29,7 @@ const IndexTareas = () => {
 
     //---------------PAGINACION---------------------------
     const [currentPage, setCurrentPage] = useState(1)
-    const itemsPerPage = 6
+    const itemsPerPage = 8
     const indexOfLastItem = currentPage * itemsPerPage
     const indexOfFirstItem = indexOfLastItem - itemsPerPage
     const itemsToShow = tareas.slice(indexOfFirstItem, indexOfLastItem)
@@ -60,7 +61,7 @@ const IndexTareas = () => {
                     <p className="text-xl text-black leading-tight">
                         Tareas - Mar Nails
                     </p>
-                    <CrearTarea></CrearTarea>
+                    <ModalCrearTarea></ModalCrearTarea>
                 </div>
             }>
             <Head>
