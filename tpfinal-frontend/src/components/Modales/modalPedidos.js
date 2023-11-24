@@ -143,7 +143,7 @@ export function ModalCambiarEstado({ id }) {
     )
 }
 
-export function ModalCotizar({ id }) {
+export function ModalCotizar({ id, obtenerDatos }) {
     const [pedido, setPedido] = useState()
     const [precio, setPrecio] = useState()
     const [fecha, setFecha] = useState()
@@ -197,7 +197,7 @@ export function ModalCotizar({ id }) {
         formData.append('estado', 1)
 
         let url = '/api/administracion/pedido/cambiarEstado/'
-        handleUpdate(id, url, formData)
+        handleUpdate(id, url, formData, obtenerDatos)
     }
 
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'

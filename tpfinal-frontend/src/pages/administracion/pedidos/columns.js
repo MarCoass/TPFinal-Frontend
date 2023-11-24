@@ -100,7 +100,7 @@ export const columns = [
     {
         accessorKey: 'actions',
         header: '',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const id_estado = row.getValue('estado')
             const estados = estadosPedido()
             const estado = estados.find(estado => estado.id === id_estado)
@@ -108,7 +108,7 @@ export const columns = [
                 <div className="flex  justify-center">
                     {id_estado == 0 && (
                         <>
-                            <ModalCotizar id={row.original.id}></ModalCotizar>
+                            <ModalCotizar id={row.original.id} obtenerDatos={obtenerDatos}></ModalCotizar>
                         </>
                     )}
                     {(id_estado == 2 || id_estado == 4) && (

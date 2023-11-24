@@ -122,7 +122,7 @@ export function ModalComentarCliente({ id, editar, obtenerDatos }) {
             )
 
             if (response) {
-               /*  console.log('Respuesta del servidor:', response.data) */
+                /*  console.log('Respuesta del servidor:', response.data) */
                 obtenerDatos()
             }
         } catch (error) {
@@ -183,22 +183,19 @@ export function ModalVerClienteCompleto({ id, nombre }) {
     const [pedidos, setPedidos] = useState()
 
     useEffect(() => {
-        if (id != null) {
-            async function obtenerCliente() {
-                try {
-                    const data = await fetchPedidos(id)
-                    setPedidos(data)
-                    /*  console.log(data) */
-                } catch (error) {
-                    console.error(
-                        'Hubo un problema obteniendo los datos: ',
-                        error,
-                    )
-                }
-            }
-            obtenerCliente()
+        if ((id != null && pedidos === null) || !pedidos) {
+            obtenerDatos()
         }
-    }, [])
+    }, [pedidos])
+
+    const obtenerDatos = async () => {
+        try {
+            const data = await fetchPedidos(id)
+            setPedidos(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
 
     return (
         <>
@@ -213,7 +210,12 @@ export function ModalVerClienteCompleto({ id, nombre }) {
                     </AlertDialogHeader>
 
                     {pedidos && (
-                        <Tabla columns={columns} data={pedidos} pageSize={5} />
+                        <Tabla
+                            columns={columns}
+                            data={pedidos}
+                            pageSize={5}
+                            obtenerDatos={obtenerDatos}
+                        />
                     )}
 
                     <AlertDialogFooter>
