@@ -6,7 +6,7 @@ import axios from '@/lib/axios'
 import Image from 'next/image'
 import { CardInicio, CardTrabajos } from '../components/CardDashboard'
 import Link from 'next/link'
-import { Mail, Ruler, ShoppingCart } from 'lucide-react'
+import { Clock, Instagram, Mail, Phone, Ruler, ShoppingCart } from 'lucide-react'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -129,6 +129,45 @@ export default function Home() {
                             Diferente duracion, podes usar pegamento liquido o
                             stickers doble faz segun la duracion necesaria.
                         </p>
+                        <p className="text-2xl md:text-4xl mb-3 my-4">
+                            Informacion sobre los pedidos
+                        </p>
+                        <p className="text-lg">
+                            Valor de la seña: ${parametrosArray['valor_senia']}
+                            <br />
+                            Demora para cotizaciones:{' '}
+                            {parametrosArray['demora_cotizacion']}
+                            <br />
+                            Demora para pedidos:{' '}
+                            {parametrosArray['demora_trabajo']} <br />
+                            <span className="font-normal text-violeta-500">
+                                La demora es un aproximado <br /> La seña es
+                                obligatoria para pedidos personalizados.
+                            </span>
+                        </p>
+                        {parametrosArray['pedidos_abiertos'] == 1 ? (
+                            <p className="text-xl">
+                                Tenemos los pedidos abiertos! Podes hacer un{' '}
+                                <Link
+                                    href="/pedidos"
+                                    className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                    {' '}
+                                    pedido personalizado.
+                                </Link>
+                            </p>
+                        ) : (
+                            <p className="text-xl">
+                                Por el momento tenemos los pedidos cerrados,
+                                pero podes ver nuestra{' '}
+                                <Link
+                                    href="/tienda"
+                                    className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                    {' '}
+                                    tienda
+                                </Link>{' '}
+                                para conseguir sets en stock.
+                            </p>
+                        )}
                     </div>
                     <Image
                         className="col-start-3"
@@ -235,7 +274,9 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="pl-5 py-10 bg-cremita-400 flex flex-col justify-center align-middle  gap-4 border-b-2 border-black">
-                    <p className="text-4xl mx-auto my-4">Algunos pedidos personalizados</p>
+                    <p className="text-4xl mx-auto my-4">
+                        Algunos pedidos personalizados
+                    </p>
                     <div className="flex flex-col justify-around md:flex-row md:flex-wrap gap-5">
                         <CardTrabajos img="/images/degrade-verde.jpg"></CardTrabajos>
                         <CardTrabajos img="/images/fuego.jpg"></CardTrabajos>
@@ -243,9 +284,15 @@ export default function Home() {
                         <CardTrabajos img="/images/brillo-rojo.jpg"></CardTrabajos>
                     </div>
                 </div>
-                <div className="px-10 py-10 bg-lila-400 flex justify-end align-end border-b-2 border-black">
+                <div className="px-10 py-10 bg-lila-400 flex justify-around align-end border-b-2 border-black">
                     <div>
-                        <p className="text-lg" >Grupo: Marti2</p>
+                        <p className="text-xl">Contacto</p>
+                        <p className="flex flex-row gap-2"> <Instagram></Instagram>{parametrosArray['instagram_nombre']}</p>
+                        <p className="flex flex-row gap-2"> <Phone></Phone>{parametrosArray['whatsapp']}</p>
+                        <p className="flex flex-row gap-2"><Clock></Clock>Respondemos de {parametrosArray['horario_atencion_apertura']} a {parametrosArray['horario_atencion_cierre']}</p>
+                    </div>
+                    <div>
+                        <p className="text-xl">Grupo: Marti2</p>
                         <p className="">Martina Rosales</p>
                         <p className="">Martina Coassin</p>
                     </div>
