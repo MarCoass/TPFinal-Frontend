@@ -132,7 +132,7 @@ export function ModalComentarCliente({ id }) {
                 <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
                     <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil><p className='hidden lg:block'>Comentar</p> 
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50 ">
+                <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
@@ -148,7 +148,7 @@ export function ModalComentarCliente({ id }) {
                         {cliente && (
                             <>
                                 <textarea
-                                    className="h-[150px] w-[400px] resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
+                                    className="h-[150px] md:w-[400px]  resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
                                     name="textarea"
                                     id="textarea"
                                     placeholder="Agregar un comentario..."
