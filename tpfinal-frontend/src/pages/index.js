@@ -66,7 +66,7 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
-                <div className="py-10   bg-naranja-100 flex flex-col justify-center align-middle md:flex-wrap md:flex-row md:justify-evenly  md:content-stretch gap-4 border-b-2 border-black">
+                <div className="py-10 bg-naranja-100 flex flex-col justify-center align-middle md:flex-wrap md:flex-row md:justify-evenly  md:content-stretch gap-4 border-b-2 border-black">
                     <CardInicio
                         img="/images/personalizadas.png"
                         titulo="Uñas personalizadas"
