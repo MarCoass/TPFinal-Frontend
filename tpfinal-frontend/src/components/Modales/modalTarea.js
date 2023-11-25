@@ -184,7 +184,7 @@ export function ModalTareaTerminar({ id, obtenerDatos }) {
                     <CheckCircle className="h-4 w-4 mx-1" />
                     <span className="hidden md:block">Terminar</span>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-xl">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Terminar tarea</AlertDialogTitle>
                         <AlertDialogDescription>
