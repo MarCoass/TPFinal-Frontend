@@ -25,10 +25,6 @@ import swal from 'sweetalert'
 //formulario para registro y para edicion de datos de perfil
 
 export default function DatosUsuario() {
-    // const { register } = useAuth({
-    //     middleware: 'guest',
-    //     redirectIfAuthenticated: '/dashboard',
-    // })
     const { user } = useAuth()
     const [titulo, setTitulo] = useState('Información de perfil')
     const [mensajeBoton, setMensajeBoton] = useState('Guardar cambios')
