@@ -10,12 +10,10 @@ import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
 import Head from 'next/head'
 
-
 const provincias = [
     { value: '1', label: 'Neuquen' },
-    { value: '2', label: 'Rio Negro' }
+    { value: '2', label: 'Rio Negro' },
 ]
-
 
 const Register = () => {
     const { register } = useAuth({
@@ -37,7 +35,7 @@ const Register = () => {
 
         register({
             username,
-            nombre, 
+            nombre,
             apellido,
             numTelefono,
             email,
@@ -47,23 +45,23 @@ const Register = () => {
         })
     }
 
-
-
     return (
         <GuestLayout>
-           <Head>
-                    <title>Registrarse - Mar Nails</title>
-                </Head>
+            <Head>
+                <title>Registrarse - Mar Nails</title>
+            </Head>
             <AuthCard
                 logo={
                     <Link href="/">
                         <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
                     </Link>
                 }>
-                <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                <h1 className="text-black font-bold text-4xl m-4 text-center">
                     Registrarse
                 </h1>
-                <form onSubmit={submitForm}>
+                <form
+                    onSubmit={submitForm}
+                    className="font-bold flex flex-col lg:grid lg:grid-cols-2 gap-4">
                     {/* Name */}
                     <div>
                         <Label htmlFor="username">Ingrese su usuario</Label>
@@ -79,10 +77,13 @@ const Register = () => {
                             placeholder="Usuario"
                         />
 
-                        <InputError messages={errors.username} className="mt-2" />
+                        <InputError
+                            messages={errors.username}
+                            className="mt-2"
+                        />
                     </div>
-                    
-                    <div className="mt-4">
+
+                    <div className="">
                         <Label htmlFor="nombre">Ingrese su nombre</Label>
 
                         <Input
@@ -98,8 +99,8 @@ const Register = () => {
 
                         <InputError messages={errors.nombre} className="mt-2" />
                     </div>
-                    
-                    <div className="mt-4">
+
+                    <div className="">
                         <Label htmlFor="apellido">Ingrese su apellido</Label>
 
                         <Input
@@ -116,25 +117,8 @@ const Register = () => {
                         <InputError messages={errors.nombre} className="mt-2" />
                     </div>
 
-                    <div className="mt-4">
-                        <Label htmlFor="num_telefono">Ingrese su numero de telefono</Label>
-
-                        <Input
-                            id="numTelefono"
-                            type="tel"
-                            value={numTelefono}
-                            className="block mt-1 w-full"
-                            onChange={event => setNumTelefono(event.target.value)}
-                            required
-                            autoFocus
-                            placeholder="Numero de telefono"
-                        />
-
-                        <InputError messages={errors.nombre} className="mt-2" />
-                    </div>
-
                     {/* Email Address */}
-                    <div className="mt-4">
+                    <div className="">
                         <Label htmlFor="email">Ingrese su email</Label>
 
                         <Input
@@ -150,7 +134,7 @@ const Register = () => {
                         <InputError messages={errors.email} className="mt-2" />
                     </div>
                     {/* Password */}
-                    <div className="mt-4">
+                    <div className="">
                         <Label htmlFor="password">Ingrese una contraseña</Label>
 
                         <Input
@@ -170,7 +154,7 @@ const Register = () => {
                     </div>
 
                     {/* Confirm Password */}
-                    <div className="mt-4">
+                    <div className="">
                         <Label htmlFor="passwordConfirmation">
                             Repita la contraseña
                         </Label>
@@ -191,7 +175,26 @@ const Register = () => {
                             className="mt-2"
                         />
                     </div>
+                    <div className="">
+                        <Label htmlFor="num_telefono">
+                            Ingrese su numero de telefono
+                        </Label>
 
+                        <Input
+                            id="numTelefono"
+                            type="tel"
+                            value={numTelefono}
+                            className="block mt-1 w-full"
+                            onChange={event =>
+                                setNumTelefono(event.target.value)
+                            }
+                            required
+                            autoFocus
+                            placeholder="Numero de telefono"
+                        />
+
+                        <InputError messages={errors.nombre} className="mt-2" />
+                    </div>
                     <div className="flex items-center justify-end mt-4">
                         <Link
                             href="/login"

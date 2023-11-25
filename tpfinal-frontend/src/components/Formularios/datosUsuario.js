@@ -228,7 +228,7 @@ export default function DatosUsuario() {
                         <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
                     </Link>
                 }>
-                <h1 className="text-violeta-500 text-4xl m-5 text-center">
+                <h1 className="text-black text-4xl m-5 text-center">
                     {titulo}
                 </h1>
                 <form onSubmit={submitForm}>
