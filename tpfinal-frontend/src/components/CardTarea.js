@@ -6,7 +6,7 @@ import ModalTareaUpdate, {
 import { convertirFechaLarga } from '../lib/formatoFechas'
 
 
-const CardTarea = ({ tarea }) => (
+const CardTarea = ({ tarea, obtenerDatos }) => (
     <div
         className={`${
             tarea.estado === 0
@@ -29,10 +29,10 @@ const CardTarea = ({ tarea }) => (
         </div>
 
         <div className="flex gap-3 m-3">
-            <ModalTareaUpdate id={tarea.id}></ModalTareaUpdate>
-            <ModalTareaDelete id={tarea.id}></ModalTareaDelete>
+            <ModalTareaUpdate obtenerDatos={obtenerDatos} id={tarea.id}></ModalTareaUpdate>
+            <ModalTareaDelete obtenerDatos={obtenerDatos} id={tarea.id}></ModalTareaDelete>
             {tarea.estado === 0 ? (
-                <ModalTareaTerminar id={tarea.id}></ModalTareaTerminar>
+                <ModalTareaTerminar obtenerDatos={obtenerDatos} id={tarea.id}></ModalTareaTerminar>
             ) : (
                 <p></p>
             )}
