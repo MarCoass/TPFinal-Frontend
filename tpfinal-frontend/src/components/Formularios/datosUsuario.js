@@ -100,6 +100,12 @@ export default function DatosUsuario() {
 
     useEffect(() => {
         if (user) {
+            obtenerDatos()
+        }
+    }, [user])
+
+    const obtenerDatos = async () => {
+        if(user){
             setUsername(user.username)
             setNombre(user.nombre)
             setApellido(user.apellido)
@@ -107,7 +113,7 @@ export default function DatosUsuario() {
             setEmail(user.email)
             setPassword(user.password)
         }
-    }, [user])
+    }
 
     const submitForm = async event => {
         event.preventDefault()
@@ -151,6 +157,7 @@ export default function DatosUsuario() {
                                 'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                         },
                     })
+                    obtenerDatos()
                 } else {
                     console.error('Error al modificar:', error)
                     swal({
@@ -184,27 +191,9 @@ export default function DatosUsuario() {
                 })
             }
 
-            // Redirigir o realizar otra acción después de guardar los datos.
         }
     }
 
-    //     const submitForm = event => {
-    //         event.preventDefault()
-    //         if(titulo === 'Información de perfil'){
-    // //aca se guardan los datos
-    //         } else {
-    //             register({
-    //                 username,
-    //                 nombre,
-    //                 apellido,
-    //                 numTelefono,
-    //                 email,
-    //                 password,
-    //                 password_confirmation: passwordConfirmation,
-    //                 setErrors,
-    //             })
-    //         }
-    //     }
 
     function validarUsername(username) {
         if (username.length >= 3) {
@@ -323,63 +312,7 @@ export default function DatosUsuario() {
                         <InputError messages={errors.email} className="mt-2" />
                     </div>
                     {/* Password */}
-                    {user ? null : (
-                        <>
-                            <div className="mt-4">
-                                <Label htmlFor="password">Contraseña</Label>
-
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    value={password}
-                                    className="block mt-1 w-full"
-                                    onChange={event =>
-                                        setPassword(event.target.value)
-                                    }
-                                    required
-                                    autoComplete="new-password"
-                                />
-
-                                <InputError
-                                    messages={errors.password}
-                                    className="mt-2"
-                                />
-                            </div>
-
-                            {/* Confirm Password */}
-                            <div className="mt-4">
-                                <Label htmlFor="passwordConfirmation">
-                                    Repita la contraseña
-                                </Label>
-
-                                <Input
-                                    id="passwordConfirmation"
-                                    type="password"
-                                    value={passwordConfirmation}
-                                    className="block mt-1 w-full"
-                                    onChange={event =>
-                                        setPasswordConfirmation(
-                                            event.target.value,
-                                        )
-                                    }
-                                    required
-                                />
-
-                                <InputError
-                                    messages={errors.password_confirmation}
-                                    className="mt-2"
-                                />
-                            </div>
-
-                            <div className="flex items-center justify-end mt-4">
-                                <Link
-                                    href="/login"
-                                    className="underline text-gray-700 hover:text-gray-900">
-                                    ¿Ya tenes cuenta?
-                                </Link>
-                            </div>
-                        </>
-                    )}
+                  
 
                     <Button className="mt-5 w-full bg-rosado-600">{mensajeBoton}</Button>
                 </form>
