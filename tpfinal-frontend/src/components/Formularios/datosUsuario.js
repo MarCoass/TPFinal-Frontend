@@ -374,14 +374,14 @@ export default function DatosUsuario() {
                             <div className="flex items-center justify-end mt-4">
                                 <Link
                                     href="/login"
-                                    className="underline text-sm text-gray-600 hover:text-gray-900">
+                                    className="underline text-gray-700 hover:text-gray-900">
                                     ¿Ya tenes cuenta?
                                 </Link>
                             </div>
                         </>
                     )}
 
-                    <Button className="mt-5 w-full">{mensajeBoton}</Button>
+                    <Button className="mt-5 w-full bg-rosado-600">{mensajeBoton}</Button>
                 </form>
             </AuthCard>
         </>

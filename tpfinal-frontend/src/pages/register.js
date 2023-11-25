@@ -53,7 +53,7 @@ const Register = () => {
             <AuthCard
                 logo={
                     <Link href="/">
-                        <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
+                        <ApplicationLogo className="w-32 h-auto fill-current  text-rosado-600" />
                     </Link>
                 }>
                 <h1 className="text-black font-bold text-4xl m-4 text-center">
@@ -202,7 +202,9 @@ const Register = () => {
                             ¿Ya tenes cuenta?
                         </Link>
                     </div>
-                    <Button className="mt-5 w-full">Registrarse</Button>
+                    <Button className="mt-5 w-full bg-rosado-600">
+                        Registrarse
+                    </Button>
                 </form>
             </AuthCard>
         </GuestLayout>
