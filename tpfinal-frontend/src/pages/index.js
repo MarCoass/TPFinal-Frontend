@@ -1,11 +1,19 @@
 import Head from 'next/head'
 import Navigation from '@/components/Layouts/Navigation'
 import { useAuth } from '@/hooks/auth'
-import { Mail, Ruler, ShoppingCart } from 'lucide-react'
-import Link from 'next/link'
-import { ImagenesIndex } from '../components/ImagenesIndex'
 import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
+import Image from 'next/image'
+import { CardInicio, CardTrabajos } from '../components/CardDashboard'
+import Link from 'next/link'
+import {
+    Clock,
+    Instagram,
+    Mail,
+    Phone,
+    Ruler,
+    ShoppingCart,
+} from 'lucide-react'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -46,53 +54,95 @@ export default function Home() {
 
             <Navigation user={user} />
 
-            <div className="bg-rosado-300 min-h-screen  font-bold">
-                <div className="grid grid-cols-2 grid-rows-1 h-[400px] border-b-2 border-black">
-                    <div className="bg-rosado-500 border-black border-r-2 p-20">
-                        <div className="">
-                            <p className="text-5xl">
-                                La Solución Rápida para Uñas Fabulosas
-                            </p>
-                            <p className="text-xl">
-                                Uñas postizas reutilizables, a medida o listas
-                                para llevar
-                            </p>
-                        </div>
-                        <div className="grid grid-cols-3 mt-5 gap-10">
-                            <Link
-                                href="/tienda"
-                                className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-violeta-300 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                                <ShoppingCart className="mr-2"></ShoppingCart>{' '}
-                                Ver tienda
-                            </Link>
+            <div className="bg-rosado-300 min-h-screen font-bold ">
+                <div className="p-5 pb-0 bg-violeta-100 flex flex-col-reverse justify-center items-center lg:grid lg:grid-cols-5 gap-4 border-b-2 border-black">
+                    <Image
+                        className="col-span-2"
+                        src="/images/stilletto-negras.png"
+                        width={600}
+                        height={600}
+                        alt="Picture of the author"
+                    />
+                    <div className="flex flex-col self-center col-span-3">
+                        <p className="text-5xl md:text-7xl mb-3">
+                            La Solución Rápida para Uñas Fabulosas
+                        </p>
+                        <p className="text-xl">
+                            Uñas postizas reutilizables, a medida o listas para
+                            llevar
+                        </p>
+                    </div>
+                </div>
+                <div className="py-10 bg-naranja-100 flex flex-col justify-center align-middle md:flex-wrap md:flex-row md:justify-evenly  md:content-stretch gap-4 border-b-2 border-black">
+                    <CardInicio
+                        img="/images/personalizadas.png"
+                        titulo="Uñas personalizadas"
+                        texto="Uñas hechas a la medida y con diseño a eleccion.">
+                        {user ? (
                             <Link
                                 href="/pedidos"
-                                className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-naranja-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                                className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-600 p-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                                 <Ruler className="mr-2"></Ruler>
                                 Pedir a medida
                             </Link>
+                        ) : (
                             <Link
-                                href="https://wa.me/542994677550?text=Hola%21%20"
-                                className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-lila-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                                <Mail className="mr-2"> </Mail> Contacto
+                                href="/login"
+                                className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-600 p-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                                <Ruler className="mr-2"></Ruler>
+                                Iniciar sesion y pedir
                             </Link>
-                        </div>
-                    </div>
-                    <div className="bg-naranja-300 flex align-middle  justify-center">
-                        <ImagenesIndex></ImagenesIndex>
-                    </div>
+                        )}
+                    </CardInicio>
+                    <CardInicio
+                        img="/images/universales.png"
+                        titulo="Sets universales"
+                        texto="Sets listos para entrega inmediata para todos los tamaños de uñas.">
+                        <Link
+                            href="/tienda"
+                            className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-600 p-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                            <ShoppingCart className="mr-2"></ShoppingCart>
+                            Ver tienda
+                        </Link>
+                    </CardInicio>
+                    <CardInicio
+                        img="/images/personalizadas.png"
+                        titulo="Consulta por whatsapp"
+                        texto="Sacate todas tus dudas por whatsapp.">
+                        <Link
+                            target="blank"
+                            href="https://wa.me/542994677550?text=Hola%21%20"
+                            className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-600 p-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                            <Mail className="mr-2"></Mail>
+                            Enviar mensaje
+                        </Link>
+                    </CardInicio>
                 </div>
-                {parametrosArray ? (
-                    <div className="grid grid-cols-3 divide-x-2 divide-black border-b-2 border-black h-[400px]">
-                        <div className="bg-cremita-500 p-5">
-                            <p className="text-xl pb-3">
-                                Informacion sobre pedidos
+                <div className="pl-5 pt-10 bg-lila-100 flex flex-col justify-center align-middle md:grid md:grid-cols-3 gap-4 border-b-2 border-black">
+                    {parametrosArray && (
+                        <div className="pr-5 col-span-2 flex flex-col self-center m-10">
+                            <p className="text-3xl md:text-5xl mb-3">
+                                Informacion sobre las press on
                             </p>
-                            <p>
-                                Los pedidos personalizados son 10 uñas hechas a
-                                la medida con un diseño a eleccion.{' '}
+                            <p className="text-lg">
+                                Son uñas postizas hechas con tips de gel, los
+                                mismos que se usan para las SoftGel.
+                                <br />
+                                Reutilizables, cuidandolas se pueden reutilizar
+                                las veces que quieras.
+                                <br />
+                                Uñas listas en poco tiempo, la aplicacion es
+                                facil y rapida, lo haces vos misma desde tu
+                                casa.
+                                <br />
+                                Diferente duracion, podes usar pegamento liquido
+                                o stickers doble faz segun la duracion
+                                necesaria.
                             </p>
-                            <p className="my-4">
+                            <p className="text-2xl md:text-4xl mb-3 my-4">
+                                Informacion sobre los pedidos
+                            </p>
+                            <p className="text-lg">
                                 Valor de la seña: $
                                 {parametrosArray['valor_senia']}
                                 <br />
@@ -102,46 +152,179 @@ export default function Home() {
                                 Demora para pedidos:{' '}
                                 {parametrosArray['demora_trabajo']} <br />
                                 <span className="font-normal text-violeta-500">
-                                    La demora es un aproximado
+                                    La demora es un aproximado <br /> La seña es
+                                    obligatoria para pedidos personalizados.
                                 </span>
                             </p>
-                            <div className="border-2 border-black p-2 rounded-[5px] my-4 bg-rose-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                {parametrosArray['pedidos_abiertos'] == 1 ? (
-                                    <p>
-                                        Tenemos los pedidos abiertos! Podes
-                                        pedir un{' '}
-                                        <Link
-                                            href="/pedidos"
-                                            className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
-                                            {' '}
-                                            pedido personalizado.
-                                        </Link>
-                                    </p>
-                                ) : (
-                                    <p>
-                                        Por el momento tenemos los pedidos
-                                        cerrados, pero podes ver nuestra{' '}
-                                        <Link
-                                            href="/tienda"
-                                            className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
-                                            {' '}
-                                            tienda
-                                        </Link>{' '}
-                                        para conseguir sets en stock.
-                                    </p>
-                                )}
-                            </div>
+                            {parametrosArray['pedidos_abiertos'] == 1 ? (
+                                <p className="text-xl">
+                                    Tenemos los pedidos abiertos! Podes hacer un{' '}
+                                    <Link
+                                        href="/pedidos"
+                                        className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                        {' '}
+                                        pedido personalizado.
+                                    </Link>
+                                </p>
+                            ) : (
+                                <p className="text-xl">
+                                    Por el momento tenemos los pedidos cerrados,
+                                    pero podes ver nuestra{' '}
+                                    <Link
+                                        href="/tienda"
+                                        className="text-violeta-500 border-b-2 border-violeta-500 hover:text-rosado-600 hover:border-rosado-500">
+                                        {' '}
+                                        tienda
+                                    </Link>{' '}
+                                    para conseguir sets en stock.
+                                </p>
+                            )}
                         </div>
-                        <div className="bg-lila-500 p-5">
-                            <p className="text-xl">Aplicacion y cuidados</p>
+                    )}
+
+                    <Image
+                        className="col-start-3"
+                        src="/images/rojas.png"
+                        width={500}
+                        height={500}
+                        alt="Press on rojas con efecto sangre"
+                    />
+                </div>
+                <div className=" border-b-2 border-black lg:grid lg:grid-cols-3 lg:divide-x-2 lg:divide-y-0 divide-black divide-y-2">
+                    <div className="py-10 px-5  bg-violeta-100">
+                        <p className="text-4xl">¿Como pegarlas?</p>
+                        <div className="flex flex-col gap-3 py-4">
+                            <ul>
+                                Preparar la uña
+                                <li className="pl-5">
+                                    Repujar las cuticulas con el palito de
+                                    naranjo.
+                                </li>
+                                <li className="pl-5">
+                                    Limar suavemente la superficie de la uña.
+                                </li>
+                                <li className="pl-5">
+                                    Limpiar el polvo con un algodon y alcohol.
+                                </li>
+                            </ul>
+                            <ul>
+                                Con pegamento liquido:
+                                <li className="pl-5">
+                                    Colocar una gota de pegamento en el tip o en
+                                    la uña.
+                                </li>
+                                <li className="pl-5">
+                                    Apoyar el tip apoyando desde la cuticula
+                                    hasta la punta.
+                                </li>
+                                <li className="pl-5">
+                                    Presionar unos segundos.
+                                </li>
+                            </ul>
+                            <ul>
+                                Con stickers doble faz:
+                                <li className="pl-5">
+                                    Colocar el sticker del tamaño adecuado en el
+                                    tip.
+                                </li>
+                                <li className="pl-5">
+                                    Quitar el plastico y colocar el tip en la
+                                    uña.
+                                </li>
+                                <li className="pl-5">
+                                    Presionar unos segundos.
+                                </li>
+                            </ul>
                         </div>
-                        <div className="bg-violeta-200 p-5">
-                            <p className="text-xl">Redes</p>
-                        </div>
+
+                        <p className="my-4">
+                            Consejo: Deja los pulgares para el final ya que son
+                            los dedos que mas se usan.
+                        </p>
                     </div>
-                ) : (
-                    <p>Cargando....</p>
-                )}
+                    <div className="py-10 px-5 bg-naranja-200">
+                        <p className="text-4xl">¿Como sacarlas?</p>
+                        <ul>
+                            <li>
+                                Sumergir las uñas entre 10 y 15 minutos en agua
+                                tibia/caliente.
+                            </li>
+                            <li>
+                                Con el palito de naranjo empujar desde la zona
+                                de cuticulas.
+                            </li>
+                            <li>
+                                Limpia los restos de pegamento con quitaesmalte
+                                o limando suavemente.
+                            </li>
+                        </ul>
+                        <p>
+                            Consejo: El dia anterior podes usar cremas o aceites
+                            hidratantes para que el pegamento vaya perdiendo
+                            efecto. Si necesitas mucha fuerza para despegarlas,
+                            sumergi mas tiempo las uñas en agua.
+                        </p>
+                    </div>
+                    <div className="py-10 px-5 bg-lila-300">
+                        <p className="text-4xl">¿Como cuidarlas?</p>
+                        <ul>
+                            <li>No mordelas.</li>
+                            <li>
+                                Retirarlas correctamente, arrancarlas puede
+                                lastimar la uña natural.
+                            </li>
+                            <li>No usarlas como herramientas.</li>
+                            <li>
+                                Usar guantes cuando uses productos de limpieza.
+                            </li>
+                        </ul>
+                        <p>
+                            Consejo: El dia anterior podes usar cremas o aceites
+                            hidratantes para que el pegamento vaya perdiendo
+                            efecto. Si necesitas mucha fuerza para despegarlas,
+                            sumergi mas tiempo las uñas en agua.
+                        </p>
+                    </div>
+                </div>
+                <div className="pl-5 py-10 bg-cremita-400 flex flex-col justify-center align-middle  gap-4 border-b-2 border-black">
+                    <p className="text-4xl mx-auto my-4">
+                        Algunos pedidos personalizados
+                    </p>
+                    <div className="flex flex-col justify-around md:flex-row md:flex-wrap gap-5">
+                        <CardTrabajos img="/images/degrade-verde.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/fuego.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/bakugo.jpg"></CardTrabajos>
+                        <CardTrabajos img="/images/brillo-rojo.jpg"></CardTrabajos>
+                    </div>
+                </div>
+                <div className="px-10 py-10 bg-lila-400 flex justify-around align-end border-b-2 border-black">
+                    {parametrosArray && (
+                        <div>
+                            <p className="text-xl">Contacto</p>
+                            <p className="flex flex-row gap-2">
+                                {' '}
+                                <Instagram></Instagram>
+                                {parametrosArray['instagram_nombre']}
+                            </p>
+                            <p className="flex flex-row gap-2">
+                                {' '}
+                                <Phone></Phone>
+                                {parametrosArray['whatsapp']}
+                            </p>
+                            <p className="flex flex-row gap-2">
+                                <Clock></Clock>Respondemos de{' '}
+                                {parametrosArray['horario_atencion_apertura']} a{' '}
+                                {parametrosArray['horario_atencion_cierre']}
+                            </p>
+                        </div>
+                    )}
+
+                    <div>
+                        <p className="text-xl">Grupo: Marti2</p>
+                        <p className="">Martina Rosales</p>
+                        <p className="">Martina Coassin</p>
+                    </div>
+                </div>
             </div>
         </>
     )

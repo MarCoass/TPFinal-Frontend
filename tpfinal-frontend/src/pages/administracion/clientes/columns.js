@@ -37,7 +37,7 @@ export const columnsClientes = [
         header: 'Contacto',
         cell: ({ row }) => {
             return (
-                <div className="flex flex-col">
+                <div className="flex flex-col ">
                     <p>{row.original.num_telefono}</p>{' '}
                     <p>{row.original.email}</p>
                 </div>
@@ -46,13 +46,15 @@ export const columnsClientes = [
     },
     {
         accessorKey: 'observacion',
-        header: 'Anotacion',
-        cell: ({ row }) => {
+        header: 'Comentario',
+        cell: ({ row, obtenerDatos }) => {
             return (
                 <div className="py-4 max-w-[200px] truncate ...">
                     {row.getValue('observacion')}
                     <ModalComentarCliente
-                        id={row.original.id}></ModalComentarCliente>
+                        id={row.original.id}
+                        editar={row.getValue('observacion')}
+                        obtenerDatos={obtenerDatos}></ModalComentarCliente>
                 </div>
             )
         },
@@ -61,10 +63,10 @@ export const columnsClientes = [
         accessorKey: 'pedidos',
         header: 'Pedidos',
         cell: ({ row }) => {
-            console.log(row.original.nombre)
             return (
                 <div className="">
-                    <ModalVerClienteCompleto nombre={row.original.nombre}
+                    <ModalVerClienteCompleto
+                        nombre={row.original.nombre}
                         id={row.original.id}></ModalVerClienteCompleto>
                 </div>
             )

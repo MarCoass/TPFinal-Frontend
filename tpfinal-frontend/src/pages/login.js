@@ -16,7 +16,7 @@ const Login = () => {
 
     const { login } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/',
     })
 
     const [email, setEmail] = useState('')
@@ -47,7 +47,7 @@ const Login = () => {
 
     return (
         <GuestLayout>
-             <Head>
+            <Head>
                 <title>Iniciar Sesion - Mar Nails</title>
             </Head>
             <AuthCard
@@ -131,7 +131,9 @@ const Login = () => {
                             ¿Olvidaste tu contraseña?
                         </Link>
                     </div>
-                    <button className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">Iniciar sesion</button>
+                    <button className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-10 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        Iniciar sesion
+                    </button>
                 </form>
             </AuthCard>
         </GuestLayout>

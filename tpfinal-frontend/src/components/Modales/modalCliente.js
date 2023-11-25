@@ -14,6 +14,7 @@ import { Eye, Pencil } from 'lucide-react'
 import { columns } from '../../pages/administracion/pedidos/columns'
 import Tabla from '../Tablas/data-table'
 const { default: getCookie } = require('@/lib/cookies')
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchCliente = id => {
     return axios.get('/api/administracion/cliente/' + id).then(res => res.data)
@@ -81,7 +82,7 @@ export function ModalVerCliente({ id }) {
     )
 }
 
-export function ModalComentarCliente({ id }) {
+export function ModalComentarCliente({ id, editar, obtenerDatos }) {
     const [cliente, setCliente] = useState()
     const [comentario, setComentario] = useState('')
 
@@ -120,7 +121,11 @@ export function ModalComentarCliente({ id }) {
                     headers,
                 },
             )
-            console.log('Respuesta del servidor:', response.data)
+
+            if (response) {
+                /*  console.log('Respuesta del servidor:', response.data) */
+                obtenerDatos()
+            }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -129,14 +134,17 @@ export function ModalComentarCliente({ id }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex flex-row  rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
-                    <Pencil className="w-4 mx-2"></Pencil> Comentar
+                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600 ">
+                    <Pencil className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Pencil>
+                    <span className="hidden lg:block">
+                        {editar ? <p>Editar</p> : <p>Comentar</p>}{' '}
+                    </span>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
-                                Observaciones sobre{' '}
+                                Observaciones sobre
                                 {cliente && (
                                     <>
                                         {cliente.nombre} {cliente.apellido}
@@ -148,7 +156,7 @@ export function ModalComentarCliente({ id }) {
                         {cliente && (
                             <>
                                 <textarea
-                                    className="h-[150px] w-[400px] resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
+                                    className="h-[150px] md:w-[400px]  resize-none rounded-[5px] border-2 border-black p-[10px] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] outline-none transition-all focus:translate-x-[3px] focus:translate-y-[3px] focus:shadow-none"
                                     name="textarea"
                                     id="textarea"
                                     placeholder="Agregar un comentario..."
@@ -176,35 +184,43 @@ export function ModalVerClienteCompleto({ id, nombre }) {
     const [pedidos, setPedidos] = useState()
 
     useEffect(() => {
-        if (id != null) {
-            async function obtenerCliente() {
-                try {
-                    const data = await fetchPedidos(id)
-                    setPedidos(data)
-                    /*  console.log(data) */
-                } catch (error) {
-                    console.error(
-                        'Hubo un problema obteniendo los datos: ',
-                        error,
-                    )
-                }
-            }
-            obtenerCliente()
+        if ((id != null && pedidos === null) || !pedidos) {
+            obtenerDatos()
         }
-    }, [])
+    }, [pedidos])
+
+    const obtenerDatos = async () => {
+        try {
+            const data = await fetchPedidos(id)
+            setPedidos(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
 
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
-                    <Eye className="h-4 mx-2"></Eye> Ver pedidos
+                <AlertDialogTrigger className="flex flex-row rounded-full border-2 border-black  lg:px-3 lg:py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-500 hover:bg-naranja-600 ">
+                    <Eye className="m-1.5 lg:m-0 lg:w-4 lg:mx-2"></Eye>{' '}
+                    <p className="hidden lg:block">Ver pedidos</p>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 className='overscroll-contain overflow-auto'">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Pedidos de {nombre}</AlertDialogTitle>
                     </AlertDialogHeader>
 
-                    {pedidos && <Tabla columns={columns} data={pedidos} />}
+                    {pedidos ? (
+                        <Tabla
+                            columns={columns}
+                            data={pedidos}
+                            pageSize={5}
+                            obtenerDatos={obtenerDatos}
+                        />
+                    ) : (
+                        <CustomSpinner
+                            mensaje={'Cargando productos...'}></CustomSpinner>
+                    )}
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>

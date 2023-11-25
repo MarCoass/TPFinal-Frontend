@@ -21,7 +21,7 @@ const fetchProveedor = id => {
     return axios.get('/api/proveedor/' + id).then(res => res.data)
 }
 
-export function ModalProveedorStore() {
+export function ModalProveedorStore({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')
@@ -43,6 +43,7 @@ export function ModalProveedorStore() {
             })
             // Maneja la respuesta del servidor si es necesario
             console.log('Respuesta del servidor:', response.data)
+            obtenerDatos()
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -50,11 +51,17 @@ export function ModalProveedorStore() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                    <PlusSquare className="h-4 w-4 mx-2" />
-                    NUEVO PROVEEDOR
-                </AlertDialogTrigger>
-
+                {dashboard ? (
+                    <AlertDialogTrigger className="flex align-middle gap-2 ">
+                        <p>Nuevo proveedor</p>
+                        <PlusSquare className="" />
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        <PlusSquare className="h-4 w-4 mx-2" />
+                        NUEVO PROVEEDOR
+                    </AlertDialogTrigger>
+                )}
                 <AlertDialogContent className="bg-white p-12">
                     <form
                         onSubmit={handleSubmit}
@@ -102,8 +109,8 @@ export function ModalProveedorStore() {
     )
 }
 
-export function ModalProveedorDelete({ idProveedor }) {
-    let urlDelete = '/administracion/proveedorDelete/'
+export function ModalProveedorDelete({ idProveedor, obtenerDatos }) {
+    let urlDelete = '/api/proveedorDelete/'
     return (
         <>
             <AlertDialog>
@@ -121,7 +128,7 @@ export function ModalProveedorDelete({ idProveedor }) {
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={() =>
-                                handleDelete(idProveedor, urlDelete)
+                                handleDelete(idProveedor, urlDelete, obtenerDatos)
                             }>
                             Eliminar
                         </AlertDialogAction>
@@ -132,7 +139,7 @@ export function ModalProveedorDelete({ idProveedor }) {
     )
 }
 
-export function ModalProveedorUpdate({idProveedor}) {
+export function ModalProveedorUpdate({ idProveedor, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [direccion, setDireccion] = useState('')
     const [anotacion, setAnotacion] = useState('')
@@ -166,8 +173,8 @@ export function ModalProveedorUpdate({idProveedor}) {
         formData.append('anotacion', anotacion)
 
         // Realiza la solicitud POST a tu servidor Laravel
-        let urlUpdate = '/administracion/proveedorUpdate/'
-        handleUpdate(idProveedor, urlUpdate, formData)
+        let urlUpdate = '/api/proveedorUpdate/'
+        handleUpdate(idProveedor, urlUpdate, formData, obtenerDatos)
     }
 
     return (

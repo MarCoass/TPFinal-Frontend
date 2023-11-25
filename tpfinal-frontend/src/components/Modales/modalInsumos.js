@@ -133,7 +133,7 @@ export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     )
 }
 
-export function ModalInsumoCrear() {
+export function ModalInsumoCrear({ dashboard }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -174,10 +174,17 @@ export function ModalInsumoCrear() {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                    <PlusSquare className="h-4 w-4 mx-2" />
-                    NUEVO INSUMO
-                </AlertDialogTrigger>
+                {dashboard ? (
+                    <AlertDialogTrigger className="flex align-middle gap-2 ">
+                        <p>Nuevo insumo</p>
+                        <PlusSquare className="" />
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                        <PlusSquare className="h-4 w-4 mx-2" />
+                        NUEVO INSUMO
+                    </AlertDialogTrigger>
+                )}
 
                 <AlertDialogContent className="bg-white p-12">
                     <form

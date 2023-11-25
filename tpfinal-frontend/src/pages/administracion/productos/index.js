@@ -13,7 +13,7 @@ const fetchCiudades = () => {
 }
 
 const fetchProductos = () => {
-    return axios.get('/administracion/productos').then(res => res.data)
+    return axios.get('/api/administracion/productos').then(res => res.data)
 }
 
 export default function ProdutosIndex() {

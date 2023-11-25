@@ -51,14 +51,14 @@ export const columns = [
     {
         id: 'actions',
         header: 'Opciones',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const proveedor = row.original
            /* console.log(proveedor.id) */
             return (
                 <>
                 <ModalProveedorVer idProveedor={proveedor.id}></ModalProveedorVer>
-                <ModalProveedorUpdate idProveedor={proveedor.id}></ModalProveedorUpdate>
-                    <ModalProveedorDelete
+                <ModalProveedorUpdate obtenerDatos={obtenerDatos} idProveedor={proveedor.id}></ModalProveedorUpdate>
+                    <ModalProveedorDelete obtenerDatos={obtenerDatos}
                         idProveedor={proveedor.id}></ModalProveedorDelete>
                 </>
             )

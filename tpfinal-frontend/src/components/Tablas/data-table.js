@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import {
     flexRender,
     getCoreRowModel,
@@ -18,8 +19,16 @@ import {
 } from '@/components/ui/table'
 import { NeoButtonChico } from '../Button'
 import { Search } from 'lucide-react'
+
 // Definición del componente DataTable en JavaScript
-export default function Tabla({ columns, data, filtrar }) {
+export default function Tabla({
+    columns,
+    data,
+    filtrar,
+    sinCabecera,
+    pageSize,
+    obtenerDatos,
+}) {
     const [sorting, setSorting] = React.useState([])
     const [rowSelection, setRowSelection] = React.useState({})
     const [columnFilters, setColumnFilters] = React.useState([])
@@ -33,17 +42,22 @@ export default function Tabla({ columns, data, filtrar }) {
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
+
         state: {
             rowSelection,
             sorting,
             columnFilters,
         },
     })
-
+    useEffect(() => {
+        if (table && pageSize) {
+            table.setPageSize(pageSize)
+        }
+    }, [table])
     return (
         <div>
             {filtrar && (
-                <div className="py-3 flex justify-end">
+                <div className="py-3 flex md:justify-end">
                     <div className="flex w-min items-center  rounded-[5px] border-2 border-black font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                         <input
                             placeholder="Filtrar por nombre..."
@@ -67,27 +81,29 @@ export default function Tabla({ columns, data, filtrar }) {
 
             <div className="">
                 <Table className="rounded-[5px] border-2 border-black">
-                    <TableHeader>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map(header => {
-                                    return (
-                                        <TableHead
-                                            key={header.id}
-                                            className="bg-lila-400 uppercase text-lg font-bold border-b-2  border-black">
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                      header.column.columnDef
-                                                          .header,
-                                                      header.getContext(),
-                                                  )}
-                                        </TableHead>
-                                    )
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
+                    {!sinCabecera && (
+                        <TableHeader>
+                            {table.getHeaderGroups().map(headerGroup => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map(header => {
+                                        return (
+                                            <TableHead
+                                                key={header.id}
+                                                className="bg-lila-400 uppercase text-lg font-bold border-b-2  border-black">
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(
+                                                          header.column
+                                                              .columnDef.header,
+                                                          header.getContext(),
+                                                      )}
+                                            </TableHead>
+                                        )
+                                    })}
+                                </TableRow>
+                            ))}
+                        </TableHeader>
+                    )}
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map(row => (
@@ -101,7 +117,10 @@ export default function Tabla({ columns, data, filtrar }) {
                                         <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
-                                                cell.getContext(),
+                                                {
+                                                    ...cell.getContext(),
+                                                    obtenerDatos,
+                                                }, // Pasa obtenerDatos al contexto
                                             )}
                                         </TableCell>
                                     ))}
@@ -112,7 +131,7 @@ export default function Tabla({ columns, data, filtrar }) {
                                 <TableCell
                                     colSpan={columns.length}
                                     className="h-24 text-center">
-                                    No results.
+                                    No hay datos.
                                 </TableCell>
                             </TableRow>
                         )}

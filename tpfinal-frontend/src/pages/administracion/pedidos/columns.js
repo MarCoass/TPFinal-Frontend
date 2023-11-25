@@ -100,8 +100,52 @@ export const columns = [
     {
         accessorKey: 'actions',
         header: '',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const id_estado = row.getValue('estado')
+            const estados = estadosPedido()
+            const estado = estados.find(estado => estado.id === id_estado)
+            return (
+                <div className="flex  justify-center">
+                    {id_estado == 0 && (
+                        <>
+                            <ModalCotizar
+                                id={row.original.id}
+                                obtenerDatos={obtenerDatos}></ModalCotizar>
+                        </>
+                    )}
+                    {(id_estado == 2 || id_estado == 4) && (
+                        <ModalEmpezarTerminar
+                            obtenerDatos={obtenerDatos}
+                            pedido={row.original}></ModalEmpezarTerminar>
+                    )}
+                    {(id_estado == 3 || id_estado == 6) && (
+                        <ModalPedidoEliminar
+                            obtenerDatos={obtenerDatos}
+                            pedido={row.original}></ModalPedidoEliminar>
+                    )}
+                    {id_estado == 5 && (
+                        <ModalEntregado
+                            obtenerDatos={obtenerDatos}
+                            pedido={row.original}></ModalEntregado>
+                    )}
+                </div>
+            )
+        },
+    },
+]
+export const columnsDashboard = [
+    {
+        accessorKey: 'nombre',
+        header: '',
+        cell: ({ row }) => {
+            return row.original.producto.nombre
+        },
+    },
+    {
+        accessorKey: 'actions',
+        header: '',
+        cell: ({ row }) => {
+            const id_estado = row.original.estado
             const estados = estadosPedido()
             const estado = estados.find(estado => estado.id === id_estado)
             return (
