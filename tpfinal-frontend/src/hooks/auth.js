@@ -11,7 +11,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {
-                if (error.response.status && error.response.status !== 409) throw error
+                if (error.response.status && error.response.status !== 409)
+                    throw error
 
                 router.push('/verify-email')
             }),
@@ -29,7 +30,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .then(() => mutate())
             .catch(error => {
                 if (error.response.status !== 422) throw error
-
                 setErrors(error.response.data.errors)
             })
     }
@@ -100,9 +100,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     useEffect(() => {
         if (middleware === 'guest' && redirectIfAuthenticated && user) {
-            if (user.id_rol==1) {
+            if (user.id_rol == 1) {
                 router.push('/administracion')
-            } 
+            }
             router.push(redirectIfAuthenticated)
         }
 

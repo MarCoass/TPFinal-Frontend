@@ -10,7 +10,7 @@ const AppLayout = ({ header, children, footer }) => {
 
             {/* Page Heading */}
             <header className="bg-white shadow">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {header}
                 </div>
             </header>
@@ -18,12 +18,7 @@ const AppLayout = ({ header, children, footer }) => {
             {/* Page Content */}
             <main>{children}</main>
 
-            {/* Page footer */}
-            <footer className="bg-white shadow sticky bottom-0 z-50">
-                <div className="max-w-auto mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {footer}
-                </div>
-            </footer>
+            
         </div>
     )
 }
