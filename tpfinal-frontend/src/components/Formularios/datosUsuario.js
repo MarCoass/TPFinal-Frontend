@@ -20,6 +20,7 @@ import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
+import swal from 'sweetalert'
 
 //formulario para registro y para edicion de datos de perfil
 
@@ -113,8 +114,6 @@ export default function DatosUsuario() {
     }, [user])
 
     const submitForm = async event => {
-        
-
         event.preventDefault()
 
         const validationErrors = validateForm()
@@ -140,11 +139,34 @@ export default function DatosUsuario() {
                     'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                     Accept: 'application/json',
                 }
-                let url = '/api/editarPerfil/'+user.id
+                let url = '/api/editarPerfil/' + user.id
                 const response = await axios.post(url, userDataToSubmit, {
                     headers,
                 })
                 console.log(response)
+                if (response.data.exito) {
+                    swal({
+                        icon: 'success',
+                        title: 'Datos correctamente.',
+
+                        button: {
+                            text: 'Cerrar',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                } else {
+                    console.error('Error al modificar:', error)
+                    swal({
+                        icon: 'error',
+                        title: 'Ocurrio un error al actualizar datos.',
+                        button: {
+                            text: 'Cerrar',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                }
             } else {
                 //     // Registro de nuevo usuario
                 userDataToSubmit.password = password
@@ -158,6 +180,11 @@ export default function DatosUsuario() {
                     password,
                     password_confirmation: passwordConfirmation,
                     setErrors,
+                })
+
+                const { register } = useAuth({
+                    middleware: 'guest',
+                    redirectIfAuthenticated: '/dashboard',
                 })
             }
 
