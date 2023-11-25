@@ -238,7 +238,7 @@ export function ModalCategoriasInsumos() {
 
     useEffect(() => {
         if (categorias === null || !categorias) {
-            obtenerCategorias()
+            obtenerDatos()
         }
     }, [categorias])
 

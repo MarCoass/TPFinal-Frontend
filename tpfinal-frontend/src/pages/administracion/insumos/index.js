@@ -35,7 +35,6 @@ export default function IndexProductos() {
 
     //BUSCAR INSUMOS
     const [insumos, setInsumos] = useState(null)
-    const [categorias, setCategorias] = useState(null)
 
     useEffect(() => {
         if (insumos === null || !insumos) {
