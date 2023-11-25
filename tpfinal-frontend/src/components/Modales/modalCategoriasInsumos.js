@@ -36,7 +36,7 @@ const fetchCategorias = async () => {
     }
 }
 
-export function ModalCategoriaInsumoUpdate({ id }) {
+export function ModalCategoriaInsumoUpdate({ id, obtenerDatos }) {
     const [nombre, setNombre] = useState()
 
     useEffect(() => {
@@ -80,6 +80,7 @@ export function ModalCategoriaInsumoUpdate({ id }) {
                             'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                     },
                 })
+                obtenerDatos()
             }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
@@ -100,9 +101,9 @@ export function ModalCategoriaInsumoUpdate({ id }) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label htmlFor='nombre'>Nombre:</label>
+                                    <label htmlFor="nombre">Nombre:</label>
                                     <Input
-                                    id='nombre'
+                                        id="nombre"
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
@@ -125,20 +126,18 @@ export function ModalCategoriaInsumoUpdate({ id }) {
     )
 }
 
-export function ModalCategoriaInsumoDelete({ id }) {
+export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
     return (
         <>
             <AlertDialog>
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
-                       
-                            <p>¿Desea eliminar la categoria?</p>
-                       
+
+                        <p>¿Desea eliminar la categoria?</p>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
@@ -146,7 +145,7 @@ export function ModalCategoriaInsumoDelete({ id }) {
                             onClick={() =>
                                 handleDelete(
                                     id,
-                                    '/api/administracion/categoriasInsumosDelete/',
+                                    '/api/administracion/categoriasInsumosDelete/', obtenerDatos
                                 )
                             }>
                             Eliminar
@@ -158,7 +157,7 @@ export function ModalCategoriaInsumoDelete({ id }) {
     )
 }
 
-export function ModalCategoriaInsumoStore({}) {
+export function ModalCategoriaInsumoStore({obtenerDatos}) {
     const [nombre, setNombre] = useState()
 
     const handleSubmit = async e => {
@@ -189,6 +188,7 @@ export function ModalCategoriaInsumoStore({}) {
                             'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                     },
                 })
+                obtenerDatos()
             }
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
@@ -208,9 +208,9 @@ export function ModalCategoriaInsumoStore({}) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col">
                                 <div className="flex justify-around">
-                                    <label htmlFor='nombre'>Nombre:</label>
+                                    <label htmlFor="nombre">Nombre:</label>
                                     <Input
-                                    id='nombre'
+                                        id="nombre"
                                         type="text"
                                         value={nombre}
                                         onChange={e =>
@@ -237,13 +237,19 @@ export function ModalCategoriasInsumos() {
     const [categorias, setCategorias] = useState(null)
 
     useEffect(() => {
-        async function obtenerCategorias() {
+        if (categorias === null || !categorias) {
+            obtenerCategorias()
+        }
+    }, [categorias])
+
+    const obtenerDatos = async () => {
+        try {
             const data = await fetchCategorias()
             setCategorias(data)
-            /* console.log(data) */
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-        obtenerCategorias()
-    }, [])
+    }
     return (
         <>
             <AlertDialog>
@@ -253,10 +259,12 @@ export function ModalCategoriasInsumos() {
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Categorias de insumos</AlertDialogTitle>
-                        <ModalCategoriaInsumoStore></ModalCategoriaInsumoStore>
+                        <AlertDialogTitle>
+                            Categorias de insumos
+                        </AlertDialogTitle>
+                        <ModalCategoriaInsumoStore obtenerDatos={obtenerDatos}></ModalCategoriaInsumoStore>
                         {categorias ? (
-                            <Tabla columns={columns} data={categorias} />
+                            <Tabla columns={columns} data={categorias} obtenerDatos={obtenerDatos}/>
                         ) : (
                             <p>Cargando datos...</p>
                         )}

@@ -43,17 +43,7 @@ export default function IndexProductos() {
         }
     }, [insumos])
 
-    useEffect(() => {
-        async function obtenerCategorias() {
-            try {
-                const data = await fetchCategorias()
-                setCategorias(data)
-            } catch (error) {
-                console.error('Error al obtener insumos:', error)
-            }
-        }
-        obtenerCategorias()
-    }, [])
+   
 
     const obtenerDatos = async () => {
         try {
@@ -64,9 +54,11 @@ export default function IndexProductos() {
         }
     }
 
+ 
+
     const estados = estadosInsumos()
 
-    if (insumos === null || categorias === null) {
+    if (insumos === null) {
         // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
         return <div>Cargando insumos...</div>
     }
@@ -80,7 +72,8 @@ export default function IndexProductos() {
                             Insumos
                         </p>
                         <div className="flex gap-2">
-                            <ModalInsumoCrear obtenerDatos={obtenerDatos}></ModalInsumoCrear>
+                            <ModalInsumoCrear
+                                obtenerDatos={obtenerDatos}></ModalInsumoCrear>
                             <ModalCategoriasInsumos></ModalCategoriasInsumos>
                         </div>
                     </div>
@@ -97,8 +90,7 @@ export default function IndexProductos() {
                                     columns={columns}
                                     data={insumos}
                                     filtrar={true}
-                                    obtenerDatos={obtenerDatos}
-                                    ></Tabla>
+                                    obtenerDatos={obtenerDatos}></Tabla>
                             </div>
                         </div>
                     </div>
