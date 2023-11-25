@@ -15,6 +15,15 @@ import {
     ShoppingCart,
 } from 'lucide-react'
 
+import { Roboto } from 'next/font/google'
+ 
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable:  '--font-roboto-mono',
+})
+
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
 }
@@ -64,7 +73,7 @@ export default function Home() {
                         alt="Picture of the author"
                     />
                     <div className="flex flex-col self-center col-span-3">
-                        <p className="text-5xl md:text-7xl mb-3">
+                        <p className={`${roboto.variable} text-5xl md:text-7xl mb-3 font-rubik`}>
                             La Solución Rápida para Uñas Fabulosas
                         </p>
                         <p className="text-xl">
