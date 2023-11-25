@@ -133,7 +133,7 @@ export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     )
 }
 
-export function ModalInsumoCrear({ dashboard }) {
+export function ModalInsumoCrear({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -150,7 +150,7 @@ export function ModalInsumoCrear({ dashboard }) {
             formData.append('stock', stock)
             formData.append('stock_minimo', stock_minimo)
             formData.append('id_categoria', id_categoria.id)
-            formData.append('estado', estado)
+            formData.append('estado', estado.id)
             formData.append('marca', marca)
 
             const headers = {
@@ -165,6 +165,7 @@ export function ModalInsumoCrear({ dashboard }) {
                     headers,
                 },
             )
+            obtenerDatos()
             // Maneja la respuesta del servidor si es necesario
             console.log('Respuesta del servidor:', response.data)
         } catch (error) {
@@ -331,7 +332,7 @@ export function ModalInsumoVer({ idInsumo }) {
     )
 }
 
-export function ModalInsumoModificar({ idInsumo }) {
+export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -373,7 +374,7 @@ export function ModalInsumoModificar({ idInsumo }) {
         formData.append('marca', marca)
 
         let urlUpdate = '/api/administracion/insumosUpdate/'
-        handleUpdate(idInsumo, urlUpdate, formData)
+        handleUpdate(idInsumo, urlUpdate, formData, obtenerDatos)
     }
     return (
         <>
@@ -472,7 +473,7 @@ export function ModalInsumoModificar({ idInsumo }) {
     )
 }
 
-export function ModalInsumoEliminar({ idInsumo }) {
+export function ModalInsumoEliminar({ idInsumo, obtenerDatos }) {
     let urlDelete = '/administracion/insumosDelete/'
     return (
         <>
@@ -490,7 +491,7 @@ export function ModalInsumoEliminar({ idInsumo }) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(idInsumo, urlDelete)}>
+                            onClick={() => handleDelete(idInsumo, urlDelete, obtenerDatos)}>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>

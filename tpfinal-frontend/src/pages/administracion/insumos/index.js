@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { estadosInsumos } from '@/lib/estados'
-import TablaInsumos from './data-table/page'
+
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
 import { ModalCategoriasInsumos } from '../../../components/Modales/modalCategoriasInsumos'
+import Tabla from '../../../components/Tablas/data-table'
+import { columns } from './data-table/columns'
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
@@ -36,17 +38,10 @@ export default function IndexProductos() {
     const [categorias, setCategorias] = useState(null)
 
     useEffect(() => {
-        async function obtenerInsumos() {
-            try {
-                const insumos = await fetchInsumos()
-                setInsumos(insumos)
-                // console.log(data)
-            } catch (error) {
-                console.error('Error al obtener insumos:', error)
-            }
+        if (insumos === null || !insumos) {
+            obtenerDatos()
         }
-        obtenerInsumos()
-    }, [])
+    }, [insumos])
 
     useEffect(() => {
         async function obtenerCategorias() {
@@ -59,6 +54,15 @@ export default function IndexProductos() {
         }
         obtenerCategorias()
     }, [])
+
+    const obtenerDatos = async () => {
+        try {
+            const data = await fetchInsumos()
+            setInsumos(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
 
     const estados = estadosInsumos()
 
@@ -76,7 +80,7 @@ export default function IndexProductos() {
                             Insumos
                         </p>
                         <div className="flex gap-2">
-                            <ModalInsumoCrear></ModalInsumoCrear>
+                            <ModalInsumoCrear obtenerDatos={obtenerDatos}></ModalInsumoCrear>
                             <ModalCategoriasInsumos></ModalCategoriasInsumos>
                         </div>
                     </div>
@@ -85,11 +89,16 @@ export default function IndexProductos() {
                     <title>Insumos - Mar Nails</title>
                 </Head>
 
-                <div className="py-12">
+                <div className="">
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className=" bg-white border-b border-gray-200">
-                                <TablaInsumos></TablaInsumos>
+                                <Tabla
+                                    columns={columns}
+                                    data={insumos}
+                                    filtrar={true}
+                                    obtenerDatos={obtenerDatos}
+                                    ></Tabla>
                             </div>
                         </div>
                     </div>
