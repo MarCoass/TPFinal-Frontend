@@ -145,6 +145,7 @@ const Register = () => {
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="new-password"
+                            placeholder="*******"
                         />
 
                         <InputError
@@ -168,6 +169,7 @@ const Register = () => {
                                 setPasswordConfirmation(event.target.value)
                             }
                             required
+                            placeholder="*******"
                         />
 
                         <InputError
