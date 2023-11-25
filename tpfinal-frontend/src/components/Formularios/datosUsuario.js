@@ -225,7 +225,7 @@ export default function DatosUsuario() {
             <AuthCard
                 logo={
                     <Link href="/">
-                        <ApplicationLogo className="w-24 h-auto fill-current text-violeta-500" />
+                       
                     </Link>
                 }>
                 <h1 className="text-black text-4xl m-5 text-center">
