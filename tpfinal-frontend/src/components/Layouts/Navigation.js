@@ -80,6 +80,7 @@ const Navigation = ({ user }) => {
                                     <DropdownLink href="/perfil">
                                         Perfil
                                     </DropdownLink>
+
                                 )}
 
                                 {user && user.id_rol != 1 ? (
