@@ -60,13 +60,13 @@ export const columns = [
     {
         accessorKey: 'stock',
         header: 'Stock',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const insumo = row.original
             return (
                 <>
                     <ModalInsumoStockUpdate
                         idInsumo={insumo.id}
-                        stockViejo={insumo.stock}></ModalInsumoStockUpdate>
+                        stockViejo={insumo.stock} obtenerDatos={obtenerDatos}></ModalInsumoStockUpdate>
                 </>
             )
         },
@@ -78,7 +78,7 @@ export const columns = [
             const insumo = row.original
             return (
                 <>
-                    <ModalInsumoPrecios
+                    <ModalInsumoPrecios 
                         idInsumo={insumo.id}></ModalInsumoPrecios>
                 </>
             )
@@ -87,15 +87,15 @@ export const columns = [
     {
         id: 'actions',
         header: 'Opciones',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const insumo = row.original
          
             return (
                 <>
                     <ModalInsumoVer idInsumo={insumo.id}></ModalInsumoVer>
-                    <ModalInsumoModificar
+                    <ModalInsumoModificar obtenerDatos={obtenerDatos}
                         idInsumo={insumo.id}></ModalInsumoModificar>
-                    <ModalInsumoEliminar
+                    <ModalInsumoEliminar obtenerDatos={obtenerDatos}
                         idInsumo={insumo.id}></ModalInsumoEliminar>
                 </>
             )

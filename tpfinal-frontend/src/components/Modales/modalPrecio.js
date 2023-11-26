@@ -29,7 +29,7 @@ export function ModalPrecioStore(idInsumo) {
         try {
             const formData = new FormData()
             formData.append('precio', precio)
-            formData.append('id_proveedor', proveedor)
+            formData.append('id_proveedor', proveedor.id)
             formData.append('id_insumo', idInsumo.idInsumo)
 
             const headers = {
@@ -40,7 +40,15 @@ export function ModalPrecioStore(idInsumo) {
             const response = await axios.post('/api/precioStore', formData, {
                 headers,
             })
-            console.log('Respuesta del servidor:', response.data)
+            swal({
+                icon: 'success',
+                title: 'Precio agregado correctamente.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -62,8 +70,9 @@ export function ModalPrecioStore(idInsumo) {
                                 Crear nuevo precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label htmlFor='precio'>Precio:</label>
-                                <Input id='precio'
+                                <label htmlFor="precio">Precio:</label>
+                                <Input
+                                    id="precio"
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}
@@ -94,6 +103,9 @@ export function ModalPrecioStore(idInsumo) {
 export function ModalPrecioDelete(idPrecio) {
     const id = idPrecio.idPrecio
     const urlDelete = '/api/precioDelete/'
+    const obtenerDatos = () => {
+        console.log('no actualiza :C')
+    }
     return (
         <>
             <AlertDialog>
@@ -110,7 +122,7 @@ export function ModalPrecioDelete(idPrecio) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(id, urlDelete)}>
+                            onClick={() => handleDelete(id, urlDelete, obtenerDatos)}>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -129,7 +141,7 @@ export function ModalPrecioUpdate(idPrecio) {
                 try {
                     const data = await fetchPrecio(idPrecio.idPrecio)
                     setPrecio(data.precio)
-                   /*  console.log(data) */
+                    /*  console.log(data) */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -181,8 +193,9 @@ export function ModalPrecioUpdate(idPrecio) {
                                 Editar el precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label htmlFor='precio'>Precio:</label>
-                                <Input id='precio'
+                                <label htmlFor="precio">Precio:</label>
+                                <Input
+                                    id="precio"
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}
