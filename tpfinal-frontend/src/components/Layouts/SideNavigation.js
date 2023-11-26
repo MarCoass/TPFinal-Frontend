@@ -43,7 +43,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                 className="grid content-between z-10 h-full w-[300px] border-2 border-black bg-rosado-400 font-bold transition-transform duration-300">
                 <div>
                     <div className="p-5 justify-center flex items-center border-b-2 border-black">
-                        <Link href="/">
+                        <Link href="/" aria-label="Ir a la página principal">
                             <ApplicationLogo className="block h-16 w-auto fill-current text-violeta-500" />
                         </Link>
                     </div>

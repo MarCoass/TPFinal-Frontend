@@ -25,7 +25,7 @@ const Navigation = ({ user }) => {
                 <div className="flex justify-between font-bold">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/">
+                            <Link href="/" aria-label="Ir a la página principal">
                                 <ApplicationLogo className="block h-12 w-auto fill-current text-violeta-500" />
                             </Link>
                         </div>
