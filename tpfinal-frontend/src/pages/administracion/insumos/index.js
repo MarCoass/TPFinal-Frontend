@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import { estadosInsumos } from '@/lib/estados'
-
 import { ModalInsumoCrear } from '../../../components/Modales/modalInsumos'
 import { ModalCategoriasInsumos } from '../../../components/Modales/modalCategoriasInsumos'
 import Tabla from '../../../components/Tablas/data-table'
 import { columns } from './data-table/columns'
+import CustomSpinner from '@/components/CustomSpinner'
+
 const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
@@ -42,8 +43,6 @@ export default function IndexProductos() {
         }
     }, [insumos])
 
-   
-
     const obtenerDatos = async () => {
         try {
             const data = await fetchInsumos()
@@ -53,14 +52,7 @@ export default function IndexProductos() {
         }
     }
 
- 
-
     const estados = estadosInsumos()
-
-    if (insumos === null) {
-        // Puedes mostrar un mensaje de carga mientras esperas que se resuelva la Promise
-        return <div>Cargando insumos...</div>
-    }
 
     return (
         <>
@@ -84,13 +76,18 @@ export default function IndexProductos() {
                 <div className="">
                     <div className="sm:px-6 lg:px-8">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className=" bg-white border-b border-gray-200">
+                            {insumos ? (
                                 <Tabla
                                     columns={columns}
                                     data={insumos}
                                     filtrar={true}
                                     obtenerDatos={obtenerDatos}></Tabla>
-                            </div>
+                            ) : (
+                                <CustomSpinner
+                                    mensaje={
+                                        'Cargando insumos...'
+                                    }></CustomSpinner>
+                            )}
                         </div>
                     </div>
                 </div>

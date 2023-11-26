@@ -19,6 +19,8 @@ import { columns } from '../../pages/administracion/categorias/insumos/columnsCa
 import Tabla from '../Tablas/data-table'
 import swal from 'sweetalert'
 
+
+
 const fetchCategoria = id => {
     return axios
         .get('/api/administracion/categoriaInsumo/' + id)
@@ -200,7 +202,7 @@ export function ModalCategoriaInsumoStore({obtenerDatos}) {
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     NUEVA CATEGORIA
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-white border border-gray-200 ">
+                <AlertDialogContent className="bg-rosado-50 border-black border-2 w-min md:min-w-min">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Nueva categoria</AlertDialogTitle>
                         <AlertDialogDescription>
