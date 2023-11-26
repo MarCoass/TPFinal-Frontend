@@ -571,6 +571,17 @@ export function ModalInsumoPrecios({ idInsumo }) {
             /*   console.log(listadoPrecios) */
         }
     }, [insumo])
+
+
+    const obtenerInsumo = async () => {
+        try {
+            const data = await fetchInsumo()
+            setInsumo(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
+
     return (
         <>
             <AlertDialog>
@@ -584,7 +595,7 @@ export function ModalInsumoPrecios({ idInsumo }) {
                             <Tabla
                                 columns={columnsPrecios}
                                 data={listadoPrecios}
-                                o
+                                obtenerDatos={obtenerInsumo}
                             />
                         </div>
                     ) : (

@@ -52,12 +52,12 @@ export const columnsPrecios = [
     {
         accessorKey: 'eliminar',
         header: 'Opciones',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             return (
                 <>
                     <ModalPrecioUpdate
                         idPrecio={row.original.id}></ModalPrecioUpdate>
-                    <ModalPrecioDelete
+                    <ModalPrecioDelete obtenerDatos={obtenerDatos}
                         idPrecio={row.original.id}></ModalPrecioDelete>
                 </>
             )

@@ -25,7 +25,6 @@ export default async function handleDelete(id, url, obtenerDatos) {
             })
             obtenerDatos()
         } else {
-            console.log(response.data.message)
             swal({
                 icon: 'error',
                 title: 'Ocurrio un error al eliminar.',

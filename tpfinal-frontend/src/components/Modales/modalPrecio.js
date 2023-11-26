@@ -70,8 +70,9 @@ export function ModalPrecioStore(idInsumo) {
                                 Crear nuevo precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label htmlFor='precio'>Precio:</label>
-                                <Input id='precio'
+                                <label htmlFor="precio">Precio:</label>
+                                <Input
+                                    id="precio"
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}
@@ -102,6 +103,9 @@ export function ModalPrecioStore(idInsumo) {
 export function ModalPrecioDelete(idPrecio) {
     const id = idPrecio.idPrecio
     const urlDelete = '/api/precioDelete/'
+    const obtenerDatos = () => {
+        console.log('no actualiza :C')
+    }
     return (
         <>
             <AlertDialog>
@@ -118,7 +122,7 @@ export function ModalPrecioDelete(idPrecio) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(id, urlDelete)}>
+                            onClick={() => handleDelete(id, urlDelete, obtenerDatos)}>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -137,7 +141,7 @@ export function ModalPrecioUpdate(idPrecio) {
                 try {
                     const data = await fetchPrecio(idPrecio.idPrecio)
                     setPrecio(data.precio)
-                   /*  console.log(data) */
+                    /*  console.log(data) */
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -189,8 +193,9 @@ export function ModalPrecioUpdate(idPrecio) {
                                 Editar el precio
                             </AlertDialogTitle>
                             <div className="flex justify-between">
-                                <label htmlFor='precio'>Precio:</label>
-                                <Input id='precio'
+                                <label htmlFor="precio">Precio:</label>
+                                <Input
+                                    id="precio"
                                     type="number"
                                     value={precio}
                                     onChange={e => setPrecio(e.target.value)}
