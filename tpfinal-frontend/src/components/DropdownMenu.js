@@ -56,7 +56,7 @@ export function DropdownMenuCheckboxes({ nombreMenu, filtro, onCheckboxChange })
 
         {filtro.map((item) => (
           <div className="flex items-center" key={item.nombre}>
-            <Checkbox
+            <Checkbox role='menuitemcheckbox'
               checked={item.seleccionado}
               onCheckedChange={() => {
                 handleClickOption(item.nombre);
