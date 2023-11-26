@@ -20,13 +20,19 @@ export default function Pedidos() {
     const [pedidos, setPedidos] = useState(null)
 
     useEffect(() => {
-        async function obtenerPedidos() {
+        if (pedidos === null || !pedidos) {
+            obtenerDatos()
+        }
+    }, [pedidos])
+
+    const obtenerDatos = async () => {
+        try {
             const data = await fetchPedidos()
             setPedidos(data)
-            /*   console.log(data) */
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-        obtenerPedidos()
-    }, [])
+    }
 
     return (
         <>
@@ -48,6 +54,7 @@ export default function Pedidos() {
                                         <Tabla
                                             columns={columns}
                                             data={pedidos}
+                                            obtenerDatos={obtenerDatos}
                                         />
                                     ) : (
                                         <p>Cargando datos...</p>
