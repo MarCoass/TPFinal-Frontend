@@ -5,6 +5,7 @@ import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 import { Image, Trash2 } from 'lucide-react';
+import { useAuth } from '@/hooks/auth'
 
 
 const ProductCard = ({
