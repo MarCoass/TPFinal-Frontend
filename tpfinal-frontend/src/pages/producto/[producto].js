@@ -5,7 +5,7 @@ import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
 import Button from '../../components/Button'
 import swal from 'sweetalert'
-
+import { useAuth } from '@/hooks/auth'
 
 const fetchProductos = (producto) => {
     return axios
@@ -19,6 +19,7 @@ export default function infoProducto({ params }) {
     const [infoProducto, setProducto] = useState(null)
     const router = useRouter()
     const { producto } = router.query
+    const { user } = useAuth()
     useEffect(() => {
         if (producto != null) {
             async function obtenerDatos() {
@@ -35,15 +36,72 @@ export default function infoProducto({ params }) {
     }, [producto])
 
     const handleAddToCart = async (id, cantidad) => {
-        try {
-            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
-            if (responseStock.data && responseStock.data.stock) {
-                // Si hay suficiente stock, procede con la compra
-                const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
-                if (responseAdd) {
+        if(user){
+            try {
+                const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
+                if (responseStock.data && responseStock.data.stock) {
+                    // Si hay suficiente stock, procede con la compra
+                    const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
+                    if (responseAdd) {
+                        swal({
+                            icon: 'success',
+                            title: 'Producto agregado al carrito.',
+                            button: {
+                                text: 'X',
+                                className:
+                                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                            },
+                        })
+                    }
+                } else {
+                    // No hay suficiente stock para algunos productos
+                    swal({
+                        icon: 'error',
+                        title: 'No hay stock de este producto.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                }
+                // Manejo de la respuesta si es necesario
+            } catch (error) {
+                console.error('Error al agregar el producto:', error);
+                // Manejo de errores
+            }
+        } else {
+            swal({
+                icon: 'error',
+                title: 'Necesitás iniciar sesión para agregar productos al carrito.',
+                button: {
+                    text: 'X',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
+        }
+
+    };
+
+    const handleAgregarFavorito = async (id) =>{
+        if(user){
+            const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
+            if (responseAdd ) {
+                if(!responseAdd.data.repetido){
                     swal({
                         icon: 'success',
-                        title: 'Producto agregado al carrito.',
+                        title: 'Producto agregado a favoritos.',
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                } else {
+                    swal({
+                        icon: 'error',
+                        title: 'Este producto ya existe en tu lista de favoritos.',
                         button: {
                             text: 'X',
                             className:
@@ -52,41 +110,9 @@ export default function infoProducto({ params }) {
                     })
                 }
             } else {
-                // No hay suficiente stock para algunos productos
                 swal({
                     icon: 'error',
-                    title: 'No hay stock de este producto.',
-                    button: {
-                        text: 'X',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
-            }
-            // Manejo de la respuesta si es necesario
-        } catch (error) {
-            console.error('Error al agregar el producto:', error);
-            // Manejo de errores
-        }
-    };
-
-    const handleAgregarFavorito = async (id) =>{
-        const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
-        if (responseAdd ) {
-            if(!responseAdd.data.repetido){
-                swal({
-                    icon: 'success',
-                    title: 'Producto agregado a favoritos.',
-                    button: {
-                        text: 'X',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
-            } else {
-                swal({
-                    icon: 'error',
-                    title: 'Este producto ya existe en tu lista de favoritos.',
+                    title: 'Hubo un error, vuelva a intentarlo.',
                     button: {
                         text: 'X',
                         className:
@@ -97,7 +123,7 @@ export default function infoProducto({ params }) {
         } else {
             swal({
                 icon: 'error',
-                title: 'Hubo un error, vuelva a intentarlo.',
+                title: 'Necesitás iniciar sesión para agregar productos a favoritos.',
                 button: {
                     text: 'X',
                     className:
@@ -105,6 +131,7 @@ export default function infoProducto({ params }) {
                 },
             })
         }
+       
     }
     // 
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage';
