@@ -4,8 +4,7 @@ import axios from '@/lib/axios'
 import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
-import { Image, Trash2 } from 'lucide-react';
-
+import { Image, Trash2 } from 'lucide-react'
 
 const ProductCard = ({
     imgUrl,
@@ -16,17 +15,25 @@ const ProductCard = ({
     esAdmin,
     idProducto,
     esFavorito,
-    obtenerProductos
+    obtenerProductos,
 }) => {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage'
 
     const handleAddToCart = async (id, cantidad) => {
         try {
-            const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
+            const responseStock = await axios.get(
+                `/api/verificar-stock/${JSON.stringify({
+                    id_producto: id,
+                    cantidad: cantidad,
+                })}`,
+            )
             console.log(responseStock.data)
             if (responseStock.data && responseStock.data.stock) {
                 // Si hay suficiente stock, procede con la compra
-                const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
+                const responseAdd = axios.post('/agregar-producto', {
+                    id_producto: id,
+                    cantidad: cantidad,
+                })
                 // console.log(responseAdd.data.status)
                 if (responseAdd) {
                     swal({
@@ -53,15 +60,15 @@ const ProductCard = ({
             }
             // Manejo de la respuesta si es necesario
         } catch (error) {
-            console.error('Error al agregar el producto:', error);
+            console.error('Error al agregar el producto:', error)
             // Manejo de errores
         }
-    };
-    
-    
+    }
 
-    const handleEliminarFavorito = async (id) =>{
-        const responseAdd = await axios.post('api/favorito-eliminar', { id_producto: id});
+    const handleEliminarFavorito = async id => {
+        const responseAdd = await axios.post('api/favorito-eliminar', {
+            id_producto: id,
+        })
         if (responseAdd) {
             swal({
                 icon: 'success',
@@ -76,10 +83,12 @@ const ProductCard = ({
         obtenerProductos()
     }
 
-    const handleAgregarFavorito = async (id) =>{
-        const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
-        if (responseAdd ) {
-            if(!responseAdd.data.repetido){
+    const handleAgregarFavorito = async id => {
+        const responseAdd = await axios.post('api/favorito-agregar', {
+            id_producto: id,
+        })
+        if (responseAdd) {
+            if (!responseAdd.data.repetido) {
                 swal({
                     icon: 'success',
                     title: 'Producto agregado a favoritos.',
@@ -123,7 +132,8 @@ const ProductCard = ({
                 </Link>
                 <button
                     title="agregar al carrito"
-                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group" onClick={() => handleAddToCart(idProducto, 1)}>
+                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group"
+                    onClick={() => handleAddToCart(idProducto, 1)}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 group-hover:opacity-50 opacity-70"
@@ -152,18 +162,20 @@ const ProductCard = ({
                     <p className="text-md text-gray-800 mt-0">
                         ${precioProducto}
                     </p>
-                     {esAdmin ? ( 
+                    {esAdmin ? (
                         <p className="text-md text-gray-800 mt-0">
                             Stock: {stock}
                         </p>
-                    ) : null} 
+                    ) : null}
                     {stock === 0 ? (
                         <p className="text-md text-red-800 mt-0">SIN STOCK</p>
                     ) : null}
                 </div>
                 {!esFavorito ? (
                     <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                        <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(idProducto)}>
+                        <button
+                            title="agregar a favoritos"
+                            onClick={() => handleAgregarFavorito(idProducto)}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6 group-hover:opacity-70"
@@ -181,15 +193,18 @@ const ProductCard = ({
                     </div>
                 ) : (
                     <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                        <button title="eliminar de favoritos" onClick={() => handleEliminarFavorito(idProducto)}>
-                            <Trash2   className="h-6 w-6 group-hover:opacity-70" stroke="gray"/>
+                        <button
+                            title="eliminar de favoritos"
+                            onClick={() => handleEliminarFavorito(idProducto)}>
+                            <Trash2
+                                className="h-6 w-6 group-hover:opacity-70"
+                                stroke="gray"
+                            />
                         </button>
                     </div>
-
                 )}
-
             </div>
-        </div >
+        </div>
     )
 }
 export default ProductCard
@@ -206,11 +221,14 @@ export const PedidoCard = ({ pedido }) => {
             </div>
             <div className="p-4 grid grid-flow-col gap-5">
                 <div>
-                    {!pedido.producto.url_imagen ? (<Image className='w-40 h-40'></Image>) : (<img
-                        alt={pedido.producto.descripcion}
-                        className="h-40 w-40 rounded-2xl object-cover border-2 border-black"
-                        src={urlBase + pedido.producto.url_imagen}></img>)}
-
+                    {!pedido.producto.url_imagen ? (
+                        <Image className="w-40 h-40"></Image>
+                    ) : (
+                        <img
+                            alt={pedido.producto.descripcion}
+                            className="h-40 w-40 rounded-2xl object-cover border-2 border-black"
+                            src={urlBase + pedido.producto.url_imagen}></img>
+                    )}
                 </div>
                 <div className="grid grid-cols-2">
                     <div>
@@ -240,7 +258,8 @@ export const PedidoCard = ({ pedido }) => {
                         </p>
                         <p>Estado: {estado.nombre}</p>
                         {pedido.estado == 1 && (
-                            <ModalRespuestaCotizacion pedido={pedido}></ModalRespuestaCotizacion>
+                            <ModalRespuestaCotizacion
+                                pedido={pedido}></ModalRespuestaCotizacion>
                         )}
                     </div>
                 </div>

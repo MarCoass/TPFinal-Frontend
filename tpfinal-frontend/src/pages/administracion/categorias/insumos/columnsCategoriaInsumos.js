@@ -10,7 +10,11 @@ import {
     ModalInsumoStockUpdate,
     ModalInsumoVer,
 } from '../../../../components/Modales/modalInsumos'
-import { ModalCategoriaInsumoDelete, ModalCategoriaInsumoUpdate, ModalCategoriasInsumos } from '../../../../components/Modales/modalCategoriasInsumos'
+import {
+    ModalCategoriaInsumoDelete,
+    ModalCategoriaInsumoUpdate,
+    ModalCategoriasInsumos,
+} from '../../../../components/Modales/modalCategoriasInsumos'
 
 export const Categorias = {
     id: '',
@@ -40,14 +44,15 @@ export const columns = [
     {
         id: 'actions',
         header: 'Opciones',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const categoria = row.original
 
             return (
                 <>
-                        <ModalCategoriaInsumoUpdate
-                            id={categoria.id}></ModalCategoriaInsumoUpdate><ModalCategoriaInsumoDelete  id={categoria.id}></ModalCategoriaInsumoDelete>
-                   
+                    <ModalCategoriaInsumoUpdate
+                        id={categoria.id} obtenerDatos={obtenerDatos}></ModalCategoriaInsumoUpdate>
+                    <ModalCategoriaInsumoDelete obtenerDatos={obtenerDatos}
+                        id={categoria.id}></ModalCategoriaInsumoDelete>
                 </>
             )
         },

@@ -13,6 +13,7 @@ export default async function handleDelete(id, url, obtenerDatos) {
             },
         })
         if (response.data.exito) {
+          
             swal({
                 icon: 'success',
                 title: 'Eliminado correctamente.',

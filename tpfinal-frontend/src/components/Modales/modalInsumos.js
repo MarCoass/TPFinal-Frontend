@@ -133,7 +133,7 @@ export function ModalEliminarInsumoProducto(idInsumo, idProducto) {
     )
 }
 
-export function ModalInsumoCrear({ dashboard }) {
+export function ModalInsumoCrear({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -150,7 +150,7 @@ export function ModalInsumoCrear({ dashboard }) {
             formData.append('stock', stock)
             formData.append('stock_minimo', stock_minimo)
             formData.append('id_categoria', id_categoria.id)
-            formData.append('estado', estado)
+            formData.append('estado', estado.id)
             formData.append('marca', marca)
 
             const headers = {
@@ -165,10 +165,31 @@ export function ModalInsumoCrear({ dashboard }) {
                     headers,
                 },
             )
+            obtenerDatos()
             // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            /*  console.log('Respuesta del servidor:', response.data) */
+            swal({
+                icon: 'success',
+                title: 'Insumo agregado correctamente.',
+                text: 'Se creo el insumo exitosamente.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
+            swal({
+                icon: 'error',
+                title: 'Error al crear el insumo.',
+                text: 'Ocurrio un error al crear el insumo.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         }
     }
     return (
@@ -186,24 +207,26 @@ export function ModalInsumoCrear({ dashboard }) {
                     </AlertDialogTrigger>
                 )}
 
-                <AlertDialogContent className="bg-white p-12">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="flex flex-col justify-start gap-4 ">
-                        <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>Nuevo insumo</AlertDialogTitle>
-
-                            <div className="flex justify-between">
+                <AlertDialogContent className="font-bold bg-rosado-50 border-black border-2 w-min md:min-w-min">
+                    <form onSubmit={handleSubmit} className="flex flex-col">
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
+                                Nuevo insumo
+                            </AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div className="flex flex-col  md:grid md:grid-cols-2 gap-3">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="nombre">Nombre:</label>
                                 <Input
                                     id="nombre"
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
+                                    required
                                 />
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="descripcion">
                                     Descripcion:
                                 </label>
@@ -217,7 +240,7 @@ export function ModalInsumoCrear({ dashboard }) {
                                 />
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="stock">Stock:</label>
                                 <Input
                                     id="stock"
@@ -227,7 +250,7 @@ export function ModalInsumoCrear({ dashboard }) {
                                 />
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="stock_minimo">
                                     Stock minimo:
                                 </label>
@@ -241,21 +264,21 @@ export function ModalInsumoCrear({ dashboard }) {
                                 />
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <SelectCategoriasInsumos
                                     value={id_categoria}
                                     onChange={newCategoria =>
                                         setCategoria(newCategoria)
                                     }></SelectCategoriasInsumos>
                             </div>
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <SelectEstadosInsumo
                                     value={estado}
                                     onChange={newEstado =>
                                         setEstado(newEstado)
                                     }></SelectEstadosInsumo>
                             </div>
-                            <div className="flex justify-between">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="marca">Marca:</label>
                                 <Input
                                     id="marca"
@@ -264,8 +287,8 @@ export function ModalInsumoCrear({ dashboard }) {
                                     onChange={e => setMarca(e.target.value)}
                                 />
                             </div>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
+                        </div>
+                        <AlertDialogFooter className="mt-10">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
                                 Guardar
@@ -331,7 +354,7 @@ export function ModalInsumoVer({ idInsumo }) {
     )
 }
 
-export function ModalInsumoModificar({ idInsumo }) {
+export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -339,6 +362,8 @@ export function ModalInsumoModificar({ idInsumo }) {
     const [id_categoria, setCategoria] = useState('')
     const [estado, setEstado] = useState('')
     const [marca, setMarca] = useState('')
+    
+
     useEffect(() => {
         if (idInsumo) {
             async function obtenerInsumo() {
@@ -349,7 +374,9 @@ export function ModalInsumoModificar({ idInsumo }) {
                     setStock(data.stock)
                     setStockMinimo(data.stock_minimo)
                     setEstado(data.estado)
+                    setCategoria(data.id_categoria)
                     setMarca(data.marca)
+                    
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -360,6 +387,7 @@ export function ModalInsumoModificar({ idInsumo }) {
             obtenerInsumo()
         }
     }, [])
+
     const handleSubmit = async e => {
         e.preventDefault()
 
@@ -368,12 +396,12 @@ export function ModalInsumoModificar({ idInsumo }) {
         formData.append('descripcion', descripcion)
         formData.append('stock', stock)
         formData.append('stock_minimo', stock_minimo)
-        formData.append('id_categoria', id_categoria)
-        formData.append('estado', estado)
+        formData.append('id_categoria', id_categoria.id)
+        formData.append('estado', estado.id)
         formData.append('marca', marca)
 
         let urlUpdate = '/api/administracion/insumosUpdate/'
-        handleUpdate(idInsumo, urlUpdate, formData)
+        handleUpdate(idInsumo, urlUpdate, formData, obtenerDatos)
     }
     return (
         <>
@@ -381,22 +409,25 @@ export function ModalInsumoModificar({ idInsumo }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
-                    <form onSubmit={handleSubmit}>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Editar insumo</AlertDialogTitle>
+                <AlertDialogContent className="bg-rosado-50 border-black border-2 w-min md:min-w-min">
+                    <form onSubmit={handleSubmit} className="flex flex-col">
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
+                                Editar insumo
+                            </AlertDialogTitle>
                         </AlertDialogHeader>
-                        <div className="">
-                            <div className="flex justify-around">
+                        <div className="flex flex-col md:grid md:grid-cols-2 gap-3">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="nombre">Nombre:</label>
                                 <Input
                                     id="nombre"
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
+                                    required
                                 />
                             </div>
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="descripcion">
                                     Descripcion:
                                 </label>
@@ -410,7 +441,7 @@ export function ModalInsumoModificar({ idInsumo }) {
                                 />
                             </div>
 
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="stock">Stock:</label>
                                 <Input
                                     id="stock"
@@ -420,7 +451,7 @@ export function ModalInsumoModificar({ idInsumo }) {
                                 />
                             </div>
 
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="stock_minimo">
                                     Stock minimo:
                                 </label>
@@ -434,21 +465,21 @@ export function ModalInsumoModificar({ idInsumo }) {
                                 />
                             </div>
 
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <SelectCategoriasInsumos
                                     value={id_categoria}
                                     onChange={newCategoria =>
                                         setCategoria(newCategoria)
                                     }></SelectCategoriasInsumos>
                             </div>
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <SelectEstadosInsumo
                                     value={estado}
                                     onChange={newEstado =>
                                         setEstado(newEstado)
                                     }></SelectEstadosInsumo>
                             </div>
-                            <div className="flex justify-around">
+                            <div className="flex justify-between md:justify-around gap-5">
                                 <label htmlFor="marca">Marca:</label>
                                 <Input
                                     id="marca"
@@ -472,7 +503,7 @@ export function ModalInsumoModificar({ idInsumo }) {
     )
 }
 
-export function ModalInsumoEliminar({ idInsumo }) {
+export function ModalInsumoEliminar({ idInsumo, obtenerDatos }) {
     let urlDelete = '/administracion/insumosDelete/'
     return (
         <>
@@ -490,7 +521,9 @@ export function ModalInsumoEliminar({ idInsumo }) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(idInsumo, urlDelete)}>
+                            onClick={() =>
+                                handleDelete(idInsumo, urlDelete, obtenerDatos)
+                            }>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -538,6 +571,17 @@ export function ModalInsumoPrecios({ idInsumo }) {
             /*   console.log(listadoPrecios) */
         }
     }, [insumo])
+
+
+    const obtenerInsumo = async () => {
+        try {
+            const data = await fetchInsumo()
+            setInsumo(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
+
     return (
         <>
             <AlertDialog>
@@ -551,7 +595,7 @@ export function ModalInsumoPrecios({ idInsumo }) {
                             <Tabla
                                 columns={columnsPrecios}
                                 data={listadoPrecios}
-                                o
+                                obtenerDatos={obtenerInsumo}
                             />
                         </div>
                     ) : (
