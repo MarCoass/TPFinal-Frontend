@@ -29,7 +29,7 @@ export function ModalPrecioStore(idInsumo) {
         try {
             const formData = new FormData()
             formData.append('precio', precio)
-            formData.append('id_proveedor', proveedor)
+            formData.append('id_proveedor', proveedor.id)
             formData.append('id_insumo', idInsumo.idInsumo)
 
             const headers = {
@@ -40,7 +40,15 @@ export function ModalPrecioStore(idInsumo) {
             const response = await axios.post('/api/precioStore', formData, {
                 headers,
             })
-            console.log('Respuesta del servidor:', response.data)
+            swal({
+                icon: 'success',
+                title: 'Precio agregado correctamente.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
