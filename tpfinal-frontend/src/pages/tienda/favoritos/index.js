@@ -5,6 +5,7 @@ import ProductCard from '@/components/ProductCard'
 import React, { useEffect, useState } from 'react'
 import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
+import { useAuth } from '@/hooks/auth'
 
 const fetchProductos = () => {
     return axios
@@ -68,21 +69,25 @@ function filtrarProductos(diseño, largo, forma, ciudad, productos) {
 export default function Favoritos({ diseño, forma, largo, ciudad }) {
     const [productos, setProductos] = useState(null)
     const [productosFiltrados, setProductosFiltrados] = useState(null)
+    const { user } = useAuth()
     useEffect(() => {
         obtenerProductos()
         // setProductosFiltrados(productos)
         // setProductosFiltrados(filtrarProductos(diseño, largo, forma, ciudad, productos))
     }, [])
 
-    const obtenerProductos = async()=>{
+    const obtenerProductos = async () => {
         try {
             const data = await fetchProductos()
-            let productosArray=[];
-            data.map((producto)=>{
-                productosArray.push(producto.original)
-            })
-            setProductos(productosArray)
-            console.log(data)
+            let productosArray = [];
+            if (user) {
+                data.map((producto) => {
+                    productosArray.push(producto.original)
+                })
+                setProductos(productosArray)
+                console.log(data)
+            }
+
         } catch (error) {
             console.error('Error al obtener productos:', error)
         }
@@ -103,41 +108,49 @@ export default function Favoritos({ diseño, forma, largo, ciudad }) {
             </Head>
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="container bg-white overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
-                        {productosFiltrados === null ? (
-                            <div>
-                                <CustomSpinner
-                                    mensaje={'Cargando productos...'}>
-                                </CustomSpinner>
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6 bg-white border-b border-gray-200">
-                                {productosFiltrados.map(producto => (
-                                    <div key={producto.id}>
-                                        {/* <p>Nombre: {producto.nombre}</p>
-                                    <p>Descripcion: {producto.descripcion}</p>
-                                    <p>Precio: {producto.precio}</p>
-                                    <p>Stock: {producto.stock}</p> */}
-                                        <ProductCard
-                                            imgUrl={producto.url_imagen}
-                                            nombreProducto={producto.nombre}
-                                            // descripcionProducto={producto.descripcion}
-                                            precioProducto={producto.precio}
-                                            stock={producto.stock}
-                                            esAdmin={false}
-                                            idProducto={producto.id}
-                                            esFavorito={true}
-                                            obtenerProductos={obtenerProductos}
-                                        >
-                                        </ProductCard>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                {user ? (
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div className="container bg-white overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
 
+                            {productosFiltrados === null ? (
+                                <div>
+                                    <CustomSpinner
+                                        mensaje={'Cargando productos...'}>
+                                    </CustomSpinner>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6 bg-white border-b border-gray-200">
+                                    {productosFiltrados.map(producto => (
+                                        <div key={producto.id}>
+                                            {/* <p>Nombre: {producto.nombre}</p>
+                                 <p>Descripcion: {producto.descripcion}</p>
+                                 <p>Precio: {producto.precio}</p>
+                                 <p>Stock: {producto.stock}</p> */}
+                                            <ProductCard
+                                                imgUrl={producto.url_imagen}
+                                                nombreProducto={producto.nombre}
+                                                // descripcionProducto={producto.descripcion}
+                                                precioProducto={producto.precio}
+                                                stock={producto.stock}
+                                                esAdmin={false}
+                                                idProducto={producto.id}
+                                                esFavorito={true}
+                                                obtenerProductos={obtenerProductos}
+                                            >
+                                            </ProductCard>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <h1>Necesitás iniciar sesión para ver tus favoritos</h1>
+                    </div>
+                )}
+
             </div>
         </>
 

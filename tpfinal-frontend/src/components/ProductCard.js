@@ -5,7 +5,7 @@ import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
 import { Image, Trash2 } from 'lucide-react';
-
+import { useAuth } from '@/hooks/auth'
 
 const ProductCard = ({
     imgUrl,
@@ -19,6 +19,7 @@ const ProductCard = ({
     obtenerProductos
 }) => {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage'
+    const { user } = useAuth()
 
     const handleAddToCart = async (id, cantidad) => {
         try {
@@ -77,22 +78,34 @@ const ProductCard = ({
     }
 
     const handleAgregarFavorito = async (id) =>{
-        const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
-        if (responseAdd ) {
-            if(!responseAdd.data.repetido){
-                swal({
-                    icon: 'success',
-                    title: 'Producto agregado a favoritos.',
-                    button: {
-                        text: 'X',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
+        if(user){
+            const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
+            if (responseAdd) {
+                if(!responseAdd.data.error){
+                    swal({
+                        icon: 'success',
+                        title: responseAdd.data.message,
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                } else {
+                    swal({
+                        icon: 'error',
+                        title: responseAdd.data.message,
+                        button: {
+                            text: 'X',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                }
             } else {
                 swal({
                     icon: 'error',
-                    title: 'Este producto ya existe en tu lista de favoritos.',
+                    title: 'Hubo un error, vuelva a intentarlo.',
                     button: {
                         text: 'X',
                         className:
@@ -103,7 +116,7 @@ const ProductCard = ({
         } else {
             swal({
                 icon: 'error',
-                title: 'Hubo un error, vuelva a intentarlo.',
+                title: 'Necesitás iniciar sesión para agregar productos a favoritos.',
                 button: {
                     text: 'X',
                     className:
@@ -112,6 +125,7 @@ const ProductCard = ({
             })
         }
     }
+
     return (
         <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
             <div className="overflow-x-hidden rounded-2xl relative">
