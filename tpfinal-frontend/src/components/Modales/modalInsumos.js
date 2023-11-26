@@ -167,9 +167,29 @@ export function ModalInsumoCrear({ dashboard, obtenerDatos }) {
             )
             obtenerDatos()
             // Maneja la respuesta del servidor si es necesario
-            console.log('Respuesta del servidor:', response.data)
+            /*  console.log('Respuesta del servidor:', response.data) */
+            swal({
+                icon: 'success',
+                title: 'Insumo agregado correctamente.',
+                text: 'Se creo el insumo exitosamente.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
+            swal({
+                icon: 'error',
+                title: 'Error al crear el insumo.',
+                text: 'Ocurrio un error al crear el insumo.',
+                button: {
+                    text: 'Cerrar',
+                    className:
+                        'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                },
+            })
         }
     }
     return (
@@ -202,6 +222,7 @@ export function ModalInsumoCrear({ dashboard, obtenerDatos }) {
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
+                                    required
                                 />
                             </div>
 

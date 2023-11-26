@@ -19,8 +19,6 @@ import { columns } from '../../pages/administracion/categorias/insumos/columnsCa
 import Tabla from '../Tablas/data-table'
 import swal from 'sweetalert'
 
-
-
 const fetchCategoria = id => {
     return axios
         .get('/api/administracion/categoriaInsumo/' + id)
@@ -147,7 +145,8 @@ export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
                             onClick={() =>
                                 handleDelete(
                                     id,
-                                    '/api/administracion/categoriasInsumosDelete/', obtenerDatos
+                                    '/api/administracion/categoriasInsumosDelete/',
+                                    obtenerDatos,
                                 )
                             }>
                             Eliminar
@@ -159,41 +158,48 @@ export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
     )
 }
 
-export function ModalCategoriaInsumoStore({obtenerDatos}) {
+export function ModalCategoriaInsumoStore({ obtenerDatos }) {
     const [nombre, setNombre] = useState()
+    const [error, setError] = useState('')
+    
 
     const handleSubmit = async e => {
         e.preventDefault()
+        if (nombre) {
+            try {
+                const formData = new FormData()
+                formData.append('nombre', nombre)
 
-        try {
-            const formData = new FormData()
-            formData.append('nombre', nombre)
+                const headers = {
+                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                    Accept: 'application/json',
+                }
 
-            const headers = {
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                Accept: 'application/json',
+                const response = await axios.post(
+                    '/api/administracion/categoriasInsumosStore/',
+                    formData,
+                    { headers },
+                )
+                if (response.data.exito) {
+                    swal({
+                        icon: 'success',
+                        title: 'Categoria creada correctamente.',
+                        text: response.data.message,
+                        button: {
+                            text: 'Cerrar',
+                            className:
+                                'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+                        },
+                    })
+                    obtenerDatos()
+                    setNombre('')
+                }
+            } catch (error) {
+                console.error('Error al enviar la solicitud:', error)
             }
-
-            const response = await axios.post(
-                '/api/administracion/categoriasInsumosStore/',
-                formData,
-                { headers },
-            )
-            if (response.data.exito) {
-                swal({
-                    icon: 'success',
-                    title: 'Categoria creada correctamente.',
-                    text: response.data.message,
-                    button: {
-                        text: 'Cerrar',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
-                obtenerDatos()
-            }
-        } catch (error) {
-            console.error('Error al enviar la solicitud:', error)
+        } else {
+            // Si el campo está vacío, muestra el mensaje de error
+            setError('Este campo es requerido')
         }
     }
     return (
@@ -211,14 +217,24 @@ export function ModalCategoriaInsumoStore({obtenerDatos}) {
                                 className="flex flex-col">
                                 <div className="flex justify-around">
                                     <label htmlFor="nombre">Nombre:</label>
-                                    <Input
-                                        id="nombre"
-                                        type="text"
-                                        value={nombre}
-                                        onChange={e =>
-                                            setNombre(e.target.value)
-                                        }
-                                    />
+                                    <div className='flex flex-col'>
+                                        <Input
+                                            id="nombre"
+                                            type="text"
+                                            value={nombre}
+                                            onChange={e => {
+                                                setNombre(e.target.value)
+                                                setError('') // Limpiar el mensaje de error al escribir en el campo
+                                            }}
+                                            required
+                                            placeholder="Nombre de la categoria"
+                                        />
+                                        {error && (
+                                            <span className="font-bold text-red-500">
+                                                {error}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             </form>
                         </AlertDialogDescription>
@@ -264,9 +280,16 @@ export function ModalCategoriasInsumos() {
                         <AlertDialogTitle>
                             Categorias de insumos
                         </AlertDialogTitle>
-                        <ModalCategoriaInsumoStore obtenerDatos={obtenerDatos}></ModalCategoriaInsumoStore>
+                        <ModalCategoriaInsumoStore
+                            obtenerDatos={
+                                obtenerDatos
+                            }></ModalCategoriaInsumoStore>
                         {categorias ? (
-                            <Tabla columns={columns} data={categorias} obtenerDatos={obtenerDatos}/>
+                            <Tabla
+                                columns={columns}
+                                data={categorias}
+                                obtenerDatos={obtenerDatos}
+                            />
                         ) : (
                             <p>Cargando datos...</p>
                         )}
