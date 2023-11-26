@@ -362,6 +362,8 @@ export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
     const [id_categoria, setCategoria] = useState('')
     const [estado, setEstado] = useState('')
     const [marca, setMarca] = useState('')
+    
+
     useEffect(() => {
         if (idInsumo) {
             async function obtenerInsumo() {
@@ -372,7 +374,9 @@ export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
                     setStock(data.stock)
                     setStockMinimo(data.stock_minimo)
                     setEstado(data.estado)
+                    setCategoria(data.id_categoria)
                     setMarca(data.marca)
+                    
                 } catch (error) {
                     console.error(
                         'Hubo un problema obteniendo los datos: ',
@@ -383,6 +387,7 @@ export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
             obtenerInsumo()
         }
     }, [])
+
     const handleSubmit = async e => {
         e.preventDefault()
 
@@ -391,8 +396,8 @@ export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
         formData.append('descripcion', descripcion)
         formData.append('stock', stock)
         formData.append('stock_minimo', stock_minimo)
-        formData.append('id_categoria', id_categoria)
-        formData.append('estado', estado)
+        formData.append('id_categoria', id_categoria.id)
+        formData.append('estado', estado.id)
         formData.append('marca', marca)
 
         let urlUpdate = '/api/administracion/insumosUpdate/'
@@ -419,6 +424,7 @@ export function ModalInsumoModificar({ idInsumo, obtenerDatos }) {
                                     type="text"
                                     value={nombre}
                                     onChange={e => setNombre(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="flex justify-between md:justify-around gap-5">
