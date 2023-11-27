@@ -142,18 +142,30 @@ export default function infoProducto({ params }) {
                 <div className="max-w-7xl h-[25rem] bg-lila-500 border border-2 border-black rounded-[5px] mx-auto sm:px-6 lg:px-8">
                     {infoProducto ? (
                         <div className="pt-8 flex justify-center">
+                            <div className="relative">
+                                <div className='min-w-2xl relative'>
+                                    <img
+                                        alt={infoProducto.descripcion}
+                                        className="h-[18rem] w-[24rem] border border-black border-2 rounded-2xl w-52 object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                                        src={urlBase + infoProducto.url_imagen}
+                                    />
+                                    {infoProducto.stock === 0 ? (
+                                        <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
+                                            <div className='bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl'>
+                                                <p className="text-center font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
+                                            </div>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            </div>
 
-                            <div className='min-w-2xl'> <img
-                                alt={infoProducto.descripcion}
-                                className="h-[18rem] w-[24rem] border border-black border-2 rounded-2xl w-52 object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                                src={urlBase + infoProducto.url_imagen}></img></div>
 
                             <div className='flex flex-col ml-4'>
                                 <div className='flex flex-col'>
                                     <div className='flex justify-center mb-3'><p className='text-3xl font-bold'>{infoProducto.nombre}</p></div>
                                     <div className='flex-justify-center mb-6'><p className='text-lg font-semibold'>{infoProducto.descripcion}</p></div>
                                 </div>
-                                
+
                                 <div className='info-producto'>
                                     <div><p className='text-lg font-semibold'><b>Disponibilidad de entrega:</b> {infoProducto.ciudad.nombre}</p></div>
                                     <p className='text-lg font-semibold'><b>Largo:</b> {infoProducto.set.tip.largo}cm</p>
@@ -161,7 +173,7 @@ export default function infoProducto({ params }) {
                                     <p className='text-lg font-semibold'><b>Precio: </b>${infoProducto.precio}</p>
                                 </div>
                                 <div className='flex flex-row gap-4 mt-4'>
-                                    
+
                                     <Button className='inline-flex items-center px-4 py-2 ' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
                                     <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
                                         <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(infoProducto.id)}>
