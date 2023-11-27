@@ -144,8 +144,8 @@ const ProductCard = ({
     }
 
     return (
-        <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
-            <div className="overflow-x-hidden rounded-2xl relative">
+        <div className="relative  box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
+            <div className="overflow-x-hidden border-b-2 border-black p-4 relative">
                 <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
                     <img
                         alt={descripcionProducto}
