@@ -42,15 +42,15 @@ export function DropdownMenuCheckboxes({ nombreMenu, filtro, onCheckboxChange })
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="static">
-          <Button variant="outline" className="static border border-green rounded z-0">
+          <Button variant="outline" className="static border border-2 border-black rounded z-0">
             {nombreMenu}
             {isFilterSelected && (
-              <Badge className="absolute top-2 right-2 z-10" />
+              <Badge className=" absolute top-2 right-2 z-10" />
             )}
           </Button>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-white">
+      <DropdownMenuContent className="w-56 bg-lila-500">
         <DropdownMenuLabel>{nombreMenu}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 

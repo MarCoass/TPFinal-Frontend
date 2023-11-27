@@ -145,38 +145,24 @@ const ProductCard = ({
 
     return (
         <div className="relative box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
-            <div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
-                <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
-                    <img
-                        alt={descripcionProducto}
-                        className=" rounded-2xl object-cover h-48 w-96"
-                        src={urlBase + imgUrl}></img>
-                </Link>
-                {stock === 0 ? (
-                    <div className='absolute top-4  left-16 bg-white bg-opacity-25 h-48 w-96 rounded-2xl'>
-                        <p className="absolute top-14 left-10 font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
+<div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
+    <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
+        <div className="relative">
+            <img
+                alt={descripcionProducto}
+                className="rounded-2xl object-cover h-48 w-96"
+                src={urlBase + imgUrl}
+            />
+            {stock === 0 ? (
+                <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
+                    <div className='bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl'>
+                        <p className="text-center font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
                     </div>
-
-                ) : null}
-                {/* <button
-                    title="agregar al carrito"
-                    className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group"
-                    onClick={() => handleAddToCart(idProducto, 1)}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 group-hover:opacity-50 opacity-70"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="black">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                        />
-                    </svg>
-                </button> */}
-            </div>
+                </div>
+            ) : null}
+        </div>
+    </Link>
+</div>
             <div className="mt-4 pl-2 mb-2 flex justify-between ">
                 <div>
                     <p className="text-lg font-bold object-center text-gray-900 mb-0">

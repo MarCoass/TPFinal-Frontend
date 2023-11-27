@@ -9,7 +9,7 @@ const AppLayout = ({ header, children, footer }) => {
             <Navigation user={user} />
 
             {/* Page Heading */}
-            <header className="bg-white shadow">
+            <header className="bg-lila-500 shadow">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {header}
                 </div>
