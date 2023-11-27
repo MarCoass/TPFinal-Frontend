@@ -62,7 +62,7 @@ export const columns = [
             return (
                 <div className="font-bold">
                     <ModalVerCliente
-                        id={row.original.id_usuario}></ModalVerCliente>
+                        id={row.original.id_usuario} ></ModalVerCliente>
                 </div>
             )
         },

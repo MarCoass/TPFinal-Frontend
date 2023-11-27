@@ -839,12 +839,12 @@ export function ModalProductoVerPersonalizado({
 
                 <AlertDialogContent className=" items-center justify-center rounded-[5px] border-2 border-black bg-rosado-50  pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="">
-                        <AlertDialogTitle className='text-2xl border-b-2 border-black pb-3 mb-3 uppercase'>
+                        <AlertDialogTitle className="text-2xl border-b-2 border-black pb-3 mb-3 uppercase">
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
 
                         {producto ? (
-                            <div className='flex flex-col md:flex-row gap-5'>
+                            <div className="flex flex-col md:flex-row gap-5">
                                 <div className="text-left text-lg space-y-5">
                                     <p>Nombre: {producto.nombre}</p>
                                     <p>Descripcion: {producto.descripcion}</p>
