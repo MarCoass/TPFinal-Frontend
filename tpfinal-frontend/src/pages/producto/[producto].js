@@ -138,15 +138,15 @@ export default function infoProducto({ params }) {
     return (
         <AppLayout>
 
-            <div className="h-[40rem] pt-12 ">
-                <div className="max-w-7xl h-[25rem] bg-lila-500 border border-2 border-black rounded-[5px] mx-auto sm:px-6 lg:px-8">
+            <div className="pt-12 ">
+                <div className="max-w-7xl lg:h-[25rem] bg-lila-500 border border-2 border-black rounded-[5px] mx-auto sm:px-6 lg:px-8">
                     {infoProducto ? (
-                        <div className="pt-8 flex justify-center">
+                        <div className="pt-8 flex flex-col md:flex-row justify-center items-center md:items-start">
                             <div className="relative">
                                 <div className='min-w-2xl relative'>
                                     <img
                                         alt={infoProducto.descripcion}
-                                        className="h-[18rem] w-[24rem] border border-black border-2 rounded-2xl w-52 object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                                        className="h-[18rem] w-[24rem] md:w-[20rem] border border-black border-2 rounded-2xl w-52 object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                                         src={urlBase + infoProducto.url_imagen}
                                     />
                                     {infoProducto.stock === 0 ? (
@@ -159,11 +159,10 @@ export default function infoProducto({ params }) {
                                 </div>
                             </div>
 
-
                             <div className='flex flex-col ml-4'>
-                                <div className='flex flex-col'>
-                                    <div className='flex justify-center mb-3'><p className='text-3xl font-bold'>{infoProducto.nombre}</p></div>
-                                    <div className='flex-justify-center mb-6'><p className='text-lg font-semibold'>{infoProducto.descripcion}</p></div>
+                                <div className='flex flex-col mb-3 md:mb-6'>
+                                    <div className='flex justify-center md:justify-start'><p className='text-3xl font-bold'>{infoProducto.nombre}</p></div>
+                                    <div className='flex justify-center md:justify-start'><p className='text-lg font-semibold'>{infoProducto.descripcion}</p></div>
                                 </div>
 
                                 <div className='info-producto'>
@@ -172,10 +171,10 @@ export default function infoProducto({ params }) {
                                     <p className='text-lg font-semibold'><b>Categoría:</b> {infoProducto.set.categoria_set.nombre}</p>
                                     <p className='text-lg font-semibold'><b>Precio: </b>${infoProducto.precio}</p>
                                 </div>
-                                <div className='flex flex-row gap-4 mt-4'>
 
-                                    <Button className='inline-flex items-center px-4 py-2 ' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
-                                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                                <div className='flex flex-col md:flex-row gap-4 mt-4 md:mt-8'>
+                                    <Button className='inline-flex items-center px-4 py-2 mb-4 md:mb-0' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
+                                    <div className="flex flex-row gap-4">
                                         <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(infoProducto.id)}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -193,20 +192,16 @@ export default function infoProducto({ params }) {
                                         </button>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     ) : (
                         <div>
-                            <CustomSpinner
-                                mensaje={'Cargando producto...'}>
-                            </CustomSpinner>
+                            <CustomSpinner mensaje={'Cargando producto...'} />
                         </div>
                     )}
                 </div>
             </div>
+
         </AppLayout>
 
     )
