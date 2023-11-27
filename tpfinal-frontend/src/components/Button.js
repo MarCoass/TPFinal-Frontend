@@ -56,3 +56,11 @@ export const NeoButtonMini = ({ className, ...props})=>(
     />
 )
 
+export const NeoButtonMiniDelete = ({ className, ...props})=>(
+    <button
+      className="flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-red-500 hover:bg-red-600 px-3 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:bg-rosado-200 disabled:shadow-none disabled:translate-y-[3px] disabled:translate-x-[3px] "
+        {...props}
+    />
+)
+
+

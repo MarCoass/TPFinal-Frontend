@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NeoButtonChico, NeoButtonMini } from "../Button";
+import { NeoButtonChico, NeoButtonMini, NeoButtonMiniDelete } from "../Button";
 import { Plus, Trash2, Minus } from 'lucide-react'
 import axios from '@/lib/axios'
 
@@ -91,16 +91,16 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
 
   return (
     <>
-      <div className='border-b-2 mb-6 '>
+      <div className='border-b-2 border-black mb-6 pt-6'>
         <div className="grid grid-cols-5 flex items-center">
           <div> </div>
-          <div className="flex justify-center font-bold">
+          <div className="flex justify-center font-bold text-xl">
             Nombre
           </div>
-          <div className="flex justify-center font-bold">
+          <div className="flex justify-center font-bold text-xl">
             Precio
           </div>
-          <div className="flex justify-center font-bold">
+          <div className="flex justify-center font-bold text-xl">
             Cantidad
           </div>
           <div></div>
@@ -115,18 +115,18 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
                       <img
                         src={urlBase + producto.original.url_imagen}
                         alt={producto.original.nombre}
-                        className="w-40 h-auto"
+                        className="object-cover h-32 w-56 rounded-2xl border border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                       />
                     </div>
 
-                    <div className="flex justify-center pl-4">
+                    <div className="flex justify-center pl-4 text-lg font-semibold">
                       <p>{producto.original.nombre}</p>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center text-lg font-semibold">
                       <p>${producto.original.precio}</p>
                     </div>
                     {cantidades[i] ? (
-                      <div className="flex flex-row gap-2 items-center justify-center">
+                      <div className="flex flex-row gap-2 items-center justify-center text-lg font-semibold">
                         <NeoButtonMini onClick={() => handleDecrement(i)}><Minus /></NeoButtonMini>
                         {cantidades[i].cantidad}
                         <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
@@ -139,7 +139,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
                       </div>
                     )}
                     <div className="flex justify-center">
-                      <NeoButtonMini onClick={() => handleRemoveProduct(producto.original.id)}><Trash2 /></NeoButtonMini>
+                      <NeoButtonMiniDelete onClick={() => handleRemoveProduct(producto.original.id)}><Trash2 /></NeoButtonMiniDelete>
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
 
       </div>
       <div>
-        <p>Total: ${calculateTotalPrice()} </p>
+        <p className='font-semibold text-lg'><b>Total:</b> ${calculateTotalPrice()} </p>
       </div>
     </>
 

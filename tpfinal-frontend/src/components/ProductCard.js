@@ -145,24 +145,24 @@ const ProductCard = ({
 
     return (
         <div className="relative box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
-<div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
-    <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
-        <div className="relative">
-            <img
-                alt={descripcionProducto}
-                className="rounded-2xl object-cover h-48 w-96"
-                src={urlBase + imgUrl}
-            />
-            {stock === 0 ? (
-                <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-                    <div className='bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl'>
-                        <p className="text-center font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
+            <div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
+                <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
+                    <div className="relative">
+                        <img
+                            alt={descripcionProducto}
+                            className="rounded-2xl object-cover h-48 w-96"
+                            src={urlBase + imgUrl}
+                        />
+                        {stock === 0 ? (
+                            <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
+                                <div className='bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl'>
+                                    <p className="text-center font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
+                                </div>
+                            </div>
+                        ) : null}
                     </div>
-                </div>
-            ) : null}
-        </div>
-    </Link>
-</div>
+                </Link>
+            </div>
             <div className="mt-4 pl-2 mb-2 flex justify-between ">
                 <div>
                     <p className="text-lg font-bold object-center text-gray-900 mb-0">
