@@ -40,9 +40,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
       const response = await axios.post('/eliminar-producto', productoEncontrado);
       console.log('Producto eliminado:', response.data);
       if (response) {
-        console.log(productoEncontrado)
         setCantidades(cantidades.filter((producto) => producto != productoEncontrado))
-        console.log(cantidades)
         obtenerDatos()
       }
       // Manejo de la respuesta si es necesario
@@ -134,7 +132,11 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
                         <NeoButtonMini onClick={() => handleIncrement(i)}><Plus /></NeoButtonMini>
                       </div>
                     ) : (
-                      null
+                      <div className="flex flex-row gap-2 items-center justify-center">
+                      <NeoButtonMini ><Minus /></NeoButtonMini>
+                      -
+                      <NeoButtonMini><Plus /></NeoButtonMini>
+                      </div>
                     )}
                     <div className="flex justify-center">
                       <NeoButtonMini onClick={() => handleRemoveProduct(producto.original.id)}><Trash2 /></NeoButtonMini>
