@@ -4,7 +4,7 @@ import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { estadosPedido } from '../../../lib/estados'
 import { ModalVerCliente } from '../../../components/Modales/modalCliente'
-import { ModalProductoVer } from '../../../components/Modales/modalProductos'
+import { ModalProductoVer, ModalProductoVerPersonalizado } from '../../../components/Modales/modalProductos'
 import {
     ModalCambiarEstado,
     ModalCotizar,
@@ -36,9 +36,9 @@ export const columns = [
                 row.original.producto.url_imagen
             return (
                 <>
-                    <ModalProductoVer
+                    <ModalProductoVerPersonalizado
                         idProducto={row.original.id_producto}
-                        conImagen={true}></ModalProductoVer>
+                        conImagen={true}></ModalProductoVerPersonalizado>
                 </>
             )
         },
