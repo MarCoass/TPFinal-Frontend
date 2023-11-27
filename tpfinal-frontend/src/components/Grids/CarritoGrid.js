@@ -92,7 +92,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
   return (
     <>
       <div className='border-b-2 border-black mb-6 pt-6'>
-        <div className="grid grid-cols-5 flex items-center">
+        <div className="hidden md:grid lg:grid grid grid-cols-5 flex items-center">
           <div> </div>
           <div className="flex justify-center font-bold text-xl">
             Nombre
@@ -110,7 +110,7 @@ const CarritoGrid = ({ obtenerDatos, data, obtenerPrecioTotal }) => {
             (<div className="grid grid-cols-1 gap-4 mb-6 mt-6">
               {data.productos.map((producto, i) => (
                 <div key={producto.original.id} className="grid-item ">
-                  <div className="grid grid-cols-5 flex items-center ">
+                  <div className="grid md:grid-cols-5 lg:grid-cols-5 sm:grid-cols-1 flex items-center ">
                     <div className="flex justify-center">
                       <img
                         src={urlBase + producto.original.url_imagen}
