@@ -23,7 +23,7 @@ const ProductCard = ({
     const { user } = useAuth()
 
     const handleAddToCart = async (id, cantidad) => {
-        if (user){
+        if (user) {
             try {
                 const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
                 console.log(responseStock.data)
@@ -72,8 +72,8 @@ const ProductCard = ({
         }
 
     };
-    
-    
+
+
 
     const handleEliminarFavorito = async id => {
         const responseAdd = await axios.post('api/favorito-eliminar', {
@@ -93,11 +93,11 @@ const ProductCard = ({
         obtenerProductos()
     }
 
-    const handleAgregarFavorito = async (id) =>{
-        if(user){
-            const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id});
-            if (responseAdd ) {
-                if(!responseAdd.data.repetido){
+    const handleAgregarFavorito = async (id) => {
+        if (user) {
+            const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id });
+            if (responseAdd) {
+                if (!responseAdd.data.repetido) {
                     swal({
                         icon: 'success',
                         title: 'Producto agregado a favoritos.',
@@ -140,7 +140,7 @@ const ProductCard = ({
                 },
             })
         }
-      
+
     }
 
     return (
@@ -152,7 +152,13 @@ const ProductCard = ({
                         className="h-40 rounded-2xl w-full object-cover"
                         src={urlBase + imgUrl}></img>
                 </Link>
-                <button
+                {stock === 0 ? (
+                    <div className='absolute  top-4 right-4 left-4 bg-white bg-opacity-25 h-40 rounded-2xl'>
+                        <p className="absolute top-8 right-16 font-semibold text-7xl text-red-800 mt-0">SIN STOCK</p>
+                    </div>
+
+                ) : null}
+                {/* <button
                     title="agregar al carrito"
                     className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group"
                     onClick={() => handleAddToCart(idProducto, 1)}>
@@ -169,18 +175,18 @@ const ProductCard = ({
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                     </svg>
-                </button>
+                </button> */}
             </div>
             <div className="mt-4 pl-2 mb-2 flex justify-between ">
                 <div>
-                    <p className="text-lg font-semibold object-center text-gray-900 mb-0">
+                    <p className="text-lg font-bold object-center text-gray-900 mb-0">
                         {nombreProducto}
                     </p>
-                    {descripcionProducto ? (
+                    {/* {descripcionProducto ? (
                         <p className="text-lg font-medium  text-gray-900 mb-0">
                             {descripcionProducto}
                         </p>
-                    ) : null}
+                    ) : null} */}
                     <p className="text-md text-gray-800 mt-0">
                         ${precioProducto}
                     </p>
@@ -189,42 +195,65 @@ const ProductCard = ({
                             Stock: {stock}
                         </p>
                     ) : null}
-                    {stock === 0 ? (
-                        <p className="text-md text-red-800 mt-0">SIN STOCK</p>
-                    ) : null}
+                    {/* {stock === 0 ? (
+                        <p className="absolute inset-x-16 inset-y-24 text-lg text-red-800 mt-0">SIN STOCK</p>
+                    ) : null} */}
                 </div>
-                {!esFavorito ? (
-                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                <div className='flex flex-row'>
+                    <div className='flex flex-col-reverse mb-1 mr-4   cursor-pointer group'>
                         <button
-                            title="agregar a favoritos"
-                            onClick={() => handleAgregarFavorito(idProducto)}>
+                            title="agregar al carrito"
+                            onClick={() => handleAddToCart(idProducto, 1)}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6 group-hover:opacity-70"
+                                className="h-6 w-6 group-hover:opacity-50 opacity-70"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke="gray">
+                                stroke="black"
+                                stroke-width="3">
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    strokeWidth="1.5"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                 />
                             </svg>
                         </button>
                     </div>
-                ) : (
-                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                        <button
-                            title="eliminar de favoritos"
-                            onClick={() => handleEliminarFavorito(idProducto)}>
-                            <Trash2
-                                className="h-6 w-6 group-hover:opacity-70"
-                                stroke="gray"
-                            />
-                        </button>
-                    </div>
-                )}
+                    {!esFavorito ? (
+                        <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                            <button
+                                title="agregar a favoritos"
+                                onClick={() => handleAgregarFavorito(idProducto)}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 group-hover:opacity-70"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="black">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
+                            <button
+                                title="eliminar de favoritos"
+                                onClick={() => handleEliminarFavorito(idProducto)}>
+                                <Trash2
+                                    className="h-6 w-6 group-hover:opacity-70"
+                                    stroke="black"
+                                />
+                            </button>
+                        </div>
+                    )}
+                </div>
+
             </div>
         </div>
     )
