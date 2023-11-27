@@ -144,17 +144,17 @@ const ProductCard = ({
     }
 
     return (
-        <div className="relative  box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
-            <div className="overflow-x-hidden border-b-2 border-black p-4 relative">
+        <div className="relative box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
+            <div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
                 <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
                     <img
                         alt={descripcionProducto}
-                        className="h-40 rounded-2xl w-full object-cover"
+                        className=" rounded-2xl object-cover h-48 w-96"
                         src={urlBase + imgUrl}></img>
                 </Link>
                 {stock === 0 ? (
-                    <div className='absolute  top-4 right-4 left-4 bg-white bg-opacity-25 h-40 rounded-2xl'>
-                        <p className="absolute top-8 right-16 font-semibold text-7xl text-red-800 mt-0">SIN STOCK</p>
+                    <div className='absolute top-4  left-16 bg-white bg-opacity-25 h-48 w-96 rounded-2xl'>
+                        <p className="absolute top-14 left-10 font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
                     </div>
 
                 ) : null}
