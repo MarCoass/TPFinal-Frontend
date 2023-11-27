@@ -63,7 +63,7 @@ export default function Carrito() {
                 console.log(response.data)
                 // Si hay suficiente stock, procede con la compra
                 const respuesta = await axios.get('/api/comprar');
-                if(respuesta){
+                if (respuesta) {
                     swal({
                         icon: 'success',
                         title: 'Gracias por tu compra.',
@@ -113,27 +113,32 @@ export default function Carrito() {
 
     return (
         <AppLayout>
-            <div className='mx-6'>
-                {infoCarrito != null ? (
-                    <div>
-                        <CarritoGrid obtenerDatos={obtenerDatos} data={infoCarrito} obtenerPrecioTotal={obtenerPrecioTotal} />
-                    </div>
-                ) : (
-                    <CustomSpinner
-                        mensaje={'Cargando productos...'}>
-                    </CustomSpinner>
-                )}
-                <div className="mb-6 mr-6 flex justify-end">
-                    {infoCarrito != null && infoCarrito.id_productos.length>0?
-                    (
-                        <ModalCompra infoCarrito={infoCarrito} precioTotal={precioTotal} handleBuy={handleBuy}></ModalCompra>
-                    ):(
-                        <Button disabled>Comprar</Button>
-                    )}
+            <div className='w-full flex justify-center'>
 
+                <div className='flex flex-col mx-6 w-5/6'>
+                    {infoCarrito != null ? (
+                        <div>
+                            <CarritoGrid obtenerDatos={obtenerDatos} data={infoCarrito} obtenerPrecioTotal={obtenerPrecioTotal} />
+                        </div>
+                    ) : (
+                        <CustomSpinner
+                            mensaje={'Cargando productos...'}>
+                        </CustomSpinner>
+                    )}
+                    <div className="mb-6 mr-6 flex justify-end">
+                        {infoCarrito != null && infoCarrito.id_productos.length > 0 ?
+                            (
+                                <ModalCompra infoCarrito={infoCarrito} precioTotal={precioTotal} handleBuy={handleBuy}></ModalCompra>
+                            ) : (
+                                <Button disabled>Comprar</Button>
+                            )}
+
+                    </div>
                 </div>
 
+
             </div>
+           
 
         </AppLayout>
     )
