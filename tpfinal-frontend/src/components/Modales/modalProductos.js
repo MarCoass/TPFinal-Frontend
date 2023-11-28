@@ -795,3 +795,117 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
         </>
     )
 }
+
+export function ModalProductoVerPersonalizado({
+    idProducto,
+    conImagen = false,
+}) {
+    const [producto, setProducto] = useState()
+    useEffect(() => {
+        if (idProducto != null) {
+            async function obtenerProducto() {
+                try {
+                    const data = await fetchProducto(idProducto)
+                    setProducto(data)
+                    /*  console.log(producto) */
+                } catch (error) {
+                    console.error(
+                        'Hubo un problema obteniendo los datos: ',
+                        error,
+                    )
+                }
+            }
+            obtenerProducto()
+        }
+    }, [idProducto])
+    const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
+    return (
+        <>
+            <AlertDialog>
+                {conImagen && producto ? (
+                    <AlertDialogTrigger>
+                        <div
+                            title="Ver producto"
+                            style={{
+                                backgroundImage: `url(${urlBase}${producto.url_imagen})`,
+                            }}
+                            className="h-16 w-16 rounded-full border-2 border-black bg-cover bg-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"></div>
+                    </AlertDialogTrigger>
+                ) : (
+                    <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
+                        <Eye className="h-4 w-4 mx-2" />
+                    </AlertDialogTrigger>
+                )}
+
+                <AlertDialogContent className=" items-center justify-center rounded-[5px] border-2 border-black bg-rosado-50  pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                    <AlertDialogHeader className="">
+                        <AlertDialogTitle className="text-2xl border-b-2 border-black pb-3 mb-3 uppercase">
+                            {producto && <p>{producto.nombre}</p>}
+                        </AlertDialogTitle>
+
+                        {producto ? (
+                            <div className="flex flex-col md:flex-row gap-5">
+                                <div className="text-left text-lg space-y-5">
+                                    <p>Nombre: {producto.nombre}</p>
+                                    <p>Descripcion: {producto.descripcion}</p>
+                                    <p>Ciudad: {producto.ciudad.nombre}</p>
+
+                                    <p>
+                                        Precio:{' '}
+                                        {producto.precio != 0 ? (
+                                            <>${producto.precio}</>
+                                        ) : (
+                                            <>Sin cotizar</>
+                                        )}
+                                    </p>
+                                    {producto.set &&
+                                        producto.set.categoria_set.id != 4 && (
+                                            <p>Stock: {producto.stock}</p>
+                                        )}
+
+                                    {producto.set && (
+                                        <>
+                                            <p>
+                                                Categoria:{' '}
+                                                {
+                                                    producto.set.categoria_set
+                                                        .nombre
+                                                }
+                                            </p>
+                                            {producto.set.tip && (
+                                                <>
+                                                    {' '}
+                                                    <p>
+                                                        Forma:{' '}
+                                                        {producto.set.tip.forma}
+                                                    </p>
+                                                    <p>
+                                                        Largo:{' '}
+                                                        {producto.set.tip.largo}
+                                                    </p>
+                                                </>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                                <div className="">
+                                    <img
+                                        alt={producto.descripcion}
+                                        className=" rounded-[5px] w-60 object-cover border-2 border-black"
+                                        src={
+                                            urlBase + producto.url_imagen
+                                        }></img>
+                                </div>
+                            </div>
+                        ) : (
+                            <p>cargando</p>
+                        )}
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="mr-5">
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </>
+    )
+}

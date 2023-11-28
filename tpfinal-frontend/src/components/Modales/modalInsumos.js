@@ -595,7 +595,6 @@ export function ModalInsumoPrecios({ idInsumo }) {
                             <Tabla
                                 columns={columnsPrecios}
                                 data={listadoPrecios}
-                                obtenerDatos={obtenerInsumo}
                             />
                         </div>
                     ) : (

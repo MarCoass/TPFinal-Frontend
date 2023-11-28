@@ -28,6 +28,8 @@ import { fetchProducto } from '../../lib/producto'
 import { NeoInput } from '../Input'
 import { NeoButton, NeoButtonChico } from '../Button'
 import handleDelete from '../../lib/handleDelete'
+import swal from 'sweetalert'
+
 
 const fetchPedido = id => {
     return axios.get('/api/administracion/pedido/' + id).then(res => res.data)
@@ -82,6 +84,7 @@ export function ModalCambiarEstado({ id }) {
                 },
             )
             // Maneja la respuesta del servidor si es necesario
+
             console.log('Respuesta del servidor:', response.data)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
@@ -378,6 +381,16 @@ export function ModalEntregado({ pedido, obtenerDatos }) {
             },
         )
         obtenerDatos()
+        swal({
+            icon: 'success',
+            title: 'Actualizado correctamente.',
+
+            button: {
+                text: 'Cerrar',
+                className:
+                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+            },
+        })
     }
 
     return (

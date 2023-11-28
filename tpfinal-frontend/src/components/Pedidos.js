@@ -13,9 +13,12 @@ export const ContadorPedidos = ({ titulo, cantidad, className, ...props }) => (
 export function TabsPedidos({ conteo, pedidos }) {
     return (
         <>
-            <Tabs defaultValue="cotizaciones" className="w-min sm:w-max" >
+            <Tabs defaultValue="cotizaciones" className="w-min sm:w-max">
                 <TabsList>
-                    <TabsTrigger value="cotizaciones" className='' disabled={!pedidos[0]}>
+                    <TabsTrigger
+                        value="cotizaciones"
+                        className=""
+                        disabled={!pedidos[0]}>
                         Cotizaciones{' '}
                         {pedidos[0] && (
                             <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
@@ -23,7 +26,9 @@ export function TabsPedidos({ conteo, pedidos }) {
                             </Badge>
                         )}
                     </TabsTrigger>
-                    <TabsTrigger value="pedidosPendientes"  disabled={!pedidos[2]} >
+                    <TabsTrigger
+                        value="pedidosPendientes"
+                        disabled={!pedidos[2]}>
                         Pedidos pendientes
                         {pedidos[2] && (
                             <Badge className="ms-1 w-min rounded-full border-2 border-black bg-naranja-500 hover:bg-naranja-500 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ">
@@ -49,7 +54,11 @@ export function TabsPedidos({ conteo, pedidos }) {
                     </TabsTrigger>
                 </TabsList>
                 <TabsContent value="cotizaciones">
-                    <TablaPedidos pedidos={pedidos[0]}></TablaPedidos>
+                    {pedidos[0] ?(
+                        <TablaPedidos pedidos={pedidos[0]}></TablaPedidos>
+                    ):(
+                        <p className='text-sm'>No hay cotizaciones.</p>
+                    )}
                 </TabsContent>
                 <TabsContent value="pedidosPendientes">
                     <TablaPedidos pedidos={pedidos[2]}></TablaPedidos>
@@ -67,11 +76,6 @@ export function TabsPedidos({ conteo, pedidos }) {
 
 export function TablaPedidos({ pedidos }) {
     return (
-        /*  <div className="text-lg">
-            {pedidos.map(pedido => (
-                <p key={pedido.id}>{pedido.producto.nombre}</p>
-            ))}
-        </div> */
         <Tabla
             data={pedidos}
             columns={columnsDashboard}

@@ -29,22 +29,19 @@ export function ModalVerCliente({ id }) {
     const [cliente, setCliente] = useState()
 
     useEffect(() => {
-        if (id != null) {
-            async function obtenerCliente() {
-                try {
-                    const data = await fetchCliente(id)
-                    setCliente(data)
-                    /*  console.log(data) */
-                } catch (error) {
-                    console.error(
-                        'Hubo un problema obteniendo los datos: ',
-                        error,
-                    )
-                }
-            }
-            obtenerCliente()
+        if (cliente === null || !cliente) {
+            obtenerDatos()
         }
-    }, [])
+    }, [cliente])
+
+    const obtenerDatos = async () => {
+        try {
+            const data = await fetchCliente(id)
+            setCliente(data)
+        } catch (error) {
+            console.error('Hubo un problema obteniendo los datos: ', error)
+        }
+    }
 
     return (
         <>
@@ -56,21 +53,27 @@ export function ModalVerCliente({ id }) {
                         </>
                     )}
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 md:max-w-xl">
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
+                        <AlertDialogTitle className="text-2xl">
                             Informacion del cliente
                         </AlertDialogTitle>
                     </AlertDialogHeader>
 
                     {cliente && (
-                        <>
+                        <div className="font-bold space-y-3 ">
                             <p>Nombre: {cliente.nombre}</p>
                             <p>Apellido: {cliente.apellido}</p>
                             <p>Email: {cliente.email}</p>
                             <p>Numero de telefono: {cliente.num_telefono}</p>
                             <p>Observacion: {cliente.observacion}</p>
-                        </>
+                            <ModalComentarCliente
+                                id={id}
+                                editar={cliente.observacion}
+                                obtenerDatos={
+                                    obtenerDatos
+                                }></ModalComentarCliente>
+                        </div>
                     )}
 
                     <AlertDialogFooter>
