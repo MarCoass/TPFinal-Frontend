@@ -6,7 +6,9 @@ import axios from '@/lib/axios'
 import AdminLayout from '@/components/Layouts/AdminLayout'
 import TablaProductos from './data-table/page'
 import { ModalProductoStore } from '../../../components/Modales/modalProductos'
-
+import CustomSpinner from '@/components/CustomSpinner'
+import { columns } from './data-table/columns'
+import Tabla from '../../../components/Tablas/data-table'
 
 const fetchCiudades = () => {
     return axios.get('/ciudades').then(res => res.data)
@@ -32,18 +34,10 @@ export default function ProdutosIndex() {
     const [productos, setProductos] = useState(null)
 
     useEffect(() => {
-        async function obtenerProductos() {
-            try {
-                const data = await fetchProductos()
-                setProductos(data)
-
-            } catch (error) {
-                console.error('Error al obtener productos:', error)
-            }
+        if (productos === null || !productos) {
+            obtenerDatos()
         }
-
-        obtenerProductos()
-    }, [])
+    }, [productos])
 
     const [ciudades, setCiudades] = useState()
     useEffect(() => {
@@ -61,32 +55,14 @@ export default function ProdutosIndex() {
         obtenerCiudades()
     }, [])
 
-    //PARA ELIMINAR UN PRODCUTO
-    const handleDelete = async id => {
+    const obtenerDatos = async () => {
         try {
-            const xsrfToken = getCookie('XSRF-TOKEN')
-            const response = await axios.delete(
-                `/administracion/productoDelete/${id}`,
-                {
-                    headers: {
-                        'X-XSRF-TOKEN': xsrfToken,
-                        Accept: 'application/json',
-                    },
-                },
-            )
-
-            // Actualiza la lista de Productos después de eliminar el producto
-
             const data = await fetchProductos()
             setProductos(data)
+            console.log('actualizado')
         } catch (error) {
-            console.error('Error al eliminar el producto:', error)
+            console.error('Hubo un problema obteniendo los datos: ', error)
         }
-    }
-
-    if (productos === null || ciudades === null) {
-        // Puedes mostrar un mensaje de carga mientras esperas que se resuelvan las Promesas
-        return <div>Cargando productos y ciudades...</div>
     }
 
     return (
@@ -97,7 +73,8 @@ export default function ProdutosIndex() {
                         <p className="text-xl text-black leading-tight">
                             Productos
                         </p>
-                        <ModalProductoStore></ModalProductoStore>
+                        <ModalProductoStore
+                            obtenerDatos={obtenerDatos}></ModalProductoStore>
                     </div>
                 }>
                 <Head>
@@ -106,8 +83,20 @@ export default function ProdutosIndex() {
 
                 <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="overflow-hidden">
-                            <TablaProductos></TablaProductos>
+                        <div className="overflow-hidden container md:mx-auto py-2">
+                            {productos ? (
+                                <Tabla
+                                    obtenerDatos={obtenerDatos}
+                                    filtrar={true}
+                                    columns={columns}
+                                    data={productos}
+                                />
+                            ) : (
+                                <CustomSpinner
+                                    mensaje={
+                                        'Cargando productos...'
+                                    }></CustomSpinner>
+                            )}
                         </div>
                     </div>
                 </div>

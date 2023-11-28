@@ -28,6 +28,8 @@ import { fetchProducto } from '../../lib/producto'
 import { NeoInput } from '../Input'
 import { NeoButton, NeoButtonChico } from '../Button'
 import handleDelete from '../../lib/handleDelete'
+import swal from 'sweetalert'
+
 
 const fetchPedido = id => {
     return axios.get('/api/administracion/pedido/' + id).then(res => res.data)
@@ -82,6 +84,7 @@ export function ModalCambiarEstado({ id }) {
                 },
             )
             // Maneja la respuesta del servidor si es necesario
+
             console.log('Respuesta del servidor:', response.data)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
@@ -207,7 +210,7 @@ export function ModalCotizar({ id, obtenerDatos }) {
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-violeta-300 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <DollarSign className="h-4 w-4 mx-2" /> Cotizar
                 </AlertDialogTrigger>
-                <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
                         <AlertDialogTitle>
                             {producto && <p>{producto.nombre}</p>}
@@ -378,6 +381,16 @@ export function ModalEntregado({ pedido, obtenerDatos }) {
             },
         )
         obtenerDatos()
+        swal({
+            icon: 'success',
+            title: 'Actualizado correctamente.',
+
+            button: {
+                text: 'Cerrar',
+                className:
+                    'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
+            },
+        })
     }
 
     return (

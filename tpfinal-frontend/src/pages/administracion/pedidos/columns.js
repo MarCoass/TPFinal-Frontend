@@ -4,7 +4,7 @@ import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { estadosPedido } from '../../../lib/estados'
 import { ModalVerCliente } from '../../../components/Modales/modalCliente'
-import { ModalProductoVer } from '../../../components/Modales/modalProductos'
+import { ModalProductoVer, ModalProductoVerPersonalizado } from '../../../components/Modales/modalProductos'
 import {
     ModalCambiarEstado,
     ModalCotizar,
@@ -30,15 +30,11 @@ export const columns = [
         accessorKey: 'pedido',
         header: 'Set',
         cell: ({ row }) => {
-            let imageUrl =
-                process.env.NEXT_PUBLIC_BACKEND_URL +
-                '/storage/' +
-                row.original.producto.url_imagen
             return (
                 <>
-                    <ModalProductoVer
+                    <ModalProductoVerPersonalizado
                         idProducto={row.original.id_producto}
-                        conImagen={true}></ModalProductoVer>
+                        conImagen={true}></ModalProductoVerPersonalizado>
                 </>
             )
         },
@@ -62,7 +58,7 @@ export const columns = [
             return (
                 <div className="font-bold">
                     <ModalVerCliente
-                        id={row.original.id_usuario}></ModalVerCliente>
+                        id={row.original.id_usuario} ></ModalVerCliente>
                 </div>
             )
         },

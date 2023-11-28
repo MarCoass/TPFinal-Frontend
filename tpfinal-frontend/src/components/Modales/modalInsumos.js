@@ -588,14 +588,13 @@ export function ModalInsumoPrecios({ idInsumo }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-naranja-300 hover:bg-naranja-500">
                     <DollarSign className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 ">
                     <ModalPrecioStore idInsumo={idInsumo}></ModalPrecioStore>
                     {listadoPrecios ? (
                         <div>
                             <Tabla
                                 columns={columnsPrecios}
                                 data={listadoPrecios}
-                                obtenerDatos={obtenerInsumo}
                             />
                         </div>
                     ) : (
