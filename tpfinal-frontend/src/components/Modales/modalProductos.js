@@ -41,7 +41,7 @@ const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
 }
 
-export function ModalStockProductos({ idProducto, stockViejo }) {
+export function ModalStockProductos({ idProducto, stockViejo, obtenerDatos }) {
     const [stock, setStock] = useState(stockViejo)
     const handleSubmit = async e => {
         e.preventDefault()
@@ -67,6 +67,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                             'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                     },
                 })
+                obtenerDatos()
             } else {
                 let insumosInsuficientes = response.data.insumos_faltantes
                 const nombres = insumosInsuficientes.map(
@@ -151,7 +152,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
     )
 }
 
-export function ModalProductoStore({ dashboard }) {
+export function ModalProductoStore({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -227,6 +228,15 @@ export function ModalProductoStore({ dashboard }) {
                         'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                 },
             })
+            obtenerDatos()
+
+            setNombre('')
+            setDescripcion('')
+            setStock('')
+            setPrecio('')
+            setCiudad('')
+            setEstado('')
+            setImagen('')
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
             swal({
@@ -400,7 +410,7 @@ export function ModalProductoStore({ dashboard }) {
     )
 }
 
-export function ModalProductoEliminar({ idProducto }) {
+export function ModalProductoEliminar({ idProducto, obtenerDatos }) {
     let urlDelete = '/administracion/productoDelete/'
     return (
         <>
@@ -418,7 +428,13 @@ export function ModalProductoEliminar({ idProducto }) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(idProducto, urlDelete)}>
+                            onClick={() =>
+                                handleDelete(
+                                    idProducto,
+                                    urlDelete,
+                                    obtenerDatos,
+                                )
+                            }>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
