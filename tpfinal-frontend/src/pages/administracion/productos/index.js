@@ -65,8 +65,6 @@ export default function ProdutosIndex() {
         }
     }
 
-  
-
     return (
         <>
             <AdminLayout
@@ -85,7 +83,7 @@ export default function ProdutosIndex() {
 
                 <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="overflow-hidden">
+                        <div className="overflow-hidden container md:mx-auto py-2">
                             {productos ? (
                                 <Tabla
                                     obtenerDatos={obtenerDatos}

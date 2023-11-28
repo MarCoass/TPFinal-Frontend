@@ -266,137 +266,139 @@ export function ModalProductoStore({ dashboard, obtenerDatos }) {
                     </AlertDialogTrigger>
                 )}
 
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="font-bold bg-rosado-50 border-black border-2  md:min-w-min">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
                         className="flex flex-col">
-                        <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
                                 Crear nuevo producto
-                            </AlertDialogTitle>
-                            <Tabs defaultValue="general">
-                                <TabsList>
-                                    <TabsTrigger
-                                        value="general"
-                                        className="w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
-                                        Informacion general
-                                    </TabsTrigger>
-                                    <TabsTrigger
-                                        value="insumos"
-                                        className="w-1/3 font-bold border-2 border-black px-6 py-3 text-center">
-                                        Insumos
-                                    </TabsTrigger>
-                                    <TabsTrigger
-                                        value="set"
-                                        className="w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center">
-                                        Informacion sobre Set
-                                    </TabsTrigger>
-                                </TabsList>
-                                <TabsContent
-                                    value="general"
-                                    className="grid grid-cols-2 gap-3">
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="nombre">Nombre:</label>
-                                        <NeoInput
-                                            id="nombre"
-                                            type="text"
-                                            value={nombre}
-                                            onChange={e =>
-                                                setNombre(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="descripcion">
-                                            Descripcion:
-                                        </label>
-                                        <NeoInput
-                                            id="descripcion"
-                                            type="text"
-                                            value={descripcion}
-                                            onChange={e =>
-                                                setDescripcion(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="stock">Stock:</label>
-                                        <NeoInput
-                                            id="stock"
-                                            type="number"
-                                            value={stock}
-                                            onChange={e =>
-                                                setStock(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="precio">Precio:</label>
-                                        <NeoInput
-                                            id="precio"
-                                            type="number"
-                                            value={precio}
-                                            onChange={e =>
-                                                setPrecio(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="ciudades">
-                                            Ciudades:
-                                        </label>
-                                        <SelectCiudades
-                                            value={ciudad}
-                                            onChange={newCiudad =>
-                                                setCiudad(newCiudad)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="estado">Estado:</label>
-                                        <SelectEstadosProducto
-                                            value={estado}
-                                            onChange={newEstado =>
-                                                setEstado(newEstado)
-                                            }></SelectEstadosProducto>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="imagen">Imagen:</label>
-                                        <Input
-                                            id="imagen"
-                                            type="file"
-                                            accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                            onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
-                                        />
-                                    </div>
-                                </TabsContent>
-                                <TabsContent value="insumos">
-                                    <ListadoInsumos
-                                        onCantidadInsumosChange={
-                                            handleCantidadInsumosChange
-                                        }></ListadoInsumos>
-                                </TabsContent>
-                                <TabsContent
-                                    value="set"
-                                    className="flex justify-around">
-                                    <div className="flex justify-around">
-                                        <SelectTips
-                                            value={tip}
-                                            onChange={newTip =>
-                                                setTip(newTip)
-                                            }></SelectTips>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasSets
-                                            value={categoriaSet}
-                                            onChange={newCategoria =>
-                                                setCategoriaSet(newCategoria)
-                                            }></SelectCategoriasSets>
-                                    </div>
-                                </TabsContent>
-                            </Tabs>
+                            </AlertDialogTitle>{' '}
                         </AlertDialogHeader>
+                        <Tabs defaultValue="general">
+                            <TabsList>
+                                <TabsTrigger
+                                    value="general"
+                                    className="w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
+                                    Informacion{' '}
+                                    <span className="hidden md:inline ms-1">
+                                        {' '}
+                                        general
+                                    </span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="insumos"
+                                    className="w-1/3 font-bold border-2 border-black px-6 py-3 text-center">
+                                    Insumos
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="set"
+                                    className="w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                    <span className="hidden md:inline me-1">
+                                        Informacion sobre
+                                    </span>
+                                    Set
+                                </TabsTrigger>
+                            </TabsList>
+                            <TabsContent
+                                value="general"
+                                className="flex flex-col md:grid md:grid-cols-2 gap-3 ">
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="nombre">Nombre:</label>
+                                    <NeoInput
+                                        id="nombre"
+                                        type="text"
+                                        value={nombre}
+                                        onChange={e =>
+                                            setNombre(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="descripcion">
+                                        Descripcion:
+                                    </label>
+                                    <NeoInput
+                                        id="descripcion"
+                                        type="text"
+                                        value={descripcion}
+                                        onChange={e =>
+                                            setDescripcion(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="stock">Stock:</label>
+                                    <NeoInput
+                                        id="stock"
+                                        type="number"
+                                        value={stock}
+                                        onChange={e => setStock(e.target.value)}
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="precio">Precio:</label>
+                                    <NeoInput
+                                        id="precio"
+                                        type="number"
+                                        value={precio}
+                                        onChange={e =>
+                                            setPrecio(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <SelectCiudades
+                                        value={ciudad}
+                                        onChange={newCiudad =>
+                                            setCiudad(newCiudad)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <SelectEstadosProducto
+                                        value={estado}
+                                        onChange={newEstado =>
+                                            setEstado(newEstado)
+                                        }></SelectEstadosProducto>
+                                </div>
+                                <div>
+                                    <label htmlFor="imagen">Imagen:</label>
+                                    <Input
+                                        id="imagen"
+                                        type="file"
+                                        accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
+                                        onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
+                                    />
+                                </div>
+                            </TabsContent>
+                            <TabsContent value="insumos">
+                                <ListadoInsumos
+                                    onCantidadInsumosChange={
+                                        handleCantidadInsumosChange
+                                    }></ListadoInsumos>
+                            </TabsContent>
+                            <TabsContent
+                                value="set"
+                                className="flex flex-col md:flex-row justify-around gap-5 ">
+                                <div className="flex justify-around">
+                                    <SelectTips
+                                        value={tip}
+                                        onChange={newTip =>
+                                            setTip(newTip)
+                                        }></SelectTips>
+                                </div>
+                                <div className="flex justify-around">
+                                    <SelectCategoriasSets
+                                        value={categoriaSet}
+                                        onChange={newCategoria =>
+                                            setCategoriaSet(newCategoria)
+                                        }></SelectCategoriasSets>
+                                </div>
+                            </TabsContent>
+                        </Tabs>
+
                         <AlertDialogFooter className="mt-10">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
