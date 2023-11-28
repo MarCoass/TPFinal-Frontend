@@ -15,35 +15,25 @@ import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import { Input } from '@/components/ui/input'
 import handleDelete from '../../lib/handleDelete'
-import { columns } from '../../pages/administracion/categorias/insumos/columnsCategoriaInsumos'
-import Tabla from '../Tablas/data-table'
 import swal from 'sweetalert'
+import handleUpdate from '../../lib/handleUpdate'
 
 const fetchCategoria = id => {
-    return axios
-        .get('/api/administracion/categoriaInsumo/' + id)
-        .then(res => res.data)
-}
-const fetchCategorias = async () => {
-    try {
-        const response = await axios.get(
-            '/api/administracion/categoriasInsumos',
-        )
-        return response.data
-    } catch (error) {
-        console.error('Error al obtener categorias:', error)
-        return []
-    }
+    return axios.get('/api/categoriaSet/' + id).then(res => res.data)
 }
 
-export function ModalCategoriaInsumoUpdate({ id, obtenerDatos }) {
+export function ModalCategoriaSetsUpdate({ id, obtenerDatos }) {
     const [nombre, setNombre] = useState()
+    const [descripcion, setDescripcion] = useState()
+    const [precioBase, setPrecioBase] = useState()
 
     useEffect(() => {
         async function obtenerCategoria() {
             try {
                 const data = await fetchCategoria(id)
                 setNombre(data.nombre)
+                setDescripcion(data.descripcion)
+                setPrecioBase(data.precio_base)
                 //console.log(data)
             } catch (error) {
                 console.error('Error al obtener categoria:', error)
@@ -58,30 +48,10 @@ export function ModalCategoriaInsumoUpdate({ id, obtenerDatos }) {
         try {
             const formData = new FormData()
             formData.append('nombre', nombre)
-
-            const headers = {
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                Accept: 'application/json',
-            }
-
-            const response = await axios.post(
-                '/api/administracion/categoriasInsumosUpdate/' + id,
-                formData,
-                { headers },
-            )
-            if (response.data.exito) {
-                swal({
-                    icon: 'success',
-                    title: 'Categoria editada correctamente.',
-                    text: response.data.message,
-                    button: {
-                        text: 'Cerrar',
-                        className:
-                            'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
-                    },
-                })
-                obtenerDatos()
-            }
+            formData.append('descripcion', descripcion)
+            formData.append('precio_base', precioBase)
+            let url = '/api/categoriaSetUpdate/'
+            handleUpdate(id, url, formData, obtenerDatos)
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
@@ -99,23 +69,44 @@ export function ModalCategoriaInsumoUpdate({ id, obtenerDatos }) {
                             Editar categoria
                         </AlertDialogTitle>
                     </AlertDialogHeader>
-                    <AlertDialogDescription>
-                        <form
-                            onSubmit={handleSubmit}
-                            className="flex flex-col font-bold">
-                            <div className="flex justify-around  gap-4">
-                                <label htmlFor="nombre" className="my-auto">
-                                    Nombre:
-                                </label>
-                                <Input
-                                    id="nombre"
-                                    type="text"
-                                    value={nombre}
-                                    onChange={e => setNombre(e.target.value)}
-                                />
-                            </div>
-                        </form>
-                    </AlertDialogDescription>
+
+                    <form
+                        onSubmit={handleSubmit}
+                        className="flex flex-col font-bold">
+                        <div className="flex justify-around  gap-4">
+                            <label htmlFor="nombre" className="my-auto">
+                                Nombre:
+                            </label>
+                            <Input
+                                id="nombre"
+                                type="text"
+                                value={nombre}
+                                onChange={e => setNombre(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-around  gap-4">
+                            <label htmlFor="descripcion" className="my-auto">
+                                Descripcion:
+                            </label>
+                            <Input
+                                id="descripcion"
+                                type="text"
+                                value={descripcion}
+                                onChange={e => setDescripcion(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-around  gap-4">
+                            <label htmlFor="precio" className="my-auto">
+                                Precio base:
+                            </label>
+                            <Input
+                                id="precio"
+                                type="number"
+                                value={precioBase}
+                                onChange={e => setPrecioBase(e.target.value)}
+                            />
+                        </div>
+                    </form>
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
@@ -129,7 +120,7 @@ export function ModalCategoriaInsumoUpdate({ id, obtenerDatos }) {
     )
 }
 
-export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
+export function ModalCategoriaSetDelete({ id, obtenerDatos }) {
     return (
         <>
             <AlertDialog>
@@ -137,7 +128,7 @@ export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
                     <Trash2 className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50  border-black max-w-min">
-                    <AlertDialogHeader >
+                    <AlertDialogHeader>
                         <AlertDialogTitle className="text-xl">
                             Eliminar
                         </AlertDialogTitle>
@@ -150,7 +141,7 @@ export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
                             onClick={() =>
                                 handleDelete(
                                     id,
-                                    '/api/administracion/categoriasInsumosDelete/',
+                                    '/api/categoriaSetDelete/',
                                     obtenerDatos,
                                 )
                             }>
@@ -163,9 +154,10 @@ export function ModalCategoriaInsumoDelete({ id, obtenerDatos }) {
     )
 }
 
-export function ModalCategoriaInsumoStore({ obtenerDatos }) {
+export function ModalCategoriaSetStore({ obtenerDatos }) {
     const [nombre, setNombre] = useState()
-    const [error, setError] = useState('')
+    const [descripcion, setDescripcion] = useState()
+    const [precioBase, setPrecioBase] = useState()
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -173,6 +165,8 @@ export function ModalCategoriaInsumoStore({ obtenerDatos }) {
             try {
                 const formData = new FormData()
                 formData.append('nombre', nombre)
+                formData.append('descripcion', descripcion)
+                formData.append('precio_base', precioBase)
 
                 const headers = {
                     'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
@@ -180,7 +174,7 @@ export function ModalCategoriaInsumoStore({ obtenerDatos }) {
                 }
 
                 const response = await axios.post(
-                    '/api/administracion/categoriasInsumosStore/',
+                    '/api/categoriaSetStore/',
                     formData,
                     { headers },
                 )
@@ -197,13 +191,13 @@ export function ModalCategoriaInsumoStore({ obtenerDatos }) {
                     })
                     obtenerDatos()
                     setNombre('')
+                    setDescripcion('')
+                    setPrecioBase('')
                 }
             } catch (error) {
                 console.error('Error al enviar la solicitud:', error)
             }
         } else {
-            // Si el campo está vacío, muestra el mensaje de error
-            setError('Este campo es requerido')
         }
     }
     return (
@@ -220,28 +214,44 @@ export function ModalCategoriaInsumoStore({ obtenerDatos }) {
                     </AlertDialogHeader>
                     <AlertDialogDescription className="font-bold">
                         <form onSubmit={handleSubmit} className="flex flex-col">
-                            <div className="flex justify-around gap-4">
+                            <div className="flex justify-around  gap-4">
                                 <label htmlFor="nombre" className="my-auto">
                                     Nombre:
                                 </label>
-                                <div className="flex flex-col ">
-                                    <Input
-                                        id="nombre"
-                                        type="text"
-                                        value={nombre}
-                                        onChange={e => {
-                                            setNombre(e.target.value)
-                                            setError('') // Limpiar el mensaje de error al escribir en el campo
-                                        }}
-                                        required
-                                        placeholder="Nombre de la categoria"
-                                    />
-                                    {error && (
-                                        <span className="font-bold text-red-500">
-                                            {error}
-                                        </span>
-                                    )}
-                                </div>
+                                <Input
+                                    id="nombre"
+                                    type="text"
+                                    value={nombre}
+                                    onChange={e => setNombre(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex justify-around  gap-4">
+                                <label
+                                    htmlFor="descripcion"
+                                    className="my-auto">
+                                    Descripcion:
+                                </label>
+                                <Input
+                                    id="descripcion"
+                                    type="text"
+                                    value={descripcion}
+                                    onChange={e =>
+                                        setDescripcion(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div className="flex justify-around  gap-4">
+                                <label htmlFor="precio" className="my-auto">
+                                    Precio base:
+                                </label>
+                                <Input
+                                    id="precio"
+                                    type="number"
+                                    value={precioBase}
+                                    onChange={e =>
+                                        setPrecioBase(e.target.value)
+                                    }
+                                />
                             </div>
                         </form>
                     </AlertDialogDescription>
@@ -251,58 +261,6 @@ export function ModalCategoriaInsumoStore({ obtenerDatos }) {
                         <AlertDialogAction onClick={handleSubmit}>
                             Guardar
                         </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        </>
-    )
-}
-
-export function ModalCategoriasInsumos() {
-    const [categorias, setCategorias] = useState(null)
-
-    useEffect(() => {
-        if (categorias === null || !categorias) {
-            obtenerDatos()
-        }
-    }, [categorias])
-
-    const obtenerDatos = async () => {
-        try {
-            const data = await fetchCategorias()
-            setCategorias(data)
-        } catch (error) {
-            console.error('Hubo un problema obteniendo los datos: ', error)
-        }
-    }
-    return (
-        <>
-            <AlertDialog>
-                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
-                    <List className="h-4 w-4 mx-2" />
-                    VER CATEGORIAS
-                </AlertDialogTrigger>
-                <AlertDialogContent className="overflow-auto  bg-rosado-50">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            Categorias de insumos
-                        </AlertDialogTitle>
-                        <ModalCategoriaInsumoStore
-                            obtenerDatos={
-                                obtenerDatos
-                            }></ModalCategoriaInsumoStore>
-                        {categorias ? (
-                            <Tabla
-                                columns={columns}
-                                data={categorias}
-                                obtenerDatos={obtenerDatos}
-                            />
-                        ) : (
-                            <p>Cargando datos...</p>
-                        )}
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>

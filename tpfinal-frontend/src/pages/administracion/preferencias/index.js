@@ -2,10 +2,18 @@ import AdminLayout from '@/components/Layouts/AdminLayout'
 import Head from 'next/head'
 import axios from '@/lib/axios'
 import { useState, useEffect } from 'react'
-import Input from '@/components/Input'
+
 import { NeoButton } from '../../../components/Button'
 import { handleUpdateParametros } from '../../../lib/handleUpdate'
 import { Label } from '@/components/ui/label'
+import { NeoInput } from '@/components/Input'
+import Ciudades from '../ciudades'
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {CategoriasInsumos,  CategoriasSets } from '../categorias/insumos'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -76,9 +84,9 @@ const Dashboard = () => {
 
             <div className="py-6">
                 {parametrosArray ? (
-                    <div className="flex flex-col gap-4 mx-4">
-                        <form onSubmit={handleSubmit}>
-                            <div className="rounded-[5px] border-2 border-black  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="flex flex-col gap-4 mx-4 lg:grid lg:grid-cols-3">
+                        <form onSubmit={handleSubmit} className="lg:col-span-2">
+                            <div className=" rounded-[5px] border-2 border-black  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                                 <p className="font-bold text-2xl border-b-2 border-black bg-rosado-400 p-3">
                                     Informacion general
                                 </p>{' '}
@@ -93,7 +101,7 @@ const Dashboard = () => {
                                                 <label htmlFor="instagram_nombre">
                                                     Username
                                                 </label>
-                                                <Input
+                                                <NeoInput
                                                     className="max-w-max"
                                                     id="instagram_nombre"
                                                     value={
@@ -114,7 +122,7 @@ const Dashboard = () => {
                                                 <label htmlFor="instagram_url">
                                                     URL
                                                 </label>
-                                                <Input
+                                                <NeoInput
                                                     className="max-w-max"
                                                     id="instagram_url"
                                                     value={
@@ -140,7 +148,7 @@ const Dashboard = () => {
                                                 <label htmlFor="whatsapp">
                                                     Numero
                                                 </label>
-                                                <Input
+                                                <NeoInput
                                                     className="max-w-max"
                                                     id="whatsapp"
                                                     value={
@@ -166,7 +174,7 @@ const Dashboard = () => {
                                                 <label htmlFor="horario_atencion_apertura">
                                                     Desde:{' '}
                                                 </label>
-                                                <Input
+                                                <NeoInput
                                                     className="max-w-max"
                                                     id="horario_atencion_apertura"
                                                     value={
@@ -186,7 +194,7 @@ const Dashboard = () => {
                                                 <label htmlFor="horario_atencion_cierre">
                                                     Hasta:{' '}
                                                 </label>
-                                                <Input
+                                                <NeoInput
                                                     className="max-w-max"
                                                     id="horario_atencion_cierre"
                                                     value={
@@ -212,7 +220,7 @@ const Dashboard = () => {
                                             <label htmlFor="valor_senia">
                                                 Valor de la seña:
                                             </label>
-                                            <Input
+                                            <NeoInput
                                                 className="max-w-max"
                                                 type="number"
                                                 id="valor_senia"
@@ -233,7 +241,7 @@ const Dashboard = () => {
                                             <label htmlFor="demora_cotizacion">
                                                 Demora cotizacion:
                                             </label>
-                                            <Input
+                                            <NeoInput
                                                 className="max-w-max"
                                                 id="demora_cotizacion"
                                                 value={
@@ -253,7 +261,7 @@ const Dashboard = () => {
                                             <label htmlFor="demora_trabajo">
                                                 Demora trabajo:
                                             </label>
-                                            <Input
+                                            <NeoInput
                                                 className="max-w-max"
                                                 id="demora_trabajo"
                                                 value={
@@ -276,7 +284,7 @@ const Dashboard = () => {
                                                 Pedidos abiertos:{' '}
                                             </Label>
                                             <input
-                                                className="rounded-full p-3 appearance-none  checked:hover:bg-violeta-500 checked:focus:bg-violeta-400 checked:bg-violeta-400 checked:focus:ring-violeta-400 focus:ring-violeta-400"
+                                                className="rounded-full p-3 appearance-none  checked:hover:bg-violeta-500 checked:focus:bg-violeta-400 checked:bg-rosado-600 checked:focus:ring-rosado-600 focus:ring-violeta-400"
                                                 type="checkbox"
                                                 id="pedidos_abiertos"
                                                 checked={
@@ -305,6 +313,34 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </form>
+                        <div className="col-start-3 w-full">
+                            <div className="flex flex-col rounded-[5px] border-2 border-black  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                <Collapsible>
+                                    <CollapsibleTrigger className="w-full font-bold text-2xl border-b-2 border-black bg-rosado-400 p-3">
+                                        Categorias de insumos
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <CategoriasInsumos></CategoriasInsumos>
+                                    </CollapsibleContent>
+                                </Collapsible>
+                                <Collapsible>
+                                    <CollapsibleTrigger className="w-full font-bold text-2xl border-b-2 border-black bg-rosado-400 p-3">
+                                        Categorias de sets
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <CategoriasSets></CategoriasSets>
+                                    </CollapsibleContent>
+                                </Collapsible>
+                                <Collapsible>
+                                    <CollapsibleTrigger className="w-full font-bold text-2xl border-b-2 border-black bg-rosado-400 p-3">
+                                        Ciudades
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <Ciudades></Ciudades>
+                                    </CollapsibleContent>
+                                </Collapsible>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <p>Cargando...</p>

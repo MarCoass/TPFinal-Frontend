@@ -1,18 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import AppLayout from '@/components/Layouts/AppLayout'
-import ApplicationLogo from '@/components/ApplicationLogo'
 import AuthCard from '@/components/AuthCard'
 import Button from '@/components/Button'
-import { useForm } from 'react-hook-form'
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
