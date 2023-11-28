@@ -275,7 +275,7 @@ export function ModalCategoriasInsumos() {
                     <List className="h-4 w-4 mx-2" />
                     VER CATEGORIAS
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="overflow-auto  bg-rosado-50">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
                             Categorias de insumos
