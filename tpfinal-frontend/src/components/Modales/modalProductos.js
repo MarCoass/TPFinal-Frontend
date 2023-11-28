@@ -708,11 +708,14 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
                                     Informacion General
                                 </TabsTrigger>
-                                <TabsTrigger
-                                    value="insumos"
-                                    className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
-                                    Insumos
-                                </TabsTrigger>
+
+                                {producto && producto.insumos && producto.insumos.length > 0 && (
+                                    <TabsTrigger
+                                        value="insumos"
+                                        className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                        Insumos
+                                    </TabsTrigger>
+                                )}
                             </TabsList>
                             {producto ? (
                                 <>
@@ -792,7 +795,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     <TabsContent
                                         value="insumos"
                                         className="flex px-10 w-full">
-                                        {producto.insumos && (
+                                        {producto.insumos && producto.insumos.length > 0 && (
                                             <TablaInsumosProductos
                                                 insumos={
                                                     producto.insumos
