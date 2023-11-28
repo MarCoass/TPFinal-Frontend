@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import AppLayout from '@/components/Layouts/AppLayout'
 import axios from '@/lib/axios'
 import CustomSpinner from '@/components/CustomSpinner'
@@ -137,7 +138,14 @@ export default function infoProducto({ params }) {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage';
     return (
         <AppLayout>
-
+            <Head>
+                {infoProducto ? (
+                    <title>{infoProducto.nombre}</title>
+                ):(
+                    <title>Mar nails</title>
+                )}
+                
+            </Head>
             <div className="pt-12 ">
                 <div className="max-w-7xl lg:h-[25rem] bg-lila-500 border border-2 border-black rounded-[5px] mx-auto sm:px-6 lg:px-8">
                     {infoProducto ? (
@@ -171,27 +179,28 @@ export default function infoProducto({ params }) {
                                     <p className='text-lg font-semibold'><b>Categoría:</b> {infoProducto.set.categoria_set.nombre}</p>
                                     <p className='text-lg font-semibold'><b>Precio: </b>${infoProducto.precio}</p>
                                 </div>
-
-                                <div className='flex flex-col md:flex-row gap-4 mt-4 md:mt-8'>
-                                    <Button className='inline-flex items-center px-4 py-2 mb-4 md:mb-0' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
-                                    <div className="flex flex-row gap-4">
-                                        <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(infoProducto.id)}>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="h-6 w-6 group-hover:opacity-70"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="black">
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                                />
-                                            </svg>
-                                        </button>
+                                {user.id_rol === 2 ? (
+                                    <div className='flex flex-col md:flex-row gap-4 mt-4 md:mt-8'>
+                                        <Button className='inline-flex items-center px-4 py-2 mb-4 md:mb-0' onClick={() => handleAddToCart(infoProducto.id, 1)}>Agregar al carrito</Button>
+                                        <div className="flex flex-row gap-4">
+                                            <button title="agregar a favoritos" onClick={() => handleAgregarFavorito(infoProducto.id)}>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-6 w-6 group-hover:opacity-70"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="black">
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                ) : (null)}
                             </div>
                         </div>
                     ) : (
