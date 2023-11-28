@@ -524,126 +524,125 @@ export function ModalProductoUpdate({ idProducto, obtenerDatos }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                <AlertDialogContent className="font-bold bg-rosado-50 border-black border-2  md:min-w-min">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
                         className="flex flex-col">
-                        <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>Editar</AlertDialogTitle>
-                            <Tabs defaultValue="general">
-                                <TabsList>
-                                    <TabsTrigger value="general">
-                                        Informacion general
-                                    </TabsTrigger>
-                                    <TabsTrigger value="insumos">
-                                        Insumos
-                                    </TabsTrigger>
-                                    <TabsTrigger value="set">
-                                        Informacion sobre Set
-                                    </TabsTrigger>
-                                </TabsList>
-                                <TabsContent value="general">
-                                    <div className="flex justify-around">
-                                        <label htmlFor="nombre">Nombre:</label>
-                                        <Input
-                                            id="nombre"
-                                            type="text"
-                                            value={nombre}
-                                            onChange={e =>
-                                                setNombre(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="descripcion">
-                                            Descripcion:
-                                        </label>
-                                        <Input
-                                            id="descripcion"
-                                            type="text"
-                                            value={descripcion}
-                                            onChange={e =>
-                                                setDescripcion(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="stock">Stock:</label>
-                                        <Input
-                                            id="stock"
-                                            type="number"
-                                            value={stock}
-                                            onChange={e =>
-                                                setStock(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="precio">Precio:</label>
-                                        <Input
-                                            id="precio"
-                                            type="number"
-                                            value={precio}
-                                            onChange={e =>
-                                                setPrecio(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="ciudades">
-                                            Ciudades:
-                                        </label>
-                                        <SelectCiudades
-                                            value={ciudad}
-                                            onChange={newCiudad =>
-                                                setCiudad(newCiudad)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="estado">Estado:</label>
-                                        <SelectEstadosProducto
-                                            value={estado}
-                                            onChange={newEstado =>
-                                                setEstado(newEstado)
-                                            }></SelectEstadosProducto>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="imagen">Imagen:</label>
-                                        <Input
-                                            id="imagen"
-                                            type="file"
-                                            accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                            onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
-                                        />
-                                    </div>
-                                </TabsContent>
-                                <TabsContent value="insumos">
-                                    <ListadoInsumosUpdate
-                                        idProducto={idProducto}
-                                        onCantidadInsumosChange={
-                                            handleCantidadInsumosChange
-                                        }></ListadoInsumosUpdate>
-                                </TabsContent>
-                                <TabsContent value="set">
-                                    <div className="flex justify-around">
-                                        <SelectTips
-                                            value={tip}
-                                            onChange={newTip =>
-                                                setTip(newTip)
-                                            }></SelectTips>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasSets
-                                            value={categoriaSet}
-                                            onChange={newCategoria =>
-                                                setCategoriaSet(newCategoria)
-                                            }></SelectCategoriasSets>
-                                    </div>
-                                </TabsContent>
-                            </Tabs>
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
+                                Editar
+                            </AlertDialogTitle>
                         </AlertDialogHeader>
+                        <Tabs defaultValue="general">
+                            <TabsList>
+                                <TabsTrigger value="general">
+                                    Informacion general
+                                </TabsTrigger>
+                                <TabsTrigger value="insumos">
+                                    Insumos
+                                </TabsTrigger>
+                                <TabsTrigger value="set">
+                                    Informacion sobre Set
+                                </TabsTrigger>
+                            </TabsList>
+                            <TabsContent
+                                value="general"
+                                className="flex flex-col md:grid md:grid-cols-2 gap-3 ">
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="nombre">Nombre:</label>
+                                    <Input
+                                        id="nombre"
+                                        type="text"
+                                        value={nombre}
+                                        onChange={e =>
+                                            setNombre(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="descripcion">
+                                        Descripcion:
+                                    </label>
+                                    <Input
+                                        id="descripcion"
+                                        type="text"
+                                        value={descripcion}
+                                        onChange={e =>
+                                            setDescripcion(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="stock">Stock:</label>
+                                    <Input
+                                        id="stock"
+                                        type="number"
+                                        value={stock}
+                                        onChange={e => setStock(e.target.value)}
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="precio">Precio:</label>
+                                    <Input
+                                        id="precio"
+                                        type="number"
+                                        value={precio}
+                                        onChange={e =>
+                                            setPrecio(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <SelectCiudades
+                                        value={ciudad}
+                                        onChange={newCiudad =>
+                                            setCiudad(newCiudad)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <SelectEstadosProducto
+                                        value={estado}
+                                        onChange={newEstado =>
+                                            setEstado(newEstado)
+                                        }></SelectEstadosProducto>
+                                </div>
+                                <div className='flex justify-between md:justify-around gap-5 '>
+                                    <label htmlFor="imagen">Imagen:</label>
+                                    <Input
+                                        id="imagen"
+                                        type="file"
+                                        accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
+                                        onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
+                                    />
+                                </div>
+                            </TabsContent>
+                            <TabsContent value="insumos">
+                                <ListadoInsumosUpdate
+                                    idProducto={idProducto}
+                                    onCantidadInsumosChange={
+                                        handleCantidadInsumosChange
+                                    }></ListadoInsumosUpdate>
+                            </TabsContent>
+                            <TabsContent value="set" className='flex flex-col md:flex-row justify-around gap-5 '>
+                                <div className="flex justify-around">
+                                    <SelectTips
+                                        value={tip}
+                                        onChange={newTip =>
+                                            setTip(newTip)
+                                        }></SelectTips>
+                                </div>
+                                <div className="flex justify-around">
+                                    <SelectCategoriasSets
+                                        value={categoriaSet}
+                                        onChange={newCategoria =>
+                                            setCategoriaSet(newCategoria)
+                                        }></SelectCategoriasSets>
+                                </div>
+                            </TabsContent>
+                        </Tabs>
+
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
@@ -697,7 +696,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
 
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
-                        <AlertDialogTitle className='text-xl'>
+                        <AlertDialogTitle className="text-xl">
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
 
@@ -706,20 +705,22 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                 <TabsTrigger
                                     value="general"
                                     className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
-                                     Informacion{' '}
+                                    Informacion{' '}
                                     <span className="hidden md:inline ms-1">
                                         {' '}
                                         general
                                     </span>
                                 </TabsTrigger>
 
-                                {producto && producto.insumos && producto.insumos.length > 0 && (
-                                    <TabsTrigger
-                                        value="insumos"
-                                        className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
-                                        Insumos
-                                    </TabsTrigger>
-                                )}
+                                {producto &&
+                                    producto.insumos &&
+                                    producto.insumos.length > 0 && (
+                                        <TabsTrigger
+                                            value="insumos"
+                                            className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                            Insumos
+                                        </TabsTrigger>
+                                    )}
                             </TabsList>
                             {producto ? (
                                 <>
@@ -799,12 +800,13 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     <TabsContent
                                         value="insumos"
                                         className="flex px-10 w-full">
-                                        {producto.insumos && producto.insumos.length > 0 && (
-                                            <TablaInsumosProductos
-                                                insumos={
-                                                    producto.insumos
-                                                }></TablaInsumosProductos>
-                                        )}
+                                        {producto.insumos &&
+                                            producto.insumos.length > 0 && (
+                                                <TablaInsumosProductos
+                                                    insumos={
+                                                        producto.insumos
+                                                    }></TablaInsumosProductos>
+                                            )}
                                     </TabsContent>
                                 </>
                             ) : (
