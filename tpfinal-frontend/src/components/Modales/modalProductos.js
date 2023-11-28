@@ -444,7 +444,7 @@ export function ModalProductoEliminar({ idProducto, obtenerDatos }) {
     )
 }
 
-export function ModalProductoUpdate({ idProducto }) {
+export function ModalProductoUpdate({ idProducto, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -495,8 +495,8 @@ export function ModalProductoUpdate({ idProducto }) {
         formData.append('descripcion', descripcion)
         formData.append('precio', precio)
         formData.append('stock', stock)
-        formData.append('ciudad', ciudad)
-        formData.append('estado', estado)
+        formData.append('ciudad', ciudad.id)
+        formData.append('estado', estado.id)
         formData.append('imagen', imagen)
         console.log(cantidadesInsumos)
         const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
@@ -504,7 +504,7 @@ export function ModalProductoUpdate({ idProducto }) {
 
         // Realiza la solicitud POST a tu servidor Laravel
         let urlUpdate = '/administracion/productoUpdate/'
-        handleUpdate(idProducto, urlUpdate, formData)
+        handleUpdate(idProducto, urlUpdate, formData, obtenerDatos)
     }
 
     const handleImagenChange = e => {
