@@ -15,6 +15,7 @@ import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
 import Input from '@/components/Input'
 import SelectProveedores from '../Formularios/SelectProveedores'
+import { NeoInput } from '../Input'
 
 const fetchPrecio = id => {
     return axios.get('/precio/' + id).then(res => res.data)
@@ -57,33 +58,37 @@ export function ModalPrecioStore(idInsumo) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:violeta-red-600 rounded text-white">
+                <AlertDialogTrigger className="w-56 flex cursor-pointer items-center rounded-[5px] border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <PlusSquare className="h-4 w-4 mx-2" />
                     NUEVO PRECIO
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-min">
                     <form
                         onSubmit={handleSubmit}
-                        className="flex flex-col justify-start gap-4 ">
+                        className="flex flex-col justify-start gap-4 font-bold w-min">
                         <AlertDialogHeader className="flex">
                             <AlertDialogTitle>
                                 Crear nuevo precio
                             </AlertDialogTitle>
-                            <div className="flex justify-between">
-                                <label htmlFor="precio">Precio:</label>
-                                <Input
-                                    id="precio"
-                                    type="number"
-                                    value={precio}
-                                    onChange={e => setPrecio(e.target.value)}
-                                />
-                            </div>
-                            <div className="flex justify-between">
-                                <SelectProveedores
-                                    value={proveedor}
-                                    onChange={newProveedor =>
-                                        setProveedor(newProveedor)
-                                    }></SelectProveedores>
+                            <div className="flex flex-col justify-between">
+                                <div className="my-5 flex flex-row w-min mx-auto md:mx-0 gap-4">
+                                    <label htmlFor="precio">Precio:</label>
+                                    <NeoInput
+                                        id="precio"
+                                        type="number"
+                                        value={precio}
+                                        onChange={e =>
+                                            setPrecio(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between mx-auto md:mx-0">
+                                    <SelectProveedores
+                                        value={proveedor}
+                                        onChange={newProveedor =>
+                                            setProveedor(newProveedor)
+                                        }></SelectProveedores>
+                                </div>
                             </div>
                         </AlertDialogHeader>
 
@@ -122,7 +127,9 @@ export function ModalPrecioDelete(idPrecio) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(id, urlDelete, obtenerDatos)}>
+                            onClick={() =>
+                                handleDelete(id, urlDelete, obtenerDatos)
+                            }>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -184,7 +191,7 @@ export function ModalPrecioUpdate(idPrecio) {
                     <Pencil className="h-4 w-4 mx-2" />
                     EDITAR
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 ">
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col justify-start gap-4 ">

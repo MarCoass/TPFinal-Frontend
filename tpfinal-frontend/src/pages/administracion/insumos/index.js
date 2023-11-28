@@ -75,7 +75,7 @@ export default function IndexProductos() {
 
                 <div className="">
                     <div className="sm:px-6 lg:px-8">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="overflow-hidden container md:mx-auto py-2">
                             {insumos ? (
                                 <Tabla
                                     columns={columns}
