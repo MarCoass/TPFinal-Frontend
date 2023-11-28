@@ -114,9 +114,8 @@ export function ModalPrecioDelete(idPrecio) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-red-500 hover:bg-red-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
-                    ELIMINAR
                 </AlertDialogTrigger>
                 <AlertDialogContent className="bg-rosado-50">
                     <AlertDialogHeader className="flex">
@@ -187,28 +186,29 @@ export function ModalPrecioUpdate(idPrecio) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="items-center p-1 pr-3 flex bg-violeta-500 hover:red-violeta-600 rounded text-white">
+                <AlertDialogTrigger className="w-min rounded-full border-2 border-black bg-lila-500 hover:bg-lila-600 px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ">
                     <Pencil className="h-4 w-4 mx-2" />
-                    EDITAR
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50 ">
+                <AlertDialogContent className="bg-rosado-50 max-w-min font-bold ">
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col justify-start gap-4 ">
-                        <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>
+                        <AlertDialogHeader className="">
+                            <AlertDialogTitle className="text-xl">
                                 Editar el precio
-                            </AlertDialogTitle>
-                            <div className="flex justify-between">
-                                <label htmlFor="precio">Precio:</label>
-                                <Input
-                                    id="precio"
-                                    type="number"
-                                    value={precio}
-                                    onChange={e => setPrecio(e.target.value)}
-                                />
-                            </div>
+                            </AlertDialogTitle>{' '}
                         </AlertDialogHeader>
+                        <div className="flex justify-between my-5">
+                            <label htmlFor="precio" className="my-auto">
+                                Precio:
+                            </label>
+                            <Input
+                                id="precio"
+                                type="number"
+                                value={precio}
+                                onChange={e => setPrecio(e.target.value)}
+                            />
+                        </div>
 
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>

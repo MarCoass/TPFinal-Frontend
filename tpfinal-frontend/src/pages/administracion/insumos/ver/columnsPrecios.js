@@ -55,7 +55,7 @@ export const columnsPrecios = [
         cell: ({ row, obtenerDatos }) => {
             return (
                 <>
-                    <ModalPrecioUpdate
+                    <ModalPrecioUpdate 
                         idPrecio={row.original.id}></ModalPrecioUpdate>
                     <ModalPrecioDelete obtenerDatos={obtenerDatos}
                         idPrecio={row.original.id}></ModalPrecioDelete>
