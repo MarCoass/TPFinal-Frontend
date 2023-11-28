@@ -697,16 +697,20 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
 
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
-                        <AlertDialogTitle>
+                        <AlertDialogTitle className='text-xl'>
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
 
-                        <Tabs defaultValue="general" className="w-100">
+                        <Tabs defaultValue="general" className="w-100 ">
                             <TabsList className="flex">
                                 <TabsTrigger
                                     value="general"
                                     className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
-                                    Informacion General
+                                     Informacion{' '}
+                                    <span className="hidden md:inline ms-1">
+                                        {' '}
+                                        general
+                                    </span>
                                 </TabsTrigger>
 
                                 {producto && producto.insumos && producto.insumos.length > 0 && (
@@ -721,8 +725,8 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                 <>
                                     <TabsContent
                                         value="general"
-                                        className="flex px-10 w-[600px]">
-                                        <div className="text-left text-base ">
+                                        className="flex flex-col md:flex-row p-5 gap-5 ">
+                                        <div className="text-left text-base flex flex-col gap-2">
                                             <p>Nombre: {producto.nombre}</p>
                                             <p>
                                                 Descripcion:{' '}
