@@ -30,10 +30,6 @@ export const columns = [
         accessorKey: 'pedido',
         header: 'Set',
         cell: ({ row }) => {
-            let imageUrl =
-                process.env.NEXT_PUBLIC_BACKEND_URL +
-                '/storage/' +
-                row.original.producto.url_imagen
             return (
                 <>
                     <ModalProductoVerPersonalizado
