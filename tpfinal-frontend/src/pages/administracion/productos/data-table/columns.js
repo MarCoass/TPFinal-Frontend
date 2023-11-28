@@ -86,11 +86,11 @@ export const columns = [
     {
         accessorKey: 'stock',
         header: 'Stock',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const producto = row.original
             return (
                 <div className="flex">
-                    <ModalStockProductos
+                    <ModalStockProductos obtenerDatos={obtenerDatos}
                         idProducto={producto.id}
                         stockViejo={producto.stock}></ModalStockProductos>
                 </div>
@@ -100,15 +100,17 @@ export const columns = [
     {
         id: 'actions',
         header: 'Opciones',
-        cell: ({ row }) => {
+        cell: ({ row, obtenerDatos }) => {
             const producto = row.original
             return (
-                <div className='flex'>
+                <div className="flex">
                     <ModalProductoVer
                         idProducto={producto.id}></ModalProductoVer>
                     <ModalProductoUpdate
+                        obtenerDatos={obtenerDatos}
                         idProducto={producto.id}></ModalProductoUpdate>
                     <ModalProductoEliminar
+                        obtenerDatos={obtenerDatos}
                         idProducto={producto.id}></ModalProductoEliminar>
                 </div>
             )

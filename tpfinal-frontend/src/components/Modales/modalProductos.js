@@ -41,7 +41,7 @@ const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
 }
 
-export function ModalStockProductos({ idProducto, stockViejo }) {
+export function ModalStockProductos({ idProducto, stockViejo, obtenerDatos }) {
     const [stock, setStock] = useState(stockViejo)
     const handleSubmit = async e => {
         e.preventDefault()
@@ -67,6 +67,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                             'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                     },
                 })
+                obtenerDatos()
             } else {
                 let insumosInsuficientes = response.data.insumos_faltantes
                 const nombres = insumosInsuficientes.map(
@@ -99,7 +100,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
                     <Pencil className="h-4 w-4 mx-1" />
                 </AlertDialogTrigger>
                 <AlertDialogContent
-                    className=" flex w-[350px] flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
+                    className=" flex max-w-min flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300
 }">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
@@ -151,7 +152,7 @@ export function ModalStockProductos({ idProducto, stockViejo }) {
     )
 }
 
-export function ModalProductoStore({ dashboard }) {
+export function ModalProductoStore({ dashboard, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -227,6 +228,15 @@ export function ModalProductoStore({ dashboard }) {
                         'bg-violeta-300 hover:bg-violeta-500 rounded text-white',
                 },
             })
+            obtenerDatos()
+
+            setNombre('')
+            setDescripcion('')
+            setStock('')
+            setPrecio('')
+            setCiudad('')
+            setEstado('')
+            setImagen('')
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
             swal({
@@ -256,137 +266,139 @@ export function ModalProductoStore({ dashboard }) {
                     </AlertDialogTrigger>
                 )}
 
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="font-bold bg-rosado-50 border-black border-2  md:min-w-min">
                     <form
                         onSubmit={handleSubmit}
                         encType="multipart/form-data"
                         className="flex flex-col">
-                        <AlertDialogHeader className="flex">
-                            <AlertDialogTitle>
+                        <AlertDialogHeader className="mb-5">
+                            <AlertDialogTitle className="text-xl">
                                 Crear nuevo producto
-                            </AlertDialogTitle>
-                            <Tabs defaultValue="general">
-                                <TabsList>
-                                    <TabsTrigger
-                                        value="general"
-                                        className="w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
-                                        Informacion general
-                                    </TabsTrigger>
-                                    <TabsTrigger
-                                        value="insumos"
-                                        className="w-1/3 font-bold border-2 border-black px-6 py-3 text-center">
-                                        Insumos
-                                    </TabsTrigger>
-                                    <TabsTrigger
-                                        value="set"
-                                        className="w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center">
-                                        Informacion sobre Set
-                                    </TabsTrigger>
-                                </TabsList>
-                                <TabsContent
-                                    value="general"
-                                    className="grid grid-cols-2 gap-3">
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="nombre">Nombre:</label>
-                                        <NeoInput
-                                            id="nombre"
-                                            type="text"
-                                            value={nombre}
-                                            onChange={e =>
-                                                setNombre(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="descripcion">
-                                            Descripcion:
-                                        </label>
-                                        <NeoInput
-                                            id="descripcion"
-                                            type="text"
-                                            value={descripcion}
-                                            onChange={e =>
-                                                setDescripcion(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="stock">Stock:</label>
-                                        <NeoInput
-                                            id="stock"
-                                            type="number"
-                                            value={stock}
-                                            onChange={e =>
-                                                setStock(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-end gap-5">
-                                        <label htmlFor="precio">Precio:</label>
-                                        <NeoInput
-                                            id="precio"
-                                            type="number"
-                                            value={precio}
-                                            onChange={e =>
-                                                setPrecio(e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="ciudades">
-                                            Ciudades:
-                                        </label>
-                                        <SelectCiudades
-                                            value={ciudad}
-                                            onChange={newCiudad =>
-                                                setCiudad(newCiudad)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <label htmlFor="estado">Estado:</label>
-                                        <SelectEstadosProducto
-                                            value={estado}
-                                            onChange={newEstado =>
-                                                setEstado(newEstado)
-                                            }></SelectEstadosProducto>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="imagen">Imagen:</label>
-                                        <Input
-                                            id="imagen"
-                                            type="file"
-                                            accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
-                                            onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
-                                        />
-                                    </div>
-                                </TabsContent>
-                                <TabsContent value="insumos">
-                                    <ListadoInsumos
-                                        onCantidadInsumosChange={
-                                            handleCantidadInsumosChange
-                                        }></ListadoInsumos>
-                                </TabsContent>
-                                <TabsContent
-                                    value="set"
-                                    className="flex justify-around">
-                                    <div className="flex justify-around">
-                                        <SelectTips
-                                            value={tip}
-                                            onChange={newTip =>
-                                                setTip(newTip)
-                                            }></SelectTips>
-                                    </div>
-                                    <div className="flex justify-around">
-                                        <SelectCategoriasSets
-                                            value={categoriaSet}
-                                            onChange={newCategoria =>
-                                                setCategoriaSet(newCategoria)
-                                            }></SelectCategoriasSets>
-                                    </div>
-                                </TabsContent>
-                            </Tabs>
+                            </AlertDialogTitle>{' '}
                         </AlertDialogHeader>
+                        <Tabs defaultValue="general">
+                            <TabsList>
+                                <TabsTrigger
+                                    value="general"
+                                    className="w-1/3 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
+                                    Informacion{' '}
+                                    <span className="hidden md:inline ms-1">
+                                        {' '}
+                                        general
+                                    </span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="insumos"
+                                    className="w-1/3 font-bold border-2 border-black px-6 py-3 text-center">
+                                    Insumos
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    value="set"
+                                    className="w-1/3 font-bold border-2 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                    <span className="hidden md:inline me-1">
+                                        Informacion sobre
+                                    </span>
+                                    Set
+                                </TabsTrigger>
+                            </TabsList>
+                            <TabsContent
+                                value="general"
+                                className="flex flex-col md:grid md:grid-cols-2 gap-3 ">
+                                <div className="flex justify-between md:justify-around gap-5 ">
+                                    <label htmlFor="nombre">Nombre:</label>
+                                    <NeoInput
+                                        id="nombre"
+                                        type="text"
+                                        value={nombre}
+                                        onChange={e =>
+                                            setNombre(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="descripcion">
+                                        Descripcion:
+                                    </label>
+                                    <NeoInput
+                                        id="descripcion"
+                                        type="text"
+                                        value={descripcion}
+                                        onChange={e =>
+                                            setDescripcion(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="stock">Stock:</label>
+                                    <NeoInput
+                                        id="stock"
+                                        type="number"
+                                        value={stock}
+                                        onChange={e => setStock(e.target.value)}
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <label htmlFor="precio">Precio:</label>
+                                    <NeoInput
+                                        id="precio"
+                                        type="number"
+                                        value={precio}
+                                        onChange={e =>
+                                            setPrecio(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <SelectCiudades
+                                        value={ciudad}
+                                        onChange={newCiudad =>
+                                            setCiudad(newCiudad)
+                                        }
+                                    />
+                                </div>
+                                <div className="flex justify-between md:justify-around gap-5">
+                                    <SelectEstadosProducto
+                                        value={estado}
+                                        onChange={newEstado =>
+                                            setEstado(newEstado)
+                                        }></SelectEstadosProducto>
+                                </div>
+                                <div>
+                                    <label htmlFor="imagen">Imagen:</label>
+                                    <Input
+                                        id="imagen"
+                                        type="file"
+                                        accept=".jpg,.png,.jpeg" // Acepta archivos de imagen
+                                        onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
+                                    />
+                                </div>
+                            </TabsContent>
+                            <TabsContent value="insumos">
+                                <ListadoInsumos
+                                    onCantidadInsumosChange={
+                                        handleCantidadInsumosChange
+                                    }></ListadoInsumos>
+                            </TabsContent>
+                            <TabsContent
+                                value="set"
+                                className="flex flex-col md:flex-row justify-around gap-5 ">
+                                <div className="flex justify-around">
+                                    <SelectTips
+                                        value={tip}
+                                        onChange={newTip =>
+                                            setTip(newTip)
+                                        }></SelectTips>
+                                </div>
+                                <div className="flex justify-around">
+                                    <SelectCategoriasSets
+                                        value={categoriaSet}
+                                        onChange={newCategoria =>
+                                            setCategoriaSet(newCategoria)
+                                        }></SelectCategoriasSets>
+                                </div>
+                            </TabsContent>
+                        </Tabs>
+
                         <AlertDialogFooter className="mt-10">
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction type="submit">
@@ -400,7 +412,7 @@ export function ModalProductoStore({ dashboard }) {
     )
 }
 
-export function ModalProductoEliminar({ idProducto }) {
+export function ModalProductoEliminar({ idProducto, obtenerDatos }) {
     let urlDelete = '/administracion/productoDelete/'
     return (
         <>
@@ -408,7 +420,7 @@ export function ModalProductoEliminar({ idProducto }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black  px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-red-500 hover:bg-red-600 ">
                     <Trash2 className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                <AlertDialogContent className="max-w-lg items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -418,7 +430,13 @@ export function ModalProductoEliminar({ idProducto }) {
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => handleDelete(idProducto, urlDelete)}>
+                            onClick={() =>
+                                handleDelete(
+                                    idProducto,
+                                    urlDelete,
+                                    obtenerDatos,
+                                )
+                            }>
                             Eliminar
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -428,7 +446,7 @@ export function ModalProductoEliminar({ idProducto }) {
     )
 }
 
-export function ModalProductoUpdate({ idProducto }) {
+export function ModalProductoUpdate({ idProducto, obtenerDatos }) {
     const [nombre, setNombre] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [stock, setStock] = useState('')
@@ -479,8 +497,8 @@ export function ModalProductoUpdate({ idProducto }) {
         formData.append('descripcion', descripcion)
         formData.append('precio', precio)
         formData.append('stock', stock)
-        formData.append('ciudad', ciudad)
-        formData.append('estado', estado)
+        formData.append('ciudad', ciudad.id)
+        formData.append('estado', estado.id)
         formData.append('imagen', imagen)
         console.log(cantidadesInsumos)
         const cantidadesInsumosJSON = JSON.stringify(cantidadesInsumos)
@@ -488,7 +506,7 @@ export function ModalProductoUpdate({ idProducto }) {
 
         // Realiza la solicitud POST a tu servidor Laravel
         let urlUpdate = '/administracion/productoUpdate/'
-        handleUpdate(idProducto, urlUpdate, formData)
+        handleUpdate(idProducto, urlUpdate, formData, obtenerDatos)
     }
 
     const handleImagenChange = e => {
@@ -679,29 +697,36 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
 
                 <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
-                        <AlertDialogTitle>
+                        <AlertDialogTitle className='text-xl'>
                             {producto && <p>{producto.nombre}</p>}
                         </AlertDialogTitle>
 
-                        <Tabs defaultValue="general" className="w-100">
+                        <Tabs defaultValue="general" className="w-100 ">
                             <TabsList className="flex">
                                 <TabsTrigger
                                     value="general"
                                     className="w-1/2 font-bold border-2 rounded-ss-[5px] border-black px-6 py-3 text-center">
-                                    Informacion General
+                                     Informacion{' '}
+                                    <span className="hidden md:inline ms-1">
+                                        {' '}
+                                        general
+                                    </span>
                                 </TabsTrigger>
-                                <TabsTrigger
-                                    value="insumos"
-                                    className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
-                                    Insumos
-                                </TabsTrigger>
+
+                                {producto && producto.insumos && producto.insumos.length > 0 && (
+                                    <TabsTrigger
+                                        value="insumos"
+                                        className="w-1/2  font-bold border-2 border-l-0 rounded-se-[5px] border-black px-6 py-3 text-center">
+                                        Insumos
+                                    </TabsTrigger>
+                                )}
                             </TabsList>
                             {producto ? (
                                 <>
                                     <TabsContent
                                         value="general"
-                                        className="flex px-10 w-[600px]">
-                                        <div className="text-left text-base ">
+                                        className="flex flex-col md:flex-row p-5 gap-5 ">
+                                        <div className="text-left text-base flex flex-col gap-2">
                                             <p>Nombre: {producto.nombre}</p>
                                             <p>
                                                 Descripcion:{' '}
@@ -774,7 +799,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     <TabsContent
                                         value="insumos"
                                         className="flex px-10 w-full">
-                                        {producto.insumos && (
+                                        {producto.insumos && producto.insumos.length > 0 && (
                                             <TablaInsumosProductos
                                                 insumos={
                                                     producto.insumos
