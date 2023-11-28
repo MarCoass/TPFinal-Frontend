@@ -15,11 +15,6 @@ const fetchInsumos = () => {
     return axios.get('/administracion/insumos').then(res => res.data)
 }
 
-const fetchCategorias = () => {
-    return axios
-        .get('/api/administracion/categoriasInsumos')
-        .then(res => res.data)
-}
 
 export default function IndexProductos() {
     //AUTORIZACION
