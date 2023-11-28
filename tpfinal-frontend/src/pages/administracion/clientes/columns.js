@@ -7,10 +7,6 @@ import {
     ModalVerClienteCompleto,
 } from '../../../components/Modales/modalCliente'
 
-export const PrecioProveedor = {
-    id: '',
-    nombre: '',
-}
 
 export const columnsClientes = [
     {

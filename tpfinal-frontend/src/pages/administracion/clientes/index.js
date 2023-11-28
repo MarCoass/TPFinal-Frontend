@@ -56,8 +56,9 @@ const Dashboard = () => {
                             />
                         ) : (
                             <CustomSpinner
-                        mensaje={'Cargando clientes...'}>
-                    </CustomSpinner>
+                                mensaje={
+                                    'Cargando clientes...'
+                                }></CustomSpinner>
                         )}
                     </div>{' '}
                 </div>
