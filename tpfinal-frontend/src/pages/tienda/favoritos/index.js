@@ -110,7 +110,7 @@ export default function Favoritos({ diseño, forma, largo, ciudad }) {
             <div className="py-12">
                 {user ? (
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div className="container overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
+                        <div className="container overflow-hidden sm:rounded-lg sm:px-6 lg:px-8">
 
                             {productosFiltrados === null ? (
                                 <div>
