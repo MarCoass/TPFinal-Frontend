@@ -284,7 +284,7 @@ const Dashboard = () => {
                                                 Pedidos abiertos:{' '}
                                             </Label>
                                             <input
-                                                className="rounded-full p-3 appearance-none  checked:hover:bg-violeta-500 checked:focus:bg-violeta-400 checked:bg-violeta-400 checked:focus:ring-violeta-400 focus:ring-violeta-400"
+                                                className="rounded-full p-3 appearance-none  checked:hover:bg-violeta-500 checked:focus:bg-violeta-400 checked:bg-rosado-600 checked:focus:ring-rosado-600 focus:ring-violeta-400"
                                                 type="checkbox"
                                                 id="pedidos_abiertos"
                                                 checked={
