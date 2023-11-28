@@ -1,19 +1,14 @@
 'use client'
 
-import {ArrowUpDown } from 'lucide-react'
+import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 import {
-    ModalCategoriaInsumoDelete,
-    ModalCategoriaInsumoUpdate,
-} from '../../../../components/Modales/modalCategoriasInsumos'
+    ModalCategoriaSetDelete,
+    ModalCategoriaSetsUpdate,
+} from '@/components/Modales/modalCategoriasSets'
 
-export const Categorias = {
-    id: '',
-    nombre: '',
-}
-
-export const columns = [
+export const columnsCategoriasSets = [
     {
         accessorKey: 'nombre',
         header: ({ column }) => {
@@ -34,17 +29,30 @@ export const columns = [
         },
     },
     {
+        accessorKey: 'descripcion',
+        header: 'Descripcion',
+        cell: ({ row }) => {
+            return (
+                <>
+                    <p className="font-bold">{row.getValue('descripcion')}</p>
+                    <p className="font-bold">Precio base: ${row.original.precio_base}</p>
+                </>
+            )
+        },
+    },
+    {
         id: 'actions',
         header: 'Opciones',
         cell: ({ row, obtenerDatos }) => {
             const categoria = row.original
-
             return (
                 <>
-                    <ModalCategoriaInsumoUpdate
-                        id={categoria.id} obtenerDatos={obtenerDatos}></ModalCategoriaInsumoUpdate>
-                    <ModalCategoriaInsumoDelete obtenerDatos={obtenerDatos}
-                        id={categoria.id}></ModalCategoriaInsumoDelete>
+                    <ModalCategoriaSetDelete
+                        id={categoria.id}
+                        obtenerDatos={obtenerDatos}></ModalCategoriaSetDelete>
+                    <ModalCategoriaSetsUpdate
+                        id={categoria.id}
+                        obtenerDatos={obtenerDatos}></ModalCategoriaSetsUpdate>
                 </>
             )
         },

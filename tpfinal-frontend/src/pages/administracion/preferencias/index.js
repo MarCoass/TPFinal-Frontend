@@ -13,7 +13,7 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from '@/components/ui/collapsible'
-import CategoriasInsumos from '../categorias/insumos'
+import {CategoriasInsumos,  CategoriasSets } from '../categorias/insumos'
 
 const fetchParametros = () => {
     return axios.get('/api/parametros').then(res => res.data)
@@ -321,6 +321,14 @@ const Dashboard = () => {
                                     </CollapsibleTrigger>
                                     <CollapsibleContent>
                                         <CategoriasInsumos></CategoriasInsumos>
+                                    </CollapsibleContent>
+                                </Collapsible>
+                                <Collapsible>
+                                    <CollapsibleTrigger className="w-full font-bold text-2xl border-b-2 border-black bg-rosado-400 p-3">
+                                        Categorias de sets
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent>
+                                        <CategoriasSets></CategoriasSets>
                                     </CollapsibleContent>
                                 </Collapsible>
                                 <Collapsible>
