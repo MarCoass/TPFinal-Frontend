@@ -14,21 +14,29 @@ const PedidosUsuario = () => {
     const [pedidos, setPedidos] = useState(null)
 
     useEffect(() => {
-        async function obtenerPedidos() {
-            if (user && user.id) {
+        if ((user && user.id && pedidos === null) || !pedidos) {
+            obtenerDatos()
+        }
+    }, [user, pedidos])
+
+    const obtenerDatos = async () => {
+        if (user && user.id) {
+            try {
                 const data = await fetchPedidosUsuario(user.id)
                 setPedidos(data)
+            } catch (error) {
+                console.error('Hubo un problema obteniendo los datos: ', error)
             }
         }
-        obtenerPedidos()
-    }, [user])
+    }
 
     return (
         <div className="font-bold ">
-            {pedidos  ? (
+            {pedidos ? (
                 <div className=" flex flex-col gap-4 flex-wrap justify-around">
                     {pedidos.map(pedido => (
                         <PedidoCard
+                            obtenerDatos={obtenerDatos}
                             pedido={pedido}
                             key={pedido.id}></PedidoCard>
                     ))}

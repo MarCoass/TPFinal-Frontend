@@ -4,9 +4,8 @@ import axios from '@/lib/axios'
 import { convertirFechaLarga } from '../lib/formatoFechas'
 import { estadosPedido } from '../lib/estados'
 import { ModalRespuestaCotizacion } from './Modales/modalPedidos'
-import { Image, Trash2 } from 'lucide-react';
+import { Image, Trash2 } from 'lucide-react'
 import { useAuth } from '@/hooks/auth'
-
 
 const ProductCard = ({
     imgUrl,
@@ -25,11 +24,19 @@ const ProductCard = ({
     const handleAddToCart = async (id, cantidad) => {
         if (user) {
             try {
-                const responseStock = await axios.get(`/api/verificar-stock/${JSON.stringify({ id_producto: id, cantidad: cantidad })}`);
+                const responseStock = await axios.get(
+                    `/api/verificar-stock/${JSON.stringify({
+                        id_producto: id,
+                        cantidad: cantidad,
+                    })}`,
+                )
                 console.log(responseStock.data)
                 if (responseStock.data && responseStock.data.stock) {
                     // Si hay suficiente stock, procede con la compra
-                    const responseAdd = axios.post('/agregar-producto', { id_producto: id, cantidad: cantidad });
+                    const responseAdd = axios.post('/agregar-producto', {
+                        id_producto: id,
+                        cantidad: cantidad,
+                    })
                     // console.log(responseAdd.data.status)
                     if (responseAdd) {
                         swal({
@@ -56,7 +63,7 @@ const ProductCard = ({
                 }
                 // Manejo de la respuesta si es necesario
             } catch (error) {
-                console.error('Error al agregar el producto:', error);
+                console.error('Error al agregar el producto:', error)
                 // Manejo de errores
             }
         } else {
@@ -70,10 +77,7 @@ const ProductCard = ({
                 },
             })
         }
-
-    };
-
-
+    }
 
     const handleEliminarFavorito = async id => {
         const responseAdd = await axios.post('api/favorito-eliminar', {
@@ -93,9 +97,11 @@ const ProductCard = ({
         obtenerProductos()
     }
 
-    const handleAgregarFavorito = async (id) => {
+    const handleAgregarFavorito = async id => {
         if (user) {
-            const responseAdd = await axios.post('api/favorito-agregar', { id_producto: id });
+            const responseAdd = await axios.post('api/favorito-agregar', {
+                id_producto: id,
+            })
             if (responseAdd) {
                 if (!responseAdd.data.repetido) {
                     swal({
@@ -110,7 +116,8 @@ const ProductCard = ({
                 } else {
                     swal({
                         icon: 'error',
-                        title: 'Este producto ya existe en tu lista de favoritos.',
+                        title:
+                            'Este producto ya existe en tu lista de favoritos.',
                         button: {
                             text: 'X',
                             className:
@@ -140,13 +147,14 @@ const ProductCard = ({
                 },
             })
         }
-
     }
 
     return (
         <div className="relative box-content my-5 rounded-[5px] border-2 border-black bg-[#bc95d4] font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer">
             <div className="flex justify-center overflow-x-hidden border-b-2 border-black p-4 relative">
-                <Link href={`/producto/${idProducto}`} aria-label='información detallada'>
+                <Link
+                    href={`/producto/${idProducto}`}
+                    aria-label="información detallada">
                     <div className="relative">
                         <img
                             alt={descripcionProducto}
@@ -154,9 +162,11 @@ const ProductCard = ({
                             src={urlBase + imgUrl}
                         />
                         {stock === 0 ? (
-                            <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center'>
-                                <div className='bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl'>
-                                    <p className="text-center font-semibold text-6xl text-red-800 mt-0">SIN STOCK</p>
+                            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                                <div className="bg-white bg-opacity-25 h-48 w-96 flex items-center justify-center rounded-2xl">
+                                    <p className="text-center font-semibold text-6xl text-red-800 mt-0">
+                                        SIN STOCK
+                                    </p>
                                 </div>
                             </div>
                         ) : null}
@@ -186,8 +196,8 @@ const ProductCard = ({
                     ) : null} */}
                 </div>
                 {user.id_rol === 2 ? (
-                    <div className='flex flex-row'>
-                        <div className='flex flex-col-reverse mb-1 mr-4   cursor-pointer group'>
+                    <div className="flex flex-row">
+                        <div className="flex flex-col-reverse mb-1 mr-4   cursor-pointer group">
                             <button
                                 title="agregar al carrito"
                                 onClick={() => handleAddToCart(idProducto, 1)}>
@@ -209,10 +219,11 @@ const ProductCard = ({
                         </div>
                         {!esFavorito ? (
                             <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-
                                 <button
                                     title="agregar a favoritos"
-                                    onClick={() => handleAgregarFavorito(idProducto)}>
+                                    onClick={() =>
+                                        handleAgregarFavorito(idProducto)
+                                    }>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-6 w-6 group-hover:opacity-70"
@@ -232,7 +243,9 @@ const ProductCard = ({
                             <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
                                 <button
                                     title="eliminar de favoritos"
-                                    onClick={() => handleEliminarFavorito(idProducto)}>
+                                    onClick={() =>
+                                        handleEliminarFavorito(idProducto)
+                                    }>
                                     <Trash2
                                         className="h-6 w-6 group-hover:opacity-70"
                                         stroke="black"
@@ -241,16 +254,14 @@ const ProductCard = ({
                             </div>
                         )}
                     </div>
-                ) : (null)}
-
-
+                ) : null}
             </div>
         </div>
     )
 }
 export default ProductCard
 
-export const PedidoCard = ({ pedido }) => {
+export const PedidoCard = ({ pedido, obtenerDatos }) => {
     const urlBase = process.env.NEXT_PUBLIC_BACKEND_URL + '/storage/'
     const estados = estadosPedido()
     const estado = estados.find(estado => estado.id === pedido.estado)
@@ -300,6 +311,7 @@ export const PedidoCard = ({ pedido }) => {
                         <p>Estado: {estado.nombre}</p>
                         {pedido.estado == 1 && (
                             <ModalRespuestaCotizacion
+                                obtenerDatos={obtenerDatos}
                                 pedido={pedido}></ModalRespuestaCotizacion>
                         )}
                     </div>

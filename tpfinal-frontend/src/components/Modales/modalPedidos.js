@@ -30,7 +30,6 @@ import { NeoButton, NeoButtonChico } from '../Button'
 import handleDelete from '../../lib/handleDelete'
 import swal from 'sweetalert'
 
-
 const fetchPedido = id => {
     return axios.get('/api/administracion/pedido/' + id).then(res => res.data)
 }
@@ -293,19 +292,30 @@ export function ModalCotizar({ id, obtenerDatos }) {
 export function ModalRespuestaCotizacion({ pedido, obtenerDatos }) {
     const [estado, setEstado] = useState()
 
-    const handleAceptar = async e => {
-        setEstado(2)
-        handleSubmit()
-    }
-    const handleRechazar = async e => {
-        setEstado(3)
-        handleSubmit()
+    const handleAceptar = e => {
+        e.preventDefault()
+        setEstado(prevEstado => {
+            const newEstado = 2
+            handleSubmit(newEstado)
+            return newEstado
+        })
     }
 
-    const handleSubmit = async e => {
+    const handleRechazar = e => {
+        e.preventDefault()
+        setEstado(prevEstado => {
+            const newEstado = 3
+            handleSubmit(newEstado)
+            return newEstado
+        })
+    }
+
+    const handleSubmit = async (newEstado) => {
+        console.log(newEstado); // Use newEstado directly
+      
         try {
-            const formData = new FormData()
-            formData.append('estado', estado)
+          const formData = new FormData();
+          formData.append('estado', newEstado);
             const headers = {
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                 Accept: 'application/json',
@@ -443,7 +453,7 @@ export function ModalEmpezarTerminar({ pedido, obtenerDatos }) {
         formData.append('estado', estado)
 
         let url = '/api/administracion/pedido/cambiarEstado/'
-        
+
         handleUpdate(pedido.id, url, formData, obtenerDatos)
     }
 
