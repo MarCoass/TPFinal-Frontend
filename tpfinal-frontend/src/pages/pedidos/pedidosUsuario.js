@@ -25,7 +25,7 @@ const PedidosUsuario = () => {
 
     return (
         <div className="font-bold ">
-            {pedidos ? (
+            {pedidos  ? (
                 <div className=" flex flex-col gap-4 flex-wrap justify-around">
                     {pedidos.map(pedido => (
                         <PedidoCard
