@@ -139,11 +139,11 @@ const Login = () => {
                                     className="underline text-sm text-gray-600 hover:text-gray-900">
                                     ¿No tenes cuenta?
                                 </Link>{' '}
-                                <Link
+                                {/* <Link
                                     href="/forgot-password"
                                     className=" underline text-sm text-gray-600 hover:text-gray-900">
                                     ¿Olvidaste tu contraseña?
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                         <Button className="mt-5 w-full bg-rosado-600">

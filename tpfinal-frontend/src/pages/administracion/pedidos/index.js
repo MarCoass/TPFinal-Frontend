@@ -4,6 +4,7 @@ import axios from '@/lib/axios'
 import Tabla from '../../../components/Tablas/data-table'
 import AdminLayout from '../../../components/Layouts/AdminLayout'
 import Head from 'next/head'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchPedidos = async () => {
     try {
@@ -57,7 +58,7 @@ export default function Pedidos() {
                                             obtenerDatos={obtenerDatos}
                                         />
                                     ) : (
-                                        <p>Cargando datos...</p>
+                                        <CustomSpinner></CustomSpinner>
                                     )}
                                 </div>{' '}
                             </div>

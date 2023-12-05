@@ -36,6 +36,7 @@ import { TablaInsumosProductos } from '../Tablas/TablaInsumosProducto'
 import { NeoButtonChico } from '../Button'
 import { NeoInput, NeoInputChico } from '../Input'
 import { ListadoInsumosUpdate } from '../Formularios/listado'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchProducto = id => {
     return axios.get('/administracion/producto/' + id).then(res => res.data)
@@ -810,7 +811,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     </TabsContent>
                                 </>
                             ) : (
-                                <p>cargando</p>
+                               <CustomSpinner></CustomSpinner>
                             )}
                         </Tabs>
                     </AlertDialogHeader>
