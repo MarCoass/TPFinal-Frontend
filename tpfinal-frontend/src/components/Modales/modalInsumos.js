@@ -611,7 +611,7 @@ export function ModalInsumoPrecios({ idInsumo }) {
     )
 }
 
-export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
+export function ModalInsumoStockUpdate({ idInsumo, stockViejo, obtenerDatos }) {
     const [stock, setStock] = useState(stockViejo)
     const handleSubmit = async e => {
         e.preventDefault()
@@ -637,6 +637,7 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
                     },
                 })
             }
+            obtenerDatos()
         } catch (error) {
             console.error('Error al enviar la solicitud:', error)
         }
