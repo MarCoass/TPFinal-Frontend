@@ -40,7 +40,7 @@ export function NeoSideNavigation({ active, setActive, children }) {
                 style={{
                     transform: `translateX(${isVisible ? '0' : '-300px'})`,
                 }}
-                className="grid content-between z-10 h-full w-[300px] border-2 border-black bg-rosado-400 font-bold transition-transform duration-300">
+                className="grid content-between z-10 h-full overflow-auto w-[300px] border-2 border-black bg-rosado-400 font-bold transition-transform duration-300">
                 <div>
                     <div className="p-5 justify-center flex items-center border-b-2 border-black">
                         <Link href="/" aria-label="Ir a la página principal">
