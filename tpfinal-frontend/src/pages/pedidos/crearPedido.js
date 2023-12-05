@@ -3,7 +3,7 @@ import SelectCiudades from '@/components/Formularios/SelectCiudades'
 import SelectTips from '@/components/Formularios/SelectTips'
 import { NeoInput } from '@/components/Input'
 import { useEffect, useState } from 'react'
-import { NeoButton } from '@/components/Button'
+import CustomSpinner from '@/components/CustomSpinner'
 import swal from 'sweetalert'
 import {
     AlertDialog,
@@ -17,8 +17,13 @@ import {
 } from '@/components/ui/alert-dialog'
 
 import { useAuth } from '@/hooks/auth'
+import { Info } from 'lucide-react'
 
 const { default: getCookie } = require('@/lib/cookies')
+
+const fetchParametros = () => {
+    return axios.get('/api/parametros').then(res => res.data)
+}
 
 export function CrearPedido() {
     const { user } = useAuth()
@@ -95,24 +100,47 @@ export function CrearPedido() {
             })
         }
     }
+
+    const [parametros, setParametros] = useState()
+    const [parametrosArray, setParametrosArray] = useState()
+    useEffect(() => {
+        async function obtenerParametros() {
+            try {
+                const data = await fetchParametros()
+                setParametros(data)
+            } catch (error) {
+                console.error('Error al obtener parametros:', error)
+            }
+        }
+        obtenerParametros()
+    }, [])
+
+    useEffect(() => {
+        if (parametros != null) {
+            let array = {}
+            parametros.forEach(parametro => {
+                array[parametro.nombre] = parametro.valor
+            })
+            setParametrosArray(array)
+        }
+    }, [parametros])
+
     return (
         <AlertDialog>
             <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                 Nuevo pedido personalizado
             </AlertDialogTrigger>
-        
-                <AlertDialogContent className="overflow-auto bg-rosado-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
+
+            <AlertDialogContent className="overflow-auto bg-rosado-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
                 <form
-                onSubmit={handleSubmit}
-                encType="multipart/form-data"
-                className="flex flex-col gap-3">
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                    className="flex flex-col gap-2 font-bold">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
                             Nuevo pedido personalizado
                         </AlertDialogTitle>
                     </AlertDialogHeader>
-
-                    <span className="text-lg">Crear pedido personalizado</span>
 
                     <div className="flex flex-col">
                         <label htmlFor="descripcion">Descripcion:</label>
@@ -126,17 +154,29 @@ export function CrearPedido() {
                             onChange={e => setDescripcion(e.target.value)}
                         />
                     </div>
-                    <div className="">
-                        <label htmlFor="ciudades">Ciudad de retiro:</label>
-                        <SelectCiudades
-                            mostrarEnvio={true}
-                            id="ciudades"
-                            value={ciudad}
-                            onChange={newCiudad => setCiudad(newCiudad)}
-                        />
+                    <div className="flex flex-row gap-5">
+                        <div className="">
+                            <label htmlFor="ciudades">Ciudad de retiro:</label>
+                            <SelectCiudades
+                                mostrarEnvio={true}
+                                id="ciudades"
+                                value={ciudad}
+                                onChange={newCiudad => setCiudad(newCiudad)}
+                            />
+                        </div>
+                        <div className="">
+                            <label htmlFor="tip">Forma y largo:</label>
+                            <SelectTips
+                                id="tip"
+                                value={tip}
+                                onChange={newTipId =>
+                                    setTip(newTipId)
+                                }></SelectTips>
+                        </div>
                     </div>
+
                     <div>
-                        <label htmlFor="imagen">Imagen de inspiracion:</label>
+                        <label htmlFor="imagen">Imagen de inspiracion: </label>
                         <input
                             id="imagen"
                             type="file"
@@ -144,32 +184,67 @@ export function CrearPedido() {
                             onChange={handleImagenChange} // Maneja el cambio en la selección de imagen
                         />
                     </div>
-                    <div className="">
-                        <label htmlFor="tip">Forma y largo:</label>
-                        <SelectTips
-                            id="tip"
-                            value={tip}
-                            onChange={newTipId =>
-                                setTip(newTipId)
-                            }></SelectTips>
-                    </div>
 
                     <div className="bg-rosado-200 p-4">
                         Informacion importante:
-                        <ul className="list-disc ml-4">
-                            <li>
-                                Mientras mas especifica sea la descripcion,
-                                mejor.
-                            </li>
-                            <li>
-                                La imagen es ilustrativa, los colores pueden
-                                variar.
-                            </li>
-                            <li>
-                                El envio a domicilio no es obligatorio, tambien
-                                se puede retirar por el local sin cargo.
-                            </li>
-                        </ul>
+                        {parametrosArray ? (
+                            <div>
+                                <ul className="list-disc ml-4 font-bold">
+                                    <li>
+                                        Mientras mas especifica sea la
+                                        descripcion, mejor.
+                                    </li>
+                                    <li>
+                                        La imagen es ilustrativa, los colores
+                                        pueden variar.
+                                    </li>
+                                    <li>
+                                        El envio a domicilio no es obligatorio,
+                                        tambien se puede retirar por el local
+                                        sin cargo.
+                                    </li>
+                                    <li>
+                                        Valor de la seña: $
+                                        {parametrosArray['valor_senia']}{' '}
+                                        <span className="text-red-600">
+                                            La seña es obligatoria.
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <ul>
+                                            {' '}
+                                            Demora:{' '}
+                                            <span className="text-red-600">
+                                                La demora es un aproximado{' '}
+                                                <br />
+                                            </span>
+                                            <li className=" ml-4 ">
+                                                Para cotizaciones:{' '}
+                                                {
+                                                    parametrosArray[
+                                                        'demora_cotizacion'
+                                                    ]
+                                                }
+                                            </li>
+                                            <li className=" ml-4 ">
+                                                Para pedidos:{' '}
+                                                {
+                                                    parametrosArray[
+                                                        'demora_trabajo'
+                                                    ]
+                                                }
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>{' '}
+                            </div>
+                        ) : (
+                            <CustomSpinner
+                                mensaje={
+                                    'Cargando productos...'
+                                }></CustomSpinner>
+                        )}
                     </div>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
@@ -178,6 +253,95 @@ export function CrearPedido() {
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </form>
+            </AlertDialogContent>
+        </AlertDialog>
+    )
+}
+export function InfoPedido() {
+    const [parametros, setParametros] = useState()
+    const [parametrosArray, setParametrosArray] = useState()
+    useEffect(() => {
+        async function obtenerParametros() {
+            try {
+                const data = await fetchParametros()
+                setParametros(data)
+            } catch (error) {
+                console.error('Error al obtener parametros:', error)
+            }
+        }
+        obtenerParametros()
+    }, [])
+
+    useEffect(() => {
+        if (parametros != null) {
+            let array = {}
+            parametros.forEach(parametro => {
+                array[parametro.nombre] = parametro.valor
+            })
+            setParametrosArray(array)
+        }
+    }, [parametros])
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                ¿Como realizar un pedido?
+            </AlertDialogTrigger>
+
+            <AlertDialogContent className="overflow-auto bg-rosado-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        ¿Como realizar un pedido?
+                    </AlertDialogTitle>
+                </AlertDialogHeader>
+
+                {parametrosArray ? (
+                    <div>
+                        <ul className="list-decimal ml-4 font-bold">
+                            <li>
+                                Completa el formulario, mientras mas especifica
+                                sea la descripcion mejor.
+                            </li>
+                            <li>
+                                Espera la cotizacion, puede tardar
+                                aproximadamente{' '}
+                                {parametrosArray['demora_cotizacion']}, te va a
+                                llegar una notificacion via Whatsapp.
+                            </li>
+                            <li>
+                                Si el precio y fecha de entrega te parece bien,
+                                acepta el pedido.{' '}
+                                <span className="text-red-600">
+                                    {' '}
+                                    Una vez aceptada la cotizacion no puede
+                                    cancelarse ni realizar cambios en el pedido.
+                                </span>
+                            </li>
+                            <li>
+                                Espera a que tu pedido este listo, puede tardar
+                                aproximadamente{' '}
+                                {parametrosArray['demora_trabajo']}, te va a
+                                llegar una notificacion via Whatsapp.
+                            </li>
+                            <li>
+                               Acorda el envio a domicilio o retiro por local con la manicurista.
+                            </li>
+                            <li>
+                               Disfruta tus nuevas press on!
+                            </li>
+                        </ul>
+                        <span className="text-violeta-500 font-bold">
+                                    {' '}
+                                   Cualquier consulta no dudes escribirnos por nuestras redes.
+                                </span>{' '}
+                    </div>
+                ) : (
+                    <CustomSpinner
+                        mensaje={'Cargando productos...'}></CustomSpinner>
+                )}
+
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
     )

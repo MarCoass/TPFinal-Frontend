@@ -357,10 +357,11 @@ export function ModalRespuestaCotizacion({ pedido, obtenerDatos }) {
                         role="alert"
                         className="flex items-center justify-center rounded-md border-2 border-black bg-red-500 p-2 px-4 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                         <Info className="mr-3 h-6 min-h-[24px] w-6 min-w-[24px]" />
-                        Una vez aceptada la cotizacion no se aceptan cambios. Si
+                        Una vez aceptada la cotizacion no se aceptan cambios ni cancelaciones. Si
                         cometio un error, rechace la cotizacion y solicite una
                         nueva.
                     </div>
+                  
 
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cerrar</AlertDialogCancel>
