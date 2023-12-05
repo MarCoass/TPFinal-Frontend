@@ -70,6 +70,7 @@ export function ModalStockProductos({ idProducto, stockViejo, obtenerDatos }) {
                 obtenerDatos()
             } else {
                 let insumosInsuficientes = response.data.insumos_faltantes
+                console.log( response.data.insumos_faltantes)
                 const nombres = insumosInsuficientes.map(
                     insumo => insumo.nombre_insumo,
                 )
@@ -79,8 +80,7 @@ export function ModalStockProductos({ idProducto, stockViejo, obtenerDatos }) {
                     icon: 'error',
                     title: 'No se actualizo el stock',
                     text:
-                        'El stock de los siguientes insumos es insuficiente: ' +
-                        nombresTexto,
+                        'No se modifico el stock por insumos faltantes.' ,
                     button: {
                         text: 'Cerrar',
                         className:
@@ -694,7 +694,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                     </AlertDialogTrigger>
                 )}
 
-                <AlertDialogContent className=" items-center justify-center rounded-md border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
+                <AlertDialogContent className="max-w-3xl items-center justify-center rounded-[5px] border-2 border-black bg-lila-100  font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300}">
                     <AlertDialogHeader className="mr-5">
                         <AlertDialogTitle className="text-xl">
                             {producto && <p>{producto.nombre}</p>}
@@ -726,7 +726,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                 <>
                                     <TabsContent
                                         value="general"
-                                        className="flex flex-col md:flex-row p-5 gap-5 ">
+                                        className="max-w-2xl flex flex-col md:flex-row px-5 gap-5 ">
                                         <div className="text-left text-base flex flex-col gap-2">
                                             <p>Nombre: {producto.nombre}</p>
                                             <p>
@@ -787,7 +787,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                                 </>
                                             )}
                                         </div>
-                                        <div className="">
+                                        <div className="my-auto">
                                             <img
                                                 alt={producto.descripcion}
                                                 className=" rounded-[5px] w-60 object-cover border-2 border-black"
@@ -799,7 +799,7 @@ export function ModalProductoVer({ idProducto, conImagen = false }) {
                                     </TabsContent>
                                     <TabsContent
                                         value="insumos"
-                                        className="flex px-10 w-full">
+                                        className="flex px-10 w-full ">
                                         {producto.insumos &&
                                             producto.insumos.length > 0 && (
                                                 <TablaInsumosProductos

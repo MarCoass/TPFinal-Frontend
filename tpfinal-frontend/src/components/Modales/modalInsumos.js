@@ -330,7 +330,7 @@ export function ModalInsumoVer({ idInsumo }) {
                 <AlertDialogTrigger className="w-min rounded-full border-2 border-black px-3 py-1.5 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none bg-rosado-500 hover:bg-rosado-600">
                     <Eye className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-2xl font-bold">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
                             {insumo && <p>{insumo.nombre}</p>}
@@ -343,7 +343,7 @@ export function ModalInsumoVer({ idInsumo }) {
                             <p>Descripcion: {insumo.descripcion}</p>
                             <p>Stock: {insumo.stock}</p>
                             <p>Stock minimo: {insumo.stock_minimo}</p>
-                            <p>Categoria: {insumo.nombre}</p>
+                            <p>Categoria: {insumo.categoria.nombre}</p>
                         </>
                     )}
 

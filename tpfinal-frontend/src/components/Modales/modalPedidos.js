@@ -410,7 +410,7 @@ export function ModalEntregado({ pedido, obtenerDatos }) {
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-500 px-5 py-1.5 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Truck className="h-4 w-4 mx-2" /> Entregado
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-md">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
@@ -472,7 +472,7 @@ export function ModalEmpezarTerminar({ pedido, obtenerDatos }) {
                     </AlertDialogTrigger>
                 )}
 
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-md">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
@@ -513,7 +513,7 @@ export function ModalPedidoEliminar({ pedido, obtenerDatos }) {
                     <Trash2 className="h-4 w-4 mx-2" /> Eliminar
                 </AlertDialogTrigger>
 
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-md">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
