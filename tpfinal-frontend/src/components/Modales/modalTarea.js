@@ -10,7 +10,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { UpdateButton } from '../Button'
 import { Pencil, Trash2, CheckCircle, PlusSquare } from 'lucide-react'
 import axios from '@/lib/axios'
 const { default: getCookie } = require('@/lib/cookies')
@@ -19,6 +18,7 @@ import handleDelete from '../../lib/handleDelete'
 import handleUpdate from '../../lib/handleUpdate'
 import { SelectEstadosTareas } from '@/components/Formularios/SelectEstados'
 import swal from 'sweetalert'
+
 
 const fetchTarea = id => {
     return axios.get('/api/tarea/' + id).then(res => res.data)
@@ -146,11 +146,11 @@ export function ModalTareaDelete({ id, obtenerDatos }) {
     return (
         <>
             <AlertDialog>
-                <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-red-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
+                <AlertDialogTrigger className=" flex cursor-pointer items-center rounded-md border-2 border-black bg-red-500 px-5 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Trash2 className="h-4 w-4 mx-1" />
                     <span className="hidden md:block">Eliminar</span>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className="bg-rosado-50 max-w-min font-bold">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Eliminar</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -184,7 +184,7 @@ export function ModalTareaTerminar({ id, obtenerDatos }) {
                     <CheckCircle className="h-4 w-4 mx-1" />
                     <span className="hidden md:block">Terminar</span>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50 max-w-xl">
+                <AlertDialogContent className="bg-rosado-50 max-w-min font-bold">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Terminar tarea</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -236,7 +236,7 @@ export function ModalCrearTarea({ dashboard = false, obtenerDatos }) {
             const response = await axios.post(url, formData, { headers })
             swal({
                 icon: 'success',
-                title: 'Tarea agregads correctamente.',
+                title: 'Tarea agregada correctamente.',
                 text: 'Se creo una tarea exitosamente.',
                 button: {
                     text: 'Cerrar',

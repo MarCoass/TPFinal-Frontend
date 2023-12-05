@@ -5,6 +5,7 @@ import axios from '@/lib/axios'
 import CardTarea from '../../../components/CardTarea'
 import Button, { NeoButton, NeoButtonChico } from '../../../components/Button'
 import { ModalCrearTarea } from '../../../components/Modales/modalTarea'
+import CustomSpinner from '@/components/CustomSpinner'
 
 const fetchTareas = () => {
     return axios.get('/api/tareas').then(res => res.data)
@@ -111,7 +112,7 @@ const goToNextPage = () => {
                             </div>
                         </>
                     ) : (
-                        <div>cargando....</div>
+                        <div className='flex mx-auto my-10'><CustomSpinner></CustomSpinner></div>
                     )}
                 </div>
             </div>
