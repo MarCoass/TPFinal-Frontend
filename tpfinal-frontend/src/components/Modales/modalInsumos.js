@@ -29,6 +29,8 @@ import handleDelete from '../../lib/handleDelete'
 import { ModalPrecioStore } from './modalPrecio'
 import Tabla from '../Tablas/data-table'
 import { columnsPrecios } from '../../pages/administracion/insumos/ver/columnsPrecios'
+import { NeoButtonChico } from '../Button'
+import { NeoInputChico } from '../Input'
 
 const fetchInsumo = id => {
     return axios.get('/administracion/insumo/' + id).then(res => res.data)
@@ -61,7 +63,7 @@ export function ModalStockInsumo({ idInsumo, idProducto, cantidadOld }) {
                 <AlertDialogTrigger className="flex cursor-pointer items-center rounded-md border-2 border-black bg-rosado-400 px-8 py-1 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none">
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className=" flex max-w-min flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>
@@ -646,7 +648,7 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
                     {stockViejo}
                     <Pencil className="h-4 w-4 mx-2" />
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-rosado-50">
+                <AlertDialogContent className=" flex max-w-min flex-col items-center justify-center rounded-[5px] border-2 border-black bg-lila-100 p-10 pt-12 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300">
                     <form onSubmit={handleSubmit}>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Modificar stock</AlertDialogTitle>
@@ -656,10 +658,9 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
                                 id="id_producto"
                                 value={idInsumo}
                             />
-                            <div className="flex gap-1">
-                                <button
+                            <div className="flex gap-3">
+                            <NeoButtonChico
                                     disabled={stock === 0}
-                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 disabled:bg-rosado-200 rounded font-semibold text-white"
                                     type="button"
                                     onClick={e => {
                                         if (stock > 0) {
@@ -667,8 +668,9 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
                                         }
                                     }}>
                                     <Minus></Minus>
-                                </button>
-                                <input
+                                </NeoButtonChico>
+                              
+                                <NeoInputChico
                                     className="w-16"
                                     type="number"
                                     id="stock"
@@ -676,15 +678,13 @@ export function ModalInsumoStockUpdate({ idInsumo, stockViejo }) {
                                     onChange={e => setStock(e.target.value)}
                                     min="0"
                                 />
-
-                                <button
+                                <NeoButtonChico
                                     type="button"
-                                    className="p-1 bg-violeta-300 hover:bg-violeta-500 rounded font-semibold text-white"
                                     onClick={e =>
                                         setStock(parseInt(stock) + 1)
                                     }>
                                     <Plus></Plus>
-                                </button>
+                                </NeoButtonChico>
                             </div>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
